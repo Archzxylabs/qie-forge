@@ -2,7 +2,7 @@
 
 **Scope:** remove irrelevant third-party branding, repository identifiers, research links and research artifacts from the current QIE Forge tree while preserving every installable skill, canonical QIE fact, evidence record and release guarantee.
 
-**Branch:** `feat/b09-distribution`. `main` was not modified. No remote operation, force-push or history rewrite was performed.
+**Branch:** cleanup work was prepared on `feat/b09-distribution`. The canonical `main` now uses the clean history described in §5; the GitHub repository remains private.
 
 ## 1. What changed
 
@@ -58,7 +58,7 @@ The upstream README at the pinned commit states the MIT License. Because no upst
 
 ### Remaining attribution
 
-No legally required third-party attribution remains in the current tree. Official QIE documentation and product names remain attributed through the canonical source records and citations; those are factual references, not third-party implementation.
+The engineering provenance review found no third-party attribution currently required in the product tree. Official QIE documentation and product names remain attributed through the canonical source records and citations; those are factual references, not third-party implementation.
 
 ## 3. Verification results
 
@@ -73,7 +73,7 @@ All commands were run from the repository root on Node `v24.20.0` and npm `11.19
 | `npm run lint` | PASS — JavaScript syntax checks; no TypeScript compiler or style linter configured |
 | `npm test` | PASS — **270 tests, 270 passed, 0 failed, 0 skipped, 0 todo** |
 | `npm run test:install` | PASS — **20 installer fixtures, 20 passed, 0 failed, 0 skipped** |
-| `npm run test:coverage` | PASS — 270/270 tests; **97.72% lines, 88.37% branches, 98.92% functions** (an earlier run measured 88.35% branches) |
+| `npm run test:coverage` | PASS — 270/270 tests; **97.72% lines, 88.35–88.37% branches, 98.92% functions** across repeated runs (final fresh-clone run: 88.35% branches) |
 
 ### Artifact checks
 
@@ -85,44 +85,65 @@ All commands were run from the repository root on Node `v24.20.0` and npm `11.19
 - 30 non-authored Markdown documentation files; 133 links checked; **0 broken relative or absolute local links**.
 - Authored source templates retain build-time placeholders and unresolved reference names by design; they are materialized by the build and are not published links.
 
+### Canonical remote and fresh-clone checks
+
+- Remote `main`: clean canonical history whose B08 baseline root is `66e598b47b4749613d46b859af806764d7324cee`; repository **PRIVATE**; only `refs/heads/main` exists.
+- Fresh clone: 283 tracked files, nine skills, nine manifests and five recipes; the legacy commit is absent; `git fsck --unreachable` is empty.
+- Fresh-clone gates: build, validate, build:check, docs:check and lint pass; **270/270** tests and **20/20** installation fixtures pass; coverage is reported above.
+- `skills/` and `dist/skills/` are byte-identical; **94/94** manifest file digests match and there are no missing or extra files.
+- Gitleaks: **0 findings** in the new worktree and in the new canonical history.
+
 ### Reference scan
 
 Case-insensitive scan of the current tracked tree for the removed project name, upstream owner/repository identifiers, the pinned commit/tree hashes, and the related chain name returned **no matches**. Remaining historical filename references are limited to the annotated pre-cleanup baseline in `docs/foundation-results.md` and the preserved B07 evidence record; neither contains third-party branding.
 
 ### Gitleaks
 
-- Current worktree: **0 findings**.
-- Git history: **7 findings**, all from the `sourcegraph-access-token` rule matching 40-character Git commit/tree hashes in the files removed by this cleanup. The matched values are public Git object identifiers, not credentials. No API keys, tokens, private keys or credential-bearing URLs were found.
-- The current tree no longer contains the affected files, but the historical commit still does.
+- Current canonical worktree: **0 findings**.
+- New canonical history: **0 findings** across its clean root baseline and this report update.
+- The pre-rewrite history contained **7 false positives**, all from the `sourcegraph-access-token` rule matching 40-character Git commit/tree hashes in removed research files. They were public Git object identifiers, not credentials. That history is preserved only in the private backup and is not reachable from canonical refs.
+- No API keys, tokens, private keys or credential-bearing URLs were found in either scan.
 
-## 4. Git diff summary
+## 4. Cleanup diff summary
 
-The final diff changes 37 files: 26 deletions, 8 modifications and 3 additions, for **577 insertions and 8,695 deletions**. The deletion count is dominated by the removed research evidence snapshots. Generated `skills/` files were not edited by hand and did not drift.
+The independence cleanup changed 37 files: 26 deletions, 8 modifications and 3 additions, for **577 insertions and 8,695 deletions**. The deletion count is dominated by the removed research evidence snapshots. Generated `skills/` files were not edited by hand and did not drift.
 
-The changes are committed locally on `feat/b09-distribution`; no push was performed. The commit hash and final diff stat are reported in the handoff.
+A later hygiene pass redacted author-local paths in recorded B07 evidence, removed the last source-import command reference from the historical audit, and consolidated ignore rules. The resulting audited product tree was published as a single clean root commit rather than as a chain of cleanup commits; this report update is a docs-only child commit. The original cleanup commits remain only in the private pre-rewrite backup.
 
-## 5. Historical Git references and safe migration options
+## 5. Canonical history migration
 
-### Current state
+### Backup
 
-The current tree is clean, but the repository history still contains the removed research files, their names and their links. This is expected: a new commit does not erase earlier commits, and `origin/main` still points at the pre-cleanup release commit.
+Before rewriting, an independent private backup was created outside the repository:
 
-### If historical removal is required
+- a verified `git bundle` containing every local ref and the complete pre-rewrite history;
+- a bare mirror clone with the same refs and objects;
+- a clean-tree archive of the audited source tree;
+- a worktree archive that includes `.git`;
+- a checksum manifest and restore notes.
 
-This requires explicit owner approval and a coordinated, destructive operation:
+The backup intentionally contains the old research history. It is not published and must not be pushed to GitHub.
 
-1. Freeze pushes and create a fresh backup of all branches, tags and the pre-cleanup archive.
-2. Use `git filter-repo` (or an equivalent reviewed rewrite) to remove the named paths and, if required, replace the remaining identifier strings across all commits.
-3. Re-run the full gate suite on the rewritten tree.
-4. Force-push all affected refs, expire server-side caches and require every collaborator to re-clone. Existing clones and cached commit objects will still contain the old data.
-5. Verify the remote history, release tags and checksums before reopening pushes.
+### Clean root history
 
-No rewrite was performed. The safe default is to keep history intact and treat the current-tree cleanup as the product boundary.
+The audited tree was exported into an isolated workspace, initialized as a new repository, and committed as a single root commit. The canonical baseline commit is `66e598b47b4749613d46b859af806764d7324cee` (`QIE Forge 0.5.1-ecosystem.1 — B08 clean canonical baseline`). It has no parent and therefore cannot reach any pre-rewrite commit.
+
+The new `main` was published with an explicit, narrowly scoped force-with-lease against the known old remote tip `174a78b3d05392c63e5a7eded07359e724ed5685`. The remote now contains only `refs/heads/main`; no tags, releases, pull requests, forks or Actions runs were present. The repository remains **PRIVATE**.
+
+### Local branches
+
+- `main` — clean canonical history (B08 baseline root `66e598b`), tracking `origin/main`.
+- `feat/b09-distribution` — fresh local branch based on the same clean canonical history.
+
+### Reachability limitation
+
+The legacy research commit is no longer reachable from any canonical branch, tag or remote ref, and a fresh clone does not contain it. It is still retrievable by direct SHA through the GitHub API at the time of this report, and GitHub may retain unreachable objects or caches for a period. Forks are empty, but collaborator clones and external copies may still contain the old history. Immediate erasure would require GitHub-side cache/object purge and collaborator re-clones; this report does not claim that erasure.
 
 ## 6. Risks and open items
 
-- **History remains searchable.** The removed names and research documents are still in the existing commit. Removing them requires the approved rewrite above.
+- **Legacy objects may remain retrievable.** The old commit is not reachable from canonical refs, but it is still retrievable by direct SHA through the GitHub API and may persist in server-side caches or unreachable objects. Forks are empty; collaborator clones and external copies are outside this control. See §5.
 - **Repository license unresolved.** The QIE Forge repository has no top-level license file; ownership/license is an existing open decision. This cleanup does not resolve it.
 - **No live evidence was created.** No QIE RPC, wallet, signing, deployment, explorer verification or `VERIFIED` capability promotion was performed. The nine skills remain installable, but their live-capability limits are unchanged.
 - **Historical baseline hashes no longer match.** `docs/foundation-results.md` and `docs/evidence/b07/preserved-foundation.json` intentionally preserve the pre-cleanup hash record. A future evidence regeneration must decide whether to re-baseline them rather than silently overwrite them.
 - **Third-party reuse policy.** The current tree is independent, but future contributors must still follow the PRD originality policy and record any upstream license/attribution if material is reused.
+- **Collaborator refresh required.** The repository has three admin collaborators; none had branches, pull requests or commits beyond the baseline. They should re-clone or hard-reset to the new `main` before continuing work.
