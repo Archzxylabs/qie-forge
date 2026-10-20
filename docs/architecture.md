@@ -1,6 +1,6 @@
 # QIE Forge Architecture
 
-**Status:** architecture contract for the implemented B02–B08 foundation plus the B09 local distribution, update and rollback slice. B09 remains PARTIAL for remote/public distribution. It describes component boundaries, artifact ownership and acceptance requirements. It does not certify live QIE capabilities, public distribution or production readiness.
+**Status:** architecture contract for the implemented B02–B09 foundation. B09 is accepted for private distribution after authenticated immutable-SHA installation from the private GitHub feature branch; public distribution remains unproven. It describes component boundaries, artifact ownership and acceptance requirements. It does not certify live QIE capabilities, public distribution or production readiness.
 
 **Requirements authority:** [QIE Forge PRD v2.1](../QIE_Forge_PRD_v2.1.md). Implementation decisions are recorded in [decisions.md](decisions.md). Engineering acceptance contracts are recorded in [engineering-quality.md](engineering-quality.md). The canonical domain inventory is [source-map.md](source-map.md).
 
@@ -153,7 +153,7 @@ The report keeps the trust claims separate. `inventoryComplete` is structural pr
 
 Observed CLI limits are documented rather than hidden: local-directory sources are install-only and `skills update` exits 0 without updating them; `skills update` does not preserve a prior `--copy` projection for Claude Code; and rollback is an explicit reinstall of a known-good immutable ref. Copy-mode fidelity after update or rollback therefore requires an explicit `--copy` reinstall.
 
-A future static documentation surface must serve byte-identical released Markdown/JSON under versioned paths, preserve relative links and publish the same effective-status projection as the installed bundle. It must not become a second factual catalogue. B09 exercises local smart-HTTP Git and one authenticated private GitHub source at an immutable SHA; it does not prove public Git-source installation or a public-release claim.
+A future static documentation surface must serve byte-identical released Markdown/JSON under versioned paths, preserve relative links and publish the same effective-status projection as the installed bundle. It must not become a second factual catalogue. B09 exercises local smart-HTTP Git and authenticated private GitHub installation at an immutable SHA; the private acceptance does not prove public Git-source installation, anonymous access or a public-release claim.
 
 ## 10. Tooling and dependency budget
 
@@ -200,7 +200,7 @@ Changes follow: edit source → run validators and build → inspect the generat
 
 ## 13. Milestone blueprint
 
-The milestone table is a dependency plan, not an implementation claim. B02–B08 are represented by the current foundation; B09 is represented locally and remains PARTIAL for remote/public distribution; B10 and later remain future work.
+The milestone table is a dependency plan, not an implementation claim. B02–B08 are represented by the current foundation; B09 is implemented and accepted for private distribution, while public distribution remains a separate unresolved gate; B10 and later remain future work.
 
 | ID | Deliverable | Acceptance summary |
 |---|---|---|
@@ -239,4 +239,4 @@ Non-technical dependencies remain explicit: organizer eligibility (D-01) blocks 
 
 ## 15. What this document does not claim
 
-This architecture does not claim a live QIE RPC check, wallet connection, transaction signature, broadcast, deployment, explorer verification or `VERIFIED` capability. It does not claim public Git-source installation, official Agent Skills validator success, remote B09 distribution, host/model evaluation or production readiness. Update, copy/symlink and rollback behavior is claimed only for the exact CLI, source type and ref matrix recorded in [B09 results](b09-results.md). Those are separate gates with their own evidence.
+This architecture does not claim a live QIE RPC check, wallet connection, transaction signature, broadcast, deployment, explorer verification or `VERIFIED` capability. It does not claim public Git-source installation, anonymous access, official Agent Skills validator success, public B09 distribution, host/model evaluation or production readiness. Private authenticated B09 installation, update, copy/symlink and rollback behavior is claimed only for the exact CLI, source type and ref matrix recorded in [B09 results](b09-results.md). Public distribution and licensing are separate unresolved gates.

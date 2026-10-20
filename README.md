@@ -1,6 +1,6 @@
 # QIE Forge engineering foundation
 
-QIE Forge is a Skills-first knowledge and developer workflow system for QIE. This checkout implements B02–B08 within the available evidence from the approved [architecture](docs/architecture.md), using [PRD v2.1](QIE_Forge_PRD_v2.1.md) as its requirements.
+QIE Forge is a Skills-first knowledge and developer workflow system for QIE. This checkout implements B02–B09 within the available evidence from the approved [architecture](docs/architecture.md), using [PRD v2.1](QIE_Forge_PRD_v2.1.md) as its requirements.
 
 All QIE Forge product prose, recipes and authored code in this repository are original. Canonical records distinguish official QIE source facts from QIE Forge analysis, and third-party development dependencies remain declared in `package-lock.json`. Third-party research notes used during design are not part of the product tree and are archived outside the repository. No third-party source code is bundled in any skill.
 
@@ -16,7 +16,7 @@ Nine generated local skill artifacts are available:
 - [`qie-debug`](skills/qie-debug/SKILL.md) — stage-specific troubleshooting and read-only diagnostics without sibling dependencies.
 - [`qie-ecosystem`](skills/qie-ecosystem/SKILL.md) — operation-scoped ecosystem catalogue, compatibility matrix and decision guide, all projected from the canonical records at the frozen build clock.
 
-The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. All nine P0 skills are published in release `0.5.1-ecosystem.1`; B09 adds a content-addressed suite identity and a tested local/Git-source update and rollback matrix. B09 remains **PARTIAL** for remote and public distribution; see [B09 results](docs/b09-results.md). Native/indexing procedures remain source navigation, not invented execution support.
+The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. All nine P0 skills are published in release `0.5.1-ecosystem.1`; B09 adds a content-addressed suite identity and a tested local/Git-source update and rollback matrix. B09 is **accepted for private distribution** after authenticated immutable-SHA installation from the private GitHub feature branch; public distribution, anonymous access and repository licensing remain unproven. See [B09 results](docs/b09-results.md). Native/indexing procedures remain source navigation, not invented execution support.
 
 No live network check has been run against a real QIE endpoint. The diagnostic helpers are exercised in tests and install checks exclusively against injected mock transports; their output is always framed as an observation, never as new evidence or a status promotion.
 
