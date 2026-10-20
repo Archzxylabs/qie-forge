@@ -6,7 +6,7 @@
 **Release identity:** `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
 **Toolchain:** Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`, Node test runner with process isolation disabled
 **Independent audits:** [B09 source and adversarial audit](audit/QIE-FORGE-B09-independent-audit.md) reproduced three P1 verifier defects and one P2 metadata-validation gap at commit `12c5759`. The [fixed-archive re-audit](audit/QIE-FORGE-B09-FIXED-independent-audit.md) confirmed those P1 fixes and identified three further P2 findings: contradictory `suiteComplete` reporting, unauthenticated manifest-only provenance metadata, and reintroduced upstream identifiers. All three are addressed here with regression coverage and documentation.
-**Implementation commit under test:** recorded in the `# commit:` header of every `docs/evidence/b09/` log (the evidence/docs commit that follows changes no implementation file).
+**Implementation commit under test:** `7ce4758429cdee4c1945ea6d578453e9cac4b69e` (all eight `docs/evidence/b09/` logs record this commit; the following evidence/docs commit changes no implementation file).
 **Verdict:** **B09 PARTIAL** — local smart-HTTP Git and authenticated private GitHub installs pass the tested matrix; remote B09 distribution and public installation remain subject to the acceptance evidence in this report.
 
 ## 1. Scope and result
@@ -33,7 +33,7 @@ The implementation does **not** add a Forge installer, MCP server, backend, regi
 | Evidence | `scripts/verify-b09-evidence.mjs` runs the eight B09 gates in order, writes logs under `docs/evidence/b09/`, and checks this report's quoted numbers against the executed run. |
 | Version metadata | `package-lock.json` was aligned from `0.4.0-operational.1` to the declared `0.5.1-ecosystem.1`; no package version bump was made because canonical QIE knowledge did not change. |
 
-Published bytes remain nine self-contained skills, five recipes, 94 manifest file entries, 103 files in the published tree and one shared release identity. The generated `skills/` tree is byte-identical to a clean rebuild.
+Published bytes remain nine self-contained skills, five recipes, 94 manifest file entries, 103 files in the published tree and one shared release identity. The generated `skills/` tree is byte-identical to a clean rebuild; a direct `diff -qr skills dist/skills` returned no differences. An independent digest pass on the implementation tree found nine manifests, 94/94 declared non-manifest files matching their SHA-256 entries, 103/103 published files, zero missing or unexpected files, and the recomputed identity `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce` matching every manifest.
 
 `MANIFEST.json` is deliberately excluded from `release_id`, so metadata such as `generated`, `sources_checked_at`, `schema_version` and `release_version` is not itself content-addressed by that identity. The verifier validates those fields against the strict schema, the supported-schema contract and `built_at` chronology, and independently derives `sources_checked_at` from the selected snapshot source reviews. It still does not present manifest metadata as authenticated bytes: `provenance.manifestMetadataAuthenticated` is `false`, and a trusted `--release-id` match only authenticates payload identity. A caller that needs authenticated manifest metadata must obtain it from a separately trusted manifest or signed canonical index.
 
