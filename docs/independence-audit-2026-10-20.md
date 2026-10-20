@@ -87,7 +87,7 @@ All commands were run from the repository root on Node `v24.20.0` and npm `11.19
 
 ### Canonical remote and fresh-clone checks
 
-- Remote `main`: clean canonical history whose B08 baseline root is `66e598b47b4749613d46b859af806764d7324cee`; repository **PRIVATE**; only `refs/heads/main` exists.
+- Remote `main`: clean canonical history whose B08 baseline root is `66e598b`; repository **PRIVATE**; only `refs/heads/main` exists.
 - Fresh clone: 283 tracked files, nine skills, nine manifests and five recipes; the legacy commit is absent; `git fsck --unreachable` is empty.
 - Fresh-clone gates: build, validate, build:check, docs:check and lint pass; **270/270** tests and **20/20** installation fixtures pass; coverage is reported above.
 - `skills/` and `dist/skills/` are byte-identical; **94/94** manifest file digests match and there are no missing or extra files.
@@ -126,9 +126,9 @@ The backup intentionally contains the old research history. It is not published 
 
 ### Clean root history
 
-The audited tree was exported into an isolated workspace, initialized as a new repository, and committed as a single root commit. The canonical baseline commit is `66e598b47b4749613d46b859af806764d7324cee` (`QIE Forge 0.5.1-ecosystem.1 — B08 clean canonical baseline`). It has no parent and therefore cannot reach any pre-rewrite commit.
+The audited tree was exported into an isolated workspace, initialized as a new repository, and committed as a single root commit. The canonical baseline commit is `66e598b` (`QIE Forge 0.5.1-ecosystem.1 — B08 clean canonical baseline`). It has no parent and therefore cannot reach any pre-rewrite commit.
 
-The new `main` was published with an explicit, narrowly scoped force-with-lease against the known old remote tip `174a78b3d05392c63e5a7eded07359e724ed5685`. The remote now contains only `refs/heads/main`; no tags, releases, pull requests, forks or Actions runs were present. The repository remains **PRIVATE**.
+The new `main` was published with an explicit, narrowly scoped force-with-lease against the known old remote tip `174a78b`. The remote now contains only `refs/heads/main`; no tags, releases, pull requests, forks or Actions runs were present. The repository remains **PRIVATE**.
 
 ### Local branches
 
