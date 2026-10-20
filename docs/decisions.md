@@ -1,6 +1,6 @@
 # Foundation implementation decisions
 
-These decisions implement B02–B04 against PRD v2.1. They refine the approved architecture without changing the product scope. The implementation contains one skill and no website, service, product CLI or live verifier.
+These decisions began with B02–B04 against PRD v2.1. They refine the approved architecture without changing the product scope. That foundation contained one skill and no website, service, product CLI or live verifier; later milestone decisions below add nine released skills and a read-only installed-release verifier.
 
 ## Canonical fields: AT-01 resolved
 
@@ -42,6 +42,8 @@ The v1 policy schema freezes precedence with CONFLICTED first, requires explicit
 Operational network IDs are restricted to `qie-mainnet` and `qie-testnet`. `qie-native` and `general` are permitted **navigation scope labels**, not operational network IDs. Native/bridge/indexer capabilities whose actual network is unknown use an empty `network_ids` list and UNKNOWN. No native chain identity or EVM compatibility is inferred.
 
 ## Build and installation: AT-02 partly resolved
+
+> **Historical B02–B04 record.** The statements in this section describe the foundation at that milestone. The nine-skill release and the authenticated private Git distribution are recorded in the B09 decisions at the end of this document; where they conflict, the B09 record and its evidence govern.
 
 Node 24.20.0, npm 11.19.0, Skills CLI 1.7.2, Ajv 8.20.0, ajv-formats 3.0.1 and yaml 2.9.1 were installed/executed as recorded in the results. Product users need only the installed bundle; the helper imports Node built-ins and a local module. Dependencies are development tools, not installed skill dependencies.
 
