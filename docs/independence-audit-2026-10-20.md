@@ -73,7 +73,7 @@ All commands were run from the repository root on Node `v24.20.0` and npm `11.19
 | `npm run lint` | PASS — JavaScript syntax checks; no TypeScript compiler or style linter configured |
 | `npm test` | PASS — **270 tests, 270 passed, 0 failed, 0 skipped, 0 todo** |
 | `npm run test:install` | PASS — **20 installer fixtures, 20 passed, 0 failed, 0 skipped** |
-| `npm run test:coverage` | PASS — 270/270 tests; **97.72% lines, 88.35–88.37% branches, 98.92% functions** across repeated runs (final fresh-clone run: 88.35% branches) |
+| `npm run test:coverage` | PASS — 270/270 tests; **97.72% lines, 88.35–88.37% branches, 98.92% functions** across repeated runs |
 
 ### Artifact checks
 
