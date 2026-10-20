@@ -5,6 +5,7 @@
 **Release:** `0.5.1-ecosystem.1` (unchanged), schema/policy `1.4.0` (unchanged)
 **Release identity:** `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
 **Toolchain:** Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`, Node test runner with process isolation disabled
+**Independent audit:** [B09 source and adversarial audit](audit/QIE-FORGE-B09-independent-audit.md) reproduced three P1 verifier defects and one P2 metadata-validation gap at commit `12c5759`. The three P1 findings and P2-01 are remediated with regression tests; P2-02 is addressed by a fresh clean-commit gate/evidence run; P2-03 remains part of the PARTIAL verdict because the separate remote-distribution acceptance test has not run against B09.
 **Verdict:** **B09 PARTIAL** — local smart-HTTP Git and authenticated private GitHub installs pass the tested matrix; no B09 commit, tag, release or public source was published, so remote B09 distribution and public installation remain unproven.
 
 ## 1. Scope and result
@@ -21,12 +22,17 @@ The implementation does **not** add a Forge installer, MCP server, backend, regi
 | Identity computation | `scripts/lib/release-identity.mjs` hashes a canonical projection of release version, schema version, frozen `built_at` and every non-manifest file in all nine bundles. `MANIFEST.json` is excluded to avoid self-reference. |
 | Build | `scripts/lib/release.mjs` computes one identity per release cut and injects the same value into all nine manifests. A generated `release-info.md` explains the shared identity. |
 | Suite validation | `scripts/validate-skills.mjs` requires the published directory set to equal the enabled catalogue, requires all manifests to agree on version/schema/build/identity, and recomputes the identity from published bytes. |
-| Installed verification | `scripts/lib/installed-release.mjs` and `scripts/verify-installed-release.mjs` read an installation without modifying it, verify per-file hashes, knowledge and policy digests, snapshot schema and suite identity, and reject legacy, mixed, incomplete or malformed installations. |
-| Tests | `tests/b09-distribution.test.mjs` adds seven scenarios. `tests/installation.test.mjs` now checks the installed identity in all twenty existing fixtures. Test support adds asynchronous child execution, a loopback smart-HTTP Git server and isolated CLI environments. |
+| Installed verification | `scripts/lib/installed-release.mjs` and `scripts/verify-installed-release.mjs` read an installation without modifying it, verify per-file hashes, knowledge and policy digests, snapshot schema and suite identity, and reject legacy, mixed, incomplete or malformed installations. Installed manifests are treated as untrusted: strict schema validation, published-snapshot enumeration, containment before reads, symlink rejection, size ceilings and redacted diagnostics replace the earlier loose path join. |
+| Canonical suite contract | `scripts/lib/release-contract.mjs` is the trusted nine-name inventory used by the verifier and cross-checked against the enabled catalogue by `validate-skills.mjs`. `--expect-suite` requires those exact names; unrelated agent skills are ignored, malformed canonical bundles are rejected and `SKILL.md` frontmatter must name its directory. |
+| Agent projections | A sibling `.claude/skills` projection is checked automatically when it contains canonical QIE entries (or via `--claude-root`): symlinks must be relative and resolve to the exact canonical bundle; copied projections must match canonical bytes and `release_id`. Broken, absolute, misdirected and stale projections fail closed; unrelated-only Claude directories do not invalidate a Codex-only install. |
+| Authenticity boundary | `COHERENT_FULL_SUITE` is an internal-coherence verdict. `publisherAuthenticity` stays `NOT_ESTABLISHED` unless `--release-id` supplies a trusted pinned identity; only then is `PINNED_MATCH` or `MISMATCH` reported. |
+| Tests | `tests/b09-distribution.test.mjs` adds ten scenarios. `tests/installation.test.mjs` now checks installed identity, canonical scope and Claude copy/symlink projections in all twenty existing fixtures. Test support adds asynchronous child execution, a loopback smart-HTTP Git server and isolated CLI environments. |
 | Evidence | `scripts/verify-b09-evidence.mjs` runs the eight B09 gates in order, writes logs under `docs/evidence/b09/`, and checks this report's quoted numbers against the executed run. |
 | Version metadata | `package-lock.json` was aligned from `0.4.0-operational.1` to the declared `0.5.1-ecosystem.1`; no package version bump was made because canonical QIE knowledge did not change. |
 
 Published bytes remain nine self-contained skills, five recipes, 94 manifest file entries, 103 files in the published tree and one shared release identity. The generated `skills/` tree is byte-identical to a clean rebuild.
+
+`MANIFEST.json` is deliberately excluded from `release_id`, so metadata such as `generated`, `sources_checked_at`, `schema_version` and `release_version` is not itself content-addressed by that identity. The verifier validates those fields against the strict schema, the supported-schema contract and `built_at` chronology; it does not present them as authenticated file bytes. A caller that needs a trusted release assertion must pin the whole identity with `--release-id`.
 
 ## 3. Observed Skills CLI behavior
 
@@ -61,26 +67,36 @@ These are observations from the pinned CLI, not assumptions from its documentati
 | Mixed releases | Real Git over loopback smart HTTP | Two pinned tags, one consumer | `MIXED_RELEASE_ID`, `MIXED_SCHEMA_VERSION`; repair from one release clears them | PASS |
 | Legacy installation | Local fixture derived from an older manifest | Nine bundles | `LEGACY_RELEASE_ID`; no hash/snapshot failures | PASS (rejected as intended) |
 | Malformed installed trees | Local fixtures | Missing/extra files, malformed manifests, duplicate entries, bad snapshot/policy/schema, symlink, unreadable root, incomplete suite | Specific fail-closed findings; verifier exits `1`; usage errors exit `2` | PASS |
+| Adversarial verifier | Local fixtures | `../` and absolute snapshot paths, manifest path traversal, symlink escapes, unreadable/oversized snapshots, parser-error redaction, fake nine-name inventory, missing router, frontmatter mismatch | No outside content is read or echoed; exact canonical set required; fake suite rejected; diagnostics remain path/type-only | PASS |
+| Claude projections | Local installs and synthetic trees | Relative symlink, copied projection, unrelated sibling, broken, absolute, misdirected and stale copy | Canonical `.agents` tree stays coherent; each projection is validated against it; unrelated entries ignored | PASS |
 | Local-source update | Local directory | Symlink | Exit `0`, explicit no-op message, no file or lock change | PASS (documented limitation) |
 | Authenticated private GitHub | Real private HTTPS repository at full SHA | Suite symlink and single copy | Exact tree to `git archive`; 103 files; hashes match; pinned update no-op; CLI verifier finds only expected legacy release IDs | PASS for B08 artifacts; B09 remote still unproven |
 
-The local smart-HTTP fixtures use real Git clone/fetch and real ref resolution; they are not mocks. The GitHub check uses a real private remote. The twenty existing installation fixtures use a local directory source with a network-deny guard. No QIE RPC, wallet, signer or deployment endpoint is contacted by any B09 test.
+The local smart-HTTP fixtures use real Git clone/fetch and real ref resolution; they are not mocks. The GitHub check uses a real private remote. The twenty existing installation fixtures use a local directory source with a network-deny guard. The adversarial and projection tests use local synthetic installed trees; they do not follow arbitrary symlinks or read outside the canonical root. No QIE RPC, wallet, signer or deployment endpoint is contacted by any B09 test.
 
 ## 5. Failure and adversarial coverage
 
-- Missing or malformed `MANIFEST.json`.
+- Missing or malformed `MANIFEST.json`, a symlinked manifest and an oversized manifest.
 - Manifest that is not an object, has no files array or contains invalid file entries.
 - Duplicate manifest entries and a manifest that hashes itself.
 - Missing listed file, unexpected extra file and a symlink inside a bundle.
 - Missing, unreadable or schema-incompatible packaged snapshot.
+- Snapshot `../` traversal, absolute path, symlink escape, unsupported snapshot path and snapshot absent from the declared inventory.
+- Oversized snapshot and oversized bundle; parser errors are redacted and never include the outside file's content.
+- Manifest file-entry traversal and absolute paths; no read occurs before schema/containment acceptance.
 - Knowledge digest mismatch and policy digest mismatch.
 - Invalid or absent `release_id` (legacy path).
+- `generated` false or non-boolean, malformed `sources_checked_at`, and a source review timestamp later than `built_at`.
+- Unsupported individual schema version, in addition to mixed-schema detection.
 - Mixed release identities, versions, schemas or build timestamps.
-- Incomplete suite under `--expect-suite`.
+- Incomplete suite under `--expect-suite`, a renamed/fake nine-name inventory and a missing canonical router.
+- Missing `SKILL.md`, a manifest that omits it, invalid `SKILL.md` frontmatter or a frontmatter name that does not match its directory.
+- Unrelated agent skills beside the suite, including a broken unrelated symlink that must be ignored.
+- Broken, absolute, misdirected and stale-copy Claude Code projections.
 - Nonexistent Git ref and removed Git source.
 - Corrupt bundle after manifest generation, followed by pinned rollback.
 - Local-source update silent no-op.
-- CLI usage errors: unknown argument and empty release ID exit `2`.
+- CLI usage errors: unknown argument, missing option value and invalid release ID exit `2`.
 
 True process-kill interruption during an install or update was **not** simulated. Source removal and corrupt-source recovery cover the observable failure classes available without adding a Forge updater; they do not prove atomic filesystem transactions.
 
@@ -99,7 +115,7 @@ npm run test:coverage
 npm run test:install
 ```
 
-`npm run verify:b09-evidence` re-executes the same eight gates in order and writes full logs to `docs/evidence/b09/{build,validate,build-check,docs-check,lint,tests,coverage,installation}.txt`. Each log records the command, Node version, UTC timestamp and the commit under test. The script fails if this report does not quote the executed test count, installation count, release identity or coverage figures.
+`npm run verify:b09-evidence` re-executes the same eight gates in order and writes full logs to `docs/evidence/b09/{build,validate,build-check,docs-check,lint,tests,coverage,installation}.txt`. Each log records the command, Node version, UTC timestamp and the commit under test. The script fails if this report does not quote the executed test count, installation count, release identity or coverage figures. The B09 evidence run is executed from a clean worktree on the final implementation commit rather than inferred from earlier commits; the following evidence/docs commit records the generated logs and changes no implementation file.
 
 The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-private.txt`. No credential or authorization header is stored. No branch, tag, release or repository was created or modified for that proof.
 
@@ -112,10 +128,10 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 | `npm run build:check` | PASS — byte-identical reproducible rebuild |
 | `npm run docs:check` | PASS — B08 evidence catalogue matches canonical knowledge |
 | `npm run lint` | PASS — JavaScript syntax checks |
-| `npm test` | PASS — **277/277**, 0 failed |
-| `npm run test:coverage` | PASS — **277/277**; **98.02% lines, 89.33% branches, 99.10% functions** |
+| `npm test` | PASS — **280/280**, 0 failed |
+| `npm run test:coverage` | PASS — **280/280**; **96.15% lines, 88.56% branches, 97.96% functions** |
 | `npm run test:install` | PASS — **20/20** installation fixtures |
-| B09 dedicated suite | PASS — 7/7 scenarios |
+| B09 dedicated suite | PASS — 10/10 scenarios |
 
 ## 8. Limitations and unresolved cases
 
@@ -128,6 +144,9 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 7. **Installed versus current version is not printed.** The verifier reports the installed release, version, identity and exact hashes; `skills update` reports that skills changed or are up to date, but the CLI does not print both the installed and current versions. The smallest compatible addition would be a read-only source-manifest lookup after ref resolution that compares `release_id`; it was not added because it would duplicate the CLI's clone/update path for a reporting-only capability.
 8. **Remote B09 verification requires publication.** Once the branch is reviewed and pushed, a disposable or dedicated private repository at a full SHA with `delete_repo` cleanup authority should repeat the GitHub matrix against B09 manifests.
 9. **No live QIE evidence.** B09 did not contact a live RPC, wallet, signer, deployment target or explorer, and did not promote any capability to `VERIFIED`.
+10. **Coherence is not publisher authenticity.** A self-consistent tree can be fabricated. `COHERENT_FULL_SUITE` means the exact canonical inventory, frontmatter, hashes, snapshots and recomputed identity agree; it becomes a trusted release assertion only when the caller supplies a pinned `--release-id` from an independent trusted source. The verifier cannot establish who published a tree by hashing it.
+11. **Projection coverage is limited to detected targets.** The verifier checks the canonical `.agents/skills` tree and, when present, the sibling `.claude/skills` projection. Other agent directories or future projection layouts require an explicit `--claude-root` or a separate verifier extension; the CLI remains the authority for where it installs.
+12. **Evidence chronology is explicit.** The eight gate logs record the clean implementation commit under test. The evidence/docs commit that follows is not a second implementation change; no gate output is inferred from an earlier commit.
 
 ## 9. B08 preservation and non-claims
 
@@ -137,4 +156,4 @@ B09 does not claim live QIE RPC, wallet connection, signing, broadcast, deployme
 
 ## 10. Verdict
 
-**B09 PARTIAL.** The local and private-source matrix is reproducible and fail-closed for the pinned CLI: suite and single installs, copy and symlink modes, immutable tags and full SHAs, mutable-branch updates, pinned no-ops, corrupt-update detection, mixed-release rejection and explicit rollback all pass. The remaining blocker is remote/public distribution of the B09 release itself, which cannot be proven without publishing it.
+**B09 PARTIAL.** The local and private-source matrix is reproducible and fail-closed for the pinned CLI: suite and single installs, copy and symlink modes, immutable tags and full SHAs, mutable-branch updates, pinned no-ops, corrupt-update detection, mixed-release rejection, adversarial path containment and explicit rollback all pass. The three P1 audit findings and the P2 metadata-validation gap are remediated with regression tests; the P2 evidence-chronology gap is addressed by running all eight gates from a clean implementation commit. The remaining blocker is remote/public distribution of the B09 release itself, which cannot be proven without publishing it.

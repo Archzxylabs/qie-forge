@@ -12,7 +12,10 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
   - added the required suite `release_id` to every generated manifest;
   - added suite-set and identity coherence checks to `npm run validate`;
   - added the read-only `scripts/verify-installed-release.mjs` verifier for file hashes, knowledge/policy digests, legacy manifests, mixed releases and incomplete suites;
-  - added a local smart-HTTP Git fixture, immutable tag and full-SHA installs, update, rollback and corruption tests;
+  - hardened the verifier against untrusted manifest paths: strict schema and snapshot inventory checks, containment before reads, symlink rejection, size ceilings and error redaction;
+  - made full-suite verification use the exact canonical nine-name contract, validate `SKILL.md` frontmatter, ignore unrelated agent skills and check Claude Code copy/symlink projections;
+  - separated internal coherence from publisher authenticity via optional trusted `--release-id` pinning;
+  - added a local smart-HTTP Git fixture, immutable tag and full-SHA installs, update, rollback and corruption tests plus adversarial containment, fake-inventory and projection tests;
   - aligned `package-lock.json` to the declared package version;
   - recorded the authenticated private GitHub install at an immutable B08 SHA.
 - **Update/rollback:** `skills update -p -y` follows a mutable branch and leaves pinned tags/SHAs unchanged. Rollback is an explicit reinstall of a known-good pinned ref. Copy-mode fidelity after update requires `--copy`.

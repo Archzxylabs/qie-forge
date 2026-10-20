@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { appendFile, cp, lstat, mkdir, readFile, rm, symlink, writeFile } from 'node:fs/promises';
+import { appendFile, chmod, cp, lstat, mkdir, readFile, rename, rm, symlink, writeFile } from 'node:fs/promises';
 import { runNodeResult } from './support/process.mjs';
 import { projectRoot, releasedSkills, temporaryDirectory } from './support/fixtures.mjs';
 import { inspectInstalledRelease } from '../scripts/lib/installed-release.mjs';
@@ -50,6 +50,7 @@ function assertCoherent(report, releaseId) {
   assert.equal(report.problems.length, 0, report.problems.join('\n'));
   assert.equal(report.releaseId, releaseId);
   assert.ok(['COHERENT_FULL_SUITE', 'COHERENT_PARTIAL'].includes(report.status));
+  assert.ok(report.projections.every((projection) => projection.valid), JSON.stringify(report.projections, null, 2));
 }
 
 async function assertInstalledTree(consumerRoot, expectedTree, copy) {
@@ -322,7 +323,7 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
 
   const malformed = await copyQie();
   await writeFile(path.join(malformed, 'qie/MANIFEST.json'), '{');
-  expectProblem(await inspect(malformed), 'MISSING_MANIFEST qie');
+  expectProblem(await inspect(malformed), 'INVALID_MANIFEST qie: manifest is not valid JSON');
 
   const arrayManifest = await copyQie();
   await writeFile(path.join(arrayManifest, 'qie/MANIFEST.json'), '[]\n');
@@ -344,6 +345,14 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
   await rm(path.join(missingFile, 'qie/SKILL.md'));
   expectProblem(await inspect(missingFile), 'MISSING_FILE qie/SKILL.md');
 
+  const unlistedSkill = await copyQie();
+  const unlistedSkillManifestPath = path.join(unlistedSkill, 'qie/MANIFEST.json');
+  const unlistedSkillManifest = JSON.parse(await readFile(unlistedSkillManifestPath, 'utf8'));
+  unlistedSkillManifest.files = unlistedSkillManifest.files.filter((file) => file.path !== 'SKILL.md');
+  await rm(path.join(unlistedSkill, 'qie/SKILL.md'));
+  await writeFile(unlistedSkillManifestPath, `${JSON.stringify(unlistedSkillManifest, null, 2)}\n`);
+  expectProblem(await inspect(unlistedSkill), 'MISSING_SKILL_FILE qie');
+
   const extraFile = await copyQie();
   await writeFile(path.join(extraFile, 'qie/EXTRA.txt'), 'unexpected');
   expectProblem(await inspect(extraFile), 'UNEXPECTED_FILE qie/EXTRA.txt');
@@ -352,7 +361,7 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
   const badEntryManifest = JSON.parse(await readFile(path.join(badEntry, 'qie/MANIFEST.json'), 'utf8'));
   badEntryManifest.files[0] = null;
   await writeFile(path.join(badEntry, 'qie/MANIFEST.json'), `${JSON.stringify(badEntryManifest, null, 2)}\n`);
-  expectProblem(await inspect(badEntry), 'INVALID_MANIFEST qie: each file entry needs path and sha256');
+  expectProblem(await inspect(badEntry), 'INVALID_MANIFEST qie');
 
   const duplicate = await copyQie();
   const duplicateManifest = JSON.parse(await readFile(path.join(duplicate, 'qie/MANIFEST.json'), 'utf8'));
@@ -368,13 +377,18 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
 
   const renamed = await temporaryDirectory(t, 'qie-forge-b09-verifier-renamed-');
   await cp(path.join(source, 'qie'), path.join(renamed, 'renamed'), { recursive: true });
-  expectProblem(await inspect(renamed), 'SKILL_ID_MISMATCH renamed');
+  expectProblem(await inspect(renamed), 'NO_QIE_SKILLS');
+
+  const wrongSkillId = await copyQie();
+  const wrongSkillIdManifest = JSON.parse(await readFile(path.join(wrongSkillId, 'qie/MANIFEST.json'), 'utf8'));
+  wrongSkillIdManifest.skill_id = 'not-qie';
+  await writeFile(path.join(wrongSkillId, 'qie/MANIFEST.json'), `${JSON.stringify(wrongSkillIdManifest, null, 2)}\n`);
+  expectProblem(await inspect(wrongSkillId), 'SKILL_ID_MISMATCH qie');
 
   const missingSnapshotFile = await copyQie();
   const missingSnapshotFileManifest = JSON.parse(await readFile(path.join(missingSnapshotFile, 'qie/MANIFEST.json'), 'utf8'));
-  missingSnapshotFileManifest.snapshot_path = 'data/missing.json';
-  await writeFile(path.join(missingSnapshotFile, 'qie/MANIFEST.json'), `${JSON.stringify(missingSnapshotFileManifest, null, 2)}\n`);
-  expectProblem(await inspect(missingSnapshotFile), 'UNREADABLE_SNAPSHOT qie');
+  await rm(path.join(missingSnapshotFile, 'qie', missingSnapshotFileManifest.snapshot_path));
+  expectProblem(await inspect(missingSnapshotFile), 'SNAPSHOT_NOT_IN_BUNDLE qie');
 
   const changedSnapshot = await copyQie();
   const changedManifestPath = path.join(changedSnapshot, 'qie/MANIFEST.json');
@@ -411,6 +425,31 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
   await writeFile(wrongManifestPath, `${JSON.stringify(wrongManifest, null, 2)}\n`);
   expectProblem(await inspect(wrongSchema), 'SNAPSHOT_SCHEMA_MISMATCH qie');
 
+  const notGenerated = await copyQie();
+  const notGeneratedManifest = JSON.parse(await readFile(path.join(notGenerated, 'qie/MANIFEST.json'), 'utf8'));
+  notGeneratedManifest.generated = false;
+  await writeFile(path.join(notGenerated, 'qie/MANIFEST.json'), `${JSON.stringify(notGeneratedManifest, null, 2)}\n`);
+  expectProblem(await inspect(notGenerated), 'MANIFEST_NOT_GENERATED qie');
+
+  const futureReview = await copyQie();
+  const futureReviewManifest = JSON.parse(await readFile(path.join(futureReview, 'qie/MANIFEST.json'), 'utf8'));
+  futureReviewManifest.sources_checked_at = '2099-01-01T00:00:00Z';
+  await writeFile(path.join(futureReview, 'qie/MANIFEST.json'), `${JSON.stringify(futureReviewManifest, null, 2)}\n`);
+  expectProblem(await inspect(futureReview), 'FUTURE_SOURCES_CHECKED_AT qie');
+
+  const unsupportedSchema = await copyQie();
+  const unsupportedSchemaManifest = JSON.parse(await readFile(path.join(unsupportedSchema, 'qie/MANIFEST.json'), 'utf8'));
+  unsupportedSchemaManifest.schema_version = '1.5.0';
+  await writeFile(path.join(unsupportedSchema, 'qie/MANIFEST.json'), `${JSON.stringify(unsupportedSchemaManifest, null, 2)}\n`);
+  expectProblem(await inspect(unsupportedSchema), 'UNSUPPORTED_SCHEMA_VERSION qie');
+
+  const snapshotNotListed = await copyQie();
+  const snapshotNotListedManifest = JSON.parse(await readFile(path.join(snapshotNotListed, 'qie/MANIFEST.json'), 'utf8'));
+  snapshotNotListedManifest.files = snapshotNotListedManifest.files
+    .filter((file) => file.path !== snapshotNotListedManifest.snapshot_path);
+  await writeFile(path.join(snapshotNotListed, 'qie/MANIFEST.json'), `${JSON.stringify(snapshotNotListedManifest, null, 2)}\n`);
+  expectProblem(await inspect(snapshotNotListed), 'SNAPSHOT_NOT_IN_MANIFEST qie');
+
   const symlinked = await copyQie();
   await symlink(path.join(symlinked, 'qie/SKILL.md'), path.join(symlinked, 'qie/link.md'));
   expectProblem(await inspect(symlinked), 'UNREADABLE_BUNDLE qie');
@@ -421,7 +460,7 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
   expectProblem(missingRootReport, 'UNREADABLE_ROOT');
 
   const empty = await temporaryDirectory(t, 'qie-forge-b09-verifier-empty-');
-  expectProblem(await inspect(empty), 'NO_SKILLS');
+  expectProblem(await inspect(empty), 'NO_QIE_SKILLS');
 
   const partial = await copyQie();
   expectProblem(await inspect(partial, { requireSuite: true }), 'INCOMPLETE_SUITE');
@@ -434,6 +473,10 @@ test('installed-release verifier diagnoses malformed, incomplete and extra insta
   assert.equal(unknown.status, 2);
   const emptyRelease = runNodeResult([verifier, '--release-id', ''], { env });
   assert.equal(emptyRelease.status, 2);
+  const invalidRelease = runNodeResult([verifier, '--release-id', 'NOT-A-SHA'], { env });
+  assert.equal(invalidRelease.status, 2);
+  const emptyClaude = runNodeResult([verifier, '--claude-root', ''], { env });
+  assert.equal(emptyClaude.status, 2);
   const human = runNodeResult([verifier, '--root', source], { env });
   assert.equal(human.status, 0, human.stdout + human.stderr);
   assert.match(human.stdout, /Status: COHERENT_FULL_SUITE/);
@@ -515,4 +558,317 @@ test('mixed release identities and incompatible schemas are reported and can be 
   await install(root, url, 'v0.5.1-b09-mixed-a', 'qie-networks', false);
   assertCoherent(await installedReport(root, ['qie', 'qie-networks']), baselineId);
   await assertBundleTree(path.join(root, '.agents/skills/qie'), new Map([...baselineTree].filter(([file]) => file.startsWith('qie/')).map(([file, content]) => [file.slice('qie/'.length), content])), assert);
+});
+
+test('snapshot paths are contained, bounded and never leak outside file content through verifier errors', async (t) => {
+  const project = await buildFixture(t);
+  const source = path.join(project, 'skills');
+  const sentinel = 'OUTSIDE-BUNDLE-SENTINEL-DO-NOT-READ';
+  const copyQie = async () => {
+    const root = await temporaryDirectory(t, 'qie-forge-b09-containment-');
+    await cp(path.join(source, 'qie'), path.join(root, 'qie'), { recursive: true });
+    return root;
+  };
+  const manifestAt = async (root) => {
+    const filename = path.join(root, 'qie/MANIFEST.json');
+    return { filename, manifest: JSON.parse(await readFile(filename, 'utf8')) };
+  };
+  const writeManifest = async (filename, manifest) => {
+    await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+  };
+
+  const traversal = await copyQie();
+  await writeFile(path.join(traversal, 'OUTSIDE.json'), `${sentinel}\n{`);
+  {
+    const { filename, manifest } = await manifestAt(traversal);
+    manifest.snapshot_path = '../OUTSIDE.json';
+    await writeManifest(filename, manifest);
+  }
+  const traversalReport = await inspectInstalledRelease(traversal);
+  assert.match(traversalReport.problems.join('\n'), /INVALID_MANIFEST qie/);
+  assert.doesNotMatch(traversalReport.problems.join('\n'), new RegExp(sentinel));
+
+  const absolute = await copyQie();
+  const absoluteSentinel = path.join(absolute, 'ABS-OUTSIDE.json');
+  await writeFile(absoluteSentinel, `${sentinel}\n{`);
+  {
+    const { filename, manifest } = await manifestAt(absolute);
+    manifest.snapshot_path = absoluteSentinel;
+    await writeManifest(filename, manifest);
+  }
+  const absoluteReport = await inspectInstalledRelease(absolute);
+  assert.match(absoluteReport.problems.join('\n'), /INVALID_MANIFEST qie/);
+  assert.doesNotMatch(absoluteReport.problems.join('\n'), new RegExp(sentinel));
+
+  const manifestTraversal = await copyQie();
+  await writeFile(path.join(manifestTraversal, 'OUTSIDE.json'), `${sentinel}\n`);
+  {
+    const { filename, manifest } = await manifestAt(manifestTraversal);
+    manifest.files[0].path = '../OUTSIDE.json';
+    manifest.files[0].sha256 = sha256(`${sentinel}\n`);
+    await writeManifest(filename, manifest);
+  }
+  const manifestTraversalReport = await inspectInstalledRelease(manifestTraversal);
+  assert.match(manifestTraversalReport.problems.join('\n'), /INVALID_MANIFEST qie/);
+  assert.doesNotMatch(manifestTraversalReport.problems.join('\n'), new RegExp(sentinel));
+
+  const symlinkEscape = await copyQie();
+  const symlinkTarget = path.join(symlinkEscape, 'OUTSIDE.json');
+  await writeFile(symlinkTarget, `${sentinel}\n`);
+  await symlink(symlinkTarget, path.join(symlinkEscape, 'qie/escape.json'));
+  const symlinkReport = await inspectInstalledRelease(symlinkEscape);
+  assert.match(symlinkReport.problems.join('\n'), /UNREADABLE_BUNDLE qie/);
+  assert.doesNotMatch(symlinkReport.problems.join('\n'), new RegExp(sentinel));
+
+  const manifestSymlink = await copyQie();
+  const manifestTarget = path.join(manifestSymlink, 'OUTSIDE-MANIFEST.json');
+  await writeFile(manifestTarget, `${sentinel}\n`);
+  await rm(path.join(manifestSymlink, 'qie/MANIFEST.json'));
+  await symlink(manifestTarget, path.join(manifestSymlink, 'qie/MANIFEST.json'));
+  const manifestSymlinkReport = await inspectInstalledRelease(manifestSymlink);
+  assert.match(manifestSymlinkReport.problems.join('\n'), /UNSAFE_MANIFEST_SYMLINK qie/);
+  assert.doesNotMatch(manifestSymlinkReport.problems.join('\n'), new RegExp(sentinel));
+
+  const unreadable = await copyQie();
+  {
+    const { manifest } = await manifestAt(unreadable);
+    const snapshot = path.join(unreadable, 'qie', manifest.snapshot_path);
+    await chmod(snapshot, 0o000);
+    const report = await inspectInstalledRelease(unreadable);
+    assert.match(report.problems.join('\n'), /UNREADABLE_(FILE|SNAPSHOT) qie/);
+    assert.doesNotMatch(report.problems.join('\n'), new RegExp(sentinel));
+    await chmod(snapshot, 0o600);
+  }
+
+  const oversized = await copyQie();
+  {
+    const { manifest } = await manifestAt(oversized);
+    await writeFile(path.join(oversized, 'qie', manifest.snapshot_path), Buffer.alloc(2 * 1024 * 1024 + 1, 0x41));
+    const report = await inspectInstalledRelease(oversized);
+    assert.match(report.problems.join('\n'), /OVERSIZED_SNAPSHOT qie/);
+    assert.doesNotMatch(report.problems.join('\n'), new RegExp(sentinel));
+  }
+
+  const invalidJson = await copyQie();
+  {
+    const { filename, manifest } = await manifestAt(invalidJson);
+    const snapshot = path.join(invalidJson, 'qie', manifest.snapshot_path);
+    const content = `${sentinel}\n{`;
+    await writeFile(snapshot, content);
+    manifest.knowledge_sha256 = sha256(content);
+    manifest.files.find((file) => file.path === manifest.snapshot_path).sha256 = sha256(content);
+    await writeManifest(filename, manifest);
+    const report = await inspectInstalledRelease(invalidJson);
+    assert.match(report.problems.join('\n'), /UNREADABLE_SNAPSHOT qie/);
+    assert.doesNotMatch(report.problems.join('\n'), new RegExp(sentinel));
+  }
+});
+
+test('full-suite verification uses the exact canonical inventory, checks frontmatter and distinguishes trusted identity', async (t) => {
+  const project = await buildFixture(t);
+  const source = path.join(project, 'skills');
+  const originalId = (await readManifest(path.join(source, 'qie'))).release_id;
+  const release = JSON.parse(await readFile(path.join(project, 'release-context.json'), 'utf8'));
+  const copySuite = async () => {
+    const root = await temporaryDirectory(t, 'qie-forge-b09-suite-');
+    await cp(source, root, { recursive: true });
+    return root;
+  };
+  const recompute = async (root, names) => {
+    const bundles = [];
+    for (const name of names) bundles.push(await readBundleInventory(path.join(root, name), name));
+    const id = computeReleaseId({ release, bundles });
+    for (const name of names) {
+      const filename = path.join(root, name, 'MANIFEST.json');
+      const manifest = JSON.parse(await readFile(filename, 'utf8'));
+      manifest.release_id = id;
+      await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+    }
+    return id;
+  };
+
+  const full = await copySuite();
+  const fullReport = await inspectInstalledRelease(full, { requireSuite: true });
+  assert.equal(fullReport.status, 'COHERENT_FULL_SUITE');
+  assert.deepEqual(fullReport.problems, []);
+  assert.equal(fullReport.publisherAuthenticity, 'NOT_ESTABLISHED');
+
+  const missingRouter = await copySuite();
+  await rm(path.join(missingRouter, 'qie'), { recursive: true });
+  const missingReport = await inspectInstalledRelease(missingRouter, { requireSuite: true });
+  assert.equal(missingReport.status, 'REJECTED');
+  assert.ok(missingReport.problems.some((problem) => problem.startsWith('MISSING_SKILLS: qie')));
+  assert.ok(missingReport.problems.some((problem) => problem.startsWith('INCOMPLETE_SUITE')));
+
+  const fake = await copySuite();
+  await rename(path.join(fake, 'qie'), path.join(fake, 'qie-fake'));
+  {
+    const filename = path.join(fake, 'qie-fake/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(filename, 'utf8'));
+    manifest.skill_id = 'qie-fake';
+    await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  await recompute(fake, [...releasedSkills.filter((name) => name !== 'qie'), 'qie-fake']);
+  const fakeReport = await inspectInstalledRelease(fake, { requireSuite: true });
+  assert.notEqual(fakeReport.status, 'COHERENT_FULL_SUITE');
+  assert.ok(fakeReport.problems.some((problem) => problem.startsWith('MISSING_SKILLS: qie')));
+  assert.ok(fakeReport.ignored.includes('qie-fake'));
+  const fakeCli = runNodeResult([verifier, '--root', fake, '--expect-suite', '--json']);
+  assert.equal(fakeCli.status, 1, fakeCli.stdout + fakeCli.stderr);
+  assert.ok(JSON.parse(fakeCli.stdout).problems.some((problem) => problem.startsWith('MISSING_SKILLS: qie')));
+
+  const badFrontmatter = await copySuite();
+  {
+    const filename = path.join(badFrontmatter, 'qie/SKILL.md');
+    const content = (await readFile(filename, 'utf8')).replace(/^name: qie$/m, 'name: not-qie');
+    await writeFile(filename, content);
+    const manifestFilename = path.join(badFrontmatter, 'qie/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(manifestFilename, 'utf8'));
+    manifest.files.find((file) => file.path === 'SKILL.md').sha256 = sha256(content);
+    await writeFile(manifestFilename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  const badFrontmatterReport = await inspectInstalledRelease(badFrontmatter);
+  assert.equal(badFrontmatterReport.status, 'REJECTED');
+  assert.ok(badFrontmatterReport.problems.some((problem) => problem.startsWith('INVALID_SKILL_FRONTMATTER qie')));
+
+  const selfConsistent = await copySuite();
+  {
+    const filename = path.join(selfConsistent, 'qie-networks/references/scope.md');
+    await appendFile(filename, '\nSELF-CONSISTENT BUT UNTRUSTED\n');
+    const manifestFilename = path.join(selfConsistent, 'qie-networks/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(manifestFilename, 'utf8'));
+    manifest.files.find((file) => file.path === 'references/scope.md').sha256 = sha256(await readFile(filename));
+    await writeFile(manifestFilename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  const fakeId = await recompute(selfConsistent, releasedSkills);
+  assert.notEqual(fakeId, originalId);
+  const selfConsistentReport = await inspectInstalledRelease(selfConsistent);
+  assert.equal(selfConsistentReport.status, 'COHERENT_FULL_SUITE');
+  assert.equal(selfConsistentReport.publisherAuthenticity, 'NOT_ESTABLISHED');
+  assert.equal(selfConsistentReport.identitySource, 'recomputed');
+  const pinnedWrong = await inspectInstalledRelease(selfConsistent, { expectedReleaseId: originalId });
+  assert.ok(pinnedWrong.problems.some((problem) => problem.startsWith('EXPECTED_RELEASE_ID_MISMATCH')));
+  assert.equal(pinnedWrong.publisherAuthenticity, 'MISMATCH');
+  const pinnedRight = await inspectInstalledRelease(selfConsistent, { expectedReleaseId: fakeId });
+  assert.deepEqual(pinnedRight.problems, []);
+  assert.equal(pinnedRight.publisherAuthenticity, 'PINNED_MATCH');
+});
+
+test('verification coexists with unrelated skills and validates Claude Code symlink and copy projections', async (t) => {
+  const project = await buildFixture(t);
+  const source = path.join(project, 'skills');
+  const validProjection = async () => {
+    const root = await temporaryDirectory(t, 'qie-forge-b09-projection-');
+    const canonical = path.join(root, '.agents', 'skills');
+    const claude = path.join(root, '.claude', 'skills');
+    await mkdir(canonical, { recursive: true });
+    await mkdir(claude, { recursive: true });
+    await cp(source, canonical, { recursive: true });
+    await mkdir(path.join(canonical, 'other-skill'), { recursive: true });
+    await writeFile(path.join(canonical, 'other-skill/SKILL.md'), '---\nname: other-skill\ndescription: unrelated skill\n---\n');
+    for (const name of releasedSkills) {
+      await symlink(path.join('../../.agents/skills', name), path.join(claude, name));
+    }
+    await mkdir(path.join(claude, 'other-skill'), { recursive: true });
+    await writeFile(path.join(claude, 'other-skill/SKILL.md'), '---\nname: other-skill\ndescription: unrelated skill\n---\n');
+    return { root, canonical, claude };
+  };
+
+  const symlinkCase = await validProjection();
+  const symlinkReport = await inspectInstalledRelease(symlinkCase.canonical);
+  assert.equal(symlinkReport.status, 'COHERENT_FULL_SUITE');
+  assert.deepEqual(symlinkReport.problems, []);
+  assert.equal(symlinkReport.projections.length, 9);
+  assert.ok(symlinkReport.projections.every((projection) => projection.valid));
+  assert.ok(symlinkReport.ignored.includes('other-skill'));
+  const cli = runNodeResult([verifier, '--root', symlinkCase.canonical, '--json'], {
+    env: isolatedEnvironment(symlinkCase.root),
+  });
+  assert.equal(cli.status, 0, cli.stdout + cli.stderr);
+  assert.equal(JSON.parse(cli.stdout).status, 'COHERENT_FULL_SUITE');
+  const explicitCli = runNodeResult([verifier, '--root', symlinkCase.canonical,
+    '--claude-root', symlinkCase.claude, '--json'], { env: isolatedEnvironment(symlinkCase.root) });
+  assert.equal(explicitCli.status, 0, explicitCli.stdout + explicitCli.stderr);
+  assert.equal(JSON.parse(explicitCli.stdout).projections.length, 9);
+
+  const codexOnly = await temporaryDirectory(t, 'qie-forge-b09-codex-only-');
+  const codexCanonical = path.join(codexOnly, '.agents', 'skills');
+  const codexClaude = path.join(codexOnly, '.claude', 'skills');
+  await mkdir(codexCanonical, { recursive: true });
+  await mkdir(codexClaude, { recursive: true });
+  await cp(source, codexCanonical, { recursive: true });
+  await mkdir(path.join(codexClaude, 'other-skill'), { recursive: true });
+  await writeFile(path.join(codexClaude, 'other-skill/SKILL.md'), '---\nname: other-skill\ndescription: unrelated skill\n---\n');
+  const codexOnlyReport = await inspectInstalledRelease(codexCanonical);
+  assert.equal(codexOnlyReport.status, 'COHERENT_FULL_SUITE');
+  assert.deepEqual(codexOnlyReport.problems, []);
+  assert.equal(codexOnlyReport.projections.length, 0);
+
+  const copyCase = await validProjection();
+  await rm(copyCase.claude, { recursive: true, force: true });
+  await mkdir(copyCase.claude, { recursive: true });
+  for (const name of releasedSkills) await cp(path.join(copyCase.canonical, name), path.join(copyCase.claude, name), { recursive: true });
+  const copyReport = await inspectInstalledRelease(copyCase.canonical);
+  assert.equal(copyReport.status, 'COHERENT_FULL_SUITE');
+  assert.ok(copyReport.projections.every((projection) => projection.kind === 'copy' && projection.valid));
+
+  const broken = await validProjection();
+  await rm(path.join(broken.claude, 'qie'));
+  await symlink('../../missing/qie', path.join(broken.claude, 'qie'));
+  const brokenReport = await inspectInstalledRelease(broken.canonical);
+  assert.ok(brokenReport.problems.some((problem) => problem.startsWith('BROKEN_CLAUDE_PROJECTION qie')));
+  assert.doesNotMatch(brokenReport.problems.join('\n'), /other-skill/);
+  const noClaudeCli = runNodeResult([verifier, '--root', broken.canonical, '--no-claude', '--json'],
+    { env: isolatedEnvironment(broken.root) });
+  assert.equal(noClaudeCli.status, 0, noClaudeCli.stdout + noClaudeCli.stderr);
+  assert.equal(JSON.parse(noClaudeCli.stdout).projections.length, 0);
+
+  const misdirected = await validProjection();
+  await rm(path.join(misdirected.claude, 'qie'));
+  await symlink('../../.agents/skills/qie-networks', path.join(misdirected.claude, 'qie'));
+  const misdirectedReport = await inspectInstalledRelease(misdirected.canonical);
+  assert.ok(misdirectedReport.problems.some((problem) => problem.startsWith('MISDIRECTED_CLAUDE_PROJECTION qie')));
+
+  const absolute = await validProjection();
+  await rm(path.join(absolute.claude, 'qie'));
+  await symlink(path.join(absolute.canonical, 'qie'), path.join(absolute.claude, 'qie'));
+  const absoluteReport = await inspectInstalledRelease(absolute.canonical);
+  assert.ok(absoluteReport.problems.some((problem) => problem.startsWith('ABSOLUTE_CLAUDE_LINK qie')));
+
+  const staleCopy = await validProjection();
+  await rm(path.join(staleCopy.claude, 'qie'));
+  await cp(path.join(staleCopy.canonical, 'qie'), path.join(staleCopy.claude, 'qie'), { recursive: true });
+  await appendFile(path.join(staleCopy.claude, 'qie/SKILL.md'), '\nSTALE COPY\n');
+  const staleReport = await inspectInstalledRelease(staleCopy.canonical);
+  assert.ok(staleReport.problems.some((problem) => problem.startsWith('CLAUDE_COPY_MISMATCH qie')));
+
+  const staleManifest = await validProjection();
+  await rm(path.join(staleManifest.claude, 'qie'));
+  await cp(path.join(staleManifest.canonical, 'qie'), path.join(staleManifest.claude, 'qie'), { recursive: true });
+  {
+    const filename = path.join(staleManifest.claude, 'qie/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(filename, 'utf8'));
+    manifest.built_at = '2026-10-18T00:00:00Z';
+    await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  const staleManifestReport = await inspectInstalledRelease(staleManifest.canonical);
+  assert.ok(staleManifestReport.problems.some((problem) => problem.startsWith('CLAUDE_COPY_MISMATCH qie')));
+
+  const unrelatedBroken = await validProjection();
+  await symlink('../../missing/other-skill', path.join(unrelatedBroken.claude, 'unrelated-link'));
+  const unrelatedReport = await inspectInstalledRelease(unrelatedBroken.canonical);
+  assert.deepEqual(unrelatedReport.problems, []);
+
+  const onlyUnrelated = await temporaryDirectory(t, 'qie-forge-b09-unrelated-');
+  await mkdir(path.join(onlyUnrelated, 'other-skill'), { recursive: true });
+  await writeFile(path.join(onlyUnrelated, 'other-skill/SKILL.md'), '---\nname: other-skill\ndescription: unrelated skill\n---\n');
+  const onlyUnrelatedReport = await inspectInstalledRelease(onlyUnrelated);
+  assert.ok(onlyUnrelatedReport.problems.some((problem) => problem.startsWith('NO_QIE_SKILLS')));
+  assert.ok(!onlyUnrelatedReport.problems.some((problem) => problem.includes('other-skill')));
+
+  const symlinkRoot = await temporaryDirectory(t, 'qie-forge-b09-root-link-');
+  await symlink(path.join(source, 'qie'), path.join(symlinkRoot, 'qie'));
+  const symlinkRootReport = await inspectInstalledRelease(symlinkRoot);
+  assert.ok(symlinkRootReport.problems.some((problem) => problem.startsWith('UNSAFE_BUNDLE_SYMLINK qie')));
+  assert.ok(!symlinkRootReport.problems.some((problem) => problem.startsWith('NO_QIE_SKILLS')));
 });

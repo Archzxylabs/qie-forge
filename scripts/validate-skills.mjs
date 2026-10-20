@@ -4,6 +4,7 @@ import { loadKnowledge } from './lib/knowledge.mjs';
 import { loadValidators } from './lib/schemas.mjs';
 import { validateBundle } from './lib/bundle.mjs';
 import { computeReleaseId, readBundleInventory } from './lib/release-identity.mjs';
+import { CANONICAL_SKILLS } from './lib/release-contract.mjs';
 
 try {
   const root = process.cwd();
@@ -16,6 +17,10 @@ try {
   if (!skills.length) throw new Error('No published skill');
 
   const enabled = data.skills.filter((skill) => skill.enabled_for_release).map((skill) => skill.skill_id).sort();
+  const canonical = [...CANONICAL_SKILLS].sort();
+  if (JSON.stringify(enabled) !== JSON.stringify(canonical)) {
+    throw new Error(`Enabled skill set differs from the canonical verifier contract: enabled ${enabled.join(', ')}; canonical ${canonical.join(', ')}`);
+  }
   if (JSON.stringify(skills) !== JSON.stringify(enabled)) {
     throw new Error(`Published skill set differs from enabled catalogue: published ${skills.join(', ')}; enabled ${enabled.join(', ')}`);
   }

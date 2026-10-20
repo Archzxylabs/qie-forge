@@ -46,6 +46,11 @@ for (const copy of [false, true]) {
       assert.deepEqual(report.problems, []);
       assert.equal(report.releaseId, sourceReleaseId);
       assert.equal(report.status, expectedSkills.length === 9 ? 'COHERENT_FULL_SUITE' : 'COHERENT_PARTIAL');
+      assert.equal(report.publisherAuthenticity, 'NOT_ESTABLISHED');
+      assert.equal(report.identitySource, expectedSkills.length === 9 ? 'recomputed' : 'manifest');
+      assert.equal(report.projections.length, expectedSkills.length);
+      assert.ok(report.projections.every((projection) => projection.valid
+        && projection.kind === (copy ? 'copy' : 'symlink')));
       for (const name of expectedSkills) {
         const canonical = path.join(canonicalRoot, name);
         const claude = path.join(claudeRoot, name);
