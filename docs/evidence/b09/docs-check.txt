@@ -1,6 +1,6 @@
 # QIE Forge B09 verification — docs-check
-# node v24.20.0 / UTC 2026-10-20T06:16:46Z
-# commit: c1253b972feb4f34719da85b75e6c4b1b6e6a163
+# node v24.20.0 / UTC 2026-10-20T07:56:25Z
+# commit: ceed1c88c9dc982e1dac09161e94e957f24cbb95
 # command: npm run docs:check
 
 Evidence catalogue matches canonical knowledge records.

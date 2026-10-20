@@ -6,6 +6,7 @@
 **Release identity:** `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
 **Toolchain:** Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`, Node test runner with process isolation disabled
 **Independent audit:** [B09 source and adversarial audit](audit/QIE-FORGE-B09-independent-audit.md) reproduced three P1 verifier defects and one P2 metadata-validation gap at commit `12c5759`. The three P1 findings and P2-01 are remediated with regression tests; P2-02 is addressed by a fresh clean-commit gate/evidence run; P2-03 remains part of the PARTIAL verdict because the separate remote-distribution acceptance test has not run against B09.
+**Implementation commit under test:** `ceed1c88c9dc982e1dac09161e94e957f24cbb95` (the evidence logs in `docs/evidence/b09/` record this commit; the following docs/evidence commit records these logs and changes no implementation file).
 **Verdict:** **B09 PARTIAL** — local smart-HTTP Git and authenticated private GitHub installs pass the tested matrix; no B09 commit, tag, release or public source was published, so remote B09 distribution and public installation remain unproven.
 
 ## 1. Scope and result
