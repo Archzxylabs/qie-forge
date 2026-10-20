@@ -77,7 +77,12 @@ if (options.json) {
   console.log(`Installed release: ${report.releaseVersion ?? 'UNKNOWN'} (schema ${report.schemaVersion ?? 'UNKNOWN'})`);
   console.log(`Built at: ${report.builtAt ?? 'UNKNOWN'}`);
   console.log(`Release identity: ${report.releaseId ?? 'UNKNOWN'} (${report.identitySource})`);
-  console.log(`Publisher authenticity: ${report.publisherAuthenticity}`);
+  console.log(`Inventory complete: ${report.inventoryComplete}`);
+  console.log(`Payload integrity: ${report.payloadIntegrity}`);
+  console.log(`Release coherence: ${report.releaseCoherence}`);
+  console.log(`Provenance: ${report.provenance?.validation ?? 'UNAVAILABLE'} (manifest metadata authenticated: ${report.provenance?.manifestMetadataAuthenticated === true})`);
+  console.log(`Publisher authenticity: ${report.publisherAuthenticity} (${report.authenticityScope})`);
+  console.log(`Verification complete: ${report.verificationComplete} (suiteComplete: ${report.suiteComplete})`);
   console.log(`Installed skills: ${report.skills.length}`);
   for (const skill of report.skills) {
     console.log(`  ${skill.valid ? 'OK' : 'FAIL'} ${skill.name} ${skill.release_version ?? 'UNKNOWN'} ${String(skill.release_id ?? 'NO_RELEASE_ID').slice(0, 12)}`);

@@ -77,6 +77,62 @@ function inventoryMap(inventory) {
   return new Map(files.map((file) => [file.path, file.sha256]));
 }
 
+// Problem families used to keep the three trust claims separate in the report:
+// payload integrity covers digest-verified non-manifest bytes, release
+// coherence covers the remaining structural/metadata/projection contract, and
+// publisher authenticity is a pinned-identity comparison that the payload hash
+// cannot establish by itself.
+const PAYLOAD_PROBLEM_PREFIXES = Object.freeze([
+  'HASH_MISMATCH',
+  'MISSING_FILE',
+  'UNEXPECTED_FILE',
+  'UNREADABLE_FILE',
+  'UNREADABLE_BUNDLE',
+  'OVERSIZED_SNAPSHOT',
+  'OVERSIZED_BUNDLE',
+  'KNOWLEDGE_HASH_MISMATCH',
+  'POLICY_HASH_MISMATCH',
+  'SNAPSHOT_NOT_IN_MANIFEST',
+  'SNAPSHOT_NOT_IN_BUNDLE',
+  'UNSAFE_MANIFEST_PATH',
+  'UNSAFE_SNAPSHOT_PATH',
+  'UNREADABLE_SNAPSHOT',
+]);
+
+const AUTHENTICITY_PROBLEM_PREFIXES = Object.freeze(['EXPECTED_RELEASE_ID_']);
+const PROVENANCE_SOURCE = 'SNAPSHOT_SOURCES';
+
+function provenanceFromSnapshot(snapshot, manifest, name) {
+  const sourcesCheckedAt = manifest.sources_checked_at ?? null;
+  if (!Array.isArray(snapshot?.sources)) {
+    return {
+      provenance: { sourcesCheckedAt, derivedSourcesCheckedAt: null, validation: 'UNAVAILABLE' },
+      problems: [`PROVENANCE_UNVERIFIABLE ${name}: snapshot does not expose selected source records`],
+    };
+  }
+  const reviews = snapshot.sources.map((source) => source?.reviewed_at ?? null);
+  const invalid = reviews.filter((value) => value !== null && !timestamp(value));
+  const complete = reviews.length > 0 && reviews.every((value) => timestamp(value));
+  const derivedSourcesCheckedAt = complete ? [...reviews].sort()[0] : null;
+  const problems = [];
+  if (invalid.length) {
+    problems.push(`INVALID_SOURCE_TIMESTAMP ${name}: selected source review timestamps must be null or UTC`);
+  }
+  if (derivedSourcesCheckedAt !== sourcesCheckedAt) {
+    problems.push(`SOURCES_CHECKED_AT_MISMATCH ${name}: manifest provenance does not match the selected snapshot sources`);
+  }
+  if (complete && timestamp(manifest.built_at)) {
+    const built = Date.parse(manifest.built_at);
+    if (reviews.some((value) => Date.parse(value) > built)) {
+      problems.push(`SOURCE_REVIEW_AFTER_BUILD ${name}: selected source review timestamps follow built_at`);
+    }
+  }
+  return {
+    provenance: { sourcesCheckedAt, derivedSourcesCheckedAt, validation: problems.length ? 'MISMATCH' : 'MATCH' },
+    problems,
+  };
+}
+
 async function inspectProjection(canonicalRoot, projectionRoot, skill) {
   const problems = [];
   const projection = path.join(projectionRoot, skill.name);
@@ -206,6 +262,7 @@ async function inspectProjections(canonicalRoot, projectionRoot, skills, require
 
 async function inspectBundle(root, name) {
   const problems = [];
+  let provenance = null;
   const directory = path.join(root, name);
   let info;
   try {
@@ -376,6 +433,9 @@ async function inspectBundle(root, name) {
       if (snapshot.schema_version !== manifest.schema_version) {
         problems.push(`SNAPSHOT_SCHEMA_MISMATCH ${name}: snapshot schema version does not match the manifest`);
       }
+      const provenanceCheck = provenanceFromSnapshot(snapshot, manifest, name);
+      provenance = provenanceCheck.provenance;
+      problems.push(...provenanceCheck.problems);
     } catch {
       // Never echo parser excerpts or file content from an untrusted snapshot.
       problems.push(`UNREADABLE_SNAPSHOT ${name}: snapshot is invalid or unreadable`);
@@ -385,7 +445,7 @@ async function inspectBundle(root, name) {
   if (!Object.hasOwn(manifest, 'release_id')) {
     problems.push(`LEGACY_RELEASE_ID ${name}: installed manifest predates B09 release identity; reinstall from the same source`);
   }
-  return { name, problems: [...new Set(problems)], manifest, inventory };
+  return { name, problems: [...new Set(problems)], manifest, inventory, provenance };
 }
 
 function emptyReport(root, problems) {
@@ -395,6 +455,16 @@ function emptyReport(root, problems) {
     problems,
     skills: [],
     projections: [],
+    inventoryComplete: false,
+    payloadIntegrity: 'UNVERIFIED',
+    releaseCoherence: 'INCOHERENT',
+    provenance: {
+      source: PROVENANCE_SOURCE,
+      manifestMetadataAuthenticated: false,
+      validation: 'UNAVAILABLE',
+      skills: [],
+    },
+    verificationComplete: false,
     suiteComplete: false,
     releaseId: null,
     releaseVersion: null,
@@ -402,6 +472,7 @@ function emptyReport(root, problems) {
     builtAt: null,
     identitySource: 'unverified',
     publisherAuthenticity: 'NOT_ESTABLISHED',
+    authenticityScope: 'PAYLOAD_IDENTITY_ONLY',
     ignored: [],
   };
 }
@@ -505,8 +576,6 @@ export async function inspectInstalledRelease(root, {
   const fullInventory = skills.length === CANONICAL_SKILLS.length
     && canonicalMissing.length === 0
     && skills.every((skill) => skill.inventory);
-  let suiteComplete = fullInventory && Boolean(releaseVersion && schemaVersion && builtAt)
-    && skills.every((skill) => skill.problems.length === 0);
   if (fullInventory && releaseVersion && schemaVersion && builtAt) {
     const computed = computeReleaseId({
       release: { release_version: releaseVersion, schema_version: schemaVersion, built_at: builtAt },
@@ -545,13 +614,39 @@ export async function inspectInstalledRelease(root, {
     const result = await inspectProjections(rootPath, projectionRoot, skills, projectionRequired);
     projections = result.projections;
     problems.push(...result.problems);
-    if (result.problems.length) suiteComplete = false;
   }
 
   const uniqueProblems = [...new Set(problems)];
+  const payloadProblems = uniqueProblems.filter((problem) => PAYLOAD_PROBLEM_PREFIXES
+    .some((prefix) => problem.startsWith(prefix)));
+  const allInventories = skills.length > 0 && skills.every((skill) => skill.inventory);
+  const payloadIntegrity = payloadProblems.length ? 'FAILED' : allInventories ? 'VERIFIED' : 'UNVERIFIED';
+  const coherenceProblems = uniqueProblems.filter((problem) => !AUTHENTICITY_PROBLEM_PREFIXES
+    .some((prefix) => problem.startsWith(prefix)));
+  const releaseCoherence = coherenceProblems.length ? 'INCOHERENT' : 'COHERENT';
+  const inventoryComplete = fullInventory;
+  const verificationComplete = fullInventory && uniqueProblems.length === 0;
+  // Backward-compatible alias. It no longer means "the directory shape looks
+  // full": it is false for every rejected installation, including a trusted
+  // pin mismatch, mixed identities or a broken projection.
+  const suiteComplete = verificationComplete;
+  const provenanceSkills = skills.map((skill) => ({
+    name: skill.name,
+    sourcesCheckedAt: skill.manifest?.sources_checked_at ?? null,
+    derivedSourcesCheckedAt: skill.provenance?.derivedSourcesCheckedAt ?? null,
+    validation: skill.provenance?.validation ?? 'UNAVAILABLE',
+  }));
+  const provenanceValidation = provenanceSkills.length === 0
+    ? 'UNAVAILABLE'
+    : provenanceSkills.every((entry) => entry.validation === 'MATCH')
+      ? 'MATCH'
+      : provenanceSkills.some((entry) => entry.validation === 'MISMATCH')
+        ? 'MISMATCH'
+        : 'UNAVAILABLE';
+
   return {
     root,
-    status: uniqueProblems.length ? 'REJECTED' : suiteComplete ? 'COHERENT_FULL_SUITE' : 'COHERENT_PARTIAL',
+    status: uniqueProblems.length ? 'REJECTED' : verificationComplete ? 'COHERENT_FULL_SUITE' : 'COHERENT_PARTIAL',
     problems: uniqueProblems,
     skills: skills.map((skill) => ({
       name: skill.name,
@@ -559,11 +654,22 @@ export async function inspectInstalledRelease(root, {
       release_version: skill.manifest?.release_version ?? null,
       schema_version: skill.manifest?.schema_version ?? null,
       built_at: skill.manifest?.built_at ?? null,
+      sources_checked_at: skill.manifest?.sources_checked_at ?? null,
       files: skill.inventory?.length ?? null,
       valid: skill.problems.length === 0,
       problems: [...new Set(skill.problems)],
     })),
     projections,
+    inventoryComplete,
+    payloadIntegrity,
+    releaseCoherence,
+    provenance: {
+      source: PROVENANCE_SOURCE,
+      manifestMetadataAuthenticated: false,
+      validation: provenanceValidation,
+      skills: provenanceSkills,
+    },
+    verificationComplete,
     suiteComplete,
     releaseId,
     releaseVersion,
@@ -571,6 +677,7 @@ export async function inspectInstalledRelease(root, {
     builtAt,
     identitySource,
     publisherAuthenticity,
+    authenticityScope: 'PAYLOAD_IDENTITY_ONLY',
     ignored,
   };
 }

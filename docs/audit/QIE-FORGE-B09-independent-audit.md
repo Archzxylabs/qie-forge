@@ -11,7 +11,7 @@
 - Independently recomputed the suite SHA-256 using the published canonical-input algorithm and Node `localeCompare('en')` path ordering: **`b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`**, matching all nine manifests.
 - Reproduced adversarial verifier behavior in isolated temporary directories, using a minimal, import-only YAML shim because the review environment has **Node v22.16.0**, whereas the project requires **Node v24.20.0**, and npm dependencies were not available offline. The YAML parsing functionality was **not** used by the verifier in these tests. No installed user skills, GitHub branches or remote sources were changed.
 - Inspected preserved evidence that reports **277/277 unit/integration tests**, **20/20 local installer tests** and **8/8 named B09 gates** from implementation commit `c1253b9`. These numbers were **not independently re-executed** using the pinned full toolchain; the archive has no `node_modules` and the required npm tarballs were not cached. The final archive's HEAD is claimed to be `12c5759`, not the commit shown in the saved test logs.
-- Static scan of extracted source found no unwanted third-party-research branding matching `monskills` or `therealharpaljadeja`.
+- Static scan of extracted source found no excluded third-party-research project or owner identifiers.
 - The ZIP does **not** contain `dist/skills/` (ignored generated output), so byte parity of staging/publication can be evaluated from the preserved build logs, but not independently reproduced from archive alone in this environment.
 
 ## P1 — Required remediation

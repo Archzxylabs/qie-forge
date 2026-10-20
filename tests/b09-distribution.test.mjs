@@ -749,9 +749,129 @@ test('full-suite verification uses the exact canonical inventory, checks frontma
   const pinnedWrong = await inspectInstalledRelease(selfConsistent, { expectedReleaseId: originalId });
   assert.ok(pinnedWrong.problems.some((problem) => problem.startsWith('EXPECTED_RELEASE_ID_MISMATCH')));
   assert.equal(pinnedWrong.publisherAuthenticity, 'MISMATCH');
+  assert.equal(pinnedWrong.suiteComplete, false);
+  assert.equal(pinnedWrong.inventoryComplete, true);
   const pinnedRight = await inspectInstalledRelease(selfConsistent, { expectedReleaseId: fakeId });
   assert.deepEqual(pinnedRight.problems, []);
   assert.equal(pinnedRight.publisherAuthenticity, 'PINNED_MATCH');
+});
+
+test('rejected reports never claim suite completion and manifest provenance is checked against snapshot sources', async (t) => {
+  const project = await buildFixture(t);
+  const source = path.join(project, 'skills');
+  const originalId = (await readManifest(path.join(source, 'qie'))).release_id;
+  const copySuite = async () => {
+    const root = await temporaryDirectory(t, 'qie-forge-b09-reporting-');
+    await cp(source, root, { recursive: true });
+    return root;
+  };
+
+  const full = await copySuite();
+  const fullReport = await inspectInstalledRelease(full, { requireSuite: true, expectedReleaseId: originalId });
+  assert.deepEqual(fullReport.problems, []);
+  assert.equal(fullReport.status, 'COHERENT_FULL_SUITE');
+  assert.equal(fullReport.inventoryComplete, true);
+  assert.equal(fullReport.payloadIntegrity, 'VERIFIED');
+  assert.equal(fullReport.releaseCoherence, 'COHERENT');
+  assert.equal(fullReport.provenance.validation, 'MATCH');
+  assert.equal(fullReport.provenance.manifestMetadataAuthenticated, false);
+  assert.equal(fullReport.verificationComplete, true);
+  assert.equal(fullReport.suiteComplete, true);
+  assert.equal(fullReport.authenticityScope, 'PAYLOAD_IDENTITY_ONLY');
+
+  const wrongPin = await inspectInstalledRelease(full, { requireSuite: true, expectedReleaseId: '0'.repeat(64) });
+  assert.equal(wrongPin.status, 'REJECTED');
+  assert.equal(wrongPin.inventoryComplete, true);
+  assert.equal(wrongPin.payloadIntegrity, 'VERIFIED');
+  assert.equal(wrongPin.releaseCoherence, 'COHERENT');
+  assert.equal(wrongPin.publisherAuthenticity, 'MISMATCH');
+  assert.equal(wrongPin.verificationComplete, false);
+  assert.equal(wrongPin.suiteComplete, false);
+
+  const invalidSchema = await copySuite();
+  {
+    const filename = path.join(invalidSchema, 'qie/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(filename, 'utf8'));
+    manifest.schema_version = '9.9.9';
+    await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  const invalidSchemaReport = await inspectInstalledRelease(invalidSchema, { requireSuite: true });
+  assert.equal(invalidSchemaReport.status, 'REJECTED');
+  // The nine bundles and their file inventories are structurally complete even
+  // though the unsupported schema makes the release incoherent.
+  assert.equal(invalidSchemaReport.inventoryComplete, true);
+  assert.equal(invalidSchemaReport.payloadIntegrity, 'VERIFIED');
+  assert.equal(invalidSchemaReport.releaseCoherence, 'INCOHERENT');
+  assert.equal(invalidSchemaReport.verificationComplete, false);
+  assert.equal(invalidSchemaReport.suiteComplete, false);
+
+  const other = await buildFixture(t);
+  await appendAuthoringMarker(other, 'B09 P2 MIXED IDENTITY');
+  await buildRelease(other);
+  const mixed = await copySuite();
+  await rm(path.join(mixed, 'qie-networks'), { recursive: true, force: true });
+  await cp(path.join(other, 'skills/qie-networks'), path.join(mixed, 'qie-networks'), { recursive: true });
+  const mixedReport = await inspectInstalledRelease(mixed, { requireSuite: true });
+  assert.equal(mixedReport.status, 'REJECTED');
+  assert.ok(mixedReport.problems.some((problem) => problem.startsWith('MIXED_RELEASE_ID')));
+  assert.equal(mixedReport.inventoryComplete, true);
+  assert.equal(mixedReport.payloadIntegrity, 'VERIFIED');
+  assert.equal(mixedReport.releaseCoherence, 'INCOHERENT');
+  assert.equal(mixedReport.verificationComplete, false);
+  assert.equal(mixedReport.suiteComplete, false);
+
+  const projectionCase = await temporaryDirectory(t, 'qie-forge-b09-reporting-projection-');
+  const canonical = path.join(projectionCase, '.agents', 'skills');
+  const claude = path.join(projectionCase, '.claude', 'skills');
+  await mkdir(canonical, { recursive: true });
+  await mkdir(claude, { recursive: true });
+  await cp(source, canonical, { recursive: true });
+  for (const name of releasedSkills) {
+    await symlink(path.join('../../.agents/skills', name), path.join(claude, name));
+  }
+  await rm(path.join(claude, 'qie'));
+  await symlink('../../missing/qie', path.join(claude, 'qie'));
+  const projectionReport = await inspectInstalledRelease(canonical, { requireSuite: true });
+  assert.equal(projectionReport.status, 'REJECTED');
+  assert.ok(projectionReport.problems.some((problem) => problem.startsWith('BROKEN_CLAUDE_PROJECTION qie')));
+  assert.equal(projectionReport.inventoryComplete, true);
+  assert.equal(projectionReport.payloadIntegrity, 'VERIFIED');
+  assert.equal(projectionReport.releaseCoherence, 'INCOHERENT');
+  assert.equal(projectionReport.verificationComplete, false);
+  assert.equal(projectionReport.suiteComplete, false);
+
+  const provenanceMutated = await copySuite();
+  const provenanceManifestPath = path.join(provenanceMutated, 'qie/MANIFEST.json');
+  const provenanceManifest = JSON.parse(await readFile(provenanceManifestPath, 'utf8'));
+  assert.notEqual(provenanceManifest.sources_checked_at, provenanceManifest.built_at);
+  provenanceManifest.sources_checked_at = provenanceManifest.built_at;
+  await writeFile(provenanceManifestPath, `${JSON.stringify(provenanceManifest, null, 2)}\n`);
+  const provenanceReport = await inspectInstalledRelease(provenanceMutated, {
+    requireSuite: true,
+    expectedReleaseId: originalId,
+  });
+  assert.equal(provenanceReport.status, 'REJECTED');
+  assert.ok(provenanceReport.problems.some((problem) => problem.startsWith('SOURCES_CHECKED_AT_MISMATCH qie')));
+  assert.equal(provenanceReport.inventoryComplete, true);
+  assert.equal(provenanceReport.payloadIntegrity, 'VERIFIED');
+  assert.equal(provenanceReport.releaseCoherence, 'INCOHERENT');
+  assert.equal(provenanceReport.publisherAuthenticity, 'PINNED_MATCH');
+  assert.equal(provenanceReport.authenticityScope, 'PAYLOAD_IDENTITY_ONLY');
+  assert.equal(provenanceReport.provenance.manifestMetadataAuthenticated, false);
+  assert.equal(provenanceReport.provenance.validation, 'MISMATCH');
+  assert.equal(provenanceReport.verificationComplete, false);
+  assert.equal(provenanceReport.suiteComplete, false);
+
+  const provenanceNull = await copySuite();
+  {
+    const filename = path.join(provenanceNull, 'qie/MANIFEST.json');
+    const manifest = JSON.parse(await readFile(filename, 'utf8'));
+    manifest.sources_checked_at = null;
+    await writeFile(filename, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
+  const nullReport = await inspectInstalledRelease(provenanceNull, { requireSuite: true });
+  assert.ok(nullReport.problems.some((problem) => problem.startsWith('SOURCES_CHECKED_AT_MISMATCH qie')));
+  assert.equal(nullReport.suiteComplete, false);
 });
 
 test('verification coexists with unrelated skills and validates Claude Code symlink and copy projections', async (t) => {

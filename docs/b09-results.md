@@ -5,9 +5,9 @@
 **Release:** `0.5.1-ecosystem.1` (unchanged), schema/policy `1.4.0` (unchanged)
 **Release identity:** `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
 **Toolchain:** Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`, Node test runner with process isolation disabled
-**Independent audit:** [B09 source and adversarial audit](audit/QIE-FORGE-B09-independent-audit.md) reproduced three P1 verifier defects and one P2 metadata-validation gap at commit `12c5759`. The three P1 findings and P2-01 are remediated with regression tests; P2-02 is addressed by a fresh clean-commit gate/evidence run; P2-03 remains part of the PARTIAL verdict because the separate remote-distribution acceptance test has not run against B09.
-**Implementation commit under test:** `ceed1c88c9dc982e1dac09161e94e957f24cbb95` (the evidence logs in `docs/evidence/b09/` record this commit; the following docs/evidence commit records these logs and changes no implementation file).
-**Verdict:** **B09 PARTIAL** — local smart-HTTP Git and authenticated private GitHub installs pass the tested matrix; no B09 commit, tag, release or public source was published, so remote B09 distribution and public installation remain unproven.
+**Independent audits:** [B09 source and adversarial audit](audit/QIE-FORGE-B09-independent-audit.md) reproduced three P1 verifier defects and one P2 metadata-validation gap at commit `12c5759`. The [fixed-archive re-audit](audit/QIE-FORGE-B09-FIXED-independent-audit.md) confirmed those P1 fixes and identified three further P2 findings: contradictory `suiteComplete` reporting, unauthenticated manifest-only provenance metadata, and reintroduced upstream identifiers. All three are addressed here with regression coverage and documentation.
+**Implementation commit under test:** recorded in the `# commit:` header of every `docs/evidence/b09/` log (the evidence/docs commit that follows changes no implementation file).
+**Verdict:** **B09 PARTIAL** — local smart-HTTP Git and authenticated private GitHub installs pass the tested matrix; remote B09 distribution and public installation remain subject to the acceptance evidence in this report.
 
 ## 1. Scope and result
 
@@ -24,16 +24,18 @@ The implementation does **not** add a Forge installer, MCP server, backend, regi
 | Build | `scripts/lib/release.mjs` computes one identity per release cut and injects the same value into all nine manifests. A generated `release-info.md` explains the shared identity. |
 | Suite validation | `scripts/validate-skills.mjs` requires the published directory set to equal the enabled catalogue, requires all manifests to agree on version/schema/build/identity, and recomputes the identity from published bytes. |
 | Installed verification | `scripts/lib/installed-release.mjs` and `scripts/verify-installed-release.mjs` read an installation without modifying it, verify per-file hashes, knowledge and policy digests, snapshot schema and suite identity, and reject legacy, mixed, incomplete or malformed installations. Installed manifests are treated as untrusted: strict schema validation, published-snapshot enumeration, containment before reads, symlink rejection, size ceilings and redacted diagnostics replace the earlier loose path join. |
+| Reporting contract | `inventoryComplete` is structural; `payloadIntegrity` covers declared non-manifest file hashes; `releaseCoherence` covers schema, inventory, snapshot, provenance, identity and projection checks; `publisherAuthenticity` is scoped to payload identity only. `verificationComplete` requires a full canonical inventory and zero blocking problems, and the legacy `suiteComplete` field is a fail-closed alias of it. Rejected pins, mixed identities, invalid schemas and broken projections cannot report `suiteComplete: true`. |
 | Canonical suite contract | `scripts/lib/release-contract.mjs` is the trusted nine-name inventory used by the verifier and cross-checked against the enabled catalogue by `validate-skills.mjs`. `--expect-suite` requires those exact names; unrelated agent skills are ignored, malformed canonical bundles are rejected and `SKILL.md` frontmatter must name its directory. |
 | Agent projections | A sibling `.claude/skills` projection is checked automatically when it contains canonical QIE entries (or via `--claude-root`): symlinks must be relative and resolve to the exact canonical bundle; copied projections must match canonical bytes and `release_id`. Broken, absolute, misdirected and stale projections fail closed; unrelated-only Claude directories do not invalidate a Codex-only install. |
-| Authenticity boundary | `COHERENT_FULL_SUITE` is an internal-coherence verdict. `publisherAuthenticity` stays `NOT_ESTABLISHED` unless `--release-id` supplies a trusted pinned identity; only then is `PINNED_MATCH` or `MISMATCH` reported. |
-| Tests | `tests/b09-distribution.test.mjs` adds ten scenarios. `tests/installation.test.mjs` now checks installed identity, canonical scope and Claude copy/symlink projections in all twenty existing fixtures. Test support adds asynchronous child execution, a loopback smart-HTTP Git server and isolated CLI environments. |
+| Provenance boundary | The verifier derives `sources_checked_at` from the selected snapshot's `sources[].reviewed_at` records and rejects a manifest-only mutation with `SOURCES_CHECKED_AT_MISMATCH`. Because `MANIFEST.json` is outside the content address, `provenance.manifestMetadataAuthenticated` remains `false`; the cross-check proves consistency with payload data, not publisher authentication of the manifest field. |
+| Authenticity boundary | `COHERENT_FULL_SUITE` is an internal-coherence verdict. `publisherAuthenticity` stays `NOT_ESTABLISHED` unless `--release-id` supplies a trusted pinned identity; only then is `PINNED_MATCH` or `MISMATCH` reported. `authenticityScope: PAYLOAD_IDENTITY_ONLY` states that even a match does not authenticate manifest-only metadata or establish who published the tree. |
+| Tests | `tests/b09-distribution.test.mjs` adds eleven scenarios. `tests/installation.test.mjs` now checks installed identity, canonical scope and Claude copy/symlink projections in all twenty existing fixtures. Test support adds asynchronous child execution, a loopback smart-HTTP Git server and isolated CLI environments. |
 | Evidence | `scripts/verify-b09-evidence.mjs` runs the eight B09 gates in order, writes logs under `docs/evidence/b09/`, and checks this report's quoted numbers against the executed run. |
 | Version metadata | `package-lock.json` was aligned from `0.4.0-operational.1` to the declared `0.5.1-ecosystem.1`; no package version bump was made because canonical QIE knowledge did not change. |
 
 Published bytes remain nine self-contained skills, five recipes, 94 manifest file entries, 103 files in the published tree and one shared release identity. The generated `skills/` tree is byte-identical to a clean rebuild.
 
-`MANIFEST.json` is deliberately excluded from `release_id`, so metadata such as `generated`, `sources_checked_at`, `schema_version` and `release_version` is not itself content-addressed by that identity. The verifier validates those fields against the strict schema, the supported-schema contract and `built_at` chronology; it does not present them as authenticated file bytes. A caller that needs a trusted release assertion must pin the whole identity with `--release-id`.
+`MANIFEST.json` is deliberately excluded from `release_id`, so metadata such as `generated`, `sources_checked_at`, `schema_version` and `release_version` is not itself content-addressed by that identity. The verifier validates those fields against the strict schema, the supported-schema contract and `built_at` chronology, and independently derives `sources_checked_at` from the selected snapshot source reviews. It still does not present manifest metadata as authenticated bytes: `provenance.manifestMetadataAuthenticated` is `false`, and a trusted `--release-id` match only authenticates payload identity. A caller that needs authenticated manifest metadata must obtain it from a separately trusted manifest or signed canonical index.
 
 ## 3. Observed Skills CLI behavior
 
@@ -88,8 +90,10 @@ The local smart-HTTP fixtures use real Git clone/fetch and real ref resolution; 
 - Knowledge digest mismatch and policy digest mismatch.
 - Invalid or absent `release_id` (legacy path).
 - `generated` false or non-boolean, malformed `sources_checked_at`, and a source review timestamp later than `built_at`.
+- A manifest-only `sources_checked_at` mutation, including a value equal to `built_at` or `null`, producing `SOURCES_CHECKED_AT_MISMATCH` while payload integrity remains independently reported.
 - Unsupported individual schema version, in addition to mixed-schema detection.
-- Mixed release identities, versions, schemas or build timestamps.
+- Mixed release identities, versions, schemas or build timestamps, including a full nine-bundle tree with one replaced release identity.
+- Wrong trusted release-ID pin, invalid schema, and broken Claude projection all returning `suiteComplete: false` with `verificationComplete: false`.
 - Incomplete suite under `--expect-suite`, a renamed/fake nine-name inventory and a missing canonical router.
 - Missing `SKILL.md`, a manifest that omits it, invalid `SKILL.md` frontmatter or a frontmatter name that does not match its directory.
 - Unrelated agent skills beside the suite, including a broken unrelated symlink that must be ignored.
@@ -129,10 +133,10 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 | `npm run build:check` | PASS — byte-identical reproducible rebuild |
 | `npm run docs:check` | PASS — B08 evidence catalogue matches canonical knowledge |
 | `npm run lint` | PASS — JavaScript syntax checks |
-| `npm test` | PASS — **280/280**, 0 failed |
-| `npm run test:coverage` | PASS — **280/280**; **96.15% lines, 88.56% branches, 97.96% functions** |
+| `npm test` | PASS — **281/281**, 0 failed |
+| `npm run test:coverage` | PASS — **281/281**; **95.98% lines, 88.49% branches, 98.05% functions** |
 | `npm run test:install` | PASS — **20/20** installation fixtures |
-| B09 dedicated suite | PASS — 10/10 scenarios |
+| B09 dedicated suite | PASS — 11/11 scenarios |
 
 ## 8. Limitations and unresolved cases
 
@@ -151,7 +155,7 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 
 ## 9. B08 preservation and non-claims
 
-No file under `docs/evidence/b08/`, `docs/b08-results.md`, `docs/b08-remediation-results.md`, `docs/b08-final-integrity-results.md` or `docs/audit/` was rewritten. The B08 historical figures remain historical. B09 changes generated manifests and packaging metadata, so B08 installations are now correctly classified as legacy; that is a new packaging contract, not a retroactive change to B08 evidence.
+No file under `docs/evidence/b08/`, `docs/b08-results.md`, `docs/b08-remediation-results.md` or `docs/b08-final-integrity-results.md` was rewritten, and no B08 audit finding was changed. The B09 independent-audit prose was edited only to replace reintroduced upstream research identifiers with provenance-neutral language, preserving its dates, findings and negative-scan substance. The B08 historical figures remain historical. B09 changes generated manifests and packaging metadata, so B08 installations are now correctly classified as legacy; that is a new packaging contract, not a retroactive change to B08 evidence.
 
 B09 does not claim live QIE RPC, wallet connection, signing, broadcast, deployment, explorer verification, host/model workflow success, official `skills-ref` validation, public installation or production readiness.
 
