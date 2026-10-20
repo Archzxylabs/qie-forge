@@ -113,7 +113,7 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 | `npm run docs:check` | PASS — B08 evidence catalogue matches canonical knowledge |
 | `npm run lint` | PASS — JavaScript syntax checks |
 | `npm test` | PASS — **277/277**, 0 failed |
-| `npm run test:coverage` | PASS — **277/277**; **98.02% lines, 89.32% branches, 99.10% functions** |
+| `npm run test:coverage` | PASS — **277/277**; **98.02% lines, 89.33% branches, 99.10% functions** |
 | `npm run test:install` | PASS — **20/20** installation fixtures |
 | B09 dedicated suite | PASS — 7/7 scenarios |
 

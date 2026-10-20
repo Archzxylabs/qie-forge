@@ -1,0 +1,33 @@
+# QIE Forge B09 verification — installation
+# node v24.20.0 / UTC 2026-10-20T06:16:46Z
+# commit: c1253b972feb4f34719da85b75e6c4b1b6e6a163
+# command: npm run test:install
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (2725.249059ms)
+✔ Skills CLI installs qie in symlink mode into clean project fixtures (737.141292ms)
+✔ Skills CLI installs qie-debug in symlink mode into clean project fixtures (951.531063ms)
+✔ Skills CLI installs qie-deployment in symlink mode into clean project fixtures (965.262978ms)
+✔ Skills CLI installs qie-ecosystem in symlink mode into clean project fixtures (708.15476ms)
+✔ Skills CLI installs qie-frontend in symlink mode into clean project fixtures (1048.033154ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (957.010057ms)
+✔ Skills CLI installs qie-smart-contracts in symlink mode into clean project fixtures (722.756491ms)
+✔ Skills CLI installs qie-transactions in symlink mode into clean project fixtures (930.62564ms)
+✔ Skills CLI installs qie-wallets in symlink mode into clean project fixtures (1101.570672ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (2450.643166ms)
+✔ Skills CLI installs qie in copy mode into clean project fixtures (693.381914ms)
+✔ Skills CLI installs qie-debug in copy mode into clean project fixtures (920.57316ms)
+✔ Skills CLI installs qie-deployment in copy mode into clean project fixtures (917.923202ms)
+✔ Skills CLI installs qie-ecosystem in copy mode into clean project fixtures (673.213607ms)
+✔ Skills CLI installs qie-frontend in copy mode into clean project fixtures (1062.107646ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (912.949029ms)
+✔ Skills CLI installs qie-smart-contracts in copy mode into clean project fixtures (689.078298ms)
+✔ Skills CLI installs qie-transactions in copy mode into clean project fixtures (1018.722762ms)
+✔ Skills CLI installs qie-wallets in copy mode into clean project fixtures (1035.127544ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21506.63865
