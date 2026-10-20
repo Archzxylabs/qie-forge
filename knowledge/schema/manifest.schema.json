@@ -29,6 +29,9 @@
     "policy_sha256": {
       "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
     },
+    "release_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+    },
     "snapshot_path": {
       "enum": [
         "data/network-claims.json",
@@ -68,6 +71,7 @@
     "skill_id",
     "knowledge_sha256",
     "policy_sha256",
+    "release_id",
     "snapshot_path",
     "files"
   ],

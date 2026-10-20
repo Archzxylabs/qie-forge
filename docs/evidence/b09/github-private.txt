@@ -1,0 +1,67 @@
+# B09 authenticated private GitHub-source acceptance
+
+Date: 2026-10-20 (UTC)
+Repository: `https://github.com/Archzxylabs/qie-forge.git` (confirmed `PRIVATE`)
+Remote feature branch: `refs/heads/feat/b09-distribution` = `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a`
+Immutable source under test: `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a`
+Toolchain: Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`
+Release: `0.5.1-ecosystem.1`, schema `1.4.0`, identity `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
+
+## Boundary
+
+This proves authenticated installation from the existing private GitHub repository. It does not prove public or anonymous distribution. No GitHub Release, permanent tag, pull request, visibility change, remote `main` change or global skill install was made. The feature branch was pushed with a normal non-force push and the remote SHA was checked against the local SHA before testing.
+
+Authentication used the existing GitHub CLI credential helper through an isolated temporary consumer environment. No token, credential, authorization header or credential-helper output is reproduced in this evidence. Commands below omit the credential plumbing.
+
+## Commands (credential plumbing omitted)
+
+```sh
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
+  --skill '*' -a codex -a claude-code -y
+
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
+  --skill '*' -a codex -a claude-code -y --copy
+
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
+  --skill qie-networks -a codex -a claude-code -y
+
+node scripts/verify-installed-release.mjs \
+  --root .agents/skills --expect-suite \
+  --release-id b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce --json
+
+node .agents/skills/qie-networks/scripts/inspect-network.mjs qie-testnet
+```
+
+The single-skill copy proof repeated the single-skill command with `--copy` in a separate consumer. The rollback proof appended bytes to an installed copy-mode canonical file, verified `REJECTED`, then repeated the full-suite `--copy` install at the same immutable SHA and verified the exact tree and identity again.
+
+## Observed results
+
+| Check | Result |
+|---|---|
+| Remote branch/API SHA | local and remote both `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a` |
+| Repository visibility | `PRIVATE` |
+| Source clone | authenticated clone at full SHA; 103 files under `skills/` |
+| Suite install, symlink mode | exit `0`; 9 canonical bundles; 103 installed files |
+| Suite verifier | `COHERENT_FULL_SUITE`; `PINNED_MATCH`; 9/9 Claude symlinks valid; no problems |
+| Suite install, copy mode | exit `0`; 9 canonical bundles; 103 installed files |
+| Suite copy verifier | `COHERENT_FULL_SUITE`; `PINNED_MATCH`; 9/9 Claude copies byte-identical |
+| Single `qie-networks`, symlink mode | exit `0`; 1 bundle; `COHERENT_PARTIAL`; `suiteComplete: false`; `PINNED_MATCH` |
+| Single `qie-networks`, copy mode | exit `0`; 1 bundle; `COHERENT_PARTIAL`; `suiteComplete: false`; `PINNED_MATCH` |
+| Exact installed-byte comparison to the remote SHA | no differences for suite and single trees; all manifests and 94 declared non-manifest hashes match |
+| Release identity | `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce` in every installed manifest and recomputed from installed bytes |
+| Provenance validation | `MATCH`; `manifestMetadataAuthenticated: false`; `authenticityScope: PAYLOAD_IDENTITY_ONLY` |
+| Unrelated sibling skill | ignored; suite remains `COHERENT_FULL_SUITE` with no false rejection |
+| Rollback after corrupt installed file | verifier exit `1`, `REJECTED`, `HASH_MISMATCH` and `RELEASE_ID_MISMATCH`; reinstall same SHA restored the exact known-good tree and `COHERENT_FULL_SUITE` |
+| Installed helper after deleting the remote source clone | `inspect-network.mjs qie-testnet` exit `0`; `live_check.outcome: NOT_RUN` |
+| Verifier after deleting the remote source clone | single installation still `COHERENT_PARTIAL` with the same identity |
+| Anonymous access to the same repository | `git ls-remote` exit `128`; denied as a private repository |
+
+## What this does not prove
+
+- No public repository, anonymous install, public discovery or anonymous cache behavior was tested.
+- No GitHub Release, permanent tag, pull request or package registry publication was created.
+- No QIE RPC, wallet, signing, broadcast, deployment or capability promotion was performed.
+- A successful CLI exit was not treated as proof by itself: every installed tree and manifest was compared byte-for-byte, and the read-only verifier was run independently.

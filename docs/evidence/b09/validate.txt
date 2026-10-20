@@ -1,0 +1,7 @@
+# QIE Forge B09 verification — validate
+# node v24.20.0 / UTC 2026-10-20T09:28:48Z
+# commit: 7ce4758429cdee4c1945ea6d578453e9cac4b69e
+# command: npm run validate
+
+Knowledge valid: 15 domains, 18 sources, 11 claims, 25 capabilities.
+Validated 9 self-contained skill bundle(s); release identity b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce.

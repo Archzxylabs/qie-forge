@@ -19,7 +19,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "8902599dc2da816ff571f7838ddd746d7fb4a7081360372248c27e0c428b422b"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -49,6 +49,7 @@
   "generated": true,
   "knowledge_sha256": "8a053cc7d6b612118b528e4a46f5a6ca668b0b1477a4eba8d7d2c4c4b5290d3b",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_id": "b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce",
   "release_version": "0.5.1-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-transactions",

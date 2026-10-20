@@ -1,6 +1,6 @@
 # QIE Forge engineering foundation
 
-QIE Forge is a Skills-first knowledge and developer workflow system for QIE. This checkout implements B02–B08 within the available evidence from the approved [architecture](docs/architecture.md), using [PRD v2.1](QIE_Forge_PRD_v2.1.md) as its requirements.
+QIE Forge is a Skills-first knowledge and developer workflow system for QIE. This checkout implements B02–B09 within the available evidence from the approved [architecture](docs/architecture.md), using [PRD v2.1](QIE_Forge_PRD_v2.1.md) as its requirements.
 
 All QIE Forge product prose, recipes and authored code in this repository are original. Canonical records distinguish official QIE source facts from QIE Forge analysis, and third-party development dependencies remain declared in `package-lock.json`. Third-party research notes used during design are not part of the product tree and are archived outside the repository. No third-party source code is bundled in any skill.
 
@@ -16,7 +16,7 @@ Nine generated local skill artifacts are available:
 - [`qie-debug`](skills/qie-debug/SKILL.md) — stage-specific troubleshooting and read-only diagnostics without sibling dependencies.
 - [`qie-ecosystem`](skills/qie-ecosystem/SKILL.md) — operation-scoped ecosystem catalogue, compatibility matrix and decision guide, all projected from the canonical records at the frozen build clock.
 
-The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. All nine P0 skills are published in release `0.5.1-ecosystem.1`; the B09 distribution/update/rollback gate is a separate milestone. Native/indexing procedures remain source navigation, not invented execution support.
+The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. All nine P0 skills are published in release `0.5.1-ecosystem.1`; B09 adds a content-addressed suite identity and a tested local/Git-source update and rollback matrix. B09 is **accepted for private distribution** after authenticated immutable-SHA installation from the private GitHub feature branch; public distribution, anonymous access and repository licensing remain unproven. See [B09 results](docs/b09-results.md). Native/indexing procedures remain source navigation, not invented execution support.
 
 No live network check has been run against a real QIE endpoint. The diagnostic helpers are exercised in tests and install checks exclusively against injected mock transports; their output is always framed as an observation, never as new evidence or a status promotion.
 
@@ -30,15 +30,17 @@ The B07 local replay additionally requires existing **Forge 1.8.1** (commit pinn
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run validate
-npm run docs:check
 npm run build:check
+npm run docs:check
 npm run lint
 npm test
 npm run test:coverage
 npm run test:install
 ```
 
-`npm run verify:evidence` re-executes every gate above in one deterministic pass and rewrites the preserved logs in `docs/evidence/b08/`, failing if any gate fails.
+[GitHub Actions CI](.github/workflows/ci.yml) runs these eight gates sequentially for pull requests targeting `main`, using Node **24.20.0**, npm **11.19.0** and `npm ci` from the lockfile. It provisions checksum-pinned native Forge/solc binaries and checks their versions against the canonical recipe, plus the required Git HTTP backend. Missing or mismatched native prerequisites fail the job with an **UNSUPPORTED** diagnostic; unexecuted gates remain **NOT_RUN**. CI uses local fixtures and offline Foundry replay, and checks that tracked files are unchanged after the gates. It does not regenerate historical evidence.
+
+`npm run verify:b09-evidence` re-executes the eight B09 gates in order, writes the complete logs to `docs/evidence/b09/`, and fails when `docs/b09-results.md` quotes numbers the run did not produce. `npm run verify:evidence` remains the preserved B08 evidence generator and is bound to the historical B08 report figures; it is not the B09 evidence path.
 
 `lint` currently checks JavaScript syntax; no style linter or TypeScript compiler is configured. Tests use Node's runner with process isolation disabled so it works in the current sandbox. Each filesystem test still creates and removes its own temporary project. Real child commands capture output through regular files because captured subprocess pipes fail in this sandbox.
 
@@ -51,9 +53,38 @@ node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/p
 node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/path/to/QIE-FORGE --skill '*' -a codex -a claude-code -y
 ```
 
-Use `--skill qie-smart-contracts` (or any listed name) for a single self-contained skill; `--skill '*'` selects the complete generated suite (currently **nine** skills). Add `--copy` for copied agent installations. The CLI version tested is **1.7.2**. Its local-source discovery and installer are tested; public Git-source publication, agent activation and successful host workflows are separate requirements.
+Use `--skill qie-smart-contracts` (or any listed name) for a single self-contained skill; `--skill '*'` selects the complete generated suite (currently **nine** skills). Add `--copy` for copied agent installations. The CLI version tested is **1.7.2**. Local-directory sources are install-only: `skills update` exits 0 but reports no matching installed skills for them, so use a Git source when updates are required.
 
-`npm run test:install` executes twenty combinations (suite plus nine single selections, each in copy/symlink mode) in clean temporary consumer projects and temporary homes. It denies network access, disables installer telemetry, removes the source fixture, validates installed hashes/local links, and exercises helpers and wallet invalidation guards. The separate recipe test also installs with the real CLI before offline Foundry replay. These are installer-target checks for Codex/Claude, not execution inside either agent. No global skill directory is modified.
+For a Git source, pin an immutable tag or a full commit SHA:
+
+```sh
+node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add https://github.com/OWNER/REPO.git#<full-commit-sha> --skill '*' -a codex -a claude-code -y
+```
+
+The CLI records the requested ref in `skills-lock.json`. `skills update -p -y` follows a mutable branch, leaves a pinned tag or SHA unchanged, and can convert a prior `--copy` projection into a symlink while leaving the canonical `.agents` copy in place. Reinstall with `--copy` when copied Claude Code files are required after an update.
+
+Rollback is an explicit reinstall of the known-good immutable ref, not an in-place history rewrite:
+
+```sh
+node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add https://github.com/OWNER/REPO.git#<known-good-sha> --skill '*' --copy -a codex -a claude-code -y
+```
+
+Verify the exact installed files, manifest hashes and suite identity without modifying them:
+
+```sh
+node scripts/verify-installed-release.mjs --root .agents/skills --expect-suite
+node scripts/verify-installed-release.mjs --root .agents/skills --expect-suite --release-id <trusted-release-id>
+```
+
+`--expect-suite` requires the exact nine canonical skill names, valid `SKILL.md` frontmatter and coherent file inventories; unrelated agent skills beside them are ignored. If a sibling `.claude/skills` directory contains any QIE Forge projection, the verifier also checks all canonical projections there: relative symlinks must resolve to the canonical `.agents` bundle, and copied projections must match canonical bytes exactly. A Claude directory containing only unrelated skills is treated as a Codex-only install and skipped. Use `--claude-root <dir>` for a non-default projection path or `--no-claude` to skip projection checks.
+
+The JSON report separates four claims. `inventoryComplete` is structural: the exact canonical nine bundles are present and their declared file inventories were read. `payloadIntegrity` covers SHA-256 verification of listed non-manifest files. `releaseCoherence` covers schema, inventory, snapshot, frontmatter, identity and projection checks. `publisherAuthenticity` compares the recomputed identity with an optional trusted pin; its `PINNED_MATCH` value is scoped to **payload identity only** (`authenticityScope: PAYLOAD_IDENTITY_ONLY`). `verificationComplete` is true only when the canonical inventory is complete and every blocking check passes; the legacy `suiteComplete` field is an alias with that same fail-closed value. A rejected installation, a mixed identity, an invalid schema, a broken projection or a wrong pin therefore never reports `suiteComplete: true`.
+
+`COHERENT_FULL_SUITE` means the installed tree is internally coherent. Supply `--release-id` from a trusted/pinned source to match its payload identity; without that pin, `publisherAuthenticity` is `NOT_ESTABLISHED`. The verifier exits 1 for digest mismatches, snapshot/path containment failures, provenance mismatches, missing or malformed frontmatter, mixed release identities, incompatible schema versions, legacy manifests without `release_id`, incomplete suites or broken Claude projections. The CLI itself does not validate manifests during install or update, so this post-operation check is required for B09 acceptance.
+
+`MANIFEST.json` is deliberately excluded from the release identity to avoid self-hashing. The verifier derives each bundle's `sources_checked_at` from the review timestamps of the selected snapshot's source records and rejects a manifest value that differs. That checks consistency with the payload, but it does **not** make manifest-only metadata part of the content address. `provenance.manifestMetadataAuthenticated` is therefore always `false`; a caller needs an independently trusted manifest or a separately signed index to authenticate metadata outside the release identity. A trusted release-ID match must not be read as authentication of that metadata.
+
+`npm run test:install` executes twenty local combinations (suite plus nine single selections, each in copy/symlink mode) in clean temporary consumer projects and temporary homes. It denies network access, removes the source fixture, validates installed hashes, manifest hashes, release identity, frontmatter and Claude copy/symlink projections, and exercises helpers and wallet invalidation guards. The B09 suite adds eleven local scenarios built on a loopback smart-HTTP Git source, malformed installed trees, path-containment attacks, canonical-inventory checks, projection failures and provenance mutation checks; an authenticated private GitHub proof at an immutable B09 SHA exercised suite/single, copy/symlink, verifier, helper, unrelated-skill and rollback paths. See [B09 results](docs/b09-results.md). B09 is accepted for private distribution only; public distribution, anonymous access and repository licensing remain unproven. These are installer-target checks for Codex/Claude, not execution inside either agent. No global skill directory is modified.
 
 From the installed `qie-networks` directory:
 
@@ -85,4 +116,4 @@ The installed `qie` router needs no helper: its routing table, A–Z coverage ma
 
 Edit canonical inputs, then run `npm run build`. The build replaces the owned `dist/skills/` and `skills/` trees. Do not place manual files there. `build:check` compares regenerated bytes with the published tree without modifying it. Build time never supplies live evidence or extends expiry.
 
-See [source coverage](docs/source-map.md), [resolved contracts](docs/decisions.md), [executed B02–B04 results](docs/foundation-results.md), [B05 router results](docs/b05-results.md), [B06 diagnostic results](docs/b06-results.md), [B07 operational results](docs/b07-results.md), [B08 ecosystem results](docs/b08-results.md) and the [B08 final-integrity corrections](docs/b08-final-integrity-results.md). Official `skills-ref` validation remains a separate gate; independent validation/installer checks do not replace it. TypeScript assets are executed through Node's type stripping, not typechecked or tested in an actual browser. This is a local engineering candidate, not a production or public-release readiness claim.
+See [source coverage](docs/source-map.md), [resolved contracts](docs/decisions.md), [executed B02–B04 results](docs/foundation-results.md), [B05 router results](docs/b05-results.md), [B06 diagnostic results](docs/b06-results.md), [B07 operational results](docs/b07-results.md), [B08 ecosystem results](docs/b08-results.md), the [B08 final-integrity corrections](docs/b08-final-integrity-results.md), [B09 distribution results](docs/b09-results.md) and the [changelog](CHANGELOG.md). Official `skills-ref` validation remains a separate gate; independent validation/installer checks do not replace it. TypeScript assets are executed through Node's type stripping, not typechecked or tested in an actual browser. This is a local engineering candidate, not a production or public-release readiness claim.

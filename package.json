@@ -17,7 +17,8 @@
     "test:install": "node --test --test-isolation=none tests/installation.test.mjs",
     "docs:check": "node scripts/generate-evidence-doc.mjs --check",
     "docs:generate": "node scripts/generate-evidence-doc.mjs",
-    "verify:evidence": "node scripts/verify-evidence.mjs"
+    "verify:evidence": "node scripts/verify-evidence.mjs",
+    "verify:b09-evidence": "node scripts/verify-b09-evidence.mjs"
   },
   "devDependencies": {
     "ajv": "8.20.0",

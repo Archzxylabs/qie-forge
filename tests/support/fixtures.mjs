@@ -2,10 +2,11 @@ import { cp, mkdtemp, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { CANONICAL_SKILLS } from '../../scripts/lib/release-contract.mjs';
 
 export const projectRoot = fileURLToPath(new URL('../../', import.meta.url));
 export const schemaRoot = path.join(projectRoot, 'knowledge/schema');
-export const releasedSkills = ['qie', 'qie-debug', 'qie-deployment', 'qie-ecosystem', 'qie-frontend', 'qie-networks', 'qie-smart-contracts', 'qie-transactions', 'qie-wallets'];
+export const releasedSkills = [...CANONICAL_SKILLS];
 
 export async function fixtureProject(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-project-'));
