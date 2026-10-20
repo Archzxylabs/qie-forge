@@ -125,8 +125,9 @@ The authenticated private GitHub proof is recorded in `docs/evidence/b09/github-
 4. **Update is not transactional.** There is no automatic pre-update backup, atomic swap or process-kill recovery. A failed clone/update leaves the previous tree intact in the tested cases, but a successfully installed corrupt tree must be rolled back manually.
 5. **Copy mode is not preserved by update.** The CLI converts Claude Code copies to symlinks. The documented remedy is an explicit `--copy` reinstall; changing the upstream CLI is out of scope.
 6. **Local sources are install-only.** The CLI exits `0` with a no-op message. Updates require a Git source; the README states this rather than hiding it.
-7. **Remote B09 verification requires publication.** Once the branch is reviewed and pushed, a disposable or dedicated private repository at a full SHA with `delete_repo` cleanup authority should repeat the GitHub matrix against B09 manifests.
-8. **No live QIE evidence.** B09 did not contact a live RPC, wallet, signer, deployment target or explorer, and did not promote any capability to `VERIFIED`.
+7. **Installed versus current version is not printed.** The verifier reports the installed release, version, identity and exact hashes; `skills update` reports that skills changed or are up to date, but the CLI does not print both the installed and current versions. The smallest compatible addition would be a read-only source-manifest lookup after ref resolution that compares `release_id`; it was not added because it would duplicate the CLI's clone/update path for a reporting-only capability.
+8. **Remote B09 verification requires publication.** Once the branch is reviewed and pushed, a disposable or dedicated private repository at a full SHA with `delete_repo` cleanup authority should repeat the GitHub matrix against B09 manifests.
+9. **No live QIE evidence.** B09 did not contact a live RPC, wallet, signer, deployment target or explorer, and did not promote any capability to `VERIFIED`.
 
 ## 9. B08 preservation and non-claims
 
