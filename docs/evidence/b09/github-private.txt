@@ -1,52 +1,67 @@
-# B09 authenticated private GitHub-source proof
+# B09 authenticated private GitHub-source acceptance
 
 Date: 2026-10-20 (UTC)
 Repository: `https://github.com/Archzxylabs/qie-forge.git` (confirmed `PRIVATE`)
-Ref: `cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d` (full commit SHA, `refs/heads/main` at proof time)
+Remote feature branch: `refs/heads/feat/b09-distribution` = `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a`
+Immutable source under test: `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a`
 Toolchain: Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`
+Release: `0.5.1-ecosystem.1`, schema `1.4.0`, identity `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`
 
 ## Boundary
 
-The existing private repository was read at a full commit SHA. No branch, tag, release, package or commit was created or modified. Authentication used the existing GitHub CLI credential helper through a temporary Git config; no token, credential or authorization header is reproduced here. The installed source is the B08 bundle set at that SHA, so its manifests predate `release_id` and are expected to be reported as legacy by the B09 verifier.
+This proves authenticated installation from the existing private GitHub repository. It does not prove public or anonymous distribution. No GitHub Release, permanent tag, pull request, visibility change, remote `main` change or global skill install was made. The feature branch was pushed with a normal non-force push and the remote SHA was checked against the local SHA before testing.
+
+Authentication used the existing GitHub CLI credential helper through an isolated temporary consumer environment. No token, credential, authorization header or credential-helper output is reproduced in this evidence. Commands below omit the credential plumbing.
 
 ## Commands (credential plumbing omitted)
 
 ```sh
-git archive cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d skills | tar -x -C expected
 node node_modules/skills/bin/cli.mjs add \
-  'https://github.com/Archzxylabs/qie-forge.git#cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d' \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
   --skill '*' -a codex -a claude-code -y
-diff -rq expected/skills .agents/skills
-node scripts/verify-installed-release.mjs --root .agents/skills --expect-suite --json
-node node_modules/skills/bin/cli.mjs update -p -y
+
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
+  --skill '*' -a codex -a claude-code -y --copy
+
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#78060054dd3bdeb6e2fbba1a57cf83657c2fc77a' \
+  --skill qie-networks -a codex -a claude-code -y
+
+node scripts/verify-installed-release.mjs \
+  --root .agents/skills --expect-suite \
+  --release-id b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce --json
+
+node .agents/skills/qie-networks/scripts/inspect-network.mjs qie-testnet
 ```
 
-The single-skill copy proof repeated `add` with `--skill qie-networks --copy` in a separate consumer.
+The single-skill copy proof repeated the single-skill command with `--copy` in a separate consumer. The rollback proof appended bytes to an installed copy-mode canonical file, verified `REJECTED`, then repeated the full-suite `--copy` install at the same immutable SHA and verified the exact tree and identity again.
 
 ## Observed results
 
 | Check | Result |
 |---|---|
-| Suite install exit | `0` |
-| Discovered skills | 9 |
-| Installed canonical copies | 9 under `.agents/skills` |
-| Claude Code projection | 9 relative symlinks |
-| Exact tree comparison to `git archive` | no differences (`diff -rq` exit `0`) |
-| Installed files | 103 |
-| File, knowledge, policy and snapshot hashes | all match; no hash-policy-snapshot problems |
-| Legacy `release_id` findings | verifier exit `1`; 18 problems, all legacy (9 missing-field plus 9 `LEGACY_RELEASE_ID`); expected for B08 manifests |
-| Unexpected verifier findings | 0 |
-| Pinned update exit | `0` |
-| Pinned update message | `All project skills are up to date` |
-| Post-update file hashes | byte-identical (103-file SHA-256 list unchanged) |
-| Single-skill `--copy` install exit | `0` |
-| Single-skill exact tree comparison | no differences |
-| Offline helper | `qie-testnet`, chain ID `1983`, `live_check.outcome: NOT_RUN` |
-
-The verifier correctly returns `REJECTED` for the legacy B08 installation because `release_id` is absent. It does not report a digest, snapshot or schema failure. This is the intended legacy gate, not a claim that a B09 release was installed from GitHub.
+| Remote branch/API SHA | local and remote both `78060054dd3bdeb6e2fbba1a57cf83657c2fc77a` |
+| Repository visibility | `PRIVATE` |
+| Source clone | authenticated clone at full SHA; 103 files under `skills/` |
+| Suite install, symlink mode | exit `0`; 9 canonical bundles; 103 installed files |
+| Suite verifier | `COHERENT_FULL_SUITE`; `PINNED_MATCH`; 9/9 Claude symlinks valid; no problems |
+| Suite install, copy mode | exit `0`; 9 canonical bundles; 103 installed files |
+| Suite copy verifier | `COHERENT_FULL_SUITE`; `PINNED_MATCH`; 9/9 Claude copies byte-identical |
+| Single `qie-networks`, symlink mode | exit `0`; 1 bundle; `COHERENT_PARTIAL`; `suiteComplete: false`; `PINNED_MATCH` |
+| Single `qie-networks`, copy mode | exit `0`; 1 bundle; `COHERENT_PARTIAL`; `suiteComplete: false`; `PINNED_MATCH` |
+| Exact installed-byte comparison to the remote SHA | no differences for suite and single trees; all manifests and 94 declared non-manifest hashes match |
+| Release identity | `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce` in every installed manifest and recomputed from installed bytes |
+| Provenance validation | `MATCH`; `manifestMetadataAuthenticated: false`; `authenticityScope: PAYLOAD_IDENTITY_ONLY` |
+| Unrelated sibling skill | ignored; suite remains `COHERENT_FULL_SUITE` with no false rejection |
+| Rollback after corrupt installed file | verifier exit `1`, `REJECTED`, `HASH_MISMATCH` and `RELEASE_ID_MISMATCH`; reinstall same SHA restored the exact known-good tree and `COHERENT_FULL_SUITE` |
+| Installed helper after deleting the remote source clone | `inspect-network.mjs qie-testnet` exit `0`; `live_check.outcome: NOT_RUN` |
+| Verifier after deleting the remote source clone | single installation still `COHERENT_PARTIAL` with the same identity |
+| Anonymous access to the same repository | `git ls-remote` exit `128`; denied as a private repository |
 
 ## What this does not prove
 
-- No B09 commit, tag or release was pushed to GitHub.
-- No public repository or public installation was tested.
+- No public repository, anonymous install, public discovery or anonymous cache behavior was tested.
+- No GitHub Release, permanent tag, pull request or package registry publication was created.
 - No QIE RPC, wallet, signing, broadcast, deployment or capability promotion was performed.
+- A successful CLI exit was not treated as proof by itself: every installed tree and manifest was compared byte-for-byte, and the read-only verifier was run independently.

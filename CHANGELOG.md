@@ -22,8 +22,9 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
   - aligned `package-lock.json` to the declared package version;
   - recorded the authenticated private GitHub install at an immutable B08 SHA.
 - **Update/rollback:** `skills update -p -y` follows a mutable branch and leaves pinned tags/SHAs unchanged. Rollback is an explicit reinstall of a known-good pinned ref. Copy-mode fidelity after update requires `--copy`.
-- **Known limitations:** B09 is PARTIAL. No B09 commit, tag, release or public source was published; the GitHub proof installed legacy B08 bundles; the CLI does not validate manifests during update; true process-kill interruption and atomic backup are not implemented. See [B09 results](docs/b09-results.md).
-- **Tag state:** no tag or release was created for this local candidate.
+- **Distribution status:** B09 is **ACCEPTED FOR PRIVATE DISTRIBUTION** after authenticated immutable-SHA installs from the private GitHub feature branch, exact-tree/hash verification, suite/single and copy/symlink projections, helper independence, unrelated-skill coexistence and known-good rollback. Public distribution is not proven and the repository has no license decision.
+- **Known limitations:** The CLI does not validate manifests during update; true process-kill interruption and atomic backup are not implemented; public installation and anonymous access remain unproven. See [B09 results](docs/b09-results.md).
+- **Tag state:** no tag or GitHub Release was created for this candidate.
 
 ## 0.5.1-ecosystem.1 — B08 ecosystem catalogue
 
