@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/skill.json",
+  "type": "object",
+  "properties": {
+    "skill_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "source_entry": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/localPath"
+    },
+    "release_tier": {
+      "enum": [
+        "P0",
+        "P1",
+        "P2"
+      ]
+    },
+    "enabled_for_release": {
+      "type": "boolean"
+    },
+    "domain_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^D(?:0[1-9]|1[0-5])$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "claim_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "capability_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "helper_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/localPath"
+      },
+      "uniqueItems": true
+    },
+    "generated_references": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "network-profiles",
+          "coverage",
+          "operational",
+          "ecosystem"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "recipe_paths": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^recipes/[a-z0-9-]+/recipe\\.md$" },
+      "uniqueItems": true
+    },
+    "logical_handoffs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "skill_id",
+    "source_entry",
+    "release_tier",
+    "enabled_for_release",
+    "domain_ids",
+    "claim_ids",
+    "capability_ids",
+    "helper_paths",
+    "generated_references",
+    "logical_handoffs",
+    "recipe_paths"
+  ],
+  "additionalProperties": false
+}

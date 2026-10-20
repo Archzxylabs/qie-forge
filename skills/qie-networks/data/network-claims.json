@@ -1,0 +1,319 @@
+{
+  "capabilities": [
+    {
+      "capability_id": "rpc-identity",
+      "category": "networks",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Listed endpoints have not been contacted; JSON-RPC availability and chain identity are unknown."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "read_chain_identity",
+      "recipe_path": null,
+      "source_ids": [
+        "S03"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qie-rpc",
+      "tool_version_range": null
+    }
+  ],
+  "claims": [
+    {
+      "checked_at": null,
+      "claim_id": "qie-mainnet.chain_id",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-mainnet",
+      "predicate": "chain_id",
+      "risk_level": "critical",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-mainnet",
+      "value": 1990,
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-mainnet.explorer_url",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-mainnet",
+      "predicate": "explorer_url",
+      "risk_level": "high",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-mainnet",
+      "value": "https://mainnet.qie.digital/",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-mainnet.native_symbol",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-mainnet",
+      "predicate": "native_symbol",
+      "risk_level": "low",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-mainnet",
+      "value": "QIEV3",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-mainnet.network_name",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-mainnet",
+      "predicate": "network_name",
+      "risk_level": "low",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-mainnet",
+      "value": "QIEMainnet",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-mainnet.rpc_url",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-mainnet",
+      "predicate": "rpc_url",
+      "risk_level": "high",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-mainnet",
+      "value": "https://rpc1mainnet.qie.digital/",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.chain_id",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "chain_id",
+      "risk_level": "critical",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": 1983,
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.explorer_url",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "explorer_url",
+      "risk_level": "high",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": "https://testnet.qie.digital/",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.faucet_url",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "faucet_url",
+      "risk_level": "high",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": "https://www.qie.digital/faucet",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.native_symbol",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "native_symbol",
+      "risk_level": "low",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": "QIE",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.network_name",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "network_name",
+      "risk_level": "low",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": "QIE testnet",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    },
+    {
+      "checked_at": null,
+      "claim_id": "qie-testnet.rpc_url",
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "maintainer": null,
+      "network_id": "qie-testnet",
+      "predicate": "rpc_url",
+      "risk_level": "high",
+      "source_ids": [
+        "S03"
+      ],
+      "status": "DOCUMENTED",
+      "subject": "qie-testnet",
+      "value": "https://rpc1testnet.qie.digital/",
+      "version_scope": "Published EVM configuration; live identity not tested"
+    }
+  ],
+  "domains": [
+    {
+      "capability_ids": [
+        "rpc-identity"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D02",
+      "entry_skill": "qie-networks",
+      "maintainer": null,
+      "missing_information": [
+        "Endpoint liveness, network identity, native currency decimals and RPC method limits are untested."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-networks",
+      "source_ids": [
+        "S03"
+      ],
+      "title": "Networks and RPC",
+      "user_intents": [
+        "Choose an explicit network",
+        "Inspect published RPC settings"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    }
+  ],
+  "policy": {
+    "expiry_mode": "explicit-record",
+    "offline_high_risk_status": "UNKNOWN",
+    "require_explicit_expiry_for_verified": true,
+    "require_live_check_for_writes": true,
+    "schema_version": "1.4.0",
+    "status_precedence": [
+      "CONFLICTED",
+      "DEPRECATED",
+      "UNSUPPORTED",
+      "STALE",
+      "UNKNOWN",
+      "CLAIMED",
+      "DOCUMENTED",
+      "VERIFIED"
+    ],
+    "timestamp_rule": "UTC-RFC3339"
+  },
+  "schema_version": "1.4.0",
+  "sources": [
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S03",
+      "title": "Published QIE EVM network settings",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    }
+  ],
+  "status_evaluated_at": "2026-10-19T22:35:15Z",
+  "validation_runs": []
+}

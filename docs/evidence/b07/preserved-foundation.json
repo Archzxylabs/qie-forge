@@ -1,0 +1,22 @@
+{
+  "scope": "B02-B06 critical diagnostic implementations, knowledge facts and frozen routing fixtures unchanged",
+  "unchanged_sha256": {
+    "scripts/lib/effective-status.mjs": "1c733f357da25bec4ad81b669a8a6b1551b9d38529ed2b1fa089a69e49c719c1",
+    "scripts/lib/rpc.mjs": "b492fd97c70c2bc44dd0d69edfb0e76a9e19119e84df80aa1c10a4dfd8fff1c1",
+    "scripts/lib/network-diagnostic.mjs": "8c1531644f52eef437d5ce0429f2a76586be66715dfb222fa5e7436dfc523cb7",
+    "scripts/lib/transaction-diagnostic.mjs": "c1c3686ceb0bbf7ce9e42badd58d098961d10166c00cc11004ce91d3658d5a22",
+    "scripts/verify-network.mjs": "cba2978a9e843f394cc579d40170bf4962b2b98e8771f17dca5d932694a978e6",
+    "scripts/verify-transaction.mjs": "c35ac2b96e8cf05a22c7a645ae2b3d8277ae40a0071cb2dbdfc7addf78075141",
+    "scripts/inspect-network.mjs": "1e02fad2d058b79d1bf0c4960db40dee1ade26a4b979a3be57ac09015fa9d6fb",
+    "knowledge/claims.yaml": "4beb465ce07b67b31c701b770a069525fcdbc06743d96d5a1528e835bff8a797",
+    "knowledge/capabilities.yaml": "5f42e0782b2059a081b67f8ecc2f2c1abae2bae219ad5f755ade3a009d032f92",
+    "knowledge/addresses.yaml": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "knowledge/sources.yaml": "d74f0d757f214400c512ffd780c28dfd972c0a737a488beed8972046d031eccc",
+    "knowledge/validation-runs.yaml": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "tests/fixtures/routing-fixtures.json": "ad45238fd40f119a5566c2c79540f3887ea85152ef38c9e97aa1c49dcb48856f"
+  },
+  "approved_requirements_unchanged_sha256": {
+    "QIE_Forge_PRD_v2.1.md": "99a50b3ec03416ab81d1e4cab7ce313e15c8efc4e9acaeb05055c23bcd062755",
+    "docs/architecture-study.md": "02b6d7bec32b0c675a67f8805b888ec38e554b565b180bde352406b75f662e9b"
+  }
+}

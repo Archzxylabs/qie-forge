@@ -1,0 +1,23 @@
+HTTP/2 200 
+date: Mon, 19 Oct 2026 21:44:49 GMT
+content-type: text/markdown; charset=utf-8
+content-length: 684
+cf-ray: a4d2f75f284440e0-SIN
+cf-cache-status: DYNAMIC
+age: 10513
+cache-control: public, max-age=0, must-revalidate
+server: cloudflare
+strict-transport-security: max-age=31536000
+vary: rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept, accept-encoding
+content-security-policy: default-src 'self' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' blob: *; img-src * 'self' blob: data:; connect-src *; font-src *; frame-src *; object-src 'none'; base-uri 'self' https://static-2v.gitbook.com; form-action 'self' https://static-2v.gitbook.com *; frame-ancestors https: ;
+referrer-policy: no-referrer-when-downgrade
+x-content-type-options: nosniff
+x-gitbook-route-site: docs.qie.digital/
+x-gitbook-route-type: static
+x-gitbook-target: 2v
+x-matched-path: /sites/static/[mode]/[siteURL]/[siteData]/~gitbook/markdown/[pagePath]
+x-robots-tag: noindex
+x-vercel-cache: HIT
+x-vercel-id: sin1::iad1::qksst-1792446289807-170a0a240d92
+alt-svc: h3=":443"; ma=86400
+

@@ -1,0 +1,5 @@
+# QIE Forge release verification — docs-generate
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run docs:generate
+
+Wrote docs/evidence/b08/capability-catalogue.md from canonical knowledge records.

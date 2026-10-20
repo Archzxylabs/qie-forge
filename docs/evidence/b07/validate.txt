@@ -1,0 +1,6 @@
+
+> qie-forge@0.4.0-operational.1 validate
+> node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs
+
+Knowledge valid: 15 domains, 6 sources, 11 claims, 8 capabilities.
+Validated 8 self-contained skill bundle(s).

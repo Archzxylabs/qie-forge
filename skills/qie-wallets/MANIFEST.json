@@ -1,0 +1,53 @@
+{
+  "built_at": "2026-10-19T22:35:15Z",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "f8bcbde63040565966f31d519badff6a8bf046a5b37702665cbbbca5070c9ccd"
+    },
+    {
+      "path": "data/network-claims.json",
+      "sha256": "44e65fde879df9fde5053c36834985be63396872f783e1843d5e63b2bba7ba7d"
+    },
+    {
+      "path": "recipes/wallet-read/assets/wallet-read.ts",
+      "sha256": "c03e194e6453e4c32d0bd49a7fc72547cf80a9bd2aa124fa426016a12328abd7"
+    },
+    {
+      "path": "recipes/wallet-read/recipe.md",
+      "sha256": "0a6f15696bb3aa893ad2faa3a2409c149b04feddad11376e4a4743292e3c167c"
+    },
+    {
+      "path": "references/evidence.md",
+      "sha256": "d44c7d4572e0c7b69c0babf3c36046590a9b812abfaaee99effeeebd3758e2fb"
+    },
+    {
+      "path": "references/release-info.md",
+      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+    },
+    {
+      "path": "scripts/lib/effective-status.mjs",
+      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+    },
+    {
+      "path": "scripts/lib/network-diagnostic.mjs",
+      "sha256": "d0e100c21308c102b590d70fa56338b17f6db45c77986bee4c794663f5212233"
+    },
+    {
+      "path": "scripts/lib/rpc.mjs",
+      "sha256": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2"
+    },
+    {
+      "path": "scripts/verify-network.mjs",
+      "sha256": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f"
+    }
+  ],
+  "generated": true,
+  "knowledge_sha256": "44e65fde879df9fde5053c36834985be63396872f783e1843d5e63b2bba7ba7d",
+  "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_version": "0.5.1-ecosystem.1",
+  "schema_version": "1.4.0",
+  "skill_id": "qie-wallets",
+  "snapshot_path": "data/network-claims.json",
+  "sources_checked_at": "2026-10-19T00:08:45Z"
+}

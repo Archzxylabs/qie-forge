@@ -1,0 +1,5 @@
+# QIE Forge release verification — lint
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run lint
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.

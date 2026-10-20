@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/status.json",
+  "type": "string",
+  "enum": [
+    "VERIFIED",
+    "DOCUMENTED",
+    "CLAIMED",
+    "UNKNOWN",
+    "CONFLICTED",
+    "STALE",
+    "UNSUPPORTED",
+    "DEPRECATED"
+  ]
+}

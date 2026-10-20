@@ -1,0 +1,28 @@
+{
+  "name": "qie-forge",
+  "version": "0.5.1-ecosystem.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.20.0 <25"
+  },
+  "packageManager": "npm@11.19.0",
+  "scripts": {
+    "build": "node scripts/build-skill-release.mjs",
+    "build:check": "node scripts/build-skill-release.mjs --check",
+    "validate": "node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs",
+    "lint": "node scripts/check-syntax.mjs",
+    "test": "node --test --test-isolation=none tests/*.test.mjs",
+    "test:coverage": "node --test --test-isolation=none --experimental-test-coverage --test-coverage-include='scripts/**' tests/*.test.mjs",
+    "test:install": "node --test --test-isolation=none tests/installation.test.mjs",
+    "docs:check": "node scripts/generate-evidence-doc.mjs --check",
+    "docs:generate": "node scripts/generate-evidence-doc.mjs",
+    "verify:evidence": "node scripts/verify-evidence.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "skills": "1.7.2",
+    "yaml": "2.9.1"
+  }
+}

@@ -1,0 +1,5 @@
+# QIE Forge release verification — build-check
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run build:check
+
+Reproduced qie, qie-networks, qie-smart-contracts, qie-frontend, qie-wallets, qie-transactions, qie-deployment, qie-debug, qie-ecosystem; no live network checks performed.

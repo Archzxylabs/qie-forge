@@ -1,0 +1,49 @@
+{
+  "built_at": "2026-10-19T22:35:15Z",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "5fa057bedc5af90b67fe97b8873d59722cbeaccd67c9ead033ec0c2c6e693c28"
+    },
+    {
+      "path": "data/network-claims.json",
+      "sha256": "2bff03a28e6b447803837f71e18aeee4c009744d8d607a4b430df0257d65e107"
+    },
+    {
+      "path": "recipes/build-test/assets/foundry.toml",
+      "sha256": "d8dc0144a73e3ab4bc827c571a19137f10ef392708ac52d1e9539f22e05e69e4"
+    },
+    {
+      "path": "recipes/build-test/assets/src/Counter.sol",
+      "sha256": "d48a5a381722d110299b9ef71492c6e41ad6ef4f22a446a7fbe21b7c4c0f8070"
+    },
+    {
+      "path": "recipes/build-test/assets/test/Counter.t.sol",
+      "sha256": "5921ade98e806b5b73c5593c161b3aa50b03512248b1027d2637dda00741d556"
+    },
+    {
+      "path": "recipes/build-test/recipe.md",
+      "sha256": "c23ee67ae11802fa39277600fc6e1ce23557528cf0ace5472b44bcb8e56fb5d9"
+    },
+    {
+      "path": "recipes/build-test/toolchain.json",
+      "sha256": "d076dca1b827a6c0b76ca0630e4efaa5545b7c6c012e5802afb79bfa759b53fa"
+    },
+    {
+      "path": "references/evidence.md",
+      "sha256": "f2d36988bc3898919b8b3253c828a3654e76ec4b4b69987084976c2b2a2a4655"
+    },
+    {
+      "path": "references/release-info.md",
+      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+    }
+  ],
+  "generated": true,
+  "knowledge_sha256": "2bff03a28e6b447803837f71e18aeee4c009744d8d607a4b430df0257d65e107",
+  "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_version": "0.5.1-ecosystem.1",
+  "schema_version": "1.4.0",
+  "skill_id": "qie-smart-contracts",
+  "snapshot_path": "data/network-claims.json",
+  "sources_checked_at": "2026-10-19T00:08:45Z"
+}

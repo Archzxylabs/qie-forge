@@ -1,0 +1,16 @@
+
+> qie-forge@0.1.0-foundation.1 test:install
+> node --test --test-isolation=none tests/installation.test.mjs
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (706.83396ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (650.412144ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (602.021639ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (574.315982ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2754.886074

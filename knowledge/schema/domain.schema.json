@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/domain.json",
+  "type": "object",
+  "properties": {
+    "domain_id": {
+      "type": "string",
+      "pattern": "^D(?:0[1-9]|1[0-5])$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "user_intents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "source_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids",
+      "minItems": 1,
+      "type": "array"
+    },
+    "network_scope": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/navigationScope"
+    },
+    "entry_skill": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "planned_skill": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "coverage_level": {
+      "enum": [
+        "NAVIGATION",
+        "LOCAL_REFERENCE"
+      ]
+    },
+    "verification_status": {
+      "$ref": "https://qie-forge.invalid/schema/status.json"
+    },
+    "capability_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "validation_test_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "missing_information": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "maintainer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  },
+  "required": [
+    "domain_id",
+    "title",
+    "user_intents",
+    "source_ids",
+    "network_scope",
+    "entry_skill",
+    "planned_skill",
+    "coverage_level",
+    "verification_status",
+    "capability_ids",
+    "validation_test_ids",
+    "missing_information",
+    "maintainer"
+  ],
+  "additionalProperties": false
+}

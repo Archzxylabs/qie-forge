@@ -1,0 +1,165 @@
+- claim_id: qie-mainnet.chain_id
+  subject: qie-mainnet
+  predicate: chain_id
+  value: 1990
+  network_id: qie-mainnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: critical
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-mainnet.rpc_url
+  subject: qie-mainnet
+  predicate: rpc_url
+  value: https://rpc1mainnet.qie.digital/
+  network_id: qie-mainnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: high
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-mainnet.explorer_url
+  subject: qie-mainnet
+  predicate: explorer_url
+  value: https://mainnet.qie.digital/
+  network_id: qie-mainnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: high
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-mainnet.native_symbol
+  subject: qie-mainnet
+  predicate: native_symbol
+  value: QIEV3
+  network_id: qie-mainnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: low
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-mainnet.network_name
+  subject: qie-mainnet
+  predicate: network_name
+  value: QIEMainnet
+  network_id: qie-mainnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: low
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.chain_id
+  subject: qie-testnet
+  predicate: chain_id
+  value: 1983
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: critical
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.rpc_url
+  subject: qie-testnet
+  predicate: rpc_url
+  value: https://rpc1testnet.qie.digital/
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: high
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.explorer_url
+  subject: qie-testnet
+  predicate: explorer_url
+  value: https://testnet.qie.digital/
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: high
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.native_symbol
+  subject: qie-testnet
+  predicate: native_symbol
+  value: QIE
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: low
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.network_name
+  subject: qie-testnet
+  predicate: network_name
+  value: QIE testnet
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: low
+  version_scope: Published EVM configuration; live identity not tested
+- claim_id: qie-testnet.faucet_url
+  subject: qie-testnet
+  predicate: faucet_url
+  value: https://www.qie.digital/faucet
+  network_id: qie-testnet
+  source_ids:
+    - S03
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  maintainer: null
+  risk_level: high
+  version_scope: Published EVM configuration; live identity not tested

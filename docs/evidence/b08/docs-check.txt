@@ -1,0 +1,5 @@
+# QIE Forge release verification — docs-check
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run docs:check
+
+Evidence catalogue matches canonical knowledge records.

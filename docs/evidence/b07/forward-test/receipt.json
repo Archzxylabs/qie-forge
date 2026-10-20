@@ -1,0 +1,142 @@
+{
+  "request": "Minimal local Solidity counter for intended QIE Mainnet EVM application",
+  "scope": "LOCAL_REPLAY",
+  "qie_network_target": "qie-mainnet",
+  "network_access": false,
+  "signing": false,
+  "broadcast": false,
+  "skill_path": "<repo>/skills/qie-smart-contracts",
+  "commands": [
+    {
+      "command": [
+        "forge",
+        "--version"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-1.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-1.stderr.txt"
+    },
+    {
+      "command": [
+        "<local-home>/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+        "--version"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-2.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-2.stderr.txt"
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-3.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-3.stderr.txt"
+    },
+    {
+      "command": [
+        "forge",
+        "build",
+        "--offline",
+        "--use",
+        "<local-home>/.solc-select/artifacts/solc-0.8.37/solc-0.8.37"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-4.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-4.stderr.txt"
+    },
+    {
+      "command": [
+        "forge",
+        "test",
+        "--offline",
+        "--use",
+        "<local-home>/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+        "-vv"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-5.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-5.stderr.txt"
+    },
+    {
+      "command": [
+        "forge",
+        "inspect",
+        "--offline",
+        "--use",
+        "<local-home>/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+        "Counter",
+        "abi",
+        "--json"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-6.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-6.stderr.txt"
+    },
+    {
+      "command": [
+        "forge",
+        "inspect",
+        "--offline",
+        "--use",
+        "<local-home>/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+        "Counter",
+        "methodIdentifiers",
+        "--json"
+      ],
+      "cwd": "/tmp/qie-b07-forward-nxroxibi/counter-project",
+      "exit_code": 0,
+      "stdout": "/tmp/qie-b07-forward-nxroxibi/command-7.stdout.txt",
+      "stderr": "/tmp/qie-b07-forward-nxroxibi/command-7.stderr.txt"
+    }
+  ],
+  "files": [
+    {
+      "path": "abi.json",
+      "sha256": "c26ffb152b71949090449d14c6d467369d66b0c3880ec8ca2a3007181573c203"
+    },
+    {
+      "path": "cache/solidity-files-cache.json",
+      "sha256": "9ed7517291d195684c1166891f3a7a752128ffcb4a5ab9c6d0617f1eba2fe6f7"
+    },
+    {
+      "path": "foundry.toml",
+      "sha256": "d8dc0144a73e3ab4bc827c571a19137f10ef392708ac52d1e9539f22e05e69e4"
+    },
+    {
+      "path": "methods.json",
+      "sha256": "a0022e842877e9e3d5923187726f72c1e96c6aef85544037980ad1b3e065ec09"
+    },
+    {
+      "path": "out/Counter.sol/Counter.json",
+      "sha256": "7fd0b784d28103a266070b0d6ae1c8eac7fb078a9f445e2d23224307ab5884d3"
+    },
+    {
+      "path": "out/Counter.t.sol/CounterTest.json",
+      "sha256": "58d1abb3790b1a8add535d6801a3560f8a7405e32618f9666b068ef5211c54d4"
+    },
+    {
+      "path": "out/Counter.t.sol/VmContractHelper1.json",
+      "sha256": "b2561b887aa3f5578820f2015d178f67b18b7fcc71a1e3f549095a95c116a272"
+    },
+    {
+      "path": "out/build-info/4e02ad9222b9e5cf.json",
+      "sha256": "7198c67d10dae3ce34d7c54c3000bd88aab2a0d9a42f3e6cb6fd57ddad829915"
+    },
+    {
+      "path": "src/Counter.sol",
+      "sha256": "d48a5a381722d110299b9ef71492c6e41ad6ef4f22a446a7fbe21b7c4c0f8070"
+    },
+    {
+      "path": "test/Counter.t.sol",
+      "sha256": "5921ade98e806b5b73c5593c161b3aa50b03512248b1027d2637dda00741d556"
+    }
+  ]
+}

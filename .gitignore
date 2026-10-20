@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.venv/
+.next/
+
+# Build and test output
+dist/
+coverage/
+.npm-cache/
+*.log
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Local files
+.DS_Store

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/source.json",
+  "type": "object",
+  "properties": {
+    "source_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+    },
+    "url": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/httpsUrl"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trust_tier": {
+      "enum": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ]
+    },
+    "reviewed_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "published_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "content_sha256": {
+      "anyOf": [
+        {
+          "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "license": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "network_scope": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/navigationScope"
+    },
+    "maintainer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  },
+  "required": [
+    "source_id",
+    "url",
+    "title",
+    "publisher",
+    "trust_tier",
+    "reviewed_at",
+    "published_at",
+    "content_sha256",
+    "license",
+    "network_scope",
+    "maintainer"
+  ],
+  "additionalProperties": false
+}

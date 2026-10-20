@@ -1,0 +1,439 @@
+- capability_id: rpc-identity
+  category: networks
+  tool_id: qie-rpc
+  operation: read_chain_identity
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S03
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Listed endpoints have not been contacted; JSON-RPC availability and chain identity are unknown.
+- capability_id: wallet-connect
+  category: wallets
+  tool_id: external-evm-wallet
+  operation: connect_external_wallet
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S01
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - No wallet, connector version, or QIE transaction flow has been tested.
+- capability_id: contract-deploy
+  category: frameworks
+  tool_id: foundry
+  operation: deploy_contract
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S01
+    - S08
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official builder guidance mentions Foundry; no QIE build or deployment was executed.
+- capability_id: identity-auth
+  category: identity
+  tool_id: qie-pass
+  operation: authenticate
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S01
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Product is mentioned publicly; production SDK, API, and authentication flow are not confirmed.
+- capability_id: dex-swap
+  category: defi
+  tool_id: qiedex
+  operation: swap
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S01
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Canonical router addresses, ABI, liquidity and executable swap path are unknown.
+- capability_id: bridge-transfer
+  category: bridges
+  tool_id: unidentified-bridge
+  operation: bridge_assets
+  network_ids: []
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S04
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Architecture references interoperability; no operational bridge interface or trust model is
+      verified.
+- capability_id: native-delegate
+  category: native-cosmos
+  tool_id: qie-native
+  operation: delegate_native
+  network_ids: []
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S04
+    - S09
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Current native CLI release, account mapping and delegation commands are not established.
+- capability_id: indexer-query
+  category: indexing
+  tool_id: unidentified-indexer
+  operation: query_events
+  network_ids: []
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S00
+    - S09
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - No QIE-specific indexer provider, supported network, API, or version has been confirmed.
+- capability_id: qiewallet-eip1193-connect
+  category: wallets
+  tool_id: qie-wallet
+  operation: connect_eip1193
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: "4.2.2"
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official guide documents EIP-1193 provider injection, EIP-6963 discovery with rdns 'me.qiewallet', and 'window.qie'; live browser extension connection untested in this environment.
+- capability_id: qiewallet-switch-chain
+  category: wallets
+  tool_id: qie-wallet
+  operation: switch_chain
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: "4.2.2"
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Documented via wallet_switchEthereumChain (0x7C6 for mainnet, 0x7BF for testnet). Switching to testnet returns error 4902 unless the user has manually enabled the testnet toggle in wallet settings.
+- capability_id: qiewallet-disconnect-event
+  category: wallets
+  tool_id: qie-wallet
+  operation: listen_disconnect_event
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: "4.2.2"
+  status: UNSUPPORTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official integration guide explicitly warns that QIE Wallet never emits the 'disconnect' event; site disconnection arrives solely as 'accountsChanged' with an empty array.
+- capability_id: qiewallet-non-evm-eip1193
+  category: wallets
+  tool_id: qie-wallet
+  operation: access_non_evm_via_eip1193
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: "4.2.2"
+  status: UNSUPPORTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official integration guide explicitly states non-EVM accounts (Bitcoin, Solana) in QIE Wallet are not exposed through the EIP-1193 provider.
+- capability_id: hardhat-deploy
+  category: frameworks
+  tool_id: hardhat
+  operation: deploy_contract
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S11
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official developer docs document Hardhat configuration for QIE Mainnet with Solidity 0.8.20 and JSON-RPC URL; live network execution not run.
+- capability_id: remix-deploy
+  category: frameworks
+  tool_id: remix
+  operation: deploy_via_injected_provider
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S21
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official Remix guide documents deployment through the 'Injected Web3' environment with MetaMask on the QIE network; browser environment and manual wallet approval required, and no EVM compiler target is specified by the guide.
+- capability_id: explorer-verification-api
+  category: explorers
+  tool_id: qie-explorer
+  operation: verify_contract_api
+  network_ids:
+    - qie-mainnet
+    - qie-testnet
+  tool_version_range: null
+  status: UNKNOWN
+  evidence_type: null
+  source_ids:
+    - S00
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Post-deployment docs mention explorer verification, but programmatic verification API, endpoint, and tool plugins (e.g. hardhat-verify, forge verify-contract) are not documented or confirmed.
+- capability_id: viem-custom-chain
+  category: wallets
+  tool_id: viem
+  operation: define_chain
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official guide documents viem custom chain definition with canonical mainnet chain ID, rpcUrls, and explorer; live RPC call through viem transport untested on active chain.
+- capability_id: wagmi-injected
+  category: wallets
+  tool_id: wagmi
+  operation: injected_connector
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Documented via wagmi injected() connector utilizing EIP-6963 discovery for QIE Wallet; React runtime untested in this environment.
+- capability_id: qied-staking-delegate
+  category: native-cosmos
+  tool_id: qied
+  operation: delegate_native
+  network_ids:
+    - qie-mainnet
+  tool_version_range: "v4"
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S13
+    - S15
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official guide documents 'qied tx staking delegate <validator> <amount>aqie --chain-id <native-chain-id>'; operates on native Cosmos layer, not EVM smart contracts.
+- capability_id: qied-gov-submit
+  category: native-cosmos
+  tool_id: qied
+  operation: submit_governance_proposal
+  network_ids:
+    - qie-mainnet
+  tool_version_range: "v4"
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S14
+    - S15
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Official guide documents 'qied tx gov submit-proposal ./proposal.json --chain-id <native-chain-id>'; requires 10,000 QIE minimum deposit in aqie units.
+- capability_id: qie-oracle-price-feed
+  category: oracles
+  tool_id: qie-oracle
+  operation: read_price_feed
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DOCUMENTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S12
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Deployed contract table and Solidity query example are officially documented for BTC, ETH, XRP, SOL, QIE, XAUt, BNB on Layer 1; address identity is not verified on-chain, and address records remain UNKNOWN.
+- capability_id: qie-bridge-web
+  category: bridges
+  tool_id: qie-bridge
+  operation: bridge_assets_web
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: CLAIMED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S18
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Web bridge interface hosted at bridge.qie.digital connects QIE, Ethereum, and BSC; programmatic smart contract API and relayer architecture are unknown.
+- capability_id: qiedex-web-swap
+  category: defi
+  tool_id: qiedex
+  operation: swap_web
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: CLAIMED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S18
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Web exchange UI hosted at dex.qie.digital; smart contract router, factory, and liquidity pool addresses are unconfirmed and must not be guessed.
+- capability_id: legacy-chain-5656
+  category: networks
+  tool_id: qie-legacy
+  operation: evm_connect_chain_5656
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DEPRECATED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Pre-V3 chain ID 5656 is deprecated; official wallet guide explicitly warns not to use it, as current QIE V3 Mainnet uses the canonical V3 chain ID.
+- capability_id: legacy-chain-9731
+  category: networks
+  tool_id: qie-legacy
+  operation: evm_connect_chain_9731
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: DEPRECATED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Legacy chain ID 9731 is deprecated; official wallet guide explicitly warns not to use it, as current QIE V3 Mainnet uses the canonical V3 chain ID.
+- capability_id: chain-id-5656-conflict
+  category: networks
+  tool_id: qie-legacy
+  operation: resolve_mainnet_chain_id
+  network_ids:
+    - qie-mainnet
+  tool_version_range: null
+  status: CONFLICTED
+  evidence_type: OFFICIAL_DOC
+  source_ids:
+    - S03
+    - S10
+  evidence_test_ids: []
+  checked_at: null
+  expires_at: null
+  recipe_path: null
+  limitations:
+    - Historical aggregators list chain ID 5656 while official QIE V3 documentation defines the canonical V3 chain ID; resolved by treating canonical V3 as Mainnet and 5656 as deprecated pre-V3.

@@ -1,0 +1,272 @@
+{
+  "scope": "B07 original operational skills and recipes; local, MOCK and preparation scopes only",
+  "release_version": "0.4.0-operational.1",
+  "schema_version": "1.2.0",
+  "verdict": "PASS within recorded B07 implementation scope; full P0/G2/live-QIE/production readiness NOT_MET",
+  "baseline_tests": {
+    "passed": 164,
+    "failed": 0
+  },
+  "final_tests": {
+    "passed": 208,
+    "failed": 0,
+    "skipped": 0,
+    "includes_installer_matrix": true
+  },
+  "final_candidate_full_suite": "coverage.txt (208/208), after final recipe and source-selector edits",
+  "installation_matrix": {
+    "passed": 18,
+    "failed": 0,
+    "modes": [
+      "copy",
+      "symlink"
+    ],
+    "selections": "suite plus eight singles",
+    "agents_targeted": [
+      "codex",
+      "claude-code"
+    ],
+    "actual_host_behavior_tested": false,
+    "network_denied": true,
+    "source_fixture_removed": true
+  },
+  "local_foundry_replay": {
+    "solidity_tests_passed": 5,
+    "fuzz_runs": 256,
+    "incorrect_expected_effect_rejected": true,
+    "installed_with_actual_skills_cli": true,
+    "source_fixture_removed": true,
+    "native_compiler_copied_to_temporary_fixture": true
+  },
+  "wallet_controller": {
+    "tests_passed": 26,
+    "frozen_negative_fixtures": 12,
+    "evidence_scope": "MOCK",
+    "typescript_typecheck": false,
+    "real_browser_or_wallet": false
+  },
+  "subagent_forward_test": {
+    "tasks": 1,
+    "commands_exit_zero": 7,
+    "scope": "LOCAL_REPLAY",
+    "independent_human_audit": false,
+    "cross_host_evaluation": false
+  },
+  "coverage": {
+    "scope": "scripts/** only",
+    "lines": 96.76,
+    "branches": 87.71,
+    "functions": 97.2
+  },
+  "failed_attempts": [
+    "YAML aliases rejected and removed",
+    "solc-select wrapper attempted download under isolated HOME; replaced with existing native compiler input",
+    "skill-creator validator unavailable: PyYAML missing",
+    "official skills-ref unavailable: read-only cache, then redirected offline cache missing package"
+  ],
+  "not_established": [
+    "live QIE RPC/provider compatibility",
+    "QIE compiler/EVM target support",
+    "wallet/browser behavior",
+    "signer/broadcast/deployment",
+    "fees/finality/application effect",
+    "explorer source verification",
+    "official skills-ref validation",
+    "public immutable-ref install/update/rollback",
+    "four-host discovery and two-host journey"
+  ],
+  "document_local_links_checked": [
+    "README.md",
+    "docs/source-map.md",
+    "docs/decisions.md",
+    "docs/b07-results.md"
+  ],
+  "manifests": [
+    {
+      "skill_id": "qie",
+      "manifest_sha256": "3468567ddc2644d5780c789c28858003323cfab4aa5ffc58264fe06ed54e481f",
+      "snapshot_path": "data/qie-a-z.json",
+      "manifest_members": 5
+    },
+    {
+      "skill_id": "qie-debug",
+      "manifest_sha256": "d284559432427bf5d8578d831fc62e5a3907cf3f73e3e4d65fa6e7e33cf90ed8",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 11
+    },
+    {
+      "skill_id": "qie-deployment",
+      "manifest_sha256": "04855c4890c614359909015951a63bcb5ad94c9a474808d0171615e4a7fa58e2",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 18
+    },
+    {
+      "skill_id": "qie-frontend",
+      "manifest_sha256": "eecaa12902cdba316ff1a0dc298f21d5b456a172a5f1c0aff4a02d8eac4e3697",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 10
+    },
+    {
+      "skill_id": "qie-networks",
+      "manifest_sha256": "eb9cedda1f34a02b0fa68d475863e55f8ecebc85d9da327b4f636953081ff837",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 13
+    },
+    {
+      "skill_id": "qie-smart-contracts",
+      "manifest_sha256": "ecbfc23b4bf4b2a7453a8a326fcffdc78da6186e8c41919faa3c443023c88896",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 9
+    },
+    {
+      "skill_id": "qie-transactions",
+      "manifest_sha256": "a653b7e724a3bc175c02353f17ec590713b68c6fc3ed12928f080fa7d957eddc",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 11
+    },
+    {
+      "skill_id": "qie-wallets",
+      "manifest_sha256": "aa18ac852c4ca5235d016b96ff742ed3c65915c8da9d5560caa3578a1e7b42f6",
+      "snapshot_path": "data/network-claims.json",
+      "manifest_members": 10
+    }
+  ],
+  "report": {
+    "path": "docs/b07-results.md",
+    "sha256": "edc056720e2a841c47d42c0075b1c1c705de690fb9d145281d470b0488ebedc8"
+  },
+  "evidence_files": {
+    "baseline-tests.txt": {
+      "bytes": 13210,
+      "sha256": "a610a76040c9df63403b829e5b1bff35b37639cbfa58f3867d55d2a568f8b02b"
+    },
+    "build-check.txt": {
+      "bytes": 250,
+      "sha256": "3f3f15b6fb1406f53684abd529d646f8f4754ce8ddefa1446a569c24932c4853"
+    },
+    "build.txt": {
+      "bytes": 231,
+      "sha256": "31e38c723886d519e1e378c0398ed2b839b30afa6ad0f81950fac02e686dc8eb"
+    },
+    "compiler-wrapper-failure.txt": {
+      "bytes": 24728,
+      "sha256": "72856393920d56965a30afbe99b5d7c6d591beeb220057bf6ea3bb0724318287"
+    },
+    "coverage.txt": {
+      "bytes": 20584,
+      "sha256": "17b0c734983ede9d336e35dd2bd68fbeee1a39fa9d3f84a17961c8fc3f64362f"
+    },
+    "files.json": {
+      "bytes": 25067,
+      "sha256": "36a45c9c9cf6eaf493798881e2b10dea937f22d8d6679cc24cfc0cc3303ee4b9"
+    },
+    "forward-test/artifact-checks.json": {
+      "bytes": 410,
+      "sha256": "bcea5cb8b67964cb62ff01f435ecc10cab931380cfaafdf332c51d4f14a7a1c7"
+    },
+    "forward-test/command-1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-1.stdout.txt": {
+      "bytes": 155,
+      "sha256": "8869c6251e267178d1e6ba825d365aa2298f24e8bcbd55a9cf50a626cc7f9cba"
+    },
+    "forward-test/command-2.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-2.stdout.txt": {
+      "bytes": 92,
+      "sha256": "eceb819b86658915a2116dcfc40e48d484833d74a64a8f40811611c24e615c02"
+    },
+    "forward-test/command-3.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-3.stdout.txt": {
+      "bytes": 9,
+      "sha256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6"
+    },
+    "forward-test/command-4.stderr.txt": {
+      "bytes": 1221,
+      "sha256": "7c11c13112ab0b162dad3ae155b26f61383fa7207d17d01fc355eff8df9afa44"
+    },
+    "forward-test/command-4.stdout.txt": {
+      "bytes": 92,
+      "sha256": "820af469f0035c45053b459d2dff835e163d03f190a5a99d0bc13a630e3a846f"
+    },
+    "forward-test/command-5.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-5.stdout.txt": {
+      "bytes": 534,
+      "sha256": "9886d90786dba7d30d71c203a4674a55452936c371f27e440c80f95b601c7d15"
+    },
+    "forward-test/command-6.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-6.stdout.txt": {
+      "bytes": 357,
+      "sha256": "c26ffb152b71949090449d14c6d467369d66b0c3880ec8ca2a3007181573c203"
+    },
+    "forward-test/command-7.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "forward-test/command-7.stdout.txt": {
+      "bytes": 57,
+      "sha256": "a0022e842877e9e3d5923187726f72c1e96c6aef85544037980ad1b3e065ec09"
+    },
+    "forward-test/findings.md": {
+      "bytes": 1363,
+      "sha256": "1b44441d8ff89fef551c3883503dce6bff10617bb2820e5b7ccad420b792b94b"
+    },
+    "forward-test/receipt.json": {
+      "bytes": 4434,
+      "sha256": "3c3a92293747e6bb8e06d58cca1e113dc21437089f0d1fc208a48a4efd4e89d8"
+    },
+    "installation.txt": {
+      "bytes": 1911,
+      "sha256": "0b446d879d9fb0d291ff99eb6f30d0036859ab474a6989b6bfa79de4956f816a"
+    },
+    "lint.txt": {
+      "bytes": 158,
+      "sha256": "9d42dc921cd79e31351ffa7f80797d128bad551a41e4f5aec0c872e31204dc05"
+    },
+    "official-validator-cache-failure.txt": {
+      "bytes": 170,
+      "sha256": "96969118f93793e3ad7ae2c1089ffac7f8a2f6b5536f0d457f0304eac9eb8214"
+    },
+    "official-validator-offline.txt": {
+      "bytes": 355,
+      "sha256": "2bb59d79c231bb04151f16d3a24d896fe5f6b9f5d345b8deeab9c80bd773c8cb"
+    },
+    "operational-tests.txt": {
+      "bytes": 2269,
+      "sha256": "897e07dd904ebf08608d276fb13f963ed506806cc365670dcf6c1924ac6f709f"
+    },
+    "preserved-foundation.json": {
+      "bytes": 1747,
+      "sha256": "476d18eec28c61a13c33460251c3ab9d2a6fd75fdd45fe6e0890c1722101ba63"
+    },
+    "skill-creator-validator.txt": {
+      "bytes": 203,
+      "sha256": "897bde9f1a2e821b4b5f87f8fd466850816ac7af55a4a113df4f5d8bd3d0c79a"
+    },
+    "tests.txt": {
+      "bytes": 18964,
+      "sha256": "c9b299e1691b9e39d53f9a8c676f01831b705bcca5a8b8af7a56618f0a6677c5"
+    },
+    "validate.txt": {
+      "bytes": 228,
+      "sha256": "3fd0f5fdc86c6c4cf7ecc92a6d4455c745e181ec92d814b3796de523789b23ff"
+    },
+    "wallet-tests.txt": {
+      "bytes": 2561,
+      "sha256": "ef6fc639d20a4af44ae6cf3ee66b2f27467bc198ffe0f40f0b5670b8c2def41c"
+    }
+  }
+}

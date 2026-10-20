@@ -1,0 +1,5 @@
+
+> qie-forge@0.4.0-operational.1 build
+> node scripts/build-skill-release.mjs
+
+Built qie, qie-networks, qie-smart-contracts, qie-frontend, qie-wallets, qie-transactions, qie-deployment, qie-debug; no live network checks performed.

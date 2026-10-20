@@ -1,0 +1,1540 @@
+{
+  "capabilities": [
+    {
+      "capability_id": "bridge-transfer",
+      "category": "bridges",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Architecture references interoperability; no operational bridge interface or trust model is verified."
+      ],
+      "network_ids": [],
+      "operation": "bridge_assets",
+      "recipe_path": null,
+      "source_ids": [
+        "S04"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "unidentified-bridge",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "chain-id-5656-conflict",
+      "category": "networks",
+      "checked_at": null,
+      "effective_status": "CONFLICTED",
+      "effective_status_reason": "Stored blocking or retired evidence state.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Historical aggregators list chain ID 5656 while official QIE V3 documentation defines the canonical V3 chain ID; resolved by treating canonical V3 as Mainnet and 5656 as deprecated pre-V3."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "resolve_mainnet_chain_id",
+      "recipe_path": null,
+      "source_ids": [
+        "S03",
+        "S10"
+      ],
+      "status": "CONFLICTED",
+      "tool_id": "qie-legacy",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "contract-deploy",
+      "category": "frameworks",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Official builder guidance mentions Foundry; no QIE build or deployment was executed."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "deploy_contract",
+      "recipe_path": null,
+      "source_ids": [
+        "S01",
+        "S08"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "foundry",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "dex-swap",
+      "category": "defi",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Canonical router addresses, ABI, liquidity and executable swap path are unknown."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "swap",
+      "recipe_path": null,
+      "source_ids": [
+        "S01"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qiedex",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "explorer-verification-api",
+      "category": "explorers",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Post-deployment docs mention explorer verification, but programmatic verification API, endpoint, and tool plugins (e.g. hardhat-verify, forge verify-contract) are not documented or confirmed."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "verify_contract_api",
+      "recipe_path": null,
+      "source_ids": [
+        "S00"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qie-explorer",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "hardhat-deploy",
+      "category": "frameworks",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official developer docs document Hardhat configuration for QIE Mainnet with Solidity 0.8.20 and JSON-RPC URL; live network execution not run."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "deploy_contract",
+      "recipe_path": null,
+      "source_ids": [
+        "S11"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "hardhat",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "identity-auth",
+      "category": "identity",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Product is mentioned publicly; production SDK, API, and authentication flow are not confirmed."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "authenticate",
+      "recipe_path": null,
+      "source_ids": [
+        "S01"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qie-pass",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "indexer-query",
+      "category": "indexing",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "No QIE-specific indexer provider, supported network, API, or version has been confirmed."
+      ],
+      "network_ids": [],
+      "operation": "query_events",
+      "recipe_path": null,
+      "source_ids": [
+        "S00",
+        "S09"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "unidentified-indexer",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "legacy-chain-5656",
+      "category": "networks",
+      "checked_at": null,
+      "effective_status": "DEPRECATED",
+      "effective_status_reason": "Stored blocking or retired evidence state.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Pre-V3 chain ID 5656 is deprecated; official wallet guide explicitly warns not to use it, as current QIE V3 Mainnet uses the canonical V3 chain ID."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "evm_connect_chain_5656",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DEPRECATED",
+      "tool_id": "qie-legacy",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "legacy-chain-9731",
+      "category": "networks",
+      "checked_at": null,
+      "effective_status": "DEPRECATED",
+      "effective_status_reason": "Stored blocking or retired evidence state.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Legacy chain ID 9731 is deprecated; official wallet guide explicitly warns not to use it, as current QIE V3 Mainnet uses the canonical V3 chain ID."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "evm_connect_chain_9731",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DEPRECATED",
+      "tool_id": "qie-legacy",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "native-delegate",
+      "category": "native-cosmos",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Current native CLI release, account mapping and delegation commands are not established."
+      ],
+      "network_ids": [],
+      "operation": "delegate_native",
+      "recipe_path": null,
+      "source_ids": [
+        "S04",
+        "S09"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qie-native",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "qie-bridge-web",
+      "category": "bridges",
+      "checked_at": null,
+      "effective_status": "CLAIMED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Web bridge interface hosted at bridge.qie.digital connects QIE, Ethereum, and BSC; programmatic smart contract API and relayer architecture are unknown."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "bridge_assets_web",
+      "recipe_path": null,
+      "source_ids": [
+        "S18"
+      ],
+      "status": "CLAIMED",
+      "tool_id": "qie-bridge",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "qie-oracle-price-feed",
+      "category": "oracles",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Deployed contract table and Solidity query example are officially documented for BTC, ETH, XRP, SOL, QIE, XAUt, BNB on Layer 1; address identity is not verified on-chain, and address records remain UNKNOWN."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "read_price_feed",
+      "recipe_path": null,
+      "source_ids": [
+        "S12"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "qie-oracle",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "qied-gov-submit",
+      "category": "native-cosmos",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official guide documents 'qied tx gov submit-proposal ./proposal.json --chain-id <native-chain-id>'; requires 10,000 QIE minimum deposit in aqie units."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "submit_governance_proposal",
+      "recipe_path": null,
+      "source_ids": [
+        "S14",
+        "S15"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "qied",
+      "tool_version_range": "v4"
+    },
+    {
+      "capability_id": "qied-staking-delegate",
+      "category": "native-cosmos",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official guide documents 'qied tx staking delegate <validator> <amount>aqie --chain-id <native-chain-id>'; operates on native Cosmos layer, not EVM smart contracts."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "delegate_native",
+      "recipe_path": null,
+      "source_ids": [
+        "S13",
+        "S15"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "qied",
+      "tool_version_range": "v4"
+    },
+    {
+      "capability_id": "qiedex-web-swap",
+      "category": "defi",
+      "checked_at": null,
+      "effective_status": "CLAIMED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Web exchange UI hosted at dex.qie.digital; smart contract router, factory, and liquidity pool addresses are unconfirmed and must not be guessed."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "swap_web",
+      "recipe_path": null,
+      "source_ids": [
+        "S18"
+      ],
+      "status": "CLAIMED",
+      "tool_id": "qiedex",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "qiewallet-disconnect-event",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "UNSUPPORTED",
+      "effective_status_reason": "Stored blocking or retired evidence state.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official integration guide explicitly warns that QIE Wallet never emits the 'disconnect' event; site disconnection arrives solely as 'accountsChanged' with an empty array."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "listen_disconnect_event",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "UNSUPPORTED",
+      "tool_id": "qie-wallet",
+      "tool_version_range": "4.2.2"
+    },
+    {
+      "capability_id": "qiewallet-eip1193-connect",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official guide documents EIP-1193 provider injection, EIP-6963 discovery with rdns 'me.qiewallet', and 'window.qie'; live browser extension connection untested in this environment."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "connect_eip1193",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "qie-wallet",
+      "tool_version_range": "4.2.2"
+    },
+    {
+      "capability_id": "qiewallet-non-evm-eip1193",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "UNSUPPORTED",
+      "effective_status_reason": "Stored blocking or retired evidence state.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official integration guide explicitly states non-EVM accounts (Bitcoin, Solana) in QIE Wallet are not exposed through the EIP-1193 provider."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "access_non_evm_via_eip1193",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "UNSUPPORTED",
+      "tool_id": "qie-wallet",
+      "tool_version_range": "4.2.2"
+    },
+    {
+      "capability_id": "qiewallet-switch-chain",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Documented via wallet_switchEthereumChain (0x7C6 for mainnet, 0x7BF for testnet). Switching to testnet returns error 4902 unless the user has manually enabled the testnet toggle in wallet settings."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "switch_chain",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "qie-wallet",
+      "tool_version_range": "4.2.2"
+    },
+    {
+      "capability_id": "remix-deploy",
+      "category": "frameworks",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official Remix guide documents deployment through the 'Injected Web3' environment with MetaMask on the QIE network; browser environment and manual wallet approval required, and no EVM compiler target is specified by the guide."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "deploy_via_injected_provider",
+      "recipe_path": null,
+      "source_ids": [
+        "S21"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "remix",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "rpc-identity",
+      "category": "networks",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "Listed endpoints have not been contacted; JSON-RPC availability and chain identity are unknown."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "read_chain_identity",
+      "recipe_path": null,
+      "source_ids": [
+        "S03"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "qie-rpc",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "viem-custom-chain",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Official guide documents viem custom chain definition with canonical mainnet chain ID, rpcUrls, and explorer; live RPC call through viem transport untested on active chain."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "define_chain",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "viem",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "wagmi-injected",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "DOCUMENTED",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": "OFFICIAL_DOC",
+      "expires_at": null,
+      "limitations": [
+        "Documented via wagmi injected() connector utilizing EIP-6963 discovery for QIE Wallet; React runtime untested in this environment."
+      ],
+      "network_ids": [
+        "qie-mainnet"
+      ],
+      "operation": "injected_connector",
+      "recipe_path": null,
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "tool_id": "wagmi",
+      "tool_version_range": null
+    },
+    {
+      "capability_id": "wallet-connect",
+      "category": "wallets",
+      "checked_at": null,
+      "effective_status": "UNKNOWN",
+      "effective_status_reason": "Stored evidence level; no live check or evidence promotion.",
+      "evidence_test_ids": [],
+      "evidence_type": null,
+      "expires_at": null,
+      "limitations": [
+        "No wallet, connector version, or QIE transaction flow has been tested."
+      ],
+      "network_ids": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operation": "connect_external_wallet",
+      "recipe_path": null,
+      "source_ids": [
+        "S01"
+      ],
+      "status": "UNKNOWN",
+      "tool_id": "external-evm-wallet",
+      "tool_version_range": null
+    }
+  ],
+  "claims": [],
+  "domains": [
+    {
+      "capability_ids": [],
+      "coverage_level": "NAVIGATION",
+      "domain_id": "D01",
+      "entry_skill": "qie",
+      "maintainer": null,
+      "missing_information": [
+        "Detailed architecture and native account procedures require technical release evidence."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet",
+        "qie-native"
+      ],
+      "planned_skill": "qie",
+      "source_ids": [
+        "S00",
+        "S04"
+      ],
+      "title": "Fundamentals and architecture",
+      "user_intents": [
+        "Understand EVM versus native QIE"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "rpc-identity"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D02",
+      "entry_skill": "qie-networks",
+      "maintainer": null,
+      "missing_information": [
+        "Endpoint liveness, network identity, native currency decimals and RPC method limits are untested."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-networks",
+      "source_ids": [
+        "S03"
+      ],
+      "title": "Networks and RPC",
+      "user_intents": [
+        "Choose an explicit network",
+        "Inspect published RPC settings"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "wallet-connect"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D03",
+      "entry_skill": "qie-wallets",
+      "maintainer": null,
+      "missing_information": [
+        "No wallet or SDK version has been exercised on QIE."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-wallets",
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04"
+      ],
+      "title": "Accounts and wallets",
+      "user_intents": [
+        "Find a wallet connection path"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [
+        "contract-deploy"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D04",
+      "entry_skill": "qie-smart-contracts",
+      "maintainer": null,
+      "missing_information": [
+        "Local toolchain recipe is separate from unverified QIE compiler/EVM-target support and deployment compatibility."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-smart-contracts",
+      "source_ids": [
+        "S01",
+        "S08",
+        "S04"
+      ],
+      "title": "Smart-contract development",
+      "user_intents": [
+        "Find contract build and test guidance"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "bridge-transfer",
+        "qie-oracle-price-feed",
+        "qie-bridge-web"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D05",
+      "entry_skill": "qie-ecosystem",
+      "maintainer": null,
+      "missing_information": [
+        "Canonical token contract addresses and ERC-20 mappings are documented in official oracle and bridge docs, but contract addresses have not undergone on-chain identity verification and address inventory remains unverified."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-ecosystem",
+      "source_ids": [
+        "S00",
+        "S01",
+        "S13",
+        "S15"
+      ],
+      "title": "Tokens and assets",
+      "user_intents": [
+        "Locate token specifications and issuer addresses"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "rpc-identity"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D06",
+      "entry_skill": "qie-transactions",
+      "maintainer": null,
+      "missing_information": [
+        "Fee rules, supported block tags and operational finality policy are not established."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-transactions",
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "title": "Transactions and gas",
+      "user_intents": [
+        "Understand fees and transaction states"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [
+        "wallet-connect"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D07",
+      "entry_skill": "qie-frontend",
+      "maintainer": null,
+      "missing_information": [
+        "The generic read controller is mock-tested; browser UI, actual wallet and Viem/Wagmi compatibility remain unverified."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-frontend",
+      "source_ids": [
+        "S01",
+        "S03",
+        "S04"
+      ],
+      "title": "Frontend and full-stack",
+      "user_intents": [
+        "Connect a TypeScript app to QIE"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [
+        "wallet-connect",
+        "identity-auth",
+        "dex-swap",
+        "qiewallet-eip1193-connect",
+        "qiewallet-switch-chain",
+        "qiewallet-disconnect-event",
+        "qiewallet-non-evm-eip1193",
+        "hardhat-deploy",
+        "remix-deploy",
+        "explorer-verification-api",
+        "viem-custom-chain",
+        "wagmi-injected",
+        "legacy-chain-5656",
+        "legacy-chain-9731",
+        "chain-id-5656-conflict"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D08",
+      "entry_skill": "qie-ecosystem",
+      "maintainer": null,
+      "missing_information": [
+        "QIE Wallet extension interfaces and deployment frameworks (Hardhat, Remix) are officially documented; browser extension live integration, API contract verification and automated tests remain unverified."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-ecosystem",
+      "source_ids": [
+        "S01",
+        "S10",
+        "S11",
+        "S12",
+        "S16",
+        "S17",
+        "S19",
+        "S20"
+      ],
+      "title": "Ecosystem products",
+      "user_intents": [
+        "Find QIE Wallet, QIE Pass and exchange products"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "dex-swap",
+        "qiedex-web-swap"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D09",
+      "entry_skill": "qie-ecosystem",
+      "maintainer": null,
+      "missing_information": [
+        "Web swap interface is claimed at swap.dex.qie.digital and qie-lend-sdk exists on GitHub, but no published npm package, canonical router address, or factory ABI is verified."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-ecosystem",
+      "source_ids": [
+        "S01",
+        "S14",
+        "S18"
+      ],
+      "title": "DeFi and liquidity",
+      "user_intents": [
+        "Find exchange interfaces and liquidity data"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "indexer-query"
+      ],
+      "coverage_level": "NAVIGATION",
+      "domain_id": "D10",
+      "entry_skill": null,
+      "maintainer": null,
+      "missing_information": [
+        "No supported indexing service or RPC historical log range has been measured."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-indexing",
+      "source_ids": [
+        "S00",
+        "S09"
+      ],
+      "title": "Indexing, data and analytics",
+      "user_intents": [
+        "Find historical event access"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [
+        "native-delegate",
+        "qied-staking-delegate",
+        "qied-gov-submit"
+      ],
+      "coverage_level": "NAVIGATION",
+      "domain_id": "D11",
+      "entry_skill": null,
+      "maintainer": null,
+      "missing_information": [
+        "Native Cosmos chain identifier and CLI commands (qied tx staking delegate, qied tx gov submit-proposal) are documented via chain-registry and official docs; live Cosmos node connectivity and delegation execution remain unverified."
+      ],
+      "network_scope": [
+        "qie-native"
+      ],
+      "planned_skill": "qie-native",
+      "source_ids": [
+        "S04",
+        "S09",
+        "S12",
+        "S15"
+      ],
+      "title": "Native QIE and Cosmos",
+      "user_intents": [
+        "Distinguish delegation from EVM contract staking"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [],
+      "coverage_level": "NAVIGATION",
+      "domain_id": "D12",
+      "entry_skill": "qie",
+      "maintainer": null,
+      "missing_information": [
+        "QIE-specific operational security procedures and audited contract integrations are not validated."
+      ],
+      "network_scope": [
+        "general"
+      ],
+      "planned_skill": "qie",
+      "source_ids": [
+        "S00",
+        "S01"
+      ],
+      "title": "Security and operations",
+      "user_intents": [
+        "Find signing and secret-handling boundaries"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [
+        "rpc-identity"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D13",
+      "entry_skill": "qie-debug",
+      "maintainer": null,
+      "missing_information": [
+        "Read-only diagnostics and failure branches use mocked regression evidence; actual QIE RPC behavior remains unverified."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-debug",
+      "source_ids": [
+        "S03",
+        "S04"
+      ],
+      "title": "Debugging and diagnostics",
+      "user_intents": [
+        "Investigate wrong-chain or unavailable RPC reports"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "DOCUMENTED"
+    },
+    {
+      "capability_ids": [
+        "contract-deploy"
+      ],
+      "coverage_level": "LOCAL_REFERENCE",
+      "domain_id": "D14",
+      "entry_skill": "qie-deployment",
+      "maintainer": null,
+      "missing_information": [
+        "No application, deployment, explorer source-verification API or chain finality has been tested."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "planned_skill": "qie-deployment",
+      "source_ids": [
+        "S01",
+        "S08",
+        "S04"
+      ],
+      "title": "Deployment and production",
+      "user_intents": [
+        "Find a staged contract deployment path"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    },
+    {
+      "capability_ids": [],
+      "coverage_level": "NAVIGATION",
+      "domain_id": "D15",
+      "entry_skill": null,
+      "maintainer": null,
+      "missing_information": [
+        "Governance interface, current proposals and maintainer ownership are not confirmed."
+      ],
+      "network_scope": [
+        "general"
+      ],
+      "planned_skill": "qie-native",
+      "source_ids": [
+        "S04",
+        "S08",
+        "S09"
+      ],
+      "title": "Governance, ecosystem and contribution",
+      "user_intents": [
+        "Locate public repositories and native governance references"
+      ],
+      "validation_test_ids": [],
+      "verification_status": "UNKNOWN"
+    }
+  ],
+  "policy": {
+    "expiry_mode": "explicit-record",
+    "offline_high_risk_status": "UNKNOWN",
+    "require_explicit_expiry_for_verified": true,
+    "require_live_check_for_writes": true,
+    "schema_version": "1.4.0",
+    "status_precedence": [
+      "CONFLICTED",
+      "DEPRECATED",
+      "UNSUPPORTED",
+      "STALE",
+      "UNKNOWN",
+      "CLAIMED",
+      "DOCUMENTED",
+      "VERIFIED"
+    ],
+    "timestamp_rule": "UTC-RFC3339"
+  },
+  "schema_version": "1.4.0",
+  "skills": [
+    {
+      "domain_ids": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10",
+        "D11",
+        "D12",
+        "D13",
+        "D14",
+        "D15"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "coverage"
+      ],
+      "logical_handoffs": [
+        "qie-debug",
+        "qie-deployment",
+        "qie-ecosystem",
+        "qie-frontend",
+        "qie-indexing",
+        "qie-native",
+        "qie-networks",
+        "qie-smart-contracts",
+        "qie-transactions",
+        "qie-wallets"
+      ],
+      "recipe_paths": [],
+      "release_tier": "P0",
+      "skill_id": "qie"
+    },
+    {
+      "domain_ids": [
+        "D13"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-smart-contracts",
+        "qie-transactions",
+        "qie-wallets"
+      ],
+      "recipe_paths": [
+        "recipes/debug/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-debug"
+    },
+    {
+      "domain_ids": [
+        "D14"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-smart-contracts",
+        "qie-transactions",
+        "qie-wallets"
+      ],
+      "recipe_paths": [
+        "recipes/build-test/recipe.md",
+        "recipes/deployment/recipe.md",
+        "recipes/network/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-deployment"
+    },
+    {
+      "domain_ids": [
+        "D05",
+        "D08",
+        "D09"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "ecosystem"
+      ],
+      "logical_handoffs": [
+        "qie",
+        "qie-debug",
+        "qie-deployment",
+        "qie-frontend",
+        "qie-networks",
+        "qie-smart-contracts",
+        "qie-transactions",
+        "qie-wallets"
+      ],
+      "recipe_paths": [],
+      "release_tier": "P0",
+      "skill_id": "qie-ecosystem"
+    },
+    {
+      "domain_ids": [
+        "D07"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-smart-contracts",
+        "qie-wallets"
+      ],
+      "recipe_paths": [
+        "recipes/wallet-read/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-frontend"
+    },
+    {
+      "domain_ids": [
+        "D02"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "network-profiles"
+      ],
+      "logical_handoffs": [],
+      "recipe_paths": [
+        "recipes/network/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-networks"
+    },
+    {
+      "domain_ids": [
+        "D04"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-debug",
+        "qie-deployment"
+      ],
+      "recipe_paths": [
+        "recipes/build-test/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-smart-contracts"
+    },
+    {
+      "domain_ids": [
+        "D06"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-debug"
+      ],
+      "recipe_paths": [
+        "recipes/debug/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-transactions"
+    },
+    {
+      "domain_ids": [
+        "D03"
+      ],
+      "enabled_for_release": true,
+      "generated_references": [
+        "operational"
+      ],
+      "logical_handoffs": [
+        "qie-deployment",
+        "qie-frontend"
+      ],
+      "recipe_paths": [
+        "recipes/wallet-read/recipe.md"
+      ],
+      "release_tier": "P0",
+      "skill_id": "qie-wallets"
+    }
+  ],
+  "sources": [
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S00",
+      "title": "QIE documentation overview",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S01",
+      "title": "Official ecosystem discovery and builder entry points",
+      "trust_tier": "T4",
+      "url": "https://hackathon.qie.digital/"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S03",
+      "title": "Published QIE EVM network settings",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S04",
+      "title": "QIE V3 architecture overview",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/what-is-qie/qie-v3-key-features"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S08",
+      "title": "QIE admin organization repositories",
+      "trust_tier": "T1",
+      "url": "https://github.com/qieadmin"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T00:08:45Z",
+      "source_id": "S09",
+      "title": "QIE blockchain repository entry point",
+      "trust_tier": "T1",
+      "url": "https://github.com/qie-blockchain"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S10",
+      "title": "QIE Wallet Integration Guide for Websites",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S11",
+      "title": "Deploy Smart Contract Using Hardhat on QIE",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/developer-docs/smart-contract-deployment/deploy-using-hardhat.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S12",
+      "title": "QIE Oracle Deployed Contracts and Asset Mapping",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/deployed-contracts/table-of-assets-contract-mapping.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S13",
+      "title": "QIE V3 Native Delegation and Staking Guide",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/delegators-in-qie-v3/how-to-delegate-qie-coins-and-earn-rewards.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S14",
+      "title": "QIE V3 Blockchain Governance Step-by-Step Guide",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/what-are-validators/qie-blockchain-governance-step-by-step-guide.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S15",
+      "title": "QIE Cosmos Chain Registry Configuration",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/chain.json"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S16",
+      "title": "QIE Cosmos Asset List and Precompile Specification",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/assetlist.json"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S17",
+      "title": "QIE Wallet Official Web Portal",
+      "trust_tier": "T4",
+      "url": "https://qiewallet.me/"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S18",
+      "title": "QIE Official Ecosystem and dApp Directory",
+      "trust_tier": "T4",
+      "url": "https://qie.digital/"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "VortX Capital",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S19",
+      "title": "QIE Wallet Browser Extension Chrome Web Store Listing",
+      "trust_tier": "T2",
+      "url": "https://chromewebstore.google.com/detail/qie-wallet-%E2%80%93-non-custodia/oljchdcgmibnjbbopolafbjncfhdacjb"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S20",
+      "title": "QIE EVM Chain Registry Repository",
+      "trust_tier": "T1",
+      "url": "https://github.com/qieadmin/chains"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T21:37:00Z",
+      "source_id": "S21",
+      "title": "Deploy Smart Contract Using Remix on QIE",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/developer-docs/smart-contract-deployment/deploy-using-remix.md"
+    }
+  ],
+  "status_evaluated_at": "2026-10-19T22:35:15Z",
+  "validation_runs": []
+}

@@ -1,0 +1,5 @@
+
+> qie-forge@0.4.0-operational.1 lint
+> node scripts/check-syntax.mjs
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.

@@ -1,0 +1,75 @@
+{
+  "network_id": "qie-testnet",
+  "claims": [
+    {
+      "claim_id": "qie-testnet.chain_id",
+      "predicate": "chain_id",
+      "value": 1983,
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.explorer_url",
+      "predicate": "explorer_url",
+      "value": "https://testnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.faucet_url",
+      "predicate": "faucet_url",
+      "value": "https://www.qie.digital/faucet",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.native_symbol",
+      "predicate": "native_symbol",
+      "value": "QIE",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.network_name",
+      "predicate": "network_name",
+      "value": "QIE testnet",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.rpc_url",
+      "predicate": "rpc_url",
+      "value": "https://rpc1testnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S03",
+      "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    }
+  ],
+  "live_check": {
+    "outcome": "NOT_RUN",
+    "reason": "Offline inspection only; no RPC or provider compatibility test was executed."
+  }
+}

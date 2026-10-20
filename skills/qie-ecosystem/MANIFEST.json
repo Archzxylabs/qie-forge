@@ -1,0 +1,41 @@
+{
+  "built_at": "2026-10-19T22:35:15Z",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "9e04a0b6fb53b8d4e1fde2066dda4eff628986834a73ce806e21b3b6bd95563f"
+    },
+    {
+      "path": "data/ecosystem-catalogue.json",
+      "sha256": "42964f65248e12bbf55d82909768ae10b144edcc6a6961779745a5a197156440"
+    },
+    {
+      "path": "references/catalogue.md",
+      "sha256": "b50146f1509c2dc946921fdeef30a7385b5eb3a57de6e382e41f56f12ccba59e"
+    },
+    {
+      "path": "references/compatibility.md",
+      "sha256": "dd420f99085d56d5d4cec9f8c77695686e29a875485291e8a8bf049350323d0c"
+    },
+    {
+      "path": "references/decision-guide.md",
+      "sha256": "cd3d31f224073e82adfa28acfc9b5d111b4704bfecf6c0927c89d0f18f4e3983"
+    },
+    {
+      "path": "references/release-info.md",
+      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+    },
+    {
+      "path": "scripts/lib/effective-status.mjs",
+      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+    }
+  ],
+  "generated": true,
+  "knowledge_sha256": "42964f65248e12bbf55d82909768ae10b144edcc6a6961779745a5a197156440",
+  "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_version": "0.5.1-ecosystem.1",
+  "schema_version": "1.4.0",
+  "skill_id": "qie-ecosystem",
+  "snapshot_path": "data/ecosystem-catalogue.json",
+  "sources_checked_at": "2026-10-19T00:08:45Z"
+}

@@ -1,0 +1,33 @@
+{
+  "built_at": "2026-10-19T22:35:15Z",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "5b7be338f8164ca0a7344dcce3c1b6693550a2546410308a43b0c52434beef65"
+    },
+    {
+      "path": "data/qie-a-z.json",
+      "sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4"
+    },
+    {
+      "path": "references/qie-a-z.md",
+      "sha256": "add461162ae634d1880a5d87a27c4058079d38b4d191a184040b45f1e9af212c"
+    },
+    {
+      "path": "references/release-info.md",
+      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+    },
+    {
+      "path": "references/routing.md",
+      "sha256": "7e4b84b2f23d6cfd27a8709836baf23ccf2e236c4d3b7e51d80cc5c1ac1f3613"
+    }
+  ],
+  "generated": true,
+  "knowledge_sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4",
+  "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_version": "0.5.1-ecosystem.1",
+  "schema_version": "1.4.0",
+  "skill_id": "qie",
+  "snapshot_path": "data/qie-a-z.json",
+  "sources_checked_at": "2026-10-19T00:08:45Z"
+}

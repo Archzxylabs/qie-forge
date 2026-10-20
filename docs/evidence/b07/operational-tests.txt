@@ -1,0 +1,16 @@
+✔ six P0 topical bundles package selected recipes without unrelated generated pages or promotion (436.926714ms)
+✔ a single third topical skill builds and validates independently after checkout deletion (256.979717ms)
+✔ recipe selector rejects missing selected recipe (228.562271ms)
+✔ recipe selector rejects escaping recipe (123.475871ms)
+✔ broken recipe asset and TypeScript helper imports block publication (360.30604ms)
+✔ installed Foundry recipe replays real build/test/ABI commands and detects an incorrect expected effect (755.61308ms)
+ℹ {"scope":"LOCAL_REPLAY only; QIE interoperability UNKNOWN","commands":[{"command":["forge","--version"],"status":0},{"command":["/tmp/qie-forge-foundry-replay-kwKKbz/solc","--version"],"status":0},{"command":["forge","build","--offline","--use","/tmp/qie-forge-foundry-replay-kwKKbz/solc"],"status":0},{"command":["forge","test","--offline","--use","/tmp/qie-forge-foundry-replay-kwKKbz/solc","-vv"],"status":0},{"command":["forge","inspect","--offline","--use","/tmp/qie-forge-foundry-replay-kwKKbz/solc","Counter","abi","--json"],"status":0},{"command":["forge","inspect","--offline","--use","/tmp/qie-forge-foundry-replay-kwKKbz/solc","Counter","methodIdentifiers","--json"],"status":0}],"tests":"No files changed, compilation skipped\n\nRan 5 tests for test/Counter.t.sol:CounterTest\n[PASS] testFuzzIncrementCount(uint8) (runs: 256, μ: 155005, ~: 104468)\n[PASS] testIncrementChangesState() (gas: 50281)\n[PASS] testInstancesHaveIndependentState() (gas: 51063)\n[PASS] testStartsAtZero() (gas: 6381)\n[PASS] testUnknownFunctionReverts() (gas: 25053)\nSuite result: ok. 5 passed; 0 failed; 0 skipped; finished in 9.26ms (9.88ms CPU time)\n\nRan 1 test suite in 9.65ms (9.26ms CPU time): 5 tests passed, 0 failed, 0 skipped (5 total tests)","methodIdentifiers":{"increment()":"d09de08a","value()":"3fa4f245"},"compiler_sha256":"5de843c2c93563cc66425c99a4fb13fdbf32b4c4ae07469480faaf126e14404a","artifact_sha256":"7fd0b784d28103a266070b0d6ae1c8eac7fb078a9f445e2d23224307ab5884d3"}
+ℹ Negative replay: forge test with wrong expected state exits nonzero; no QIE RPC, signer or broadcast used.
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2459.230369

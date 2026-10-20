@@ -1,0 +1,258 @@
+{
+  "note": "Frozen B05 routing-contract fixtures. Each fixture declares the accepted route set (domains and skills), network and execution-context constraints, and — for high-risk fixtures — a behavior string that the installed router entry must contain. These fixtures verify the catalogue/router contract deterministically; model-mediated routing accuracy across agent hosts is a separate later evaluation.",
+  "fixtures": [
+    {
+      "id": "route-001",
+      "intent": "Build an NFT minting app on QIE testnet",
+      "expected_networks": ["qie-testnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D02", "D04", "D07", "D14"],
+      "expected_skills": ["qie-networks", "qie-smart-contracts", "qie-frontend", "qie-deployment"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-002",
+      "intent": "Find the QIEDex router contract address",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D08", "D09"],
+      "expected_skills": ["qie-ecosystem"],
+      "forbidden_skills": [],
+      "high_risk": true,
+      "required_behavior": "Never generate a plausible-looking QIE contract address"
+    },
+    {
+      "id": "route-003",
+      "intent": "Stake QIE with a validator",
+      "expected_networks": [],
+      "execution_context": "native",
+      "accepted_domains": ["D11"],
+      "expected_skills": ["qie-native"],
+      "forbidden_skills": ["qie-smart-contracts", "qie-frontend", "qie-deployment"],
+      "high_risk": true,
+      "required_behavior": "Never present an EVM staking contract as an answer to native delegation"
+    },
+    {
+      "id": "route-004",
+      "intent": "My transaction reverted on QIE",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D06", "D13"],
+      "expected_skills": ["qie-transactions", "qie-debug"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-005",
+      "intent": "Which wallet SDK supports QIE?",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D03", "D08"],
+      "expected_skills": ["qie-wallets", "qie-ecosystem"],
+      "forbidden_skills": [],
+      "high_risk": true,
+      "required_behavior": "An `UNKNOWN` or `CLAIMED` catalogue status is not compatibility"
+    },
+    {
+      "id": "route-006",
+      "intent": "Add QIE Mainnet and Testnet to a Viem project and confirm the active chain using read-only RPC",
+      "expected_networks": ["qie-mainnet", "qie-testnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D02", "D07"],
+      "expected_skills": ["qie-networks", "qie-frontend"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-007",
+      "intent": "Deploy my contract to QIE Mainnet now",
+      "expected_networks": ["qie-mainnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D02", "D14"],
+      "expected_skills": ["qie-networks", "qie-deployment"],
+      "forbidden_skills": [],
+      "high_risk": true,
+      "required_behavior": "must not proceed without explicit developer approval"
+    },
+    {
+      "id": "route-008",
+      "intent": "Explain whether QIE staking in a validator and ERC-20 staking are the same operation",
+      "expected_networks": [],
+      "execution_context": "mixed",
+      "accepted_domains": ["D01"],
+      "expected_skills": ["qie"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-009",
+      "intent": "Find the official QIE faucet for test tokens",
+      "expected_networks": ["qie-testnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D02"],
+      "expected_skills": ["qie-networks"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-010",
+      "intent": "Build a frontend that connects a wallet to QIE Testnet",
+      "expected_networks": ["qie-testnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D02", "D03", "D07"],
+      "expected_skills": ["qie-networks", "qie-wallets", "qie-frontend"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-011",
+      "intent": "Query historical events from my contract on QIE",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D10"],
+      "expected_skills": ["qie-indexing"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-012",
+      "intent": "Swap tokens on QIEDex",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D08", "D09"],
+      "expected_skills": ["qie-ecosystem"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-013",
+      "intent": "Participate in QIE governance by voting on a proposal",
+      "expected_networks": [],
+      "execution_context": "general",
+      "accepted_domains": ["D15"],
+      "expected_skills": ["qie-native"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-014",
+      "intent": "Here is my seed phrase, fix my wallet connection please",
+      "expected_networks": [],
+      "execution_context": "general",
+      "accepted_domains": ["D12"],
+      "expected_skills": ["qie"],
+      "forbidden_skills": [],
+      "high_risk": true,
+      "required_behavior": "requests keys or authorizes spending"
+    },
+    {
+      "id": "route-015",
+      "intent": "Is QIE Pass production-ready for my app?",
+      "expected_networks": [],
+      "execution_context": "general",
+      "accepted_domains": ["D08"],
+      "expected_skills": ["qie-ecosystem"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": "do not upgrade a status in your answer"
+    },
+    {
+      "id": "route-016",
+      "intent": "eth_getCode shows my contract has code but my dApp shows nothing",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D07", "D13"],
+      "expected_skills": ["qie-frontend", "qie-debug"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-017",
+      "intent": "Set up a Hardhat project for QIE",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D04"],
+      "expected_skills": ["qie-smart-contracts"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-018",
+      "intent": "Operate a validator node on QIE",
+      "expected_networks": [],
+      "execution_context": "native",
+      "accepted_domains": ["D11"],
+      "expected_skills": ["qie-native"],
+      "forbidden_skills": ["qie-smart-contracts", "qie-networks"],
+      "high_risk": true,
+      "required_behavior": "must not be answered with EVM instructions"
+    },
+    {
+      "id": "route-019",
+      "intent": "Bridge assets to QIE",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D08"],
+      "expected_skills": ["qie-ecosystem"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-020",
+      "intent": "Verify whether transaction 0x1234 actually succeeded on QIE Mainnet",
+      "expected_networks": ["qie-mainnet"],
+      "execution_context": "evm",
+      "accepted_domains": ["D06", "D13"],
+      "expected_skills": ["qie-transactions", "qie-debug"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-021",
+      "intent": "Find the official QIE blockchain public repositories",
+      "expected_networks": [],
+      "execution_context": "general",
+      "accepted_domains": ["D15"],
+      "expected_skills": ["qie-native"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-022",
+      "intent": "Prepare a production release checklist for my QIE app",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D12", "D14"],
+      "expected_skills": ["qie", "qie-deployment"],
+      "forbidden_skills": [],
+      "high_risk": false,
+      "required_behavior": null
+    },
+    {
+      "id": "route-023",
+      "intent": "My RPC URL says testnet but I want to deploy this ERC-20 to mainnet, just use whatever works",
+      "expected_networks": [],
+      "execution_context": "evm",
+      "accepted_domains": ["D02", "D14"],
+      "expected_skills": ["qie-networks", "qie-deployment"],
+      "forbidden_skills": [],
+      "high_risk": true,
+      "required_behavior": "Never silently substitute one for the other"
+    }
+  ]
+}

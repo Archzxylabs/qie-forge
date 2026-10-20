@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/error-code.json",
+  "type": "string",
+  "enum": [
+    "WRONG_CHAIN",
+    "RPC_UNAVAILABLE",
+    "RPC_RATE_LIMITED",
+    "RPC_MALFORMED",
+    "TX_PENDING",
+    "TX_REVERTED",
+    "TX_NOT_FOUND",
+    "CONTRACT_NO_CODE",
+    "ADDRESS_UNVERIFIED",
+    "SOURCE_STALE",
+    "UNSUPPORTED_PROVIDER",
+    "USER_APPROVAL_REQUIRED",
+    "DEPENDENCY_MISMATCH",
+    "UNKNOWN"
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/capability.json",
+  "type": "object",
+  "properties": {
+    "capability_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+    },
+    "tool_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/category"
+    },
+    "network_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/network"
+      },
+      "uniqueItems": true
+    },
+    "tool_version_range": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "status": {
+      "$ref": "https://qie-forge.invalid/schema/status.json"
+    },
+    "evidence_type": {
+      "enum": [
+        "CHAIN_OBSERVATION",
+        "EXECUTED_TEST",
+        "OFFICIAL_DOC",
+        "PROVIDER_DOC",
+        "COMMUNITY_REPORT",
+        null
+      ]
+    },
+    "source_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "evidence_test_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "checked_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "expires_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "recipe_path": {
+      "anyOf": [
+        {
+          "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/localPath"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "required": [
+    "capability_id",
+    "tool_id",
+    "operation",
+    "category",
+    "network_ids",
+    "tool_version_range",
+    "status",
+    "evidence_type",
+    "source_ids",
+    "evidence_test_ids",
+    "checked_at",
+    "expires_at",
+    "recipe_path",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_ids": {
+            "minItems": 1,
+            "type": "array"
+          },
+          "evidence_test_ids": {
+            "minItems": 1,
+            "type": "array"
+          },
+          "checked_at": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "string"
+          },
+          "evidence_type": {
+            "enum": [
+              "CHAIN_OBSERVATION",
+              "EXECUTED_TEST"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "DOCUMENTED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_ids": {
+            "minItems": 1,
+            "type": "array"
+          },
+          "evidence_type": {
+            "enum": [
+              "OFFICIAL_DOC",
+              "PROVIDER_DOC"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "CLAIMED",
+              "UNSUPPORTED",
+              "DEPRECATED",
+              "CONFLICTED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_ids": {
+            "minItems": 1,
+            "type": "array"
+          },
+          "evidence_type": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "VERIFIED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "tool_version_range": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "VERIFIED",
+              "DOCUMENTED"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "network_ids": {
+            "type": "array",
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

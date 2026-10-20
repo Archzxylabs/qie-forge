@@ -1,0 +1,88 @@
+== npm run build ==
+
+> qie-forge@0.3.0-diagnostics.1 build
+> node scripts/build-skill-release.mjs
+
+Built qie, qie-networks; no live network checks performed.
+== npm run validate ==
+
+> qie-forge@0.3.0-diagnostics.1 validate
+> node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs
+
+Knowledge valid: 15 domains, 6 sources, 11 claims, 8 capabilities.
+Validated 2 self-contained skill bundle(s).
+== npm run build:check ==
+
+> qie-forge@0.3.0-diagnostics.1 build:check
+> node scripts/build-skill-release.mjs --check
+
+Reproduced qie, qie-networks; no live network checks performed.
+== npm run lint ==
+
+> qie-forge@0.3.0-diagnostics.1 lint
+> node scripts/check-syntax.mjs
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.
+
+== npm test ==
+ℹ tests 164
+ℹ suites 0
+ℹ pass 164
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11872.870739
+
+== coverage (node --test --experimental-test-coverage, include scripts/) ==
+ℹ tests 164
+ℹ pass 164
+ℹ fail 0
+ℹ all files                    |  96.69 |    87.57 |   97.12 | 
+== npm run test:install ==
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3938.858756
+✔ the bundled verify-network CLI fails closed on a blocked network (327.172055ms)
+✔ the bundled verify-network CLI rejects usage errors with status 2 (313.393542ms)
+✔ the source verify-network CLI rejects unknown options and malformed flags (163.807313ms)
+✔ the source verify-network CLI runs against an explicit --claims snapshot (312.012542ms)
+✔ The source verify-transaction CLI prints a report without touching a denied network (309.766576ms)
+✔ The verify-transaction CLI rejects usage errors with status 2 (268.781ms)
+ℹ   network-diagnostic.mjs     | 100.00 |    93.33 |  100.00 | 
+ℹ   rpc.mjs                    |  95.42 |    90.91 |  100.00 | 28-29 52-53 59-60
+ℹ   transaction-diagnostic.mjs |  96.90 |    92.25 |   87.50 | 52-53 223-226 229-231
+ℹ  verify-network.mjs          |  95.12 |    70.00 |  100.00 | 32-33
+ℹ  verify-transaction.mjs      |  93.88 |    66.67 |  100.00 | 33-35
+ℹ all files                    |  96.69 |    87.59 |   97.12 | 
+
+== manual CLI probes ==
+-- inspect-network (offline, bundled)
+    "outcome": "NOT_RUN",
+    "reason": "Offline inspection only; no RPC or provider compatibility test was executed."
+  }
+}
+exit=0
+-- verify-network bundled, network denied (guard), expect UNKNOWN + exit 1
+exit=1
+  "network_id": "qie-testnet",
+  "expected_chain_id": 1983,
+    "outcome": "UNKNOWN",
+    "error_code": "RPC_UNAVAILABLE",
+-- verify-network usage error, expect exit 2
+exit=2
+-- source verify-network via --claims, network denied, expect UNKNOWN + exit 1
+exit=1
+  "expected_chain_id": 1990,
+    "outcome": "UNKNOWN",
+    "error_code": "RPC_UNAVAILABLE",
+-- source verify-transaction via --claims, network denied, expect report + exit 0
+exit=0
+  "expectedChainId": 1983,
+  "applicationOutcome": "UNKNOWN",
+  "errorCode": "RPC_UNAVAILABLE",

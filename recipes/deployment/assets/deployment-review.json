@@ -1,0 +1,23 @@
+{
+  "readiness": "BLOCKED",
+  "targetNetwork": null,
+  "expectedChainId": null,
+  "observedChainId": null,
+  "sourceDigest": null,
+  "artifactDigest": null,
+  "abiDigest": null,
+  "constructorArguments": null,
+  "actionKind": null,
+  "signerAccount": null,
+  "nativeValueAndUnit": null,
+  "maximumSpendAndUnit": null,
+  "feeEstimateAndEvidence": null,
+  "capabilityEvidence": [],
+  "approvalState": "NOT_REQUESTED",
+  "blockers": [
+    "QIE compiler/EVM-target and deployment compatibility not established",
+    "Developer-controlled signer and concrete action not selected",
+    "Fee semantics and maximum spend not established",
+    "Finality and explorer source-verification paths not established"
+  ]
+}

@@ -1,0 +1,21 @@
+
+> qie-forge@0.1.0-foundation.1 build
+> node scripts/build-skill-release.mjs
+
+Built qie-networks; no live network checks performed.
+
+> qie-forge@0.1.0-foundation.1 validate
+> node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs
+
+Knowledge valid: 15 domains, 6 sources, 11 claims, 8 capabilities.
+Validated 1 self-contained skill bundle(s).
+
+> qie-forge@0.1.0-foundation.1 build:check
+> node scripts/build-skill-release.mjs --check
+
+Reproduced qie-networks; no live network checks performed.
+
+> qie-forge@0.1.0-foundation.1 lint
+> node scripts/check-syntax.mjs
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.

@@ -1,0 +1,15 @@
+schema_version: 1.4.0
+status_precedence:
+  - CONFLICTED
+  - DEPRECATED
+  - UNSUPPORTED
+  - STALE
+  - UNKNOWN
+  - CLAIMED
+  - DOCUMENTED
+  - VERIFIED
+require_explicit_expiry_for_verified: true
+require_live_check_for_writes: true
+offline_high_risk_status: UNKNOWN
+expiry_mode: explicit-record
+timestamp_rule: UTC-RFC3339

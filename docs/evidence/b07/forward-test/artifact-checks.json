@@ -1,0 +1,16 @@
+{
+  "abi_function_names": [
+    "increment",
+    "value"
+  ],
+  "method_identifiers": {
+    "increment()": "d09de08a",
+    "value()": "3fa4f245"
+  },
+  "creation_bytecode_bytes": 327,
+  "runtime_bytecode_bytes": 296,
+  "artifact_sha256": "7fd0b784d28103a266070b0d6ae1c8eac7fb078a9f445e2d23224307ab5884d3",
+  "compiler_version": "0.8.37+commit.f401782d",
+  "evm_version": "paris",
+  "all_checks_passed": true
+}

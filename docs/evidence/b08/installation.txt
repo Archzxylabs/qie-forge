@@ -1,0 +1,32 @@
+# QIE Forge release verification — installation
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run test:install
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (2664.065651ms)
+✔ Skills CLI installs qie in symlink mode into clean project fixtures (762.295652ms)
+✔ Skills CLI installs qie-debug in symlink mode into clean project fixtures (953.051048ms)
+✔ Skills CLI installs qie-deployment in symlink mode into clean project fixtures (875.472171ms)
+✔ Skills CLI installs qie-ecosystem in symlink mode into clean project fixtures (705.987525ms)
+✔ Skills CLI installs qie-frontend in symlink mode into clean project fixtures (1037.572176ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (858.817501ms)
+✔ Skills CLI installs qie-smart-contracts in symlink mode into clean project fixtures (673.704105ms)
+✔ Skills CLI installs qie-transactions in symlink mode into clean project fixtures (874.009456ms)
+✔ Skills CLI installs qie-wallets in symlink mode into clean project fixtures (1033.072299ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (2624.026687ms)
+✔ Skills CLI installs qie in copy mode into clean project fixtures (713.664722ms)
+✔ Skills CLI installs qie-debug in copy mode into clean project fixtures (926.410523ms)
+✔ Skills CLI installs qie-deployment in copy mode into clean project fixtures (969.74341ms)
+✔ Skills CLI installs qie-ecosystem in copy mode into clean project fixtures (706.779873ms)
+✔ Skills CLI installs qie-frontend in copy mode into clean project fixtures (1171.733634ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (994.318677ms)
+✔ Skills CLI installs qie-smart-contracts in copy mode into clean project fixtures (679.681126ms)
+✔ Skills CLI installs qie-transactions in copy mode into clean project fixtures (873.533746ms)
+✔ Skills CLI installs qie-wallets in copy mode into clean project fixtures (1043.025297ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21406.092048

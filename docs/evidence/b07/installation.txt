@@ -1,0 +1,30 @@
+
+> qie-forge@0.4.0-operational.1 test:install
+> node --test --test-isolation=none tests/installation.test.mjs
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (2546.198227ms)
+✔ Skills CLI installs qie in symlink mode into clean project fixtures (653.134768ms)
+✔ Skills CLI installs qie-debug in symlink mode into clean project fixtures (871.52634ms)
+✔ Skills CLI installs qie-deployment in symlink mode into clean project fixtures (939.871154ms)
+✔ Skills CLI installs qie-frontend in symlink mode into clean project fixtures (984.962614ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (836.439486ms)
+✔ Skills CLI installs qie-smart-contracts in symlink mode into clean project fixtures (646.347023ms)
+✔ Skills CLI installs qie-transactions in symlink mode into clean project fixtures (892.949078ms)
+✔ Skills CLI installs qie-wallets in symlink mode into clean project fixtures (1065.406891ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (2353.418826ms)
+✔ Skills CLI installs qie in copy mode into clean project fixtures (598.548567ms)
+✔ Skills CLI installs qie-debug in copy mode into clean project fixtures (850.405192ms)
+✔ Skills CLI installs qie-deployment in copy mode into clean project fixtures (881.304129ms)
+✔ Skills CLI installs qie-frontend in copy mode into clean project fixtures (961.570334ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (828.228562ms)
+✔ Skills CLI installs qie-smart-contracts in copy mode into clean project fixtures (614.326202ms)
+✔ Skills CLI installs qie-transactions in copy mode into clean project fixtures (868.778615ms)
+✔ Skills CLI installs qie-wallets in copy mode into clean project fixtures (987.297955ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18638.666178

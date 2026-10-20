@@ -1,0 +1,65 @@
+{
+  "built_at": "2026-10-19T22:35:15Z",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "8de40101bfeadba31e945785c812f34f313cc135709b188dba7ec6c212b20ae4"
+    },
+    {
+      "path": "data/network-claims.json",
+      "sha256": "fb401e0a1a2edf6f6749b65dd14353e2c194c7549deff1d18a340000f7fc2e27"
+    },
+    {
+      "path": "recipes/network/recipe.md",
+      "sha256": "af3c545108ed59e85355f5e5bc7ef5635e564872effc222935ea32a2322bf325"
+    },
+    {
+      "path": "references/network-mainnet.md",
+      "sha256": "3fcf9fa4d0fbd789e2f29268224065c32b88de3ffd4d85adad7c362e38013236"
+    },
+    {
+      "path": "references/network-testnet.md",
+      "sha256": "ace6409cf3c3e0469cb308f493e67b3bb13f3369e30b086535b37080f82502ce"
+    },
+    {
+      "path": "references/preflight.md",
+      "sha256": "8c65dda83dcde90fca0b57c29410782dc8c7df98213d666b9199a16c7752f580"
+    },
+    {
+      "path": "references/release-info.md",
+      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+    },
+    {
+      "path": "references/scope.md",
+      "sha256": "4fd9b04da18d892955792b4fdafa10067e1827c14cee4c90961cd4f0f5e9be9d"
+    },
+    {
+      "path": "scripts/inspect-network.mjs",
+      "sha256": "7e7481185ece65a6b7723dfe21dc43804b8ad4876dbad5b5f1854bd01914e80d"
+    },
+    {
+      "path": "scripts/lib/effective-status.mjs",
+      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+    },
+    {
+      "path": "scripts/lib/network-diagnostic.mjs",
+      "sha256": "d0e100c21308c102b590d70fa56338b17f6db45c77986bee4c794663f5212233"
+    },
+    {
+      "path": "scripts/lib/rpc.mjs",
+      "sha256": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2"
+    },
+    {
+      "path": "scripts/verify-network.mjs",
+      "sha256": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f"
+    }
+  ],
+  "generated": true,
+  "knowledge_sha256": "fb401e0a1a2edf6f6749b65dd14353e2c194c7549deff1d18a340000f7fc2e27",
+  "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
+  "release_version": "0.5.1-ecosystem.1",
+  "schema_version": "1.4.0",
+  "skill_id": "qie-networks",
+  "snapshot_path": "data/network-claims.json",
+  "sources_checked_at": "2026-10-19T00:08:45Z"
+}

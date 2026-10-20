@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/manifest.json",
+  "type": "object",
+  "properties": {
+    "release_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[a-z0-9.-]+)?$"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "built_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/timestamp"
+    },
+    "sources_checked_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "generated": {
+      "const": true
+    },
+    "skill_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+    },
+    "knowledge_sha256": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+    },
+    "policy_sha256": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+    },
+    "snapshot_path": {
+      "enum": [
+        "data/network-claims.json",
+        "data/qie-a-z.json",
+        "data/ecosystem-catalogue.json"
+      ]
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://qie-forge.invalid/schema/manifest-file.json",
+        "type": "object",
+        "properties": {
+          "path": {
+            "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/localPath"
+          },
+          "sha256": {
+            "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "release_version",
+    "schema_version",
+    "built_at",
+    "sources_checked_at",
+    "generated",
+    "skill_id",
+    "knowledge_sha256",
+    "policy_sha256",
+    "snapshot_path",
+    "files"
+  ],
+  "additionalProperties": false
+}

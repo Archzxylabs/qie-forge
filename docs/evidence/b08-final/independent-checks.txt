@@ -1,0 +1,374 @@
+# Independent post-remediation verification
+# session: OpenCode (independent pass after the B08 final-audit remediation)
+# host clock (UTC): 2026-10-19T23:18:15Z
+# toolchain: node v24.20.0 / npm 11.19.0
+# release cut under test: 2026-10-19T22:35:15Z
+
+### npm run build:check
+
+> qie-forge@0.5.1-ecosystem.1 build:check
+> node scripts/build-skill-release.mjs --check
+
+Reproduced qie, qie-networks, qie-smart-contracts, qie-frontend, qie-wallets, qie-transactions, qie-deployment, qie-debug, qie-ecosystem; no live network checks performed.
+
+### npm run validate
+
+> qie-forge@0.5.1-ecosystem.1 validate
+> node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs
+
+Knowledge valid: 15 domains, 18 sources, 11 claims, 25 capabilities.
+Validated 9 self-contained skill bundle(s).
+
+### npm run docs:check
+
+> qie-forge@0.5.1-ecosystem.1 docs:check
+> node scripts/generate-evidence-doc.mjs --check
+
+Evidence catalogue matches canonical knowledge records.
+
+### npm run lint
+
+> qie-forge@0.5.1-ecosystem.1 lint
+> node scripts/check-syntax.mjs
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.
+
+### diff -qr skills dist/skills
+(byte-identical trees)
+
+### independent read-only verification (manifest digests, effective-status parity, no published address/endpoint/placeholder)
+ok  built_at is not in the future
+ok  source S00 review is not in the future
+ok  source S00 review precedes the release cut
+ok  source S03 review is not in the future
+ok  source S03 review precedes the release cut
+ok  source S04 review is not in the future
+ok  source S04 review precedes the release cut
+ok  source S01 review is not in the future
+ok  source S01 review precedes the release cut
+ok  source S08 review is not in the future
+ok  source S08 review precedes the release cut
+ok  source S09 review is not in the future
+ok  source S09 review precedes the release cut
+ok  source S10 review is not in the future
+ok  source S10 review precedes the release cut
+ok  source S11 review is not in the future
+ok  source S11 review precedes the release cut
+ok  source S12 review is not in the future
+ok  source S12 review precedes the release cut
+ok  source S13 review is not in the future
+ok  source S13 review precedes the release cut
+ok  source S14 review is not in the future
+ok  source S14 review precedes the release cut
+ok  source S15 review is not in the future
+ok  source S15 review precedes the release cut
+ok  source S16 review is not in the future
+ok  source S16 review precedes the release cut
+ok  source S17 review is not in the future
+ok  source S17 review precedes the release cut
+ok  source S18 review is not in the future
+ok  source S18 review precedes the release cut
+ok  source S19 review is not in the future
+ok  source S19 review precedes the release cut
+ok  source S20 review is not in the future
+ok  source S20 review precedes the release cut
+ok  source S21 review is not in the future
+ok  source S21 review precedes the release cut
+ok  skills/ and dist/skills/ hold the same file set
+ok  qie-debug/MANIFEST.json -> SKILL.md digest
+ok  qie-debug/MANIFEST.json -> data/network-claims.json digest
+ok  qie-debug/MANIFEST.json -> recipes/debug/recipe.md digest
+ok  qie-debug/MANIFEST.json -> references/evidence.md digest
+ok  qie-debug/MANIFEST.json -> references/release-info.md digest
+ok  qie-debug/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-debug/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-debug/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-debug/MANIFEST.json -> scripts/lib/transaction-diagnostic.mjs digest
+ok  qie-debug/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-debug/MANIFEST.json -> scripts/verify-transaction.mjs digest
+ok  qie-debug/MANIFEST.json records the release built_at
+ok  qie-deployment/MANIFEST.json -> SKILL.md digest
+ok  qie-deployment/MANIFEST.json -> data/network-claims.json digest
+ok  qie-deployment/MANIFEST.json -> recipes/build-test/assets/foundry.toml digest
+ok  qie-deployment/MANIFEST.json -> recipes/build-test/assets/src/Counter.sol digest
+ok  qie-deployment/MANIFEST.json -> recipes/build-test/assets/test/Counter.t.sol digest
+ok  qie-deployment/MANIFEST.json -> recipes/build-test/recipe.md digest
+ok  qie-deployment/MANIFEST.json -> recipes/build-test/toolchain.json digest
+ok  qie-deployment/MANIFEST.json -> recipes/deployment/assets/deployment-review.json digest
+ok  qie-deployment/MANIFEST.json -> recipes/deployment/recipe.md digest
+ok  qie-deployment/MANIFEST.json -> recipes/network/recipe.md digest
+ok  qie-deployment/MANIFEST.json -> references/evidence.md digest
+ok  qie-deployment/MANIFEST.json -> references/release-info.md digest
+ok  qie-deployment/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-deployment/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-deployment/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-deployment/MANIFEST.json -> scripts/lib/transaction-diagnostic.mjs digest
+ok  qie-deployment/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-deployment/MANIFEST.json -> scripts/verify-transaction.mjs digest
+ok  qie-deployment/MANIFEST.json records the release built_at
+ok  qie-ecosystem/MANIFEST.json -> SKILL.md digest
+ok  qie-ecosystem/MANIFEST.json -> data/ecosystem-catalogue.json digest
+ok  qie-ecosystem/MANIFEST.json -> references/catalogue.md digest
+ok  qie-ecosystem/MANIFEST.json -> references/compatibility.md digest
+ok  qie-ecosystem/MANIFEST.json -> references/decision-guide.md digest
+ok  qie-ecosystem/MANIFEST.json -> references/release-info.md digest
+ok  qie-ecosystem/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-ecosystem/MANIFEST.json records the release built_at
+ok  qie-frontend/MANIFEST.json -> SKILL.md digest
+ok  qie-frontend/MANIFEST.json -> data/network-claims.json digest
+ok  qie-frontend/MANIFEST.json -> recipes/wallet-read/assets/wallet-read.ts digest
+ok  qie-frontend/MANIFEST.json -> recipes/wallet-read/recipe.md digest
+ok  qie-frontend/MANIFEST.json -> references/evidence.md digest
+ok  qie-frontend/MANIFEST.json -> references/release-info.md digest
+ok  qie-frontend/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-frontend/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-frontend/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-frontend/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-frontend/MANIFEST.json records the release built_at
+ok  qie-networks/MANIFEST.json -> SKILL.md digest
+ok  qie-networks/MANIFEST.json -> data/network-claims.json digest
+ok  qie-networks/MANIFEST.json -> recipes/network/recipe.md digest
+ok  qie-networks/MANIFEST.json -> references/network-mainnet.md digest
+ok  qie-networks/MANIFEST.json -> references/network-testnet.md digest
+ok  qie-networks/MANIFEST.json -> references/preflight.md digest
+ok  qie-networks/MANIFEST.json -> references/release-info.md digest
+ok  qie-networks/MANIFEST.json -> references/scope.md digest
+ok  qie-networks/MANIFEST.json -> scripts/inspect-network.mjs digest
+ok  qie-networks/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-networks/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-networks/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-networks/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-networks/MANIFEST.json records the release built_at
+ok  qie-smart-contracts/MANIFEST.json -> SKILL.md digest
+ok  qie-smart-contracts/MANIFEST.json -> data/network-claims.json digest
+ok  qie-smart-contracts/MANIFEST.json -> recipes/build-test/assets/foundry.toml digest
+ok  qie-smart-contracts/MANIFEST.json -> recipes/build-test/assets/src/Counter.sol digest
+ok  qie-smart-contracts/MANIFEST.json -> recipes/build-test/assets/test/Counter.t.sol digest
+ok  qie-smart-contracts/MANIFEST.json -> recipes/build-test/recipe.md digest
+ok  qie-smart-contracts/MANIFEST.json -> recipes/build-test/toolchain.json digest
+ok  qie-smart-contracts/MANIFEST.json -> references/evidence.md digest
+ok  qie-smart-contracts/MANIFEST.json -> references/release-info.md digest
+ok  qie-smart-contracts/MANIFEST.json records the release built_at
+ok  qie-transactions/MANIFEST.json -> SKILL.md digest
+ok  qie-transactions/MANIFEST.json -> data/network-claims.json digest
+ok  qie-transactions/MANIFEST.json -> recipes/debug/recipe.md digest
+ok  qie-transactions/MANIFEST.json -> references/evidence.md digest
+ok  qie-transactions/MANIFEST.json -> references/release-info.md digest
+ok  qie-transactions/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-transactions/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-transactions/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-transactions/MANIFEST.json -> scripts/lib/transaction-diagnostic.mjs digest
+ok  qie-transactions/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-transactions/MANIFEST.json -> scripts/verify-transaction.mjs digest
+ok  qie-transactions/MANIFEST.json records the release built_at
+ok  qie-wallets/MANIFEST.json -> SKILL.md digest
+ok  qie-wallets/MANIFEST.json -> data/network-claims.json digest
+ok  qie-wallets/MANIFEST.json -> recipes/wallet-read/assets/wallet-read.ts digest
+ok  qie-wallets/MANIFEST.json -> recipes/wallet-read/recipe.md digest
+ok  qie-wallets/MANIFEST.json -> references/evidence.md digest
+ok  qie-wallets/MANIFEST.json -> references/release-info.md digest
+ok  qie-wallets/MANIFEST.json -> scripts/lib/effective-status.mjs digest
+ok  qie-wallets/MANIFEST.json -> scripts/lib/network-diagnostic.mjs digest
+ok  qie-wallets/MANIFEST.json -> scripts/lib/rpc.mjs digest
+ok  qie-wallets/MANIFEST.json -> scripts/verify-network.mjs digest
+ok  qie-wallets/MANIFEST.json records the release built_at
+ok  qie/MANIFEST.json -> SKILL.md digest
+ok  qie/MANIFEST.json -> data/qie-a-z.json digest
+ok  qie/MANIFEST.json -> references/qie-a-z.md digest
+ok  qie/MANIFEST.json -> references/release-info.md digest
+ok  qie/MANIFEST.json -> references/routing.md digest
+ok  qie/MANIFEST.json records the release built_at
+ok  matrix row exists for rpc-identity
+ok  matrix effective status for rpc-identity
+ok  matrix row exists for wallet-connect
+ok  matrix effective status for wallet-connect
+ok  matrix row exists for contract-deploy
+ok  matrix effective status for contract-deploy
+ok  matrix row exists for identity-auth
+ok  matrix effective status for identity-auth
+ok  matrix row exists for dex-swap
+ok  matrix effective status for dex-swap
+ok  matrix row exists for bridge-transfer
+ok  matrix effective status for bridge-transfer
+ok  matrix row exists for native-delegate
+ok  matrix effective status for native-delegate
+ok  matrix row exists for indexer-query
+ok  matrix effective status for indexer-query
+ok  matrix row exists for qiewallet-eip1193-connect
+ok  matrix effective status for qiewallet-eip1193-connect
+ok  matrix row exists for qiewallet-switch-chain
+ok  matrix effective status for qiewallet-switch-chain
+ok  matrix row exists for qiewallet-disconnect-event
+ok  matrix effective status for qiewallet-disconnect-event
+ok  matrix row exists for qiewallet-non-evm-eip1193
+ok  matrix effective status for qiewallet-non-evm-eip1193
+ok  matrix row exists for hardhat-deploy
+ok  matrix effective status for hardhat-deploy
+ok  matrix row exists for remix-deploy
+ok  matrix effective status for remix-deploy
+ok  matrix row exists for explorer-verification-api
+ok  matrix effective status for explorer-verification-api
+ok  matrix row exists for viem-custom-chain
+ok  matrix effective status for viem-custom-chain
+ok  matrix row exists for wagmi-injected
+ok  matrix effective status for wagmi-injected
+ok  matrix row exists for qied-staking-delegate
+ok  matrix effective status for qied-staking-delegate
+ok  matrix row exists for qied-gov-submit
+ok  matrix effective status for qied-gov-submit
+ok  matrix row exists for qie-oracle-price-feed
+ok  matrix effective status for qie-oracle-price-feed
+ok  matrix row exists for qie-bridge-web
+ok  matrix effective status for qie-bridge-web
+ok  matrix row exists for qiedex-web-swap
+ok  matrix effective status for qiedex-web-swap
+ok  matrix row exists for legacy-chain-5656
+ok  matrix effective status for legacy-chain-5656
+ok  matrix row exists for legacy-chain-9731
+ok  matrix effective status for legacy-chain-9731
+ok  matrix row exists for chain-id-5656-conflict
+ok  matrix effective status for chain-id-5656-conflict
+ok  catalogue overview publishes an effective status column
+ok  no contract address literal in qie-debug/SKILL.md
+ok  no retired endpoint in qie-debug/SKILL.md
+ok  no unresolved placeholder in qie-debug/SKILL.md
+ok  no contract address literal in qie-debug/recipes/debug/recipe.md
+ok  no retired endpoint in qie-debug/recipes/debug/recipe.md
+ok  no unresolved placeholder in qie-debug/recipes/debug/recipe.md
+ok  no contract address literal in qie-debug/references/evidence.md
+ok  no retired endpoint in qie-debug/references/evidence.md
+ok  no unresolved placeholder in qie-debug/references/evidence.md
+ok  no contract address literal in qie-debug/references/release-info.md
+ok  no retired endpoint in qie-debug/references/release-info.md
+ok  no unresolved placeholder in qie-debug/references/release-info.md
+ok  no contract address literal in qie-deployment/SKILL.md
+ok  no retired endpoint in qie-deployment/SKILL.md
+ok  no unresolved placeholder in qie-deployment/SKILL.md
+ok  no contract address literal in qie-deployment/recipes/build-test/recipe.md
+ok  no retired endpoint in qie-deployment/recipes/build-test/recipe.md
+ok  no unresolved placeholder in qie-deployment/recipes/build-test/recipe.md
+ok  no contract address literal in qie-deployment/recipes/deployment/recipe.md
+ok  no retired endpoint in qie-deployment/recipes/deployment/recipe.md
+ok  no unresolved placeholder in qie-deployment/recipes/deployment/recipe.md
+ok  no contract address literal in qie-deployment/recipes/network/recipe.md
+ok  no retired endpoint in qie-deployment/recipes/network/recipe.md
+ok  no unresolved placeholder in qie-deployment/recipes/network/recipe.md
+ok  no contract address literal in qie-deployment/references/evidence.md
+ok  no retired endpoint in qie-deployment/references/evidence.md
+ok  no unresolved placeholder in qie-deployment/references/evidence.md
+ok  no contract address literal in qie-deployment/references/release-info.md
+ok  no retired endpoint in qie-deployment/references/release-info.md
+ok  no unresolved placeholder in qie-deployment/references/release-info.md
+ok  no contract address literal in qie-ecosystem/SKILL.md
+ok  no retired endpoint in qie-ecosystem/SKILL.md
+ok  no unresolved placeholder in qie-ecosystem/SKILL.md
+ok  no contract address literal in qie-ecosystem/references/catalogue.md
+ok  no retired endpoint in qie-ecosystem/references/catalogue.md
+ok  no unresolved placeholder in qie-ecosystem/references/catalogue.md
+ok  no contract address literal in qie-ecosystem/references/compatibility.md
+ok  no retired endpoint in qie-ecosystem/references/compatibility.md
+ok  no unresolved placeholder in qie-ecosystem/references/compatibility.md
+ok  no contract address literal in qie-ecosystem/references/decision-guide.md
+ok  no retired endpoint in qie-ecosystem/references/decision-guide.md
+ok  no unresolved placeholder in qie-ecosystem/references/decision-guide.md
+ok  no contract address literal in qie-ecosystem/references/release-info.md
+ok  no retired endpoint in qie-ecosystem/references/release-info.md
+ok  no unresolved placeholder in qie-ecosystem/references/release-info.md
+ok  no contract address literal in qie-frontend/SKILL.md
+ok  no retired endpoint in qie-frontend/SKILL.md
+ok  no unresolved placeholder in qie-frontend/SKILL.md
+ok  no contract address literal in qie-frontend/recipes/wallet-read/recipe.md
+ok  no retired endpoint in qie-frontend/recipes/wallet-read/recipe.md
+ok  no unresolved placeholder in qie-frontend/recipes/wallet-read/recipe.md
+ok  no contract address literal in qie-frontend/references/evidence.md
+ok  no retired endpoint in qie-frontend/references/evidence.md
+ok  no unresolved placeholder in qie-frontend/references/evidence.md
+ok  no contract address literal in qie-frontend/references/release-info.md
+ok  no retired endpoint in qie-frontend/references/release-info.md
+ok  no unresolved placeholder in qie-frontend/references/release-info.md
+ok  no contract address literal in qie-networks/SKILL.md
+ok  no retired endpoint in qie-networks/SKILL.md
+ok  no unresolved placeholder in qie-networks/SKILL.md
+ok  no contract address literal in qie-networks/recipes/network/recipe.md
+ok  no retired endpoint in qie-networks/recipes/network/recipe.md
+ok  no unresolved placeholder in qie-networks/recipes/network/recipe.md
+ok  no contract address literal in qie-networks/references/network-mainnet.md
+ok  no retired endpoint in qie-networks/references/network-mainnet.md
+ok  no unresolved placeholder in qie-networks/references/network-mainnet.md
+ok  no contract address literal in qie-networks/references/network-testnet.md
+ok  no retired endpoint in qie-networks/references/network-testnet.md
+ok  no unresolved placeholder in qie-networks/references/network-testnet.md
+ok  no contract address literal in qie-networks/references/preflight.md
+ok  no retired endpoint in qie-networks/references/preflight.md
+ok  no unresolved placeholder in qie-networks/references/preflight.md
+ok  no contract address literal in qie-networks/references/release-info.md
+ok  no retired endpoint in qie-networks/references/release-info.md
+ok  no unresolved placeholder in qie-networks/references/release-info.md
+ok  no contract address literal in qie-networks/references/scope.md
+ok  no retired endpoint in qie-networks/references/scope.md
+ok  no unresolved placeholder in qie-networks/references/scope.md
+ok  no contract address literal in qie-smart-contracts/SKILL.md
+ok  no retired endpoint in qie-smart-contracts/SKILL.md
+ok  no unresolved placeholder in qie-smart-contracts/SKILL.md
+ok  no contract address literal in qie-smart-contracts/recipes/build-test/recipe.md
+ok  no retired endpoint in qie-smart-contracts/recipes/build-test/recipe.md
+ok  no unresolved placeholder in qie-smart-contracts/recipes/build-test/recipe.md
+ok  no contract address literal in qie-smart-contracts/references/evidence.md
+ok  no retired endpoint in qie-smart-contracts/references/evidence.md
+ok  no unresolved placeholder in qie-smart-contracts/references/evidence.md
+ok  no contract address literal in qie-smart-contracts/references/release-info.md
+ok  no retired endpoint in qie-smart-contracts/references/release-info.md
+ok  no unresolved placeholder in qie-smart-contracts/references/release-info.md
+ok  no contract address literal in qie-transactions/SKILL.md
+ok  no retired endpoint in qie-transactions/SKILL.md
+ok  no unresolved placeholder in qie-transactions/SKILL.md
+ok  no contract address literal in qie-transactions/recipes/debug/recipe.md
+ok  no retired endpoint in qie-transactions/recipes/debug/recipe.md
+ok  no unresolved placeholder in qie-transactions/recipes/debug/recipe.md
+ok  no contract address literal in qie-transactions/references/evidence.md
+ok  no retired endpoint in qie-transactions/references/evidence.md
+ok  no unresolved placeholder in qie-transactions/references/evidence.md
+ok  no contract address literal in qie-transactions/references/release-info.md
+ok  no retired endpoint in qie-transactions/references/release-info.md
+ok  no unresolved placeholder in qie-transactions/references/release-info.md
+ok  no contract address literal in qie-wallets/SKILL.md
+ok  no retired endpoint in qie-wallets/SKILL.md
+ok  no unresolved placeholder in qie-wallets/SKILL.md
+ok  no contract address literal in qie-wallets/recipes/wallet-read/recipe.md
+ok  no retired endpoint in qie-wallets/recipes/wallet-read/recipe.md
+ok  no unresolved placeholder in qie-wallets/recipes/wallet-read/recipe.md
+ok  no contract address literal in qie-wallets/references/evidence.md
+ok  no retired endpoint in qie-wallets/references/evidence.md
+ok  no unresolved placeholder in qie-wallets/references/evidence.md
+ok  no contract address literal in qie-wallets/references/release-info.md
+ok  no retired endpoint in qie-wallets/references/release-info.md
+ok  no unresolved placeholder in qie-wallets/references/release-info.md
+ok  no contract address literal in qie/SKILL.md
+ok  no retired endpoint in qie/SKILL.md
+ok  no unresolved placeholder in qie/SKILL.md
+ok  no contract address literal in qie/references/qie-a-z.md
+ok  no retired endpoint in qie/references/qie-a-z.md
+ok  no unresolved placeholder in qie/references/qie-a-z.md
+ok  no contract address literal in qie/references/release-info.md
+ok  no retired endpoint in qie/references/release-info.md
+ok  no unresolved placeholder in qie/references/release-info.md
+ok  no contract address literal in qie/references/routing.md
+ok  no retired endpoint in qie/references/routing.md
+ok  no unresolved placeholder in qie/references/routing.md
+ok  canonical qie-mainnet.chain_id is published in the catalogue
+ok  canonical qie-mainnet.rpc_url is published in the catalogue
+ok  canonical qie-mainnet.explorer_url is published in the catalogue
+ok  canonical qie-testnet.chain_id is published in the catalogue
+ok  canonical qie-testnet.rpc_url is published in the catalogue
+ok  canonical qie-testnet.explorer_url is published in the catalogue
+ok  qie-debug/references/release-info.md states the release cut
+ok  qie-deployment/references/release-info.md states the release cut
+ok  qie-ecosystem/references/release-info.md states the release cut
+ok  qie-frontend/references/release-info.md states the release cut
+ok  qie-networks/references/release-info.md states the release cut
+ok  qie-smart-contracts/references/release-info.md states the release cut
+ok  qie-transactions/references/release-info.md states the release cut
+ok  qie-wallets/references/release-info.md states the release cut
+ok  qie/references/release-info.md states the release cut
+
+No problems found.

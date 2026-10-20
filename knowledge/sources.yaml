@@ -1,0 +1,224 @@
+- source_id: S00
+  url: https://docs.qie.digital/
+  title: QIE documentation overview
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+    - qie-native
+  maintainer: null
+- source_id: S03
+  url: https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet
+  title: Published QIE EVM network settings
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  maintainer: null
+- source_id: S04
+  url: https://docs.qie.digital/what-is-qie/qie-v3-key-features
+  title: QIE V3 architecture overview
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+    - qie-native
+  maintainer: null
+- source_id: S01
+  url: https://hackathon.qie.digital/
+  title: Official ecosystem discovery and builder entry points
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S08
+  url: https://github.com/qieadmin
+  title: QIE admin organization repositories
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S09
+  url: https://github.com/qie-blockchain
+  title: QIE blockchain repository entry point
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T00:08:45Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S10
+  url: https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md
+  title: QIE Wallet Integration Guide for Websites
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  maintainer: null
+- source_id: S11
+  url: https://docs.qie.digital/developer-docs/smart-contract-deployment/deploy-using-hardhat.md
+  title: Deploy Smart Contract Using Hardhat on QIE
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+- source_id: S12
+  url: https://docs.qie.digital/qie-oracle/deployed-contracts/table-of-assets-contract-mapping.md
+  title: QIE Oracle Deployed Contracts and Asset Mapping
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+- source_id: S13
+  url: https://docs.qie.digital/delegators-in-qie-v3/how-to-delegate-qie-coins-and-earn-rewards.md
+  title: QIE V3 Native Delegation and Staking Guide
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-native
+  maintainer: null
+- source_id: S14
+  url: https://docs.qie.digital/what-are-validators/qie-blockchain-governance-step-by-step-guide.md
+  title: QIE V3 Blockchain Governance Step-by-Step Guide
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-native
+  maintainer: null
+- source_id: S15
+  url: https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/chain.json
+  title: QIE Cosmos Chain Registry Configuration
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-native
+  maintainer: null
+- source_id: S16
+  url: https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/assetlist.json
+  title: QIE Cosmos Asset List and Precompile Specification
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - qie-native
+  maintainer: null
+- source_id: S17
+  url: https://qiewallet.me/
+  title: QIE Wallet Official Web Portal
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S18
+  url: https://qie.digital/
+  title: QIE Official Ecosystem and dApp Directory
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S19
+  url: https://chromewebstore.google.com/detail/qie-wallet-%E2%80%93-non-custodia/oljchdcgmibnjbbopolafbjncfhdacjb
+  title: QIE Wallet Browser Extension Chrome Web Store Listing
+  publisher: VortX Capital
+  trust_tier: T2
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+- source_id: S20
+  url: https://github.com/qieadmin/chains
+  title: QIE EVM Chain Registry Repository
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T17:00:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+- source_id: S21
+  url: https://docs.qie.digital/developer-docs/smart-contract-deployment/deploy-using-remix.md
+  title: Deploy Smart Contract Using Remix on QIE
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-19T21:37:00Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null

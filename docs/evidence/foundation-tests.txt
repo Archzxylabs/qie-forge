@@ -1,0 +1,91 @@
+
+> qie-forge@0.1.0-foundation.1 test:coverage
+> node --test --test-isolation=none --experimental-test-coverage --test-coverage-include='scripts/**' tests/*.test.mjs
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (892.124248ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (761.86343ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (725.52318ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (721.607854ms)
+✔ inventory covers D01–D15 without inventing tested capabilities or addresses (84.857995ms)
+✔ rejects obsolete or outcome-as-status value VERIFIED_LIVE (0.980344ms)
+✔ rejects obsolete or outcome-as-status value CONFIRMED_TESTED (0.190069ms)
+✔ rejects obsolete or outcome-as-status value OFFICIALLY_DOCUMENTED (0.15331ms)
+✔ rejects obsolete or outcome-as-status value UNVERIFIED (0.145996ms)
+✔ rejects obsolete or outcome-as-status value PASS (0.143642ms)
+✔ rejects missing source (78.027946ms)
+✔ rejects duplicate source identity (67.329539ms)
+✔ rejects missing domain (79.995297ms)
+✔ rejects missing selected claim (73.905928ms)
+✔ rejects unknown network identifier (69.881686ms)
+✔ rejects invalid documented chain ID (73.458493ms)
+✔ rejects invalid documented RPC URL (70.826584ms)
+✔ rejects invalid source timestamp (73.523465ms)
+✔ rejects ambiguous YAML example field alias (67.833913ms)
+✔ rejects marketing-only documented operation (73.413617ms)
+✔ rejects unsafe freshness policy (72.017426ms)
+✔ rejects reversed status precedence (68.063567ms)
+✔ rejects mismatched release schema (99.676356ms)
+✔ rejects handwritten aggregate source check (73.275395ms)
+✔ rejects expiry before checked evidence (69.298342ms)
+✔ rejects unproven verified capability (77.536566ms)
+✔ accepts a synthetic operation/network/version-matched verified evidence fixture (73.747339ms)
+✔ rejects promotion from mock-only evidence (67.355689ms)
+✔ rejects promotion from wrong network (67.426362ms)
+✔ rejects promotion from wrong operation (63.20683ms)
+✔ rejects promotion from wrong version (66.060358ms)
+✔ rejects promotion from failed evidence (58.847394ms)
+✔ rejects promotion from missing human review (63.49768ms)
+✔ rejects promotion from unrelated observed value (64.350123ms)
+✔ rejects promotion from unrelated matched expected/observed values (64.165714ms)
+✔ rejects promotion from local replay labelled chain observation (64.423111ms)
+✔ rejects promotion from check timestamp newer than evidence (67.106437ms)
+✔ rejects address identity inferred from code presence alone (68.270398ms)
+✔ build is byte-reproducible across separate roots and staging equals publication (649.584807ms)
+✔ offline helper works after canonical authoring, knowledge, scripts and checkout are removed (291.648365ms)
+✔ packaged manifest rejects tampering and unlisted files (484.943096ms)
+✔ rejects broken/escaping link references/missing.md (0.391381ms)
+✔ rejects broken/escaping link ../../knowledge/claims.yaml (0.135997ms)
+✔ rejects broken/escaping link /home/private/file (0.150395ms)
+✔ rejects broken/escaping link references/%2e%2e/%2e%2e/secret (0.109958ms)
+✔ rejects broken JS imports, data URLs and reference-style Markdown links (0.493053ms)
+✔ rejects missing/duplicate/invalid frontmatter without silently repairing it (1.235818ms)
+✔ a broken authored link prevents publication (168.609547ms)
+✔ selected capability recipes must exist within the skill (176.723916ms)
+✔ authoring cannot silently overwrite generated network references (156.316343ms)
+✔ selected snapshot contains only transitive sources and no invented runtime evidence (168.223346ms)
+✔ unexpired verified fixture remains verified only in supplied online context (0.399415ms)
+✔ a frozen historical installation becomes stale without changing its stored record (0.149382ms)
+✔ offline high-risk evidence cannot establish current verified freshness (0.104097ms)
+✔ unknown clock and missing validity never produce verified freshness (0.12687ms)
+✔ invalid validity metadata and future checks never establish fresh evidence (0.12121ms)
+✔ does not promote or hide DOCUMENTED (0.102254ms)
+✔ does not promote or hide CLAIMED (0.067338ms)
+✔ does not promote or hide UNKNOWN (0.06842ms)
+✔ does not promote or hide CONFLICTED (0.097114ms)
+✔ does not promote or hide STALE (0.074121ms)
+✔ does not promote or hide UNSUPPORTED (0.08452ms)
+✔ does not promote or hide DEPRECATED (0.065494ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 63
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7868.77316
+ℹ start of coverage report
+ℹ -----------------------------------------------------------------------
+ℹ file                   | line % | branch % | funcs % | uncovered lines
+ℹ -----------------------------------------------------------------------
+ℹ scripts                |        |          |         | 
+ℹ  lib                   |        |          |         | 
+ℹ   bundle.mjs           |  95.29 |    83.33 |   88.89 | 19-20 22-23
+ℹ   effective-status.mjs | 100.00 |   100.00 |  100.00 | 
+ℹ   io.mjs               |  92.75 |    76.92 |  100.00 | 29-30 33-34 56
+ℹ   knowledge.mjs        |  96.99 |    79.22 |  100.00 | 84-85 124-125
+ℹ   release.mjs          |  98.08 |    84.75 |   96.67 | 33-34
+ℹ   schemas.mjs          | 100.00 |    88.89 |  100.00 | 
+ℹ -----------------------------------------------------------------------
+ℹ all files              |  96.58 |    83.59 |   97.06 | 
+ℹ -----------------------------------------------------------------------
+ℹ end of coverage report

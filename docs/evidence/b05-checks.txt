@@ -1,0 +1,299 @@
+2026-10-19T01:36:38Z (execution timestamp of this log, not project data)
+
+> qie-forge@0.2.0-router.1 build
+> node scripts/build-skill-release.mjs
+
+Built qie, qie-networks; no live network checks performed.
+
+> qie-forge@0.2.0-router.1 validate
+> node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs
+
+Knowledge valid: 15 domains, 6 sources, 11 claims, 8 capabilities.
+Validated 2 self-contained skill bundle(s).
+
+> qie-forge@0.2.0-router.1 build:check
+> node scripts/build-skill-release.mjs --check
+
+Reproduced qie, qie-networks; no live network checks performed.
+
+> qie-forge@0.2.0-router.1 lint
+> node scripts/check-syntax.mjs
+
+JavaScript syntax checks passed. No TypeScript compiler or style linter is configured.
+
+> qie-forge@0.2.0-router.1 test
+> node --test --test-isolation=none tests/*.test.mjs
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (675.923738ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (609.491858ms)
+✔ Skills CLI installs qie in symlink mode into clean project fixtures (508.550813ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (616.18003ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (612.269833ms)
+✔ Skills CLI installs qie in copy mode into clean project fixtures (505.659584ms)
+✔ inventory covers D01–D15 without inventing tested capabilities or addresses (63.345171ms)
+✔ catalogue binds the router to released skills and router-entry domains (0.342819ms)
+✔ release context is never built before its sources were reviewed (54.897903ms)
+✔ rejects obsolete or outcome-as-status value VERIFIED_LIVE (0.583033ms)
+✔ rejects obsolete or outcome-as-status value CONFIRMED_TESTED (0.171274ms)
+✔ rejects obsolete or outcome-as-status value OFFICIALLY_DOCUMENTED (0.125478ms)
+✔ rejects obsolete or outcome-as-status value UNVERIFIED (0.122431ms)
+✔ rejects obsolete or outcome-as-status value PASS (0.127251ms)
+✔ rejects missing source (53.751975ms)
+✔ rejects duplicate source identity (51.932202ms)
+✔ rejects missing domain (54.072311ms)
+✔ rejects missing selected claim (54.165096ms)
+✔ rejects unknown network identifier (49.924325ms)
+✔ rejects invalid documented chain ID (50.317689ms)
+✔ rejects invalid documented RPC URL (48.81164ms)
+✔ rejects invalid source timestamp (49.163455ms)
+✔ rejects ambiguous YAML example field alias (54.348814ms)
+✔ rejects marketing-only documented operation (57.776397ms)
+✔ rejects unsafe freshness policy (54.016084ms)
+✔ rejects reversed status precedence (49.44598ms)
+✔ rejects mismatched release schema (51.823587ms)
+✔ rejects handwritten aggregate source check (46.34805ms)
+✔ rejects missing generated reference artifact (46.256276ms)
+✔ rejects unknown generated reference artifact (49.322586ms)
+✔ rejects multiple generated reference artifacts (49.003253ms)
+✔ rejects expiry before checked evidence (51.103375ms)
+✔ rejects unproven verified capability (49.878928ms)
+✔ accepts a synthetic operation/network/version-matched verified evidence fixture (57.343008ms)
+✔ rejects promotion from mock-only evidence (52.711647ms)
+✔ rejects promotion from wrong network (52.460833ms)
+✔ rejects promotion from wrong operation (54.285875ms)
+✔ rejects promotion from wrong version (49.060421ms)
+✔ rejects promotion from failed evidence (49.883939ms)
+✔ rejects promotion from missing human review (78.465602ms)
+✔ rejects promotion from unrelated observed value (61.362681ms)
+✔ rejects promotion from unrelated matched expected/observed values (55.294733ms)
+✔ rejects promotion from local replay labelled chain observation (55.162322ms)
+✔ rejects promotion from check timestamp newer than evidence (45.418772ms)
+✔ rejects address identity inferred from code presence alone (46.913309ms)
+✔ multi-skill build is byte-reproducible across roots and staging equals publication (409.198843ms)
+✔ both installed bundles validate independently with consistent release metadata (144.989496ms)
+✔ router bundle contains exactly its self-contained inventory (135.5182ms)
+✔ router handles a missing sibling skill offline after checkout removal (146.528076ms)
+✔ router build rejects broken local reference: [missing](references/nope.md) (128.034254ms)
+✔ router build rejects broken local reference: [escape](../../knowledge/claims.yaml) (133.718386ms)
+✔ authoring cannot silently overwrite generated router references (263.950367ms)
+✔ edited generated publication is detected for either skill (440.487477ms)
+✔ build is byte-reproducible across separate roots and staging equals publication (402.625348ms)
+✔ offline helper works after canonical authoring, knowledge, scripts and checkout are removed (250.810712ms)
+✔ packaged manifest rejects tampering and unlisted files (353.000811ms)
+✔ rejects broken/escaping link references/missing.md (0.430605ms)
+✔ rejects broken/escaping link ../../knowledge/claims.yaml (0.140025ms)
+✔ rejects broken/escaping link /home/private/file (0.115979ms)
+✔ rejects broken/escaping link references/%2e%2e/%2e%2e/secret (0.106281ms)
+✔ rejects broken JS imports, data URLs and reference-style Markdown links (0.478495ms)
+✔ rejects missing/duplicate/invalid frontmatter without silently repairing it (1.014519ms)
+✔ a broken authored link prevents publication (117.784917ms)
+✔ selected capability recipes must exist within the skill (121.129463ms)
+✔ authoring cannot silently overwrite generated network references (128.798259ms)
+✔ selected snapshot contains only transitive sources and no invented runtime evidence (147.154411ms)
+✔ frozen fixture set covers the required routing breadth (0.248801ms)
+✔ catalogue snapshot covers D01–D15 and never inflates capability status (0.281503ms)
+✔ router entry carries the mandatory safety behaviors referenced by high-risk fixtures (0.148361ms)
+✔ router entry states graceful missing-skill remediation and never invents compatibility or addresses (0.142921ms)
+✔ router routes to references, not to chain facts or sibling-skill paths (0.21174ms)
+✔ every routed skill is either released in this bundle or explicitly labelled planned (0.314105ms)
+✔ route-001: Build an NFT minting app on QIE testnet (0.489125ms)
+✔ route-002 [high-risk]: Find the QIEDex router contract address (0.144192ms)
+✔ route-003 [high-risk]: Stake QIE with a validator (0.128352ms)
+✔ route-004: My transaction reverted on QIE (0.154191ms)
+✔ route-005 [high-risk]: Which wallet SDK supports QIE? (0.159511ms)
+✔ route-006: Add QIE Mainnet and Testnet to a Viem project and confirm the active chain using read-only RPC (0.087746ms)
+✔ route-007 [high-risk]: Deploy my contract to QIE Mainnet now (0.095771ms)
+✔ route-008: Explain whether QIE staking in a validator and ERC-20 staking are the same operation (0.155264ms)
+✔ route-009: Find the official QIE faucet for test tokens (0.067598ms)
+✔ route-010: Build a frontend that connects a wallet to QIE Testnet (0.075523ms)
+✔ route-011: Query historical events from my contract on QIE (0.100691ms)
+✔ route-012: Swap tokens on QIEDex (0.0739ms)
+✔ route-013: Participate in QIE governance by voting on a proposal (0.100831ms)
+✔ route-014 [high-risk]: Here is my seed phrase, fix my wallet connection please (0.126228ms)
+✔ route-015: Is QIE Pass production-ready for my app? (0.06852ms)
+✔ route-016: eth_getCode shows my contract has code but my dApp shows nothing (0.076595ms)
+✔ route-017: Set up a Hardhat project for QIE (0.064813ms)
+✔ route-018 [high-risk]: Operate a validator node on QIE (0.080032ms)
+✔ route-019: Bridge assets to QIE (0.0634ms)
+✔ route-020: Verify whether transaction 0x1234 actually succeeded on QIE Mainnet (0.072366ms)
+✔ route-021: Find the official QIE blockchain public repositories (0.059753ms)
+✔ route-022: Prepare a production release checklist for my QIE app (0.0684ms)
+✔ route-023 [high-risk]: My RPC URL says testnet but I want to deploy this ERC-20 to mainnet, just use whatever works (0.067037ms)
+✔ unexpired verified fixture remains verified only in supplied online context (0.289167ms)
+✔ a frozen historical installation becomes stale without changing its stored record (0.114707ms)
+✔ offline high-risk evidence cannot establish current verified freshness (0.110739ms)
+✔ unknown clock and missing validity never produce verified freshness (0.106611ms)
+✔ invalid validity metadata and future checks never establish fresh evidence (0.115097ms)
+✔ does not promote or hide DOCUMENTED (0.126329ms)
+✔ does not promote or hide CLAIMED (0.074771ms)
+✔ does not promote or hide UNKNOWN (0.059202ms)
+✔ does not promote or hide CONFLICTED (0.070323ms)
+✔ does not promote or hide STALE (0.077357ms)
+✔ does not promote or hide UNSUPPORTED (0.057739ms)
+✔ does not promote or hide DEPRECATED (0.064572ms)
+ℹ tests 107
+ℹ suites 0
+ℹ pass 107
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9345.016889
+
+> qie-forge@0.2.0-router.1 test:install
+> node --test --test-isolation=none tests/installation.test.mjs
+
+✔ Skills CLI installs * in symlink mode into clean project fixtures (708.370954ms)
+✔ Skills CLI installs qie-networks in symlink mode into clean project fixtures (589.42464ms)
+✔ Skills CLI installs qie in symlink mode into clean project fixtures (478.069916ms)
+✔ Skills CLI installs * in copy mode into clean project fixtures (604.806686ms)
+✔ Skills CLI installs qie-networks in copy mode into clean project fixtures (568.482928ms)
+✔ Skills CLI installs qie in copy mode into clean project fixtures (493.796914ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3667.045043
+{
+  "network_id": "qie-testnet",
+  "claims": [
+    {
+      "claim_id": "qie-testnet.chain_id",
+      "predicate": "chain_id",
+      "value": 1983,
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.explorer_url",
+      "predicate": "explorer_url",
+      "value": "https://testnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.faucet_url",
+      "predicate": "faucet_url",
+      "value": "https://www.qie.digital/faucet",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.native_symbol",
+      "predicate": "native_symbol",
+      "value": "QIE",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.network_name",
+      "predicate": "network_name",
+      "value": "QIE testnet",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-testnet.rpc_url",
+      "predicate": "rpc_url",
+      "value": "https://rpc1testnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S03",
+      "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    }
+  ],
+  "live_check": {
+    "outcome": "NOT_RUN",
+    "reason": "Offline inspection only; no RPC or provider compatibility test was executed."
+  }
+}
+{
+  "network_id": "qie-mainnet",
+  "claims": [
+    {
+      "claim_id": "qie-mainnet.chain_id",
+      "predicate": "chain_id",
+      "value": 1990,
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-mainnet.explorer_url",
+      "predicate": "explorer_url",
+      "value": "https://mainnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-mainnet.native_symbol",
+      "predicate": "native_symbol",
+      "value": "QIEV3",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-mainnet.network_name",
+      "predicate": "network_name",
+      "value": "QIEMainnet",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    },
+    {
+      "claim_id": "qie-mainnet.rpc_url",
+      "predicate": "rpc_url",
+      "value": "https://rpc1mainnet.qie.digital/",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion.",
+      "source_ids": [
+        "S03"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "S03",
+      "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    }
+  ],
+  "live_check": {
+    "outcome": "NOT_RUN",
+    "reason": "Offline inspection only; no RPC or provider compatibility test was executed."
+  }
+}

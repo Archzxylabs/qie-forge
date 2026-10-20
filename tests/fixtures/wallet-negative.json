@@ -1,0 +1,14 @@
+[
+  { "id": "wrong-network", "change": "wrong-chain", "error": "WRONG_CHAIN" },
+  { "id": "malformed-chain", "change": "malformed-chain", "error": "RPC_MALFORMED" },
+  { "id": "empty-accounts", "change": "empty-accounts", "error": "RPC_MALFORMED" },
+  { "id": "malformed-account", "change": "malformed-account", "error": "RPC_MALFORMED" },
+  { "id": "rejected-connection", "change": "rejected", "error": "USER_REJECTED" },
+  { "id": "offline", "change": "offline", "error": "RPC_UNAVAILABLE" },
+  { "id": "empty-call", "change": "empty-call", "error": "RPC_MALFORMED" },
+  { "id": "odd-call", "change": "odd-call", "error": "RPC_MALFORMED" },
+  { "id": "oversized-abi-result", "change": "wide-call", "error": "RPC_MALFORMED" },
+  { "id": "chain-changed-without-event", "change": "silent-change", "error": "WRONG_CHAIN" },
+  { "id": "account-event-in-flight", "change": "account-event", "error": "SESSION_CHANGED" },
+  { "id": "provider-never-replies", "change": "hang", "error": "RPC_UNAVAILABLE" }
+]

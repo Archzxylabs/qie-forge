@@ -1,0 +1,8 @@
+{
+  "forge_version": "1.8.1",
+  "forge_commit": "982849d3140c01fd3b72905759581a132df7aa98",
+  "solc_version": "0.8.37+commit.f401782d",
+  "evm_version": "paris",
+  "evidence_scope": "LOCAL_REPLAY",
+  "qie_deployment_compatibility": "UNKNOWN"
+}

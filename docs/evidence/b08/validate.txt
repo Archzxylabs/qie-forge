@@ -1,0 +1,6 @@
+# QIE Forge release verification — validate
+# node v24.20.0 / UTC 2026-10-19T23:15:52Z
+# command: npm run validate
+
+Knowledge valid: 15 domains, 18 sources, 11 claims, 25 capabilities.
+Validated 9 self-contained skill bundle(s).

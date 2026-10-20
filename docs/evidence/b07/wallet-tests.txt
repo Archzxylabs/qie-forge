@@ -1,0 +1,34 @@
+✔ mock wallet connects and refreshes a read on the explicit qie-mainnet (4.646828ms)
+✔ mock wallet connects and refreshes a read on the explicit qie-testnet (0.706992ms)
+✔ provider accountsChanged clears old displayed state and requires deliberate reconnect (0.486757ms)
+✔ provider chainChanged clears old displayed state and requires deliberate reconnect (0.354077ms)
+✔ provider disconnect clears old displayed state and requires deliberate reconnect (0.347474ms)
+✔ wallet negative wrong-network returns WRONG_CHAIN without a stale value (0.527775ms)
+✔ wallet negative malformed-chain returns RPC_MALFORMED without a stale value (0.227769ms)
+✔ wallet negative empty-accounts returns RPC_MALFORMED without a stale value (0.235313ms)
+✔ wallet negative malformed-account returns RPC_MALFORMED without a stale value (0.228611ms)
+✔ wallet negative rejected-connection returns USER_REJECTED without a stale value (0.351513ms)
+✔ wallet negative offline returns RPC_UNAVAILABLE without a stale value (0.18543ms)
+✔ wallet negative empty-call returns RPC_MALFORMED without a stale value (0.313581ms)
+✔ wallet negative odd-call returns RPC_MALFORMED without a stale value (0.283855ms)
+✔ wallet negative oversized-abi-result returns RPC_MALFORMED without a stale value (0.246104ms)
+✔ wallet negative chain-changed-without-event returns WRONG_CHAIN without a stale value (0.288204ms)
+✔ wallet negative account-event-in-flight returns SESSION_CHANGED without a stale value (0.238049ms)
+✔ wallet negative provider-never-replies returns RPC_UNAVAILABLE without a stale value (20.387456ms)
+✔ wallet refuses UNKNOWN chain configuration before any provider call (0.51482ms)
+✔ wallet refuses CLAIMED chain configuration before any provider call (0.234522ms)
+✔ wallet refuses CONFLICTED chain configuration before any provider call (0.204015ms)
+✔ wallet refuses STALE chain configuration before any provider call (0.184598ms)
+✔ wallet refuses UNSUPPORTED chain configuration before any provider call (0.192553ms)
+✔ wallet refuses DEPRECATED chain configuration before any provider call (0.179659ms)
+✔ expired VERIFIED configuration is evaluated by the shared rule before requesting accounts (0.470006ms)
+✔ native, duplicate/missing chain claims and non-listening providers cannot create a read session (0.427225ms)
+✔ invalid addresses/calldata fail before a contract read and never infer an address (0.515421ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 594.342765

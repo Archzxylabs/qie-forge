@@ -1,0 +1,991 @@
+{
+  "created": 207,
+  "modified": 39,
+  "removed": [],
+  "files": [
+    {
+      "path": "README.md",
+      "change": "modified"
+    },
+    {
+      "path": "authoring/qie-debug/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie-deployment/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie-frontend/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie-networks/SKILL.md.in",
+      "change": "modified"
+    },
+    {
+      "path": "authoring/qie-smart-contracts/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie-transactions/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie-wallets/SKILL.md.in",
+      "change": "created"
+    },
+    {
+      "path": "authoring/qie/SKILL.md.in",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie-debug/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/recipes/debug/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-debug/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/build-test/assets/foundry.toml",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/build-test/assets/src/Counter.sol",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/build-test/assets/test/Counter.t.sol",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/build-test/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/build-test/toolchain.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/deployment/assets/deployment-review.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/deployment/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/recipes/network/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-deployment/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/recipes/wallet-read/assets/wallet-read.ts",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/recipes/wallet-read/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-frontend/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-networks/MANIFEST.json",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie-networks/SKILL.md",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie-networks/data/network-claims.json",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie-networks/recipes/network/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-networks/references/release-info.md",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/recipes/build-test/assets/foundry.toml",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/recipes/build-test/assets/src/Counter.sol",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/recipes/build-test/assets/test/Counter.t.sol",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/recipes/build-test/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/recipes/build-test/toolchain.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-smart-contracts/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/recipes/debug/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-transactions/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/recipes/wallet-read/assets/wallet-read.ts",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/recipes/wallet-read/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie-wallets/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "dist/skills/qie/MANIFEST.json",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie/SKILL.md",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie/data/qie-a-z.json",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie/references/qie-a-z.md",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie/references/release-info.md",
+      "change": "modified"
+    },
+    {
+      "path": "dist/skills/qie/references/routing.md",
+      "change": "modified"
+    },
+    {
+      "path": "docs/b07-results.md",
+      "change": "created"
+    },
+    {
+      "path": "docs/decisions.md",
+      "change": "modified"
+    },
+    {
+      "path": "docs/evidence/b07/baseline-tests.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/build-check.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/build.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/compiler-wrapper-failure.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/coverage.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/execution-receipt.json",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/files.json",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/artifact-checks.json",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-1.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-1.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-2.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-2.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-3.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-3.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-4.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-4.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-5.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-5.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-6.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-6.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-7.stderr.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/command-7.stdout.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/findings.md",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/forward-test/receipt.json",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/installation.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/lint.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/official-validator-cache-failure.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/official-validator-offline.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/operational-tests.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/preserved-foundation.json",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/skill-creator-validator.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/tests.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/validate.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/evidence/b07/wallet-tests.txt",
+      "change": "created"
+    },
+    {
+      "path": "docs/source-map.md",
+      "change": "modified"
+    },
+    {
+      "path": "knowledge/domains.yaml",
+      "change": "modified"
+    },
+    {
+      "path": "knowledge/policy.yaml",
+      "change": "modified"
+    },
+    {
+      "path": "knowledge/schema/policy.schema.json",
+      "change": "modified"
+    },
+    {
+      "path": "knowledge/schema/skill.schema.json",
+      "change": "modified"
+    },
+    {
+      "path": "knowledge/skills.yaml",
+      "change": "modified"
+    },
+    {
+      "path": "package-lock.json",
+      "change": "modified"
+    },
+    {
+      "path": "package.json",
+      "change": "modified"
+    },
+    {
+      "path": "recipes/build-test/assets/foundry.toml",
+      "change": "created"
+    },
+    {
+      "path": "recipes/build-test/assets/src/Counter.sol",
+      "change": "created"
+    },
+    {
+      "path": "recipes/build-test/assets/test/Counter.t.sol",
+      "change": "created"
+    },
+    {
+      "path": "recipes/build-test/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "recipes/build-test/toolchain.json",
+      "change": "created"
+    },
+    {
+      "path": "recipes/debug/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "recipes/deployment/assets/deployment-review.json",
+      "change": "created"
+    },
+    {
+      "path": "recipes/deployment/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "recipes/network/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "recipes/wallet-read/assets/wallet-read.ts",
+      "change": "created"
+    },
+    {
+      "path": "recipes/wallet-read/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "release-context.json",
+      "change": "modified"
+    },
+    {
+      "path": "scripts/lib/bundle.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "scripts/lib/release.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie-debug/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/recipes/debug/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-debug/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/build-test/assets/foundry.toml",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/build-test/assets/src/Counter.sol",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/build-test/assets/test/Counter.t.sol",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/build-test/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/build-test/toolchain.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/deployment/assets/deployment-review.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/deployment/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/recipes/network/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-deployment/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/recipes/wallet-read/assets/wallet-read.ts",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/recipes/wallet-read/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-frontend/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-networks/MANIFEST.json",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie-networks/SKILL.md",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie-networks/data/network-claims.json",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie-networks/recipes/network/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-networks/references/release-info.md",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie-smart-contracts/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/recipes/build-test/assets/foundry.toml",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/recipes/build-test/assets/src/Counter.sol",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/recipes/build-test/assets/test/Counter.t.sol",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/recipes/build-test/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/recipes/build-test/toolchain.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-smart-contracts/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/recipes/debug/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/lib/transaction-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-transactions/scripts/verify-transaction.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/MANIFEST.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/SKILL.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/data/network-claims.json",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/recipes/wallet-read/assets/wallet-read.ts",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/recipes/wallet-read/recipe.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/references/evidence.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/references/release-info.md",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/scripts/lib/effective-status.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/scripts/lib/network-diagnostic.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/scripts/lib/rpc.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie-wallets/scripts/verify-network.mjs",
+      "change": "created"
+    },
+    {
+      "path": "skills/qie/MANIFEST.json",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie/SKILL.md",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie/data/qie-a-z.json",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie/references/qie-a-z.md",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie/references/release-info.md",
+      "change": "modified"
+    },
+    {
+      "path": "skills/qie/references/routing.md",
+      "change": "modified"
+    },
+    {
+      "path": "tests/fixtures/wallet-negative.json",
+      "change": "created"
+    },
+    {
+      "path": "tests/installation.test.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "tests/multi-skill.test.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "tests/operational-skills.test.mjs",
+      "change": "created"
+    },
+    {
+      "path": "tests/routing.test.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "tests/support/fixtures.mjs",
+      "change": "modified"
+    },
+    {
+      "path": "tests/wallet-read.test.mjs",
+      "change": "created"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/address.json",
+  "type": "object",
+  "properties": {
+    "address": {
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "chain_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/chainId"
+    },
+    "claimed_product": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issuer_source_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "abi_source_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
+    "code_observation": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://qie-forge.invalid/schema/code-observation.json",
+          "type": "object",
+          "properties": {
+            "network_id": {
+              "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/network"
+            },
+            "code_present": {
+              "type": "boolean"
+            },
+            "checked_at": {
+              "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/timestamp"
+            },
+            "evidence_test_id": {
+              "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+            }
+          },
+          "required": [
+            "network_id",
+            "code_present",
+            "checked_at",
+            "evidence_test_id"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "status": {
+      "$ref": "https://qie-forge.invalid/schema/status.json"
+    },
+    "checked_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "expires_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    }
+  },
+  "required": [
+    "address",
+    "chain_id",
+    "claimed_product",
+    "issuer_source_ids",
+    "abi_source_ids",
+    "code_observation",
+    "status",
+    "checked_at",
+    "expires_at"
+  ],
+  "additionalProperties": false
+}

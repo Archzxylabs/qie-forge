@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/validation-run.json",
+  "type": "object",
+  "properties": {
+    "test_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+    },
+    "scope": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://qie-forge.invalid/schema/validation-scope.json",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "MOCK",
+            "LOCAL_REPLAY",
+            "CHAIN_OBSERVATION"
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "tool_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "network_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/network"
+    },
+    "expected": {},
+    "observed": {},
+    "outcome": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN",
+        "NOT_RUN",
+        "PENDING"
+      ]
+    },
+    "checked_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/timestamp"
+    },
+    "artifact_hash": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/sha256"
+    },
+    "redacted_log_pointer": {
+      "anyOf": [
+        {
+          "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/httpsUrl"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "reviewer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  },
+  "required": [
+    "test_id",
+    "scope",
+    "tool_version",
+    "network_id",
+    "expected",
+    "observed",
+    "outcome",
+    "checked_at",
+    "artifact_hash",
+    "redacted_log_pointer",
+    "reviewer"
+  ],
+  "additionalProperties": false
+}

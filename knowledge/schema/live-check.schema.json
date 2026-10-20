@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/live-check.json",
+  "description": "Read-only network check output (PRD §14.3 channel). The verdict field is live_check.outcome; NOT_RUN and other values are run outcomes, never claim or capability statuses.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "network_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/network"
+    },
+    "expected_chain_id": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/chainId"
+    },
+    "endpoint": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/httpsUrl"
+    },
+    "endpoint_source": {
+      "enum": [
+        "packaged-documented",
+        "explicit-override"
+      ]
+    },
+    "rpc_host": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observed": {
+      "type": "object",
+      "properties": {
+        "chain_id": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "chain_id_hex": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[0-9a-fA-F]+$"
+        },
+        "latest_block": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latest_block_hex": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^0x[0-9a-fA-F]+$"
+        },
+        "latest_block_timestamp": {
+          "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+        }
+      },
+      "required": [
+        "chain_id",
+        "chain_id_hex",
+        "latest_block",
+        "latest_block_hex",
+        "latest_block_timestamp"
+      ],
+      "additionalProperties": false
+    },
+    "effective_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id"
+          },
+          "status": {
+            "$ref": "https://qie-forge.invalid/schema/status.json"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "claim_id",
+          "status",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "live_check": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN",
+            "NOT_RUN"
+          ]
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "$ref": "https://qie-forge.invalid/schema/error-code.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "outcome",
+        "error_code",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "checked_at": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/nullableTimestamp"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "network_id",
+    "expected_chain_id",
+    "endpoint",
+    "endpoint_source",
+    "rpc_host",
+    "observed",
+    "effective_claims",
+    "live_check",
+    "checked_at",
+    "warnings"
+  ],
+  "additionalProperties": false
+}

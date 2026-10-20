@@ -1,0 +1,350 @@
+- skill_id: qie
+  source_entry: authoring/qie/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D01
+    - D02
+    - D03
+    - D04
+    - D05
+    - D06
+    - D07
+    - D08
+    - D09
+    - D10
+    - D11
+    - D12
+    - D13
+    - D14
+    - D15
+  claim_ids: []
+  capability_ids:
+    - rpc-identity
+    - wallet-connect
+    - contract-deploy
+    - identity-auth
+    - dex-swap
+    - bridge-transfer
+    - native-delegate
+    - indexer-query
+    - qiewallet-eip1193-connect
+    - qiewallet-switch-chain
+    - qiewallet-disconnect-event
+    - qiewallet-non-evm-eip1193
+    - hardhat-deploy
+    - remix-deploy
+    - explorer-verification-api
+    - viem-custom-chain
+    - wagmi-injected
+    - qied-staking-delegate
+    - qied-gov-submit
+    - qie-oracle-price-feed
+    - qie-bridge-web
+    - qiedex-web-swap
+    - legacy-chain-5656
+    - legacy-chain-9731
+    - chain-id-5656-conflict
+  helper_paths: []
+  generated_references:
+    - coverage
+  logical_handoffs:
+    - qie-networks
+    - qie-smart-contracts
+    - qie-frontend
+    - qie-wallets
+    - qie-transactions
+    - qie-deployment
+    - qie-ecosystem
+    - qie-debug
+    - qie-native
+    - qie-indexing
+  recipe_paths: []
+- skill_id: qie-networks
+  source_entry: authoring/qie-networks/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D02
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - rpc-identity
+  helper_paths:
+    - scripts/inspect-network.mjs
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+  generated_references:
+    - network-profiles
+  logical_handoffs: []
+  recipe_paths:
+    - recipes/network/recipe.md
+- skill_id: qie-smart-contracts
+  source_entry: authoring/qie-smart-contracts/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D04
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - contract-deploy
+  helper_paths: []
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/build-test/recipe.md
+  logical_handoffs:
+    - qie-deployment
+    - qie-debug
+- skill_id: qie-frontend
+  source_entry: authoring/qie-frontend/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D07
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - wallet-connect
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/wallet-read/recipe.md
+  logical_handoffs:
+    - qie-wallets
+    - qie-smart-contracts
+- skill_id: qie-wallets
+  source_entry: authoring/qie-wallets/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D03
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - wallet-connect
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/wallet-read/recipe.md
+  logical_handoffs:
+    - qie-frontend
+    - qie-deployment
+- skill_id: qie-transactions
+  source_entry: authoring/qie-transactions/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D06
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - rpc-identity
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+    - scripts/verify-transaction.mjs
+    - scripts/lib/transaction-diagnostic.mjs
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/debug/recipe.md
+  logical_handoffs:
+    - qie-debug
+- skill_id: qie-deployment
+  source_entry: authoring/qie-deployment/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D14
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - contract-deploy
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+    - scripts/verify-transaction.mjs
+    - scripts/lib/transaction-diagnostic.mjs
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/deployment/recipe.md
+    - recipes/build-test/recipe.md
+    - recipes/network/recipe.md
+  logical_handoffs:
+    - qie-smart-contracts
+    - qie-wallets
+    - qie-transactions
+- skill_id: qie-debug
+  source_entry: authoring/qie-debug/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D13
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - rpc-identity
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+    - scripts/verify-network.mjs
+    - scripts/lib/network-diagnostic.mjs
+    - scripts/lib/rpc.mjs
+    - scripts/verify-transaction.mjs
+    - scripts/lib/transaction-diagnostic.mjs
+  generated_references:
+    - operational
+  recipe_paths:
+    - recipes/debug/recipe.md
+  logical_handoffs:
+    - qie-smart-contracts
+    - qie-wallets
+    - qie-transactions
+- skill_id: qie-ecosystem
+  source_entry: authoring/qie-ecosystem/SKILL.md.in
+  release_tier: P0
+  enabled_for_release: true
+  domain_ids:
+    - D05
+    - D08
+    - D09
+  claim_ids:
+    - qie-mainnet.chain_id
+    - qie-mainnet.rpc_url
+    - qie-mainnet.explorer_url
+    - qie-mainnet.native_symbol
+    - qie-mainnet.network_name
+    - qie-testnet.chain_id
+    - qie-testnet.rpc_url
+    - qie-testnet.explorer_url
+    - qie-testnet.native_symbol
+    - qie-testnet.network_name
+    - qie-testnet.faucet_url
+  capability_ids:
+    - rpc-identity
+    - wallet-connect
+    - contract-deploy
+    - identity-auth
+    - dex-swap
+    - bridge-transfer
+    - native-delegate
+    - indexer-query
+    - qiewallet-eip1193-connect
+    - qiewallet-switch-chain
+    - qiewallet-disconnect-event
+    - qiewallet-non-evm-eip1193
+    - hardhat-deploy
+    - remix-deploy
+    - explorer-verification-api
+    - viem-custom-chain
+    - wagmi-injected
+    - qied-staking-delegate
+    - qied-gov-submit
+    - qie-oracle-price-feed
+    - qie-bridge-web
+    - qiedex-web-swap
+    - legacy-chain-5656
+    - legacy-chain-9731
+    - chain-id-5656-conflict
+  helper_paths:
+    - scripts/lib/effective-status.mjs
+  generated_references:
+    - ecosystem
+  logical_handoffs:
+    - qie
+    - qie-networks
+    - qie-wallets
+    - qie-smart-contracts
+    - qie-frontend
+    - qie-transactions
+    - qie-deployment
+    - qie-debug
+  recipe_paths: []
