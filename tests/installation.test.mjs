@@ -7,6 +7,7 @@ import { buildRelease } from '../scripts/lib/release.mjs';
 import { validateBundle } from '../scripts/lib/bundle.mjs';
 import { loadValidators } from '../scripts/lib/schemas.mjs';
 import { projectRoot, schemaRoot, fixtureProject, temporaryDirectory, releasedSkills } from './support/fixtures.mjs';
+import { inspectInstalledRelease } from '../scripts/lib/installed-release.mjs';
 
 const cli = path.join(projectRoot, 'node_modules/skills/bin/cli.mjs');
 const validate = await loadValidators(schemaRoot);
@@ -20,6 +21,7 @@ for (const copy of [false, true]) {
   for (const [selection, expectedSkills] of selections) {
     test(`Skills CLI installs ${selection} in ${copy ? 'copy' : 'symlink'} mode into clean project fixtures`, async (t) => {
       const source = await fixtureProject(t); await buildRelease(source);
+      const sourceReleaseId = JSON.parse(await readFile(path.join(source, 'skills/qie/MANIFEST.json'), 'utf8')).release_id;
       const consumer = await temporaryDirectory(t, 'qie-forge-consumer-');
       const guard = path.join(consumer, 'deny-network.cjs');
       await cp(path.join(projectRoot, 'tests/support/deny-network.cjs'), guard);
@@ -40,6 +42,10 @@ for (const copy of [false, true]) {
       const claudeRoot = path.join(consumer, '.claude/skills');
       assert.deepEqual((await readdir(canonicalRoot)).sort(), expectedSkills);
       assert.deepEqual((await readdir(claudeRoot)).sort(), expectedSkills);
+      const report = await inspectInstalledRelease(canonicalRoot, { expectedSkills });
+      assert.deepEqual(report.problems, []);
+      assert.equal(report.releaseId, sourceReleaseId);
+      assert.equal(report.status, expectedSkills.length === 9 ? 'COHERENT_FULL_SUITE' : 'COHERENT_PARTIAL');
       for (const name of expectedSkills) {
         const canonical = path.join(canonicalRoot, name);
         const claude = path.join(claudeRoot, name);

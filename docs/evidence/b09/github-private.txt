@@ -1,0 +1,52 @@
+# B09 authenticated private GitHub-source proof
+
+Date: 2026-10-20 (UTC)
+Repository: `https://github.com/Archzxylabs/qie-forge.git` (confirmed `PRIVATE`)
+Ref: `cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d` (full commit SHA, `refs/heads/main` at proof time)
+Toolchain: Node `v24.20.0`, npm `11.19.0`, Git `2.55.0`, Skills CLI `1.7.2`
+
+## Boundary
+
+The existing private repository was read at a full commit SHA. No branch, tag, release, package or commit was created or modified. Authentication used the existing GitHub CLI credential helper through a temporary Git config; no token, credential or authorization header is reproduced here. The installed source is the B08 bundle set at that SHA, so its manifests predate `release_id` and are expected to be reported as legacy by the B09 verifier.
+
+## Commands (credential plumbing omitted)
+
+```sh
+git archive cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d skills | tar -x -C expected
+node node_modules/skills/bin/cli.mjs add \
+  'https://github.com/Archzxylabs/qie-forge.git#cf16d074cd33a6ab62179dd3cdf4bcfa6eb5125d' \
+  --skill '*' -a codex -a claude-code -y
+diff -rq expected/skills .agents/skills
+node scripts/verify-installed-release.mjs --root .agents/skills --expect-suite --json
+node node_modules/skills/bin/cli.mjs update -p -y
+```
+
+The single-skill copy proof repeated `add` with `--skill qie-networks --copy` in a separate consumer.
+
+## Observed results
+
+| Check | Result |
+|---|---|
+| Suite install exit | `0` |
+| Discovered skills | 9 |
+| Installed canonical copies | 9 under `.agents/skills` |
+| Claude Code projection | 9 relative symlinks |
+| Exact tree comparison to `git archive` | no differences (`diff -rq` exit `0`) |
+| Installed files | 103 |
+| File, knowledge, policy and snapshot hashes | all match; no hash-policy-snapshot problems |
+| Legacy `release_id` findings | verifier exit `1`; 18 problems, all legacy (9 missing-field plus 9 `LEGACY_RELEASE_ID`); expected for B08 manifests |
+| Unexpected verifier findings | 0 |
+| Pinned update exit | `0` |
+| Pinned update message | `All project skills are up to date` |
+| Post-update file hashes | byte-identical (103-file SHA-256 list unchanged) |
+| Single-skill `--copy` install exit | `0` |
+| Single-skill exact tree comparison | no differences |
+| Offline helper | `qie-testnet`, chain ID `1983`, `live_check.outcome: NOT_RUN` |
+
+The verifier correctly returns `REJECTED` for the legacy B08 installation because `release_id` is absent. It does not report a digest, snapshot or schema failure. This is the intended legacy gate, not a claim that a B09 release was installed from GitHub.
+
+## What this does not prove
+
+- No B09 commit, tag or release was pushed to GitHub.
+- No public repository or public installation was tested.
+- No QIE RPC, wallet, signing, broadcast, deployment or capability promotion was performed.

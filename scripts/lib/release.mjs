@@ -5,6 +5,7 @@ import { checkReleaseChronology } from './chronology.mjs';
 import { loadValidators } from './schemas.mjs';
 import { readContained, stableJson, sha256, walkFiles, writeTree } from './io.mjs';
 import { validateFrontmatter, validateReferences } from './bundle.mjs';
+import { releaseIdFromOutputs } from './release-identity.mjs';
 import { effectiveStatus } from './effective-status.mjs';
 import { resolvePlaceholders } from './placeholders.mjs';
 import { assertNoHandWrittenCanonicalFacts, assertNoRetiredEndpoints, assertTraceableUrls } from './canonical-facts.mjs';
@@ -436,7 +437,7 @@ async function skillFiles(root, data, skill) {
   if (metadata.sources_checked_at && Date.parse(metadata.sources_checked_at) > Date.parse(metadata.built_at)) {
     throw new Error(`Derived sources_checked_at must not follow built_at: ${skill.skill_id}`);
   }
-  files['references/release-info.md'] = generated + `# Release information\n\nRelease: ${metadata.release_version}\n\nSchema: ${metadata.schema_version}\n\nBuilt: ${metadata.built_at}\n\nSources reviewed: ${metadata.sources_checked_at ?? 'UNKNOWN'}\n\nEffective statuses in this bundle were evaluated at the build timestamp above with no live check. Build time is not a live test timestamp. This is an immutable local snapshot until explicitly reinstalled or updated. No provider or RPC compatibility is certified.\n`;
+  files['references/release-info.md'] = generated + `# Release information\n\nRelease: ${metadata.release_version}\n\nSchema: ${metadata.schema_version}\n\nBuilt: ${metadata.built_at}\n\nSources reviewed: ${metadata.sources_checked_at ?? 'UNKNOWN'}\n\nRelease identity: the \`release_id\` in \`MANIFEST.json\` is the content address shared by every bundle in this suite. Bundles with different identities are different releases and must not be combined without explicit remediation.\n\nEffective statuses in this bundle were evaluated at the build timestamp above with no live check. Build time is not a live test timestamp. This is an immutable local snapshot until explicitly reinstalled or updated. No provider or RPC compatibility is certified.\n`;
   // Every published document must be traceable to canonical data: a QIE
   // endpoint that no canonical record attests, or an endpoint this release has
   // retired, fails the build instead of being shipped.
@@ -475,7 +476,13 @@ export async function buildRelease(root, { check = false, now } = {}) {
   const enabled = data.skills.filter((s) => s.enabled_for_release);
   if (!enabled.length) throw new Error('No skill is enabled for release');
   const outputs = Object.fromEntries(await Promise.all(enabled.map(async (skill) => [skill.skill_id, await skillFiles(root, data, skill)])));
-  for (const files of Object.values(outputs)) validate('manifest', JSON.parse(files['MANIFEST.json']));
+  const releaseId = releaseIdFromOutputs(outputs, data.release);
+  for (const files of Object.values(outputs)) {
+    const manifest = JSON.parse(files['MANIFEST.json']);
+    manifest.release_id = releaseId;
+    files['MANIFEST.json'] = stableJson(manifest);
+    validate('manifest', manifest);
+  }
   if (check) await comparePublished(root, outputs);
   else {
     const flattened = Object.fromEntries(Object.entries(outputs).flatMap(([id, files]) => Object.entries(files).map(([file, text]) => [`${id}/${file}`, text])));
