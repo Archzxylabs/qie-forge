@@ -1,0 +1,123 @@
+name: Engineering gates
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  engineering-gates:
+    name: Reproducible engineering gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    env:
+      CI: '1'
+      DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+
+    steps:
+      - name: Check out PR merge candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+
+      - name: Set up Node 24.20.0
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.20.0'
+          package-manager-cache: false
+
+      - name: Pin and verify npm 11.19.0
+        run: |
+          npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          test "$(node --version)" = 'v24.20.0'
+          test "$(npm --version)" = '11.19.0'
+          node --version
+          npm --version
+
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Provision and verify native test prerequisites
+        run: |
+          unsupported() {
+            echo '::error title=Unsupported test gates::npm test and npm run test:coverage require native Forge 1.8.1, solc 0.8.37 and git http-backend. Native setup or verification failed; engineering gates are NOT_RUN, not PASS.'
+            echo 'Native prerequisites unavailable or mismatched: npm test and npm run test:coverage are UNSUPPORTED; engineering gates are NOT_RUN.' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          }
+          trap unsupported ERR
+          test "$(uname -s)/$(uname -m)" = 'Linux/x86_64'
+          for tool in curl sha256sum tar git; do
+            command -v "$tool"
+          done
+          test -x "$(git --exec-path)/git-http-backend"
+          git --version
+
+          native_dir="$RUNNER_TEMP/qie-forge-native"
+          mkdir -p "$native_dir"
+          # Checksums from the pinned Foundry release and solc-bin index.
+          curl --fail --silent --show-error --location --retry 3 --connect-timeout 15 --max-time 300 \
+            https://github.com/foundry-rs/foundry/releases/download/v1.8.1/foundry_v1.8.1_linux_amd64.tar.gz \
+            -o "$native_dir/foundry.tar.gz"
+          echo "37b45855232e57624d90113b049ca54f0c92055bb5c1997fcbdc3076c7b89c10  $native_dir/foundry.tar.gz" | sha256sum --check
+          tar -xzf "$native_dir/foundry.tar.gz" -C "$native_dir" forge
+          curl --fail --silent --show-error --location --retry 3 --connect-timeout 15 --max-time 300 \
+            https://raw.githubusercontent.com/argotorg/solc-bin/gh-pages/linux-amd64/solc-linux-amd64-v0.8.37+commit.f401782d \
+            -o "$native_dir/solc"
+          echo "5de843c2c93563cc66425c99a4fb13fdbf32b4c4ae07469480faaf126e14404a  $native_dir/solc" | sha256sum --check
+          chmod +x "$native_dir/solc"
+
+          # Keep CI in agreement with the canonical recipe's native pins.
+          export QIE_FORGE_NATIVE_DIR="$native_dir"
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+          import { execFileSync } from 'node:child_process';
+          const pins = JSON.parse(readFileSync('recipes/build-test/toolchain.json', 'utf8'));
+          const directory = process.env.QIE_FORGE_NATIVE_DIR;
+          const forge = execFileSync(`${directory}/forge`, ['--version'], { encoding: 'utf8' });
+          const solc = execFileSync(`${directory}/solc`, ['--version'], { encoding: 'utf8' });
+          assert.ok(forge.includes(`Version: ${pins.forge_version}`));
+          assert.ok(forge.includes(pins.forge_commit));
+          assert.ok(solc.includes(pins.solc_version));
+          console.log(forge, solc);
+          NODE
+          echo "$native_dir" >> "$GITHUB_PATH"
+          echo "QIE_FORGE_SOLC=$native_dir/solc" >> "$GITHUB_ENV"
+
+      # Run the existing B09 gates in order. Do not regenerate historical logs.
+      - name: '1/8 — build'
+        run: npm run build
+
+      - name: '2/8 — validate'
+        run: npm run validate
+
+      - name: '3/8 — build:check'
+        run: npm run build:check
+
+      - name: '4/8 — docs:check'
+        run: npm run docs:check
+
+      - name: '5/8 — lint'
+        run: npm run lint
+
+      - name: '6/8 — test'
+        run: npm test
+
+      - name: '7/8 — test:coverage'
+        run: npm run test:coverage
+
+      - name: '8/8 — test:install'
+        run: npm run test:install
+
+      - name: Check tracked files stayed unchanged
+        run: git diff --exit-code HEAD

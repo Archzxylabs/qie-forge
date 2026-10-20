@@ -30,13 +30,15 @@ The B07 local replay additionally requires existing **Forge 1.8.1** (commit pinn
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
 npm run validate
-npm run docs:check
 npm run build:check
+npm run docs:check
 npm run lint
 npm test
 npm run test:coverage
 npm run test:install
 ```
+
+[GitHub Actions CI](.github/workflows/ci.yml) runs these eight gates sequentially for pull requests targeting `main`, using Node **24.20.0**, npm **11.19.0** and `npm ci` from the lockfile. It provisions checksum-pinned native Forge/solc binaries and checks their versions against the canonical recipe, plus the required Git HTTP backend. Missing or mismatched native prerequisites fail the job with an **UNSUPPORTED** diagnostic; unexecuted gates remain **NOT_RUN**. CI uses local fixtures and offline Foundry replay, and checks that tracked files are unchanged after the gates. It does not regenerate historical evidence.
 
 `npm run verify:b09-evidence` re-executes the eight B09 gates in order, writes the complete logs to `docs/evidence/b09/`, and fails when `docs/b09-results.md` quotes numbers the run did not produce. `npm run verify:evidence` remains the preserved B08 evidence generator and is bound to the historical B08 report figures; it is not the B09 evidence path.
 
