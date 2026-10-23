@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-21T17:28:25Z",
   "files": [
     {
       "path": "SKILL.md",
@@ -7,7 +7,7 @@
     },
     {
       "path": "data/qie-a-z.json",
-      "sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4"
+      "sha256": "56af2623ec73354976c76a4fe526ff4779167c28666aa5c9bc1ca020144e6fdd"
     },
     {
       "path": "references/qie-a-z.md",
@@ -15,7 +15,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "8902599dc2da816ff571f7838ddd746d7fb4a7081360372248c27e0c428b422b"
+      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
     },
     {
       "path": "references/routing.md",
@@ -23,10 +23,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4",
+  "knowledge_sha256": "56af2623ec73354976c76a4fe526ff4779167c28666aa5c9bc1ca020144e6fdd",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
+  "release_version": "0.5.2-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie",
   "snapshot_path": "data/qie-a-z.json",

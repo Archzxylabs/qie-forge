@@ -1,13 +1,13 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-21T17:28:25Z",
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "8de40101bfeadba31e945785c812f34f313cc135709b188dba7ec6c212b20ae4"
+      "sha256": "9302d714dacb45b222facb49e411d5316398aed2565f19e09ceabaca41b210f1"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "fb401e0a1a2edf6f6749b65dd14353e2c194c7549deff1d18a340000f7fc2e27"
+      "sha256": "720c9af5e5e91bbf532fe9d9e21bcf02db88c416ddd39aed67613a2283b47b71"
     },
     {
       "path": "recipes/network/recipe.md",
@@ -27,7 +27,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "8902599dc2da816ff571f7838ddd746d7fb4a7081360372248c27e0c428b422b"
+      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
     },
     {
       "path": "references/scope.md",
@@ -35,11 +35,11 @@
     },
     {
       "path": "scripts/inspect-network.mjs",
-      "sha256": "7e7481185ece65a6b7723dfe21dc43804b8ad4876dbad5b5f1854bd01914e80d"
+      "sha256": "0d201604860c643f584675c759d1c5ed66dcc9e417a42f052bc9963a958e2a54"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -55,10 +55,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "fb401e0a1a2edf6f6749b65dd14353e2c194c7549deff1d18a340000f7fc2e27",
+  "knowledge_sha256": "720c9af5e5e91bbf532fe9d9e21bcf02db88c416ddd39aed67613a2283b47b71",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
+  "release_version": "0.5.2-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-networks",
   "snapshot_path": "data/network-claims.json",

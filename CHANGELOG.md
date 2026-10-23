@@ -2,6 +2,21 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Developer experience remediation — 2026-10-21
+
+- **Release version:** `0.5.2-ecosystem.1` (working-tree candidate; not published)
+- **Schema version:** `1.4.0` (unchanged)
+- **Release identity:** `3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b`
+- **Built at:** `2026-10-21T17:28:25Z`
+- **Affected networks:** none; no canonical QIE network fact or policy claim changed
+- **Changes:**
+  - introduced one compiler-resolution contract used by `doctor`, example preparation, the clean-consumer check and the installed-recipe replay;
+  - made an absolute `QIE_FORGE_SOLC` override authoritative and fail closed, added native PATH discovery, and safely resolved a present `solc-select` artifact without executing an auto-installing wrapper;
+  - corrected the Counter reference app's invalid/missing-address recovery so an input error does not call `connect()` on a ready session, and added rendered browser regressions;
+  - bound historical B08/B09 report checks to a provenance-documented fixture instead of the active release cut;
+  - added and executed an independent agent evaluation for repairing a deliberately failing Counter assertion.
+- **Historical evidence:** the B08/B09 reports and logs remain at `0.5.1-ecosystem.1` / `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`. They were not rewritten and do not certify this new payload.
+
 ## B09 distribution revision — 2026-10-20
 
 - **Release version:** `0.5.1-ecosystem.1` (unchanged; no canonical QIE knowledge or policy change)

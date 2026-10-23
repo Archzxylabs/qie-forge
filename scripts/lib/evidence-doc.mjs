@@ -30,7 +30,7 @@ export function statusCounts(capabilities) {
 
 const cell = (value) => String(value ?? 'null').replaceAll('|', '\\|');
 
-export function renderCapabilityCatalogue(data) {
+export function renderCapabilityCatalogue(data, release = data.release) {
   const capabilities = [...data.capabilities].sort((a, b) => a.capability_id.localeCompare(b.capability_id, 'en'));
   const counts = statusCounts(capabilities);
   const countLine = statusOrder.map((status) => `\`${status}\`: ${counts[status]}`).join(', ');
@@ -54,7 +54,7 @@ export function renderCapabilityCatalogue(data) {
 
   return generated
     + '# QIE Forge B08 Capability Catalogue & Compatibility Classification\n\n'
-    + `Total capabilities: ${capabilities.length} (derived from \`knowledge/capabilities.yaml\`; release \`${data.release.release_version}\`, schema \`${data.release.schema_version}\`).\n\n`
+    + `Total capabilities: ${capabilities.length} (derived from \`knowledge/capabilities.yaml\`; release \`${release.release_version}\`, schema \`${release.schema_version}\`).\n\n`
     + `Status distribution (computed, not copied): ${countLine}.\n\n`
     + 'Every capability remains non-VERIFIED: no live, reviewed, non-mock execution evidence exists in `knowledge/validation-runs.yaml` (the runtime-evidence inventory is empty).\n\n'
     + '---\n\n'

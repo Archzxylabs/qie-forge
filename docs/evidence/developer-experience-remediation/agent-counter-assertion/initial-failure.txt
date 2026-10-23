@@ -1,0 +1,22 @@
+Compiling 2 files with Solc 0.8.37
+Solc 0.8.37 finished in 27.78ms
+Compiler run successful!
+
+Ran 5 tests for test/Counter.t.sol:CounterTest
+[PASS] testFuzzIncrementCount(uint8) (runs: 256, μ: 129738, ~: 77661)
+[FAIL: increment effect] testIncrementChangesState() (gas: 50559)
+[PASS] testInstancesHaveIndependentState() (gas: 51063)
+[PASS] testStartsAtZero() (gas: 6381)
+[PASS] testUnknownFunctionReverts() (gas: 25053)
+Suite result: FAILED. 4 passed; 1 failed; 0 skipped; finished in 13.43ms (14.42ms CPU time)
+
+Ran 1 test suite in 14.47ms (13.43ms CPU time): 4 tests passed, 1 failed, 0 skipped (5 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/Counter.t.sol:CounterTest
+[FAIL: increment effect] testIncrementChangesState() (gas: 50559)
+
+Encountered a total of 1 failing tests, 4 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

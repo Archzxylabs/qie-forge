@@ -1,0 +1,35 @@
+{
+  "provenance": {
+    "captured_at": "2026-10-21T17:44:58Z",
+    "note": "Explicit historical record for preserved milestone evidence. These values are quoted from the reports and logs named below and are intentionally independent of release-context.json. Do not update this record when the active release cut changes; add a new historical entry only when preserving a new milestone.",
+    "b08_sources": [
+      "docs/b08-results.md",
+      "docs/evidence/b08/tests.txt",
+      "docs/evidence/b08/coverage.txt",
+      "docs/evidence/b08/installation.txt",
+      "docs/b08-remediation-results.md",
+      "docs/evidence/b08/source-ledger.md",
+      "docs/evidence/b08/capability-catalogue.md"
+    ],
+    "b09_sources": [
+      "docs/b09-results.md",
+      "docs/evidence/b09/tests.txt"
+    ]
+  },
+  "b08": {
+    "report": "docs/b08-results.md",
+    "release_version": "0.5.1-ecosystem.1",
+    "built_at": "2026-10-19T22:35:15Z",
+    "schema_version": "1.4.0",
+    "latest_source_reviewed_at": "2026-10-19T21:37:00Z",
+    "s21_reviewed_at": "2026-10-19T21:37:00Z"
+  },
+  "b09": {
+    "report": "docs/b09-results.md",
+    "tests_log": "docs/evidence/b09/tests.txt",
+    "release_version": "0.5.1-ecosystem.1",
+    "release_identity": "b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce",
+    "tests_passed": 281,
+    "tests_failed": 0
+  }
+}

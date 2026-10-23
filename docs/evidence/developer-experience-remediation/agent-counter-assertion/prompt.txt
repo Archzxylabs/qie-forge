@@ -1,0 +1,18 @@
+You are the independent agent for a developer-experience evaluation of installed QIE Forge skills. Work only in this consumer workspace: /tmp/opencode/agent-eval-counter-assertion.
+
+Use the installed skills under .agents/skills/qie-smart-contracts and .agents/skills/qie-debug. Do not read the QIE Forge source checkout at /home/pupulion/QIE-FORGE; the point of this run is whether the installed skill bytes and local toolchain are sufficient. Do not install, download, update, or uninstall anything, and do not contact any network or QIE RPC endpoint.
+
+The consumer's `counter/` project contains a deliberately introduced failing test. Reproduce the failure before editing. Diagnose whether the Solidity implementation or the test expectation is wrong. Repair the failure with the smallest change that preserves the intended Counter behavior and the test's intended meaning.
+
+Constraints:
+- Do not delete, skip, comment out, or weaken a test.
+- Do not make an assertion unconditional or replace it with a tautology.
+- Do not change Counter.sol or foundry.toml merely to satisfy an incorrect expectation.
+- Keep the test's coverage of increment behavior intact.
+- Use the existing offline toolchain only.
+
+Use these commands (or equivalent) from the consumer:
+  cd /tmp/opencode/agent-eval-counter-assertion/counter
+  env -u QIE_FORGE_SOLC HOME=/tmp/opencode/agent-eval-counter-assertion/home PATH=/tmp/opencode/agent-eval-counter-assertion/toolchain-bin:$PATH forge test --offline --use /tmp/opencode/agent-eval-counter-assertion/toolchain-bin/solc -vv
+
+After the repair, run the full Counter test suite again and report: the initial failure, the root cause, the exact edit, the final command, and the final pass/fail totals. Do not read or write anything under /home/pupulion/QIE-FORGE.

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QIE Forge Counter reference app</title>
+  </head>
+  <body>
+    <main>
+      <h1>Counter reference app</h1>
+      <p class="subtitle">Guarded, read-only EIP-1193 session using the canonical QIE Forge wallet-read controller.</p>
+
+      <p id="simulation-banner" class="banner" role="note">
+        SIMULATED DEMONSTRATION — deterministic mock adapter. No wallet, RPC endpoint, funds or
+        QIE compatibility evidence is involved.
+      </p>
+
+      <section class="panel" aria-labelledby="session-heading">
+        <h2 id="session-heading">Session</h2>
+        <div class="grid">
+          <label>
+            Execution mode
+            <select id="mode">
+              <option value="mock">Mock demonstration (simulated)</option>
+              <option value="injected">Injected wallet (real provider)</option>
+            </select>
+          </label>
+          <label>
+            Selected QIE network
+            <select id="network">
+              <option value="qie-testnet">QIE testnet</option>
+              <option value="qie-mainnet">QIE mainnet</option>
+            </select>
+          </label>
+          <label class="address-field">
+            Counter contract address
+            <input id="address" spellcheck="false" autocomplete="off" placeholder="0x + 40 hex characters" />
+          </label>
+        </div>
+        <p class="hint" id="address-hint"></p>
+        <div class="actions">
+          <button id="connect" type="button">Connect</button>
+          <button id="read" type="button" disabled>Read counter value</button>
+          <button id="retry" type="button" hidden>Retry connection</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="state-heading">
+        <h2 id="state-heading">Session state</h2>
+        <dl>
+          <dt>Execution mode</dt><dd id="mode-label">Mock demonstration (simulated)</dd>
+          <dt>Selected network</dt><dd id="network-label">qie-testnet</dd>
+          <dt>Connection status</dt><dd id="phase" role="status" aria-live="polite">Disconnected</dd>
+          <dt>Connected account</dt><dd id="account">Not connected</dd>
+          <dt>Configured contract address</dt><dd id="contract">Not configured</dd>
+          <dt>Read status</dt><dd id="read-status">No read yet</dd>
+          <dt>Counter value</dt><dd id="value">—</dd>
+        </dl>
+        <div id="error" class="error" role="alert" hidden>
+          <p id="error-title"></p>
+          <p id="error-code"></p>
+          <p id="error-recovery"></p>
+        </div>
+      </section>
+
+      <p class="note" id="real-mode-note">
+        Injected-wallet mode requires a developer-selected EIP-1193 provider and an explicitly
+        configured Counter address. It has not been exercised against an actual wallet or QIE
+        endpoint by this repository's checks; browser tests use deterministic fixtures. No
+        transaction is signed or broadcast. A local chain is not accepted as QIE.
+      </p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

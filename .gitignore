@@ -9,6 +9,11 @@ coverage/
 .npm-cache/
 *.log
 
+# Counter example local tooling and browser output
+examples/counter-dapp/.forge/
+examples/counter-dapp/playwright-report/
+examples/counter-dapp/test-results/
+
 # Secrets
 .env
 .env.*

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client"],
+    "strict": true,
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "recipes/wallet-read/assets/**/*.ts",
+    "examples/counter-dapp/src/**/*.ts",
+    "examples/counter-dapp/tests/**/*.ts",
+    "examples/counter-dapp/vite.config.ts",
+    "examples/counter-dapp/playwright.config.ts"
+  ]
+}

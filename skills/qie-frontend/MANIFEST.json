@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-21T17:28:25Z",
   "files": [
     {
       "path": "SKILL.md",
@@ -7,7 +7,7 @@
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "e88d40514f997f86ad5656962901642b65331f77c778b588d12f4eac8ffbe10b"
+      "sha256": "ea5f6b1904fcf639a251b501af99010a1006cc4830087d1733205cdbb10b0457"
     },
     {
       "path": "recipes/wallet-read/assets/wallet-read.ts",
@@ -23,11 +23,11 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "8902599dc2da816ff571f7838ddd746d7fb4a7081360372248c27e0c428b422b"
+      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -43,10 +43,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "e88d40514f997f86ad5656962901642b65331f77c778b588d12f4eac8ffbe10b",
+  "knowledge_sha256": "ea5f6b1904fcf639a251b501af99010a1006cc4830087d1733205cdbb10b0457",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
+  "release_version": "0.5.2-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-frontend",
   "snapshot_path": "data/network-claims.json",

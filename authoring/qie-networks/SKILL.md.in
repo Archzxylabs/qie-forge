@@ -26,6 +26,8 @@ node scripts/inspect-network.mjs qie-testnet
 
 Run only the command relevant to the requested network. The helper locates packaged data relative to itself, so invoking it by an absolute path also works from another directory. Its [status evaluator](scripts/lib/effective-status.mjs) is bundled locally.
 
+An installed bundle needs no option. When this same helper is run from a QIE Forge source checkout, where no snapshot sits beside `scripts/`, point it at a snapshot explicitly with `--claims <network-claims.json>`. The override never selects a different network and the command remains fully offline.
+
 Expected output is JSON containing the selected network, published values, evidence status and source URLs. `live_check.outcome` is always `NOT_RUN`. This command does not establish endpoint availability or active chain identity.
 
 ## Read-only live preflight

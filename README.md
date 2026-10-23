@@ -16,31 +16,42 @@ Nine generated local skill artifacts are available:
 - [`qie-debug`](skills/qie-debug/SKILL.md) — stage-specific troubleshooting and read-only diagnostics without sibling dependencies.
 - [`qie-ecosystem`](skills/qie-ecosystem/SKILL.md) — operation-scoped ecosystem catalogue, compatibility matrix and decision guide, all projected from the canonical records at the frozen build clock.
 
-The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. All nine P0 skills are published in release `0.5.1-ecosystem.1`; B09 adds a content-addressed suite identity and a tested local/Git-source update and rollback matrix. B09 is **accepted for private distribution** after authenticated immutable-SHA installation from the private GitHub feature branch; public distribution, anonymous access and repository licensing remain unproven. See [B09 results](docs/b09-results.md). Native/indexing procedures remain source navigation, not invented execution support.
+The five canonical recipes are network preflight, local contract build/test, wallet read, deployment preparation and debugging. The generated suite in this working tree identifies itself as `0.5.2-ecosystem.1` with payload identity `3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b`. B09's **private-distribution** evidence was recorded against the earlier `0.5.1-ecosystem.1` payload (`b280364e…`) and remains historical; it does not certify these changed bytes. Public distribution, anonymous access and repository licensing remain unproven. See [B09 results](docs/b09-results.md). Native/indexing procedures remain source navigation, not invented execution support.
 
 No live network check has been run against a real QIE endpoint. The diagnostic helpers are exercised in tests and install checks exclusively against injected mock transports; their output is always framed as an observation, never as new evidence or a status promotion.
 
 ## Develop and verify
 
+New to this checkout? Follow the [developer quickstart](docs/quickstart.md) for the tested toolchain acquisition path, exact commands and recovery steps. The implementation record for the earlier slice is in [docs/results/developer-experience-slice.md](docs/results/developer-experience-slice.md); the remediation record is in [docs/results/developer-experience-remediation.md](docs/results/developer-experience-remediation.md).
+
 Use Node.js **24.20.0** and npm **11.19.0**, the versions executed for this foundation. Dependencies are pinned in `package-lock.json`.
 
-The B07 local replay additionally requires existing **Forge 1.8.1** (commit pinned in `recipes/build-test/toolchain.json`) and a native **solc 0.8.37** binary. Set `QIE_FORGE_SOLC` to its absolute path for tests. On this workstation the test also discovers the existing standard solc-select artifact path. It copies the binary into the clean fixture; it never installs or upgrades a tool. A PATH `solc-select` wrapper may try to download under an empty HOME, so the recipe explicitly takes `SOLC_BIN`. Local compiler/EVM-target success does not prove QIE deployment compatibility.
+The B07 local replay additionally requires existing **Forge 1.8.1** (commit pinned in `recipes/build-test/toolchain.json`) and a native **solc 0.8.37** binary. One resolver is shared by `doctor`, example preparation, the clean-consumer check and the installed-recipe replay: an absolute `QIE_FORGE_SOLC` override is authoritative and fails closed if broken; otherwise a native `solc` on PATH is used; otherwise an existing `solc-select` artifact referenced by a wrapper is resolved without executing the wrapper. Nothing is installed or downloaded during discovery. The clean tests copy that one resolved binary into an isolated native toolchain directory and never export an override. Local compiler/EVM-target success does not prove QIE deployment compatibility.
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
-npm run build
+npm run doctor
+npm run build:check          # non-mutating; run before any build
+npm run example:prepare:check
 npm run validate
 npm run docs:check
-npm run build:check
 npm run lint
 npm test
-npm run test:coverage
-npm run test:install
+npm run typecheck
+npm run example:build
+npm run test:browser
 ```
+
+Install the browser once with `npx playwright install --with-deps --no-shell chromium`. Regenerate owned output only with `npm run build` and `npm run example:prepare`; never hand-edit `skills/` or the generated Counter asset.
 
 `npm run verify:b09-evidence` re-executes the eight B09 gates in order, writes the complete logs to `docs/evidence/b09/`, and fails when `docs/b09-results.md` quotes numbers the run did not produce. `npm run verify:evidence` remains the preserved B08 evidence generator and is bound to the historical B08 report figures; it is not the B09 evidence path.
 
-`lint` currently checks JavaScript syntax; no style linter or TypeScript compiler is configured. Tests use Node's runner with process isolation disabled so it works in the current sandbox. Each filesystem test still creates and removes its own temporary project. Real child commands capture output through regular files because captured subprocess pipes fail in this sandbox.
+`lint` checks JavaScript syntax only; no style linter is configured. `npm run typecheck` runs TypeScript in strict mode over the canonical read controller, the Counter example and its browser tests. Tests use Node's runner with process isolation disabled so it works in the current sandbox. Each filesystem test still creates and removes its own temporary project. Real child commands capture output through regular files because captured subprocess pipes fail in this sandbox.
+
+## Counter reference app
+
+[`examples/counter-dapp`](examples/counter-dapp/README.md) is a small read-only app that imports the canonical wallet-read controller and packaged network snapshot instead of copying them. Its ABI/selector asset is generated from the single canonical Counter source in `recipes/build-test/assets` by `npm run example:prepare`. The default mode is a clearly labelled deterministic mock; injected-wallet mode is explicit, requires a configured contract address, rejects a wrong chain, invalidates on wallet events and address changes, discards late results and never signs or broadcasts. See the [quickstart](docs/quickstart.md#4-run-the-counter-reference-app) for commands and the mock/local/live boundary.
+
 
 ## Install the skills
 
@@ -51,7 +62,7 @@ node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/p
 node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/path/to/QIE-FORGE --skill '*' -a codex -a claude-code -y
 ```
 
-Use `--skill qie-smart-contracts` (or any listed name) for a single self-contained skill; `--skill '*'` selects the complete generated suite (currently **nine** skills). Add `--copy` for copied agent installations. The CLI version tested is **1.7.2**. Local-directory sources are install-only: `skills update` exits 0 but reports no matching installed skills for them, so use a Git source when updates are required.
+Use `--skill qie-smart-contracts` (or any listed name) for a single self-contained skill; `--skill '*'` selects the complete generated suite (currently **nine** skills). `qie-debug` can be installed alone or alongside a topical skill. Add `--copy` for copied agent installations. The CLI version tested is **1.7.2**. Local-directory sources are install-only: `skills update` exits 0 but reports no matching installed skills for them, so use a Git source when updates are required. The generated bytes in this checkout are a local candidate release, not a claim that the same payload already exists at a remote ref.
 
 For a Git source, pin an immutable tag or a full commit SHA:
 
@@ -114,4 +125,4 @@ The installed `qie` router needs no helper: its routing table, A–Z coverage ma
 
 Edit canonical inputs, then run `npm run build`. The build replaces the owned `dist/skills/` and `skills/` trees. Do not place manual files there. `build:check` compares regenerated bytes with the published tree without modifying it. Build time never supplies live evidence or extends expiry.
 
-See [source coverage](docs/source-map.md), [resolved contracts](docs/decisions.md), [executed B02–B04 results](docs/foundation-results.md), [B05 router results](docs/b05-results.md), [B06 diagnostic results](docs/b06-results.md), [B07 operational results](docs/b07-results.md), [B08 ecosystem results](docs/b08-results.md), the [B08 final-integrity corrections](docs/b08-final-integrity-results.md), [B09 distribution results](docs/b09-results.md) and the [changelog](CHANGELOG.md). Official `skills-ref` validation remains a separate gate; independent validation/installer checks do not replace it. TypeScript assets are executed through Node's type stripping, not typechecked or tested in an actual browser. This is a local engineering candidate, not a production or public-release readiness claim.
+See [source coverage](docs/source-map.md), [resolved contracts](docs/decisions.md), [executed B02–B04 results](docs/foundation-results.md), [B05 router results](docs/b05-results.md), [B06 diagnostic results](docs/b06-results.md), [B07 operational results](docs/b07-results.md), [B08 ecosystem results](docs/b08-results.md), the [B08 final-integrity corrections](docs/b08-final-integrity-results.md), [B09 distribution results](docs/b09-results.md) and the [changelog](CHANGELOG.md). Official `skills-ref` validation remains a separate gate; independent validation/installer checks do not replace it. TypeScript is strictly typechecked, and the Counter reference UI has rendered browser regression coverage; neither proves QIE network or wallet compatibility. This is a local engineering candidate, not a production or public-release readiness claim.

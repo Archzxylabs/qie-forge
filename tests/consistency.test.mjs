@@ -13,6 +13,7 @@ import { projectRoot } from './support/fixtures.mjs';
 // reported counts, or address evidence fails the suite.
 
 const baseline = await loadKnowledge(projectRoot);
+const historical = JSON.parse(await readFile(path.join(projectRoot, 'tests/fixtures/historical-releases.json'), 'utf8'));
 const readDoc = (relative) => readFile(path.join(projectRoot, relative), 'utf8');
 
 function parseLedgerSources(markdown) {
@@ -103,7 +104,7 @@ test('adversarial: an inflated or deflated reported count is detected', async ()
 });
 
 test('b08 evidence catalogue is generated from canonical records without drift', async () => {
-  const expected = renderCapabilityCatalogue(baseline);
+  const expected = renderCapabilityCatalogue(baseline, historical.b08);
   const actual = await readDoc('docs/evidence/b08/capability-catalogue.md');
   assert.equal(actual, expected, 'run: npm run docs:generate');
 });
@@ -119,11 +120,11 @@ test('b08 evidence catalogue preserves canonical statuses, identifiers, and vers
 });
 
 test('adversarial: forged evidence-catalogue rows are detected by regeneration drift', async () => {
-  const canonical = renderCapabilityCatalogue(baseline);
+  const canonical = renderCapabilityCatalogue(baseline, historical.b08);
   const forged = canonical.replace('| `explorer-verification-api` | `qie-explorer` | `verify_contract_api` | `explorers` | qie-mainnet, qie-testnet | null | `UNKNOWN` |',
     '| `explorer-verification-api` | `qie-explorer` | `verify_contract_api` | `explorers` | qie-mainnet, qie-testnet | null | `DOCUMENTED` |');
   assert.notEqual(forged, canonical);
-  assert.notEqual(forged, renderCapabilityCatalogue(baseline), 'a status forgery diverges from canonical regeneration');
+  assert.notEqual(forged, renderCapabilityCatalogue(baseline, historical.b08), 'a status forgery diverges from canonical regeneration');
 });
 
 test('generated and authored ecosystem artifacts contain no unsupported network or operational facts', async () => {
@@ -197,12 +198,11 @@ test('capability category tampering in canonical data is detected against frozen
 
 // The final independent audit (F-FINAL-01) found the milestone documents
 // restating release and review dates that canonical data did not support.
-// These checks pin every published date to the canonical record, so the
-// documents cannot drift away from the release they describe.
+// These checks pin the historical documents to the explicit B08 record rather
+// than the active cut, so a new local release does not rewrite old evidence.
 test('milestone documents state the canonical release cut and source review times', async () => {
-  const builtAt = baseline.release.built_at;
-  const reviews = baseline.sources.map((s) => s.reviewed_at).filter(Boolean).sort();
-  const latestReview = reviews[reviews.length - 1];
+  const builtAt = historical.b08.built_at;
+  const latestReview = historical.b08.latest_source_reviewed_at;
 
   const results = await readDoc('docs/b08-results.md');
   assert.ok(results.includes(builtAt), 'b08-results.md states the canonical release cut');
@@ -212,12 +212,11 @@ test('milestone documents state the canonical release cut and source review time
   assert.ok(ledger.includes(latestReview), 'the source ledger states the latest canonical source review');
 
   const remediation = await readDoc('docs/b08-remediation-results.md');
-  const s21 = baseline.sources.find((s) => s.source_id === 'S21');
-  assert.ok(remediation.includes(s21.reviewed_at), 'the remediation report states the canonical S21 review time');
+  assert.ok(remediation.includes(historical.b08.s21_reviewed_at), 'the remediation report states the recorded S21 review time');
 });
 
 test('adversarial: a milestone document claiming a date canonical data does not support is detected', async () => {
-  const builtAt = baseline.release.built_at;
+  const builtAt = historical.b08.built_at;
   const results = await readDoc('docs/b08-results.md');
   assert.ok(!results.includes('2026-10-20T08:00:00Z'),
     'the superseded future release cut is gone from the milestone report');

@@ -1,0 +1,12 @@
+diff -ru --exclude out --exclude cache /tmp/opencode/agent-eval-counter-assertion-baseline/counter/test/Counter.t.sol /tmp/opencode/agent-eval-counter-assertion/counter/test/Counter.t.sol
+--- /tmp/opencode/agent-eval-counter-assertion-baseline/counter/test/Counter.t.sol	2026-10-22 00:29:38.969653695 +0700
++++ /tmp/opencode/agent-eval-counter-assertion/counter/test/Counter.t.sol	2026-10-22 00:30:13.329841471 +0700
+@@ -12,7 +12,7 @@
+     function testIncrementChangesState() public {
+         Counter counter = new Counter();
+         counter.increment();
+-        require(counter.value() == 2, "increment effect");
++        require(counter.value() == 1, "increment effect");
+     }
+ 
+     function testInstancesHaveIndependentState() public {
