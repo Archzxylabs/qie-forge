@@ -2,6 +2,15 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## QIE ecosystem intelligence expansion — 2026-10-24
+
+- **Release version:** `0.6.0-ecosystem.1` (working-tree candidate; not published)
+- **Schema version:** `1.4.0` (integration records are additive)
+- **Release identity:** `420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b`
+- **Scope:** source-grounded QUSDC and QIE Lending intelligence, token accounting, QIE Wallet/RPC integration guidance, Oracle/DEX/Bridge/ID/Pass/native/indexing boundaries, shared address identity gate and seven new reusable recipes.
+- **Safety:** source-published address candidates are retained as CLAIMED/CONFLICTED discovery records; all new integration operations have `execution_allowed: false`; no QIE RPC write, signer, bridge transfer or live wallet action was run.
+- **Evidence:** see [source inventory](docs/research/qie-ecosystem-source-inventory.md), [QUSDC review](docs/research/qusdc-protocol-review.md), [Lending review](docs/research/qie-lending-protocol-review.md), [golden-task evaluation](docs/evidence/qie-knowledge-golden-tasks.md) and [release results](docs/evidence/qie-knowledge-release-results.md).
+
 ## Developer experience remediation — 2026-10-21
 
 - **Release version:** `0.5.2-ecosystem.1` (working-tree candidate; not published)

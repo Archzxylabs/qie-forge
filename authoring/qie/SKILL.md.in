@@ -17,6 +17,8 @@ This skill is the entry point for QIE developer tasks. It classifies the task, n
 5. Check which routed skills are actually installed. For a missing skill, read its catalogue state in the routing table and follow "Missing topical skills" below; never read a path that does not exist and never restate a missing skill's procedure from memory.
 6. Classify the requested action as read-only or state-changing. State-changing guidance must name the approval boundary and must not proceed without explicit developer approval.
 
+For ecosystem integrations, route protocol questions to `qie-ecosystem` before refusing an unresolved address. The required response is: known source-grounded facts, available SDK/ABI or read pattern, unverified deployment/runtime facts, a safe local/mock next action, exact deployment blockers and sources. An unknown address blocks a write, not a useful local implementation.
+
 Report: selected skill names, domain IDs, target network (or the single question that resolves it), EVM/native context, genuinely missing inputs, evidence constraints from the coverage map, and the next safe action. Ask only for inputs that actually change the route; a concept question does not need a wallet or signer.
 
 ## Network discipline
@@ -55,7 +57,7 @@ A skill labelled `planned; not a published artifact` (for example `qie-native`, 
 
 - An `UNKNOWN` or `CLAIMED` catalogue status is not compatibility. Do not claim a wallet, SDK, indexer, bridge or provider supports QIE without a catalogue status backed by evidence, and do not upgrade a status in your answer.
 - Do not offer a planned or unpublished skill as an installable release artifact, and do not present a published-but-missing skill's procedure as if it were installed.
-- No contract address is authoritative unless the catalogue snapshot in this bundle carries it with issuer and ABI provenance plus a matching status. Never generate a plausible-looking QIE contract address; the canonical address collection is empty in this release.
+- No contract address is authoritative unless the catalogue snapshot in this bundle carries it with issuer and ABI provenance plus a matching status. Never generate a plausible-looking QIE contract address; this release may retain discovery-only candidates, but none is executable.
 - Documentation, product names and marketing pages are discovery leads, not runtime proof. Cite the source URL and its trust tier from the coverage map.
 - A receipt, deployed bytecode or a passing local build does not verify application effects or finality.
 - Nothing in this skill signs, broadcasts, requests keys or authorizes spending. Signing and spending stay with developer-controlled tooling behind explicit approval.

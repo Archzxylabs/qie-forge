@@ -1,29 +1,73 @@
 {
-  "built_at": "2026-10-21T17:28:25Z",
+  "built_at": "2026-10-24T20:05:00Z",
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "9e04a0b6fb53b8d4e1fde2066dda4eff628986834a73ce806e21b3b6bd95563f"
+      "sha256": "fcfabd645776263c136b3599540cd2ed7a7ba9a5f8165e83d2dba6db00429b1a"
     },
     {
       "path": "data/ecosystem-catalogue.json",
-      "sha256": "e484eecbcd2d68afdbeba62404f704f3ec39d143c8cf6be38f7e56cb84df4ba4"
+      "sha256": "16b811113b96d5c4e83878b70a1d4461496805e8f6d74864a4f4c9efff8f1b9d"
+    },
+    {
+      "path": "recipes/ecosystem-address/recipe.md",
+      "sha256": "af5f68daa949926c7cf27ed3626a8f3646dc79101a95878a390f415a232e6ec0"
+    },
+    {
+      "path": "recipes/ecosystem-selection/recipe.md",
+      "sha256": "35e194ecb0bad2cc65bee443421723857802d78c6cde5e5ba553cb3a3a0a8139"
+    },
+    {
+      "path": "recipes/erc20-asset/recipe.md",
+      "sha256": "e21969578abae892f24629aed34a020549a5c55fb75f8c86e1fcdbfc24ffa19c"
+    },
+    {
+      "path": "recipes/lending-read/recipe.md",
+      "sha256": "238e269d19a8c4561ebe1248ccdf10b74fa9b0b7b2d0e2fcaf5aeda4e9d7f63b"
+    },
+    {
+      "path": "recipes/oracle-collateral/recipe.md",
+      "sha256": "3977ea4834e012953a72fae2c3a44a113630d6f04074d283549a77315f579698"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/foundry.toml",
+      "sha256": "d3b32d45b456a4913b7c36016b47642ac8ff3605f7b8ef52c6e98e9503c408c0"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol",
+      "sha256": "8d4815d75d0c3981453303cb4cb5ef8744ee3d4cf4f0861c5935f6fc1da3f97e"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol",
+      "sha256": "8593013d1db53221b89c73b9cfcbfaddb92eb958c546b39da1cf6d77b412d487"
+    },
+    {
+      "path": "recipes/qusdc-escrow/recipe.md",
+      "sha256": "bfa5762039ad17246beaca095e5416bd943da82e0ce1ea50de82d5a734f088cd"
+    },
+    {
+      "path": "recipes/transaction-readonly/recipe.md",
+      "sha256": "19d31faf296235fa84b557c2cdc491d0257e40de39424007aae1895f3c97eb39"
+    },
+    {
+      "path": "references/address-candidates.md",
+      "sha256": "a265c5a9d4debae9dbd22908f222726bda079be270f98864e174becd91e35093"
     },
     {
       "path": "references/catalogue.md",
-      "sha256": "b50146f1509c2dc946921fdeef30a7385b5eb3a57de6e382e41f56f12ccba59e"
+      "sha256": "35c3ada8f0222127ccdc6936cd79c07caaaf4535a1294fd3d482a588c8c65820"
     },
     {
       "path": "references/compatibility.md",
-      "sha256": "dd420f99085d56d5d4cec9f8c77695686e29a875485291e8a8bf049350323d0c"
+      "sha256": "221e513ebdcb14f7c39b9cf5f3ad0f7de0c7ea2ba9b4f5a77593468957a81353"
     },
     {
       "path": "references/decision-guide.md",
-      "sha256": "cd3d31f224073e82adfa28acfc9b5d111b4704bfecf6c0927c89d0f18f4e3983"
+      "sha256": "73cebf590231a329891f00fa9ae60b20d7449e997d08ed543dd40d999e143c29"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
+      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -31,10 +75,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "e484eecbcd2d68afdbeba62404f704f3ec39d143c8cf6be38f7e56cb84df4ba4",
+  "knowledge_sha256": "16b811113b96d5c4e83878b70a1d4461496805e8f6d74864a4f4c9efff8f1b9d",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
-  "release_version": "0.5.2-ecosystem.1",
+  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-ecosystem",
   "snapshot_path": "data/ecosystem-catalogue.json",

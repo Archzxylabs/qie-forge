@@ -1,4 +1,5 @@
 {
+  "addresses": [],
   "capabilities": [
     {
       "capability_id": "bridge-transfer",
@@ -612,6 +613,7 @@
     }
   ],
   "claims": [],
+  "conflicts": [],
   "domains": [
     {
       "capability_ids": [],
@@ -1046,6 +1048,7 @@
       "verification_status": "UNKNOWN"
     }
   ],
+  "integrations": [],
   "policy": {
     "expiry_mode": "explicit-record",
     "offline_high_risk_status": "UNKNOWN",
@@ -1118,7 +1121,9 @@
         "qie-wallets"
       ],
       "recipe_paths": [
-        "recipes/debug/recipe.md"
+        "recipes/debug/recipe.md",
+        "recipes/ecosystem-address/recipe.md",
+        "recipes/transaction-readonly/recipe.md"
       ],
       "release_tier": "P0",
       "skill_id": "qie-debug"
@@ -1139,7 +1144,10 @@
       "recipe_paths": [
         "recipes/build-test/recipe.md",
         "recipes/deployment/recipe.md",
-        "recipes/network/recipe.md"
+        "recipes/ecosystem-address/recipe.md",
+        "recipes/network/recipe.md",
+        "recipes/oracle-collateral/recipe.md",
+        "recipes/qusdc-escrow/recipe.md"
       ],
       "release_tier": "P0",
       "skill_id": "qie-deployment"
@@ -1164,7 +1172,15 @@
         "qie-transactions",
         "qie-wallets"
       ],
-      "recipe_paths": [],
+      "recipe_paths": [
+        "recipes/ecosystem-address/recipe.md",
+        "recipes/ecosystem-selection/recipe.md",
+        "recipes/erc20-asset/recipe.md",
+        "recipes/lending-read/recipe.md",
+        "recipes/oracle-collateral/recipe.md",
+        "recipes/qusdc-escrow/recipe.md",
+        "recipes/transaction-readonly/recipe.md"
+      ],
       "release_tier": "P0",
       "skill_id": "qie-ecosystem"
     },
@@ -1181,6 +1197,9 @@
         "qie-wallets"
       ],
       "recipe_paths": [
+        "recipes/erc20-asset/recipe.md",
+        "recipes/lending-read/recipe.md",
+        "recipes/qusdc-escrow/recipe.md",
         "recipes/wallet-read/recipe.md"
       ],
       "release_tier": "P0",
@@ -1196,7 +1215,8 @@
       ],
       "logical_handoffs": [],
       "recipe_paths": [
-        "recipes/network/recipe.md"
+        "recipes/network/recipe.md",
+        "recipes/transaction-readonly/recipe.md"
       ],
       "release_tier": "P0",
       "skill_id": "qie-networks"
@@ -1214,7 +1234,9 @@
         "qie-deployment"
       ],
       "recipe_paths": [
-        "recipes/build-test/recipe.md"
+        "recipes/build-test/recipe.md",
+        "recipes/ecosystem-address/recipe.md",
+        "recipes/qusdc-escrow/recipe.md"
       ],
       "release_tier": "P0",
       "skill_id": "qie-smart-contracts"
@@ -1231,7 +1253,9 @@
         "qie-debug"
       ],
       "recipe_paths": [
-        "recipes/debug/recipe.md"
+        "recipes/debug/recipe.md",
+        "recipes/ecosystem-address/recipe.md",
+        "recipes/transaction-readonly/recipe.md"
       ],
       "release_tier": "P0",
       "skill_id": "qie-transactions"
@@ -1249,6 +1273,7 @@
         "qie-frontend"
       ],
       "recipe_paths": [
+        "recipes/erc20-asset/recipe.md",
         "recipes/wallet-read/recipe.md"
       ],
       "release_tier": "P0",
@@ -1535,6 +1560,6 @@
       "url": "https://docs.qie.digital/developer-docs/smart-contract-deployment/deploy-using-remix.md"
     }
   ],
-  "status_evaluated_at": "2026-10-21T17:28:25Z",
+  "status_evaluated_at": "2026-10-24T20:05:00Z",
   "validation_runs": []
 }

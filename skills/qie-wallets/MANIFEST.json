@@ -1,13 +1,17 @@
 {
-  "built_at": "2026-10-21T17:28:25Z",
+  "built_at": "2026-10-24T20:05:00Z",
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "f8bcbde63040565966f31d519badff6a8bf046a5b37702665cbbbca5070c9ccd"
+      "sha256": "df9df8c9503d10cd101916a408df4af19fe15e788b8b03a794fde823ba696cc9"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "9499934e8b25e7d7e98c1403dea42305378a18cad9bc7291f04738f0a3efde74"
+      "sha256": "d7d0aa8ea74f20e6909f87134854dd49867173231d666fa26b49e9d12942560e"
+    },
+    {
+      "path": "recipes/erc20-asset/recipe.md",
+      "sha256": "e21969578abae892f24629aed34a020549a5c55fb75f8c86e1fcdbfc24ffa19c"
     },
     {
       "path": "recipes/wallet-read/assets/wallet-read.ts",
@@ -19,11 +23,11 @@
     },
     {
       "path": "references/evidence.md",
-      "sha256": "d44c7d4572e0c7b69c0babf3c36046590a9b812abfaaee99effeeebd3758e2fb"
+      "sha256": "e644797cc48f5e799e8a0530d78aebe326ae1ec318d792f8b0e5fbd11986b6c3"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
+      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -38,15 +42,19 @@
       "sha256": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2"
     },
     {
+      "path": "scripts/probe-rpc-capabilities.mjs",
+      "sha256": "fd7634b8a3dd122726c37a4399c5b8a7ac322e5357137ff1429f0de018288ea0"
+    },
+    {
       "path": "scripts/verify-network.mjs",
       "sha256": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f"
     }
   ],
   "generated": true,
-  "knowledge_sha256": "9499934e8b25e7d7e98c1403dea42305378a18cad9bc7291f04738f0a3efde74",
+  "knowledge_sha256": "d7d0aa8ea74f20e6909f87134854dd49867173231d666fa26b49e9d12942560e",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
-  "release_version": "0.5.2-ecosystem.1",
+  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-wallets",
   "snapshot_path": "data/network-claims.json",

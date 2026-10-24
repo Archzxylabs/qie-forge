@@ -61,7 +61,10 @@ test('chronology gate accepts grounded records and tolerated skew', () => {
 
 test('frozen-time knowledge fixtures pass with an injected clock, without real-world dependency', async () => {
   const frozen = structuredClone(baseline);
-  frozen.release.built_at = at(-30);
+  // Keep the cut at the canonical release timestamp. New source reviews may be
+  // close to the cut, so moving the cut backwards would create a chronology
+  // contradiction rather than test clock independence.
+  frozen.release.built_at = baseline.release.built_at;
   // A deliberately later injected clock must not change any grounded verdict:
   // the validators are pure functions of the records plus the provided clock.
   await validateKnowledge(frozen, schemaRoot, { now: '2027-06-01T00:00:00Z' });

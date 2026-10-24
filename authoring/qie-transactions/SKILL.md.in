@@ -11,6 +11,7 @@ compatibility: Node 24.20.0 in the tested Node 24 line. Local helper imports and
 3. Run the bundled network preflight first. A wrong-chain observation stops; an unavailable observation is UNKNOWN. Use the same selected endpoint for follow-up reads; never fall back across networks.
 4. Use the recipe's generic receipt command for receipt facts. For DEPLOY_DIRECT, additionally supply the independently expected created address. The helper validates receipt/code format but does not establish original transaction intent, inclusion-block code, canonical continuity or issuer identity.
 5. Report inclusion, execution, identityLinkage, applicationEffect and finality separately. Transaction CLI exit 0 means a report exists, not success. Inspect its errorCode/checks/applicationOutcome.
+6. For QUSDC or Lending actions, decode application events only with a reviewed ABI and compare expected token balance deltas at the selected block. A generic receipt cannot certify minting, redemption, supply, borrow, repayment or withdrawal.
 
 The installed [transaction observer](scripts/verify-transaction.mjs) and [network preflight](scripts/verify-network.mjs) use the packaged snapshot. No checkout, sibling skill or secret is required. [Release metadata](references/release-info.md) identifies that snapshot.
 

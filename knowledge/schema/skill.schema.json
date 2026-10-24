@@ -36,6 +36,9 @@
     "capability_ids": {
       "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
     },
+    "integration_ids": {
+      "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids"
+    },
     "helper_paths": {
       "type": "array",
       "items": {
@@ -79,6 +82,7 @@
     "domain_ids",
     "claim_ids",
     "capability_ids",
+    "integration_ids",
     "helper_paths",
     "generated_references",
     "logical_handoffs",

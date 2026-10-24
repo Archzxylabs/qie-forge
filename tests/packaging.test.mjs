@@ -84,7 +84,7 @@ test('authoring cannot silently overwrite generated network references', async (
 test('selected snapshot contains only transitive sources and no invented runtime evidence', async (t) => {
   const root = await fixtureProject(t); const output = await buildRelease(root);
   const snapshot = JSON.parse(output['qie-networks']['data/network-claims.json']);
-  assert.deepEqual(snapshot.sources.map((s) => s.source_id), ['S03']);
+  assert.deepEqual(snapshot.sources.map((s) => s.source_id), ['S03', 'S10', 'S15']);
   assert.equal(snapshot.validation_runs.length, 0);
   assert.deepEqual(snapshot.domains.map((d) => d.domain_id), ['D02']);
   const manifest = JSON.parse(output['qie-networks']['MANIFEST.json']);

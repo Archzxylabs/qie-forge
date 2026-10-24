@@ -59,7 +59,11 @@ function diffReportedCounts(computed, reported) {
 
 test('source ledger identities match canonical knowledge/sources.yaml exactly', async () => {
   const ledger = parseLedgerSources(await readDoc('docs/evidence/b08/source-ledger.md'));
-  const canonical = new Map(baseline.sources.map((s) => [s.source_id, s.url]));
+  // B08 is preserved historical evidence; new research belongs to the active
+  // inventory rather than rewriting that report.
+  const canonical = new Map(baseline.sources
+    .filter((source) => Number(source.source_id.slice(1)) <= 21)
+    .map((s) => [s.source_id, s.url]));
   assert.deepEqual(diffLedgerAgainstCanonical(canonical, ledger), []);
   // S19 must carry the complete, discoverable store URL (extension identifier).
   assert.match(canonical.get('S19'), /oljchdcgmibnjbbopolafbjncfhdacjb$/);
@@ -237,4 +241,3 @@ test('adversarial: a milestone document claiming a date canonical data does not 
     }
   }
 });
-

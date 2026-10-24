@@ -370,6 +370,172 @@ Operation-specific, network-specific, and version-specific compatibility classif
 - **Sources**:
   - [S01: Official ecosystem discovery and builder entry points](https://hackathon.qie.digital/)
 
+## Detailed Integration Entries
+
+### qie-bridge: QIE Bridge
+
+- **Stored Status**: `CLAIMED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, general
+- **Known limitations**:
+  - Website existence does not establish a safe programmatic bridge route or trust model.
+- **Operations**:
+  - `bridge-web-transfer`: CLAIMED — Transfer assets through web bridge; No live transfer was attempted.
+  - `bridge-programmatic-transfer`: UNKNOWN — Execute programmatic bridge transfer; Do not synthesize bridge contracts, relay calls or refund flows.
+
+### qie-dex: QIE DEX / QIDEX
+
+- **Stored Status**: `CLAIMED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, general
+- **Known limitations**:
+  - The reviewed web surface is a product-discovery lead and not a technical integration specification.
+- **Operations**:
+  - `dex-web-swap`: CLAIMED — Swap through web interface; Website availability is not programmatic router compatibility.
+  - `dex-programmatic-swap`: UNKNOWN — Execute a programmatic swap; Router, factory, pair model, fee, price impact and route selection are unresolved.
+
+### qie-explorer: QIE Explorer
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, qie-testnet
+- **Known limitations**:
+  - Explorer URLs are documented configuration, not a verified API or source-verification capability.
+- **Operations**:
+  - `explorer-transaction-lookup`: DOCUMENTED — Look up a transaction in the web explorer; Explorer display is not issuer authentication, ABI correspondence or finality proof.
+  - `explorer-source-verification`: UNKNOWN — Verify contract source programmatically; Do not invent Blockscout/Etherscan endpoints or CLI plugins.
+
+### qie-id: QIE ID
+
+- **Stored Status**: `CLAIMED`
+- **Execution allowed**: `false`
+- **Scope**: general
+- **Known limitations**:
+  - Product claims are not a technical identity-resolution interface.
+- **Operations**:
+  - `qie-id-resolve`: UNKNOWN — Resolve a .qie identifier; No public resolver API or ABI was established.
+
+### qie-indexing: QIE event indexing surface
+
+- **Stored Status**: `UNKNOWN`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, qie-testnet
+- **Known limitations**:
+  - No hosted QIE indexer or provider-specific historical query contract was confirmed.
+- **Operations**:
+  - `indexing-direct-logs`: UNKNOWN — Query historical logs with eth_getLogs; Provider range, result-size and rate limits have not been measured in this release.
+
+### qie-lending-protocol: QIE Lending Protocol
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet
+- **Known limitations**:
+  - Published addresses and ABI fragments are discovery evidence, not proof of current deployed compatibility.
+  - Borrow and collateral safety requires live market metadata and oracle evidence not supplied by the SDK.
+  - No npm registry publication was found; the README instructs GitHub installation.
+- **Operations**:
+  - `lending-supply`: DOCUMENTED — Supply an underlying asset; SDK calls approveIfNeeded and then cToken.mint without a configured receipt wait in supply.js.
+  - `lending-borrow`: DOCUMENTED — Borrow a market asset; The SDK enters the market as a state-changing side effect before borrow simulation.
+  - `lending-repay`: DOCUMENTED — Repay a loan; repay.js approves every time and does not wait for or validate a receipt after repayBorrow.
+  - `lending-withdraw`: DOCUMENTED — Withdraw supplied underlying; No local simulation, allowance check or receipt wait is performed by withdraw.js.
+  - `lending-read-portfolio`: DOCUMENTED — Read user portfolio; balanceOfUnderlying is marked nonpayable in the shipped ABI but called with staticCall.
+  - `lending-read-totals`: DOCUMENTED — Read protocol totals; Totals sum cToken totalSupply values across markets with different decimals and do not normalize to a common denomination.
+
+### qie-lending-sdk: qieadmin/qie-lend-sdk
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet
+- **Known limitations**:
+  - Package metadata declares CommonJS and ethers ^6.0.0; no registry publication or lockfile was reviewed.
+  - No live QIE read or write was executed.
+- **Operations**:
+  - `lending-sdk-read-adapter`: DOCUMENTED — Read through provider-only LendingSDK; The config object is static and contains address and decimal candidates that must be independently reviewed.
+
+### qie-native-cosmos: QIE Native Cosmos layer
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-native, general
+- **Known limitations**:
+  - Native registry facts and EVM chain facts must not be merged into one transaction workflow.
+- **Operations**:
+  - `native-staking-delegate`: DOCUMENTED — Delegate native QIE to a validator; Native account format and current CLI release require separate environment verification.
+  - `native-governance-submit`: DOCUMENTED — Submit a native governance proposal; No live Cosmos node or governance execution was tested.
+
+### qie-oracle: QIE Oracle
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet
+- **Known limitations**:
+  - Official docs describe AggregatorV3 compatibility but no QIE runtime call or ABI/bytecode match was executed.
+  - Aggregation and manipulation-resistance statements are issuer documentation, not an independent audit.
+- **Operations**:
+  - `oracle-read-latest`: DOCUMENTED — Read latestRoundData; Feed addresses in the official mapping remain candidates until the shared identity gate passes.
+
+### qie-pass: QIE Pass
+
+- **Stored Status**: `CLAIMED`
+- **Execution allowed**: `false`
+- **Scope**: general
+- **Known limitations**:
+  - QIE Pass capability is product discovery only in this release.
+- **Operations**:
+  - `qie-pass-verify`: UNKNOWN — Verify a QIE Pass credential; Do not invent KYC, credential, OAuth, JWT or resolver semantics.
+
+### qie-rpc: QIE EVM JSON-RPC endpoints
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, qie-testnet
+- **Known limitations**:
+  - The source list is documentation, not endpoint liveness or provider compatibility proof.
+  - The official page's RPC list labels do not establish priority beyond the selected canonical endpoint.
+- **Operations**:
+  - `rpc-identity-preflight`: DOCUMENTED — eth_chainId plus latest block observation; A passing observation never promotes a canonical capability status.
+  - `rpc-capability-probe`: UNKNOWN — Bounded read-only JSON-RPC method probe; No provider rate limits, historical range limits or WebSocket behavior are documented in the reviewed sources.
+
+### qie-wallet: QIE Wallet EIP-1193 integration
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, qie-testnet
+- **Known limitations**:
+  - Browser extension, host version, provider runtime and transaction flow remain untested.
+  - A successful mock provider test is not real wallet evidence.
+- **Operations**:
+  - `wallet-discover`: DOCUMENTED — Discover QIE Wallet provider; Actual extension injection and version behavior were not tested in this environment.
+  - `wallet-connect`: DOCUMENTED — Request EVM account access; The provider reports isMetaMask for compatibility; use rdns or window.qie for identity.
+  - `wallet-switch-network`: DOCUMENTED — Switch or add a QIE EVM network; QIE Testnet switch may return 4902 until the wallet's Testnet toggle is enabled.
+
+### qusdc-protocol: QUSDC
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, general
+- **Known limitations**:
+  - Issuer documentation uses both generic USDC language and the more specific WUSDC implementation flow.
+  - The official SDK contains no deployment address and no reserve-proof or upgrade-authority inspection.
+  - 1:1 receipt semantics are issuer-documented claims, not an independently verified market-price guarantee.
+- **Operations**:
+  - `qusdc-mint`: DOCUMENTED — Mint QUSDC from WUSDC; SDK requires separate vaultAddress and wusdcAddress inputs.
+  - `qusdc-redeem`: DOCUMENTED — Redeem QUSDC to WUSDC; The SDK uses the WUSDC decimals lookup for both mint and burn parsing; QUSDC decimal equality is not independently established.
+  - `qusdc-read-decimals`: DOCUMENTED — Read WUSDC decimals; A contract-returned decimals value is observation metadata, not proof of token identity or economic denomination.
+
+### qusdc-sdk: qieadmin/qusdc-sdk
+
+- **Stored Status**: `DOCUMENTED`
+- **Execution allowed**: `false`
+- **Scope**: qie-mainnet, qie-testnet, general
+- **Known limitations**:
+  - Repository dependency is not an npm registry package in the reviewed metadata; use a pinned Git source only after dependency review.
+  - No SDK unit tests, deployment addresses or live QIE execution evidence were found in the pinned tree.
+- **Operations**:
+  - `qusdc-sdk-mint`: DOCUMENTED — sdk.mint(amount); _parseAmount uses Number(amount) for the positive check, so very large numeric inputs require caller-side validation.
+  - `qusdc-sdk-burn`: DOCUMENTED — sdk.burn(amount); SDK does not construct or validate a QUSDC token contract; it calls the configured vault only.
+
 ## Evidence Freshness
 
 Effective statuses above were evaluated at the release build clock recorded in [Release information](release-info.md). When capability status is `UNKNOWN` or effective status is `STALE`, coding agents must refuse to treat the operation as supported and guide the developer through testnet verification.

@@ -1,4 +1,5 @@
 {
+  "addresses": [],
   "capabilities": [
     {
       "capability_id": "rpc-identity",
@@ -248,6 +249,21 @@
       "version_scope": "Published EVM configuration; live identity not tested"
     }
   ],
+  "conflicts": [
+    {
+      "conflict_id": "qie-rpc-document-order",
+      "resolution": "Keep rpc1mainnet.qie.digital as the selected canonical endpoint and record the remaining documented endpoints as alternatives without assigning semantic rank from the page labels.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S03",
+        "S10",
+        "S15"
+      ],
+      "state": "OPEN",
+      "subject": "QIE mainnet RPC list labels",
+      "summary": "The official network page labels RPC3 as rpc5mainnet and RPC5 as rpc3mainnet, so list position and hostname suffix are not interchangeable evidence."
+    }
+  ],
   "domains": [
     {
       "capability_ids": [
@@ -275,6 +291,106 @@
       ],
       "validation_test_ids": [],
       "verification_status": "DOCUMENTED"
+    }
+  ],
+  "integrations": [
+    {
+      "conflict_ids": [
+        "qie-rpc-document-order"
+      ],
+      "description": "Published QIE EVM RPC endpoint set and read-only method surface for explicit network preflight and bounded capability probing.",
+      "display_name": "QIE EVM JSON-RPC endpoints",
+      "entity_id": "qie-rpc",
+      "entity_type": "service",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "network",
+        "transaction-readonly"
+      ],
+      "interfaces": [
+        {
+          "description": "Endpoint selection, eth_chainId and latest block checks are documented; individual method support is not live-verified.",
+          "execution_allowed": false,
+          "interface_id": "qie-json-rpc",
+          "kind": "JSON_RPC",
+          "name": "JSON-RPC 2.0 over HTTPS",
+          "source_ids": [
+            "S03",
+            "S15"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "The source list is documentation, not endpoint liveness or provider compatibility proof.",
+        "The official page's RPC list labels do not establish priority beyond the selected canonical endpoint."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operations": [
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit qie-mainnet or qie-testnet selection",
+            "One documented or explicitly supplied HTTPS endpoint"
+          ],
+          "interface_id": "qie-json-rpc",
+          "limitations": [
+            "A passing observation never promotes a canonical capability status.",
+            "No cross-network fallback is permitted."
+          ],
+          "name": "eth_chainId plus latest block observation",
+          "operation_id": "rpc-identity-preflight",
+          "outputs": [
+            "Observed chain ID and latest block or a typed transport error"
+          ],
+          "source_ids": [
+            "S03"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit endpoint and maximum request count",
+            "Read-only method list"
+          ],
+          "interface_id": "qie-json-rpc",
+          "limitations": [
+            "No provider rate limits, historical range limits or WebSocket behavior are documented in the reviewed sources.",
+            "Probe output is an observation and never an evidence promotion."
+          ],
+          "name": "Bounded read-only JSON-RPC method probe",
+          "operation_id": "rpc-capability-probe",
+          "outputs": [
+            "Per-method observed, unsupported, malformed or transport-failed result"
+          ],
+          "source_ids": [
+            "S03",
+            "S15"
+          ],
+          "status": "UNKNOWN"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-wallet"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S03",
+        "S15"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which read methods, block tags, log ranges and subscriptions are supported by each current provider?",
+        "What provider-specific rate limits and retry guidance apply?"
+      ],
+      "version_scope": null
     }
   ],
   "policy": {
@@ -312,8 +428,40 @@
       "title": "Published QIE EVM network settings",
       "trust_tier": "T1",
       "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S10",
+      "title": "QIE Wallet Integration Guide for Websites",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S15",
+      "title": "QIE Cosmos Chain Registry Configuration",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/chain.json"
     }
   ],
-  "status_evaluated_at": "2026-10-21T17:28:25Z",
+  "status_evaluated_at": "2026-10-24T20:05:00Z",
   "validation_runs": []
 }

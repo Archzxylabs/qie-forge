@@ -1,13 +1,13 @@
 {
-  "built_at": "2026-10-21T17:28:25Z",
+  "built_at": "2026-10-24T20:05:00Z",
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "5fa057bedc5af90b67fe97b8873d59722cbeaccd67c9ead033ec0c2c6e693c28"
+      "sha256": "aef9b422bfdba6bcc7607f11cbc198affdbfdc3def72f0c19550af22a57ff772"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "e68dda7e07570d92068f72088304b9e11e2b5eb52bbb3079e8d55ccee50602f0"
+      "sha256": "abc1e7dbbe626a3f96e60450b1eda0592216b2f4cefb0ebee049eee76812e4cb"
     },
     {
       "path": "recipes/build-test/assets/foundry.toml",
@@ -30,19 +30,39 @@
       "sha256": "d076dca1b827a6c0b76ca0630e4efaa5545b7c6c012e5802afb79bfa759b53fa"
     },
     {
+      "path": "recipes/ecosystem-address/recipe.md",
+      "sha256": "af5f68daa949926c7cf27ed3626a8f3646dc79101a95878a390f415a232e6ec0"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/foundry.toml",
+      "sha256": "d3b32d45b456a4913b7c36016b47642ac8ff3605f7b8ef52c6e98e9503c408c0"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol",
+      "sha256": "8d4815d75d0c3981453303cb4cb5ef8744ee3d4cf4f0861c5935f6fc1da3f97e"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol",
+      "sha256": "8593013d1db53221b89c73b9cfcbfaddb92eb958c546b39da1cf6d77b412d487"
+    },
+    {
+      "path": "recipes/qusdc-escrow/recipe.md",
+      "sha256": "bfa5762039ad17246beaca095e5416bd943da82e0ce1ea50de82d5a734f088cd"
+    },
+    {
       "path": "references/evidence.md",
-      "sha256": "f2d36988bc3898919b8b3253c828a3654e76ec4b4b69987084976c2b2a2a4655"
+      "sha256": "334e8cf54e79856b78f06af3671dbf1fd2a479e7ddb4669eb74fdf249ed32a93"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
+      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
     }
   ],
   "generated": true,
-  "knowledge_sha256": "e68dda7e07570d92068f72088304b9e11e2b5eb52bbb3079e8d55ccee50602f0",
+  "knowledge_sha256": "abc1e7dbbe626a3f96e60450b1eda0592216b2f4cefb0ebee049eee76812e4cb",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
-  "release_version": "0.5.2-ecosystem.1",
+  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-smart-contracts",
   "snapshot_path": "data/network-claims.json",

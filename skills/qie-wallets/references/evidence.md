@@ -23,3 +23,4 @@ Published QIE configuration is DOCUMENTED, not a live result. Local recipe repla
 - [S01: Official ecosystem discovery and builder entry points](https://hackathon.qie.digital/) (T4)
 - [S03: Published QIE EVM network settings](https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet) (T1)
 - [S04: QIE V3 architecture overview](https://docs.qie.digital/what-is-qie/qie-v3-key-features) (T1)
+- [S10: QIE Wallet Integration Guide for Websites](https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md) (T1)

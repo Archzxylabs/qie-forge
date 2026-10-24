@@ -58,6 +58,40 @@
         "null"
       ],
       "minLength": 1
+    },
+    "revision": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "technical_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "claim_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "product_discovery",
+          "technical_interface",
+          "economic_claim",
+          "address_publication",
+          "abi_provenance",
+          "read_only_check",
+          "execution_authorization"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "research_outcome": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "required": [

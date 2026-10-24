@@ -12,9 +12,9 @@ import { fixtureProject, temporaryDirectory, schemaRoot, projectRoot } from './s
 
 const validate = await loadValidators(schemaRoot);
 
-test('ecosystem catalogue preserves canonical statuses and empty address collection', async () => {
+test('ecosystem catalogue preserves canonical statuses and discovery-only address candidates', async () => {
   const data = await loadKnowledge(projectRoot);
-  assert.equal(data.addresses.length, 0, 'identity blocker: canonical address collection is empty');
+  assert.ok(data.addresses.length >= 1, 'identity blocker retains discovery candidates');
   assert.equal(data.validationRuns.length, 0, 'no invented runtime execution evidence');
   assert.ok(data.capabilities.every((c) => c.status !== 'VERIFIED'), 'no capability is VERIFIED without non-mock execution evidence');
   
@@ -65,13 +65,24 @@ test('qie-ecosystem bundle builds with self-contained references and manifest', 
   const files = outputs['qie-ecosystem'];
   const expectedFiles = [
     'SKILL.md',
+    'MANIFEST.json',
+    'data/ecosystem-catalogue.json',
+    'scripts/lib/effective-status.mjs',
+    'references/address-candidates.md',
     'references/catalogue.md',
     'references/compatibility.md',
     'references/decision-guide.md',
     'references/release-info.md',
-    'data/ecosystem-catalogue.json',
-    'scripts/lib/effective-status.mjs',
-    'MANIFEST.json',
+    'recipes/ecosystem-address/recipe.md',
+    'recipes/ecosystem-selection/recipe.md',
+    'recipes/erc20-asset/recipe.md',
+    'recipes/lending-read/recipe.md',
+    'recipes/oracle-collateral/recipe.md',
+    'recipes/qusdc-escrow/recipe.md',
+    'recipes/qusdc-escrow/assets/foundry.toml',
+    'recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol',
+    'recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol',
+    'recipes/transaction-readonly/recipe.md',
   ];
   assert.deepEqual(Object.keys(files).sort(), expectedFiles.sort());
 
@@ -98,7 +109,8 @@ test('qie-ecosystem operates offline after checkout deletion', async (t) => {
   const snapshot = JSON.parse(await readFile(path.join(skill, 'data/ecosystem-catalogue.json'), 'utf8'));
   assert.ok(snapshot.capabilities.length >= 20);
   assert.ok(snapshot.claims.length === 11);
-  assert.ok(snapshot.sources.length >= 10);
+  assert.ok(snapshot.sources.length >= 30);
+  assert.ok(snapshot.integrations.length >= 10);
 
   const catalogue = await readFile(path.join(skill, 'references/catalogue.md'), 'utf8');
   assert.match(catalogue, /# QIE Ecosystem Catalogue/);
@@ -107,11 +119,13 @@ test('qie-ecosystem operates offline after checkout deletion', async (t) => {
   assert.match(catalogue, /hardhat/);
   assert.match(catalogue, /remix/);
   assert.match(catalogue, /qiedex/);
-  // B08-R03: the catalogue never publishes a literal contract address while the
-  // canonical address inventory is empty (the source-claimed conversion
-  // precompile is not an authorized, catalogued integration target).
+  // The catalogue remains address-free, while a separate candidate table
+  // preserves useful source-published leads without authorizing them.
   assert.doesNotMatch(catalogue, /0x[0-9a-fA-F]{40}/, 'no contract address literal is published');
-  assert.doesNotMatch(catalogue, /0xD4949664cD82660AaE99bEdc034a0deA8A0bd517/);
+  const candidates = await readFile(path.join(skill, 'references/address-candidates.md'), 'utf8');
+  assert.match(candidates, /QIE contract address candidates/);
+  assert.match(candidates, /0xD4949664cD82660AaE99bEdc034a0deA8A0bd517/);
+  assert.match(candidates, /Discovery only/);
 
   const compat = await readFile(path.join(skill, 'references/compatibility.md'), 'utf8');
   assert.match(compat, /# QIE Compatibility Matrix/);

@@ -222,3 +222,328 @@
   network_scope:
     - qie-mainnet
   maintainer: null
+
+- source_id: S22
+  url: https://docs.stable.qie.digital/introduction.md
+  title: QUSDC protocol introduction
+  publisher: QUSDC
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+    - economic_claim
+  research_outcome: Issuer documentation describes QUSDC as a 1:1 on-chain receipt token; the backing asset is named generically as USDC on this page.
+
+- source_id: S23
+  url: https://docs.stable.qie.digital/how-qusdc-works.md
+  title: QUSDC minting, WUSDC backing and redemption flow
+  publisher: QUSDC
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - technical_interface
+    - economic_claim
+  research_outcome: Issuer documentation explicitly describes USDC bridged from Ethereum as WUSDC on QIE, then deposited to mint QUSDC and burned to release WUSDC.
+
+- source_id: S24
+  url: https://docs.stable.qie.digital/transparency-and-verifiability.md
+  title: QUSDC supply and reserve transparency claims
+  publisher: QUSDC
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - economic_claim
+  research_outcome: Issuer documentation describes on-chain supply and reserve accounting but does not provide a reviewed deployment identity or independent reserve proof in this release.
+
+- source_id: S25
+  url: https://docs.stable.qie.digital/decentralization-model.md
+  title: QUSDC decentralization and dependency disclosures
+  publisher: QUSDC
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - economic_claim
+  research_outcome: Issuer documentation distinguishes trust-minimized smart-contract enforcement from USDC, fiat and bridge dependencies.
+
+- source_id: S26
+  url: https://docs.stable.qie.digital/frequently-asked-questions-faq.md
+  title: QUSDC FAQ and risk disclosures
+  publisher: QUSDC
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+    - economic_claim
+  research_outcome: FAQ distinguishes QUSDC from Circle USDC and states that QUSDC inherits USDC, regulatory, network and bridge dependencies.
+
+- source_id: S27
+  url: https://github.com/qieadmin/qusdc-sdk/tree/0877597f8bd51f7c21bb04e70009d3e9cab86944
+  title: QUSDC SDK pinned source tree
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: 2026-02-18T14:20:04Z
+  content_sha256: null
+  license: MIT
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+    - general
+  maintainer: null
+  revision: 0877597f8bd51f7c21bb04e70009d3e9cab86944
+  technical_paths:
+    - README.md
+    - index.js
+    - package.json
+  claim_scope:
+    - technical_interface
+    - abi_provenance
+  research_outcome: Pinned repository source inspected directly; it is a GitHub dependency, uses ESM and ethers v6, and contains no production deployment addresses.
+
+- source_id: S28
+  url: https://raw.githubusercontent.com/qieadmin/qusdc-sdk/0877597f8bd51f7c21bb04e70009d3e9cab86944/index.js
+  title: QUSDC SDK implementation file at pinned commit
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: 2026-02-18T14:20:04Z
+  content_sha256: null
+  license: MIT
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+    - general
+  maintainer: null
+  revision: 0877597f8bd51f7c21bb04e70009d3e9cab86944
+  technical_paths:
+    - index.js
+  claim_scope:
+    - technical_interface
+    - abi_provenance
+  research_outcome: Exact SDK implementation inspected; vault ABI fragments, allowance, decimals, estimateGas and receipt-wait behavior are documented, but deployment identity is absent.
+
+- source_id: S29
+  url: https://github.com/qieadmin/qie-lend-sdk/tree/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262
+  title: QIE Lending SDK pinned source tree
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: 2026-02-18T11:12:56Z
+  content_sha256: null
+  license: MIT
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  revision: 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262
+  technical_paths:
+    - README.md
+    - index.js
+    - LendingSDK.js
+    - config.js
+    - actions/borrow.js
+    - actions/repay.js
+    - actions/supply.js
+    - actions/withdraw.js
+    - read/portfolio.js
+    - read/totals.js
+    - utils/approveIfNeeded.js
+    - utils/health.js
+    - utils/simulate.js
+    - abi/comptroller.json
+    - abi/ctoken.json
+    - abi/erc20.json
+    - package.json
+  claim_scope:
+    - product_discovery
+    - technical_interface
+    - abi_provenance
+  research_outcome: Pinned repository source inspected directly; it is CommonJS, declares ethers v6, publishes candidate market/config addresses and does not establish deployed identity or runtime success.
+
+- source_id: S30
+  url: https://raw.githubusercontent.com/qieadmin/qie-lend-sdk/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262/config.js
+  title: QIE Lending SDK market configuration at pinned commit
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: 2026-02-18T11:12:56Z
+  content_sha256: null
+  license: MIT
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+  revision: 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262
+  technical_paths:
+    - config.js
+  claim_scope:
+    - technical_interface
+    - address_publication
+  research_outcome: Exact configuration file inspected; addresses are retained as discovery candidates only and are not executable or issuer-authenticated in this release.
+
+- source_id: S31
+  url: https://swap.dex.qie.digital/
+  title: QIE DEX web interface
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+  research_outcome: Web UI was reachable and presents swap, liquidity, token and pair surfaces; router/factory ABI and issuer-authenticated programmatic integration were not found.
+
+- source_id: S32
+  url: https://bridge.qie.digital/
+  title: QIE Bridge web interface
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+  research_outcome: Web UI was reachable and advertises Ethereum, BSC and QIE routes; bridge contracts, relayer model, fees and recovery API were not established.
+
+- source_id: S33
+  url: https://id.qie.digital/
+  title: QIE ID web portal
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+  research_outcome: Product portal was reachable; no public resolver API, ABI, authentication protocol or signed mapping interface was discovered in the reviewed material.
+
+- source_id: S34
+  url: https://www.qie.digital/
+  title: QIE ecosystem product catalogue
+  publisher: QIE
+  trust_tier: T4
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - general
+  maintainer: null
+  claim_scope:
+    - product_discovery
+  research_outcome: Marketing and product-discovery source names QIE ID, QIE Pass, QIE DEX and QIE Bridge; it is not sufficient for technical execution authorization.
+
+- source_id: S35
+  url: https://docs.qie.digital/qie-oracle/deployed-contracts/query-examples.md
+  title: QIE Oracle query examples
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+  claim_scope:
+    - technical_interface
+    - abi_provenance
+  research_outcome: Official examples use AggregatorV3Interface, latestRoundData, getRoundData and decimals; examples use placeholders and do not verify a deployed address.
+
+- source_id: S36
+  url: https://docs.qie.digital/qie-oracle/developer-guide/how-to-integrate-qie-oracle-in-smart-contracts.md
+  title: QIE Oracle Solidity integration guide
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+  claim_scope:
+    - technical_interface
+    - abi_provenance
+  research_outcome: Official guide states compatibility with AggregatorV3Interface and read-only latestRoundData use; live interface behavior and issuer identity remain unverified.
+
+- source_id: S37
+  url: https://docs.qie.digital/qie-oracle/developer-guide/handling-edge-cases-and-best-practices.md
+  title: QIE Oracle edge-case and freshness guidance
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+  claim_scope:
+    - technical_interface
+    - economic_claim
+  research_outcome: Official guide recommends positive-range, magnitude and updatedAt freshness checks and warns that updates are not every block.
+
+- source_id: S38
+  url: https://docs.qie.digital/qie-oracle/how-qie-oracle-works/aggregation-and-validation.md
+  title: QIE Oracle aggregation description
+  publisher: QIE
+  trust_tier: T1
+  reviewed_at: 2026-10-24T20:00:51Z
+  published_at: null
+  content_sha256: null
+  license: null
+  network_scope:
+    - qie-mainnet
+  maintainer: null
+  claim_scope:
+    - economic_claim
+  research_outcome: Official documentation describes multi-source aggregation and outlier handling as design claims; no independent runtime or audit evidence was found.

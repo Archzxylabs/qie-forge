@@ -1,25 +1,33 @@
 {
-  "built_at": "2026-10-21T17:28:25Z",
+  "built_at": "2026-10-24T20:05:00Z",
   "files": [
     {
       "path": "SKILL.md",
-      "sha256": "9b8d837aa35fd9f015c6fc56c52c2bc0441349bb2a17acc35c701dd8f6087e6b"
+      "sha256": "ed2f0e0ff2f257929cb7d3fa20d28dc035a54843aaccc1c7d180b5e27d8e5e7a"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "beccec995eba8c7812b8836477c3113722ba8aa0fb9ede3852c7fe42e62dd7e9"
+      "sha256": "c0aa9a1110f059839707231b6d5c2a54c03271f778159cbac40371820a1ed5e1"
     },
     {
       "path": "recipes/debug/recipe.md",
       "sha256": "83a12017845bfef60c5cb1d51925a7b07a9a1e4fc3d2e72e9e7d3ebdf1e18209"
     },
     {
+      "path": "recipes/ecosystem-address/recipe.md",
+      "sha256": "af5f68daa949926c7cf27ed3626a8f3646dc79101a95878a390f415a232e6ec0"
+    },
+    {
+      "path": "recipes/transaction-readonly/recipe.md",
+      "sha256": "19d31faf296235fa84b557c2cdc491d0257e40de39424007aae1895f3c97eb39"
+    },
+    {
       "path": "references/evidence.md",
-      "sha256": "da93401f8b6ca57e3eeeaf2acb78c7f0efd24e9bf6191618a3f77d3eee7b35ba"
+      "sha256": "74b2c4e7ab6d2b10ddbc1431c3e5ce849294badd4da448fc522bb4bc11c6b5ee"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "c8ac60c60ded0e03b94e6ce73803f88404423952fc7ae8160ec99c47a7da0449"
+      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -47,10 +55,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "beccec995eba8c7812b8836477c3113722ba8aa0fb9ede3852c7fe42e62dd7e9",
+  "knowledge_sha256": "c0aa9a1110f059839707231b6d5c2a54c03271f778159cbac40371820a1ed5e1",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b",
-  "release_version": "0.5.2-ecosystem.1",
+  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-transactions",
   "snapshot_path": "data/network-claims.json",

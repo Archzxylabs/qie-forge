@@ -53,6 +53,8 @@ For the reusable network workflow, read [select and inspect a network](recipes/n
 
 Follow the [preflight checklist](references/preflight.md). A host must obtain a fresh `eth_chainId` and responsive-block observation from the chosen endpoint before a write-bound workflow; the read-only preflight helper above performs exactly those two reads. Endpoint settings alone do not prove identity, and a passing preflight observation is not evidence promotion. This skill never signs, broadcasts, requests a key, or authorizes another agent to spend.
 
+For provider research, use the bundled `probe-rpc-capabilities.mjs` with an explicit network and bounded `--max-requests`. It probes only read methods, stops on a chain mismatch, reports per-method observations and never promotes a capability. No provider rate limit, historical log range or WebSocket support is assumed from a successful probe.
+
 Report the target network, value, source, evidence status and missing checks. Keep observed runtime evidence separate from documented settings. If a live check cannot run, report `UNKNOWN` or `NOT_RUN`; never report a successful preflight from this offline helper.
 
 ## Failure branches and fallback

@@ -1,4 +1,5 @@
 {
+  "addresses": [],
   "capabilities": [
     {
       "capability_id": "wallet-connect",
@@ -248,6 +249,7 @@
       "version_scope": "Published EVM configuration; live identity not tested"
     }
   ],
+  "conflicts": [],
   "domains": [
     {
       "capability_ids": [
@@ -276,6 +278,122 @@
       ],
       "validation_test_ids": [],
       "verification_status": "UNKNOWN"
+    }
+  ],
+  "integrations": [
+    {
+      "conflict_ids": [],
+      "description": "Officially documented browser-wallet integration through EIP-1193, EIP-6963 discovery and QIE-specific provider behavior.",
+      "display_name": "QIE Wallet EIP-1193 integration",
+      "entity_id": "qie-wallet",
+      "entity_type": "product",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "wallet-read",
+        "erc20-asset"
+      ],
+      "interfaces": [
+        {
+          "description": "Provider discovery, account requests, chain reads, chain switching and provider events.",
+          "execution_allowed": false,
+          "interface_id": "qie-wallet-eip1193",
+          "kind": "EIP1193",
+          "name": "EIP-6963 rdns me.qiewallet, window.qie, injected EIP-1193",
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "Browser extension, host version, provider runtime and transaction flow remain untested.",
+        "A successful mock provider test is not real wallet evidence."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operations": [
+        {
+          "action": "discover",
+          "execution_allowed": false,
+          "inputs": [
+            "Browser page on HTTPS or localhost",
+            "EIP-6963 announcement event stream"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "Actual extension injection and version behavior were not tested in this environment."
+          ],
+          "name": "Discover QIE Wallet provider",
+          "operation_id": "wallet-discover",
+          "outputs": [
+            "Provider selected by rdns or window.qie fallback"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "authenticate",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit user action",
+            "Provider and requested EVM network"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "The provider reports isMetaMask for compatibility; use rdns or window.qie for identity.",
+            "Non-EVM wallet accounts are not exposed through EIP-1193."
+          ],
+          "name": "Request EVM account access",
+          "operation_id": "wallet-connect",
+          "outputs": [
+            "eth_requestAccounts result or user rejection"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "prepare",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit selected network",
+            "Numeric chain identity comparison"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "QIE Testnet switch may return 4902 until the wallet's Testnet toggle is enabled.",
+            "Never silently switch between Mainnet and Testnet."
+          ],
+          "name": "Switch or add a QIE EVM network",
+          "operation_id": "wallet-switch-network",
+          "outputs": [
+            "wallet_switchEthereumChain or wallet_addEthereumChain request"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-rpc"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which current extension release implements the documented guide?",
+        "Does the current extension preserve all documented event and testnet-toggle behavior?"
+      ],
+      "version_scope": "4.2.2 as documented by the official integration guide"
     }
   ],
   "policy": {
@@ -345,8 +463,24 @@
       "title": "QIE V3 architecture overview",
       "trust_tier": "T1",
       "url": "https://docs.qie.digital/what-is-qie/qie-v3-key-features"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S10",
+      "title": "QIE Wallet Integration Guide for Websites",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md"
     }
   ],
-  "status_evaluated_at": "2026-10-21T17:28:25Z",
+  "status_evaluated_at": "2026-10-24T20:05:00Z",
   "validation_runs": []
 }

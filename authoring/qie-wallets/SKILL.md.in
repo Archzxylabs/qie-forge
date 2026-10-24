@@ -11,7 +11,8 @@ Own wallet/provider selection and permission boundaries. Frontend layout remains
 1. Classify EVM versus native accounts and preserve the supplied Mainnet/Testnet target. Native signing/account formats are UNKNOWN here; consult official native sources instead of adding an EVM wallet.
 2. Read [selected evidence](references/evidence.md). Match each candidate's primary source, exact version, target network and requested operation: connection, read, signing and broadcast are separate capabilities. No QIE wallet/connector has runtime evidence in this release.
 3. For local frontend connection/read behavior, use [wallet read](recipes/wallet-read/recipe.md). Select the provider explicitly; a global object is not proof of provider identity. Connect only on a developer action and invalidate state on account/chain changes.
-4. For a requested write, prepare the review below, then stop at the developer-controlled signer. There is no tested signer command or automatic broadcast recipe in this release.
+4. For QUSDC or Lending writes, show the token role, raw integer amount, observed decimals, spender, allowance delta and selected network before handing control to the signer. SDK discovery is not address authorization.
+5. For a requested write, prepare the review below, then stop at the developer-controlled signer. There is no tested signer command or automatic broadcast recipe in this release.
 
 ## Signing review
 

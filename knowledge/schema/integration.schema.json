@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/integration.json",
+  "$defs": {
+    "interface": {
+      "type": "object",
+      "properties": {
+        "interface_id": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id" },
+        "kind": { "enum": ["SDK", "ABI", "EIP1193", "JSON_RPC", "CLI", "WEB"] },
+        "name": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "https://qie-forge.invalid/schema/status.json" },
+        "source_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+        "description": { "type": "string", "minLength": 1 },
+        "execution_allowed": { "type": "boolean" }
+      },
+      "required": ["interface_id", "kind", "name", "status", "source_ids", "description", "execution_allowed"],
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "properties": {
+        "operation_id": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "action": { "enum": ["read", "write", "prepare", "discover", "bridge", "stake", "authenticate"] },
+        "interface_id": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id" },
+        "status": { "$ref": "https://qie-forge.invalid/schema/status.json" },
+        "inputs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "outputs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "execution_allowed": { "type": "boolean" }
+      },
+      "required": ["operation_id", "name", "action", "interface_id", "status", "inputs", "outputs", "source_ids", "limitations", "execution_allowed"],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "entity_id": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id" },
+    "entity_type": { "enum": ["product", "protocol", "sdk", "token", "network_layer", "service"] },
+    "display_name": { "type": "string", "minLength": 1 },
+    "network_scope": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/navigationScope" },
+    "version_scope": { "type": ["string", "null"], "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "interfaces": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interface" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "operations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/operation" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+    "reviewed_at": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/timestamp" },
+    "evidence_type": {
+      "enum": ["CHAIN_OBSERVATION", "EXECUTED_TEST", "OFFICIAL_DOC", "PROVIDER_DOC", "COMMUNITY_REPORT", null]
+    },
+    "status": { "$ref": "https://qie-forge.invalid/schema/status.json" },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "unresolved_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "conflict_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+    "related_entity_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+    "integration_recipe_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+    "execution_allowed": { "type": "boolean" }
+  },
+  "required": [
+    "entity_id", "entity_type", "display_name", "network_scope", "version_scope", "description",
+    "interfaces", "operations", "source_ids", "reviewed_at", "evidence_type", "status",
+    "known_limitations", "unresolved_questions", "conflict_ids", "related_entity_ids",
+    "integration_recipe_ids", "execution_allowed"
+  ],
+  "additionalProperties": false
+}

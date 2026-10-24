@@ -1,4 +1,5 @@
 {
+  "addresses": [],
   "capabilities": [
     {
       "capability_id": "rpc-identity",
@@ -248,6 +249,61 @@
       "version_scope": "Published EVM configuration; live identity not tested"
     }
   ],
+  "conflicts": [
+    {
+      "conflict_id": "qie-oracle-address-identity",
+      "resolution": "Treat every oracle address as a discovery candidate; use the ABI pattern only for local mocks until the shared identity gate passes.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S12",
+        "S35",
+        "S36"
+      ],
+      "state": "OPEN",
+      "subject": "Oracle address and interface identity",
+      "summary": "Official pages publish asset-to-address mappings and AggregatorV3 examples, but no reviewed chain observation or issuer-to-bytecode correlation is present in this release."
+    },
+    {
+      "conflict_id": "qie-rpc-document-order",
+      "resolution": "Keep rpc1mainnet.qie.digital as the selected canonical endpoint and record the remaining documented endpoints as alternatives without assigning semantic rank from the page labels.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S03",
+        "S10",
+        "S15"
+      ],
+      "state": "OPEN",
+      "subject": "QIE mainnet RPC list labels",
+      "summary": "The official network page labels RPC3 as rpc5mainnet and RPC5 as rpc3mainnet, so list position and hostname suffix are not interchangeable evidence."
+    },
+    {
+      "conflict_id": "qusdc-backing-asset-naming",
+      "resolution": "Treat WUSDC as the implementation-level input/output required by the reviewed SDK; do not equate WUSDC with native Circle USDC or claim reserve quality beyond issuer documentation.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S22",
+        "S23",
+        "S26",
+        "S28"
+      ],
+      "state": "OPEN",
+      "subject": "QUSDC backing asset terminology",
+      "summary": "QUSDC product pages often say USDC generically, while the detailed flow and SDK use WUSDC as the QIE-side input and redemption asset."
+    },
+    {
+      "conflict_id": "qusdc-candidate-address-role",
+      "resolution": "Retain the address as a lending configuration candidate only; do not label it as the QUSDC token, WUSDC token or vault without issuer and ABI identity evidence.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S28",
+        "S29",
+        "S30"
+      ],
+      "state": "OPEN",
+      "subject": "QUSDC address role in the lending SDK",
+      "summary": "The lending SDK publishes 0x3F43... as the QUSDC market underlying, while the QUSDC SDK requires separate vaultAddress and wusdcAddress constructor inputs and publishes no deployment address."
+    }
+  ],
   "domains": [
     {
       "capability_ids": [
@@ -275,6 +331,643 @@
       ],
       "validation_test_ids": [],
       "verification_status": "DOCUMENTED"
+    }
+  ],
+  "integrations": [
+    {
+      "conflict_ids": [],
+      "description": "Compound-style lending interface described by the official QIE Lending SDK with comptroller and cToken market roles.",
+      "display_name": "QIE Lending Protocol",
+      "entity_id": "qie-lending-protocol",
+      "entity_type": "protocol",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "lending-read",
+        "erc20-asset",
+        "ecosystem-address"
+      ],
+      "interfaces": [
+        {
+          "description": "cToken function fragments shipped in the pinned SDK ABI.",
+          "execution_allowed": false,
+          "interface_id": "qie-lending-ctoken",
+          "kind": "ABI",
+          "name": "mint(uint256), borrow(uint256), repayBorrow(uint256), redeemUnderlying(uint256)",
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "description": "Comptroller fragments used for borrow preparation and portfolio health display.",
+          "execution_allowed": false,
+          "interface_id": "qie-lending-comptroller",
+          "kind": "ABI",
+          "name": "enterMarkets(address[]) and getAccountLiquidity(address)",
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "Published addresses and ABI fragments are discovery evidence, not proof of current deployed compatibility.",
+        "Borrow and collateral safety requires live market metadata and oracle evidence not supplied by the SDK.",
+        "No npm registry publication was found; the README instructs GitHub installation."
+      ],
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "operations": [
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Market key and raw BigInt underlying amount",
+            "Underlying token and cToken candidate identities",
+            "Signer with allowance and balance"
+          ],
+          "interface_id": "qie-lending-ctoken",
+          "limitations": [
+            "SDK calls approveIfNeeded and then cToken.mint without a configured receipt wait in supply.js.",
+            "Market and token addresses are published candidates, not identity-approved deployments.",
+            "Amount decimals are caller-configured in config.js and are not read dynamically."
+          ],
+          "name": "Supply an underlying asset",
+          "operation_id": "lending-supply",
+          "outputs": [
+            "cToken mint transaction object"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Market key and raw BigInt borrow amount",
+            "Signer, comptroller candidate and cToken candidate"
+          ],
+          "interface_id": "qie-lending-comptroller",
+          "limitations": [
+            "The SDK enters the market as a state-changing side effect before borrow simulation.",
+            "borrow.js does not guard an unknown market before dereferencing its cToken.",
+            "Liquidity, collateral factors, oracle values, caps and liquidation parameters are not read by the SDK."
+          ],
+          "name": "Borrow a market asset",
+          "operation_id": "lending-borrow",
+          "outputs": [
+            "enterMarkets receipt followed by cToken.borrow transaction object"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Market key and raw BigInt amount",
+            "Underlying token approval and signer"
+          ],
+          "interface_id": "qie-lending-ctoken",
+          "limitations": [
+            "repay.js approves every time and does not wait for or validate a receipt after repayBorrow.",
+            "No max-repay or balance normalization is implemented."
+          ],
+          "name": "Repay a loan",
+          "operation_id": "lending-repay",
+          "outputs": [
+            "repayBorrow transaction object"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Market key and raw BigInt underlying amount",
+            "Signer and cToken candidate"
+          ],
+          "interface_id": "qie-lending-ctoken",
+          "limitations": [
+            "No local simulation, allowance check or receipt wait is performed by withdraw.js.",
+            "Cash and liquidity constraints are not checked before the write."
+          ],
+          "name": "Withdraw supplied underlying",
+          "operation_id": "lending-withdraw",
+          "outputs": [
+            "redeemUnderlying transaction object"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Read-only provider, user address and configured market candidates"
+          ],
+          "interface_id": "qie-lending-ctoken",
+          "limitations": [
+            "balanceOfUnderlying is marked nonpayable in the shipped ABI but called with staticCall.",
+            "Health divides a raw liquidity value by 1e18 without documenting the protocol's exact price/scale semantics.",
+            "A nonzero shortfall is reduced to health 0 and comptroller error codes are not surfaced."
+          ],
+          "name": "Read user portfolio",
+          "operation_id": "lending-read-portfolio",
+          "outputs": [
+            "supplied and borrowed raw amounts plus a numeric health value"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Read-only provider and configured market candidates"
+          ],
+          "interface_id": "qie-lending-ctoken",
+          "limitations": [
+            "Totals sum cToken totalSupply values across markets with different decimals and do not normalize to a common denomination.",
+            "No market metadata freshness or deployment identity check is included."
+          ],
+          "name": "Read protocol totals",
+          "operation_id": "lending-read-totals",
+          "outputs": [
+            "Decimal-string totalSupply and totalBorrow sums across configured markets"
+          ],
+          "source_ids": [
+            "S29"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-lending-sdk",
+        "qusdc-protocol",
+        "qie-oracle"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S29",
+        "S30"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which deployment, implementation and proxy addresses are current on QIE Mainnet?",
+        "What are the live collateral factors, liquidation thresholds, caps, rates and oracle sources?",
+        "Does the deployed ABI match the shipped minimal JSON fragments?"
+      ],
+      "version_scope": "commit 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262; package 1.0.0"
+    },
+    {
+      "conflict_ids": [
+        "qie-oracle-address-identity"
+      ],
+      "description": "Officially documented asset feed product with a published mapping table and AggregatorV3-style read examples.",
+      "display_name": "QIE Oracle",
+      "entity_id": "qie-oracle",
+      "entity_type": "protocol",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "oracle-collateral",
+        "ecosystem-address"
+      ],
+      "interfaces": [
+        {
+          "description": "Source-documented read interface for price and round metadata.",
+          "execution_allowed": false,
+          "interface_id": "qie-oracle-aggregator-v3",
+          "kind": "ABI",
+          "name": "latestRoundData(), getRoundData(uint80), decimals()",
+          "source_ids": [
+            "S35",
+            "S36"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "Official docs describe AggregatorV3 compatibility but no QIE runtime call or ABI/bytecode match was executed.",
+        "Aggregation and manipulation-resistance statements are issuer documentation, not an independent audit."
+      ],
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "operations": [
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Issuer-authenticated feed address",
+            "Read-only provider"
+          ],
+          "interface_id": "qie-oracle-aggregator-v3",
+          "limitations": [
+            "Feed addresses in the official mapping remain candidates until the shared identity gate passes.",
+            "Price scale must be read from decimals and checked against the feed's documented base/quote.",
+            "updatedAt freshness and positive-range checks are application responsibilities."
+          ],
+          "name": "Read latestRoundData",
+          "operation_id": "oracle-read-latest",
+          "outputs": [
+            "roundId, signed answer, startedAt, updatedAt and answeredInRound"
+          ],
+          "source_ids": [
+            "S35",
+            "S36"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-lending-protocol"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S12",
+        "S35",
+        "S36",
+        "S37",
+        "S38"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Are all mapped feed contracts current and issuer-owned on QIE Mainnet?",
+        "What update interval and outage fallback policy applies to each feed?"
+      ],
+      "version_scope": null
+    },
+    {
+      "conflict_ids": [
+        "qie-rpc-document-order"
+      ],
+      "description": "Published QIE EVM RPC endpoint set and read-only method surface for explicit network preflight and bounded capability probing.",
+      "display_name": "QIE EVM JSON-RPC endpoints",
+      "entity_id": "qie-rpc",
+      "entity_type": "service",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "network",
+        "transaction-readonly"
+      ],
+      "interfaces": [
+        {
+          "description": "Endpoint selection, eth_chainId and latest block checks are documented; individual method support is not live-verified.",
+          "execution_allowed": false,
+          "interface_id": "qie-json-rpc",
+          "kind": "JSON_RPC",
+          "name": "JSON-RPC 2.0 over HTTPS",
+          "source_ids": [
+            "S03",
+            "S15"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "The source list is documentation, not endpoint liveness or provider compatibility proof.",
+        "The official page's RPC list labels do not establish priority beyond the selected canonical endpoint."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operations": [
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit qie-mainnet or qie-testnet selection",
+            "One documented or explicitly supplied HTTPS endpoint"
+          ],
+          "interface_id": "qie-json-rpc",
+          "limitations": [
+            "A passing observation never promotes a canonical capability status.",
+            "No cross-network fallback is permitted."
+          ],
+          "name": "eth_chainId plus latest block observation",
+          "operation_id": "rpc-identity-preflight",
+          "outputs": [
+            "Observed chain ID and latest block or a typed transport error"
+          ],
+          "source_ids": [
+            "S03"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit endpoint and maximum request count",
+            "Read-only method list"
+          ],
+          "interface_id": "qie-json-rpc",
+          "limitations": [
+            "No provider rate limits, historical range limits or WebSocket behavior are documented in the reviewed sources.",
+            "Probe output is an observation and never an evidence promotion."
+          ],
+          "name": "Bounded read-only JSON-RPC method probe",
+          "operation_id": "rpc-capability-probe",
+          "outputs": [
+            "Per-method observed, unsupported, malformed or transport-failed result"
+          ],
+          "source_ids": [
+            "S03",
+            "S15"
+          ],
+          "status": "UNKNOWN"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-wallet"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S03",
+        "S15"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which read methods, block tags, log ranges and subscriptions are supported by each current provider?",
+        "What provider-specific rate limits and retry guidance apply?"
+      ],
+      "version_scope": null
+    },
+    {
+      "conflict_ids": [],
+      "description": "Officially documented browser-wallet integration through EIP-1193, EIP-6963 discovery and QIE-specific provider behavior.",
+      "display_name": "QIE Wallet EIP-1193 integration",
+      "entity_id": "qie-wallet",
+      "entity_type": "product",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "wallet-read",
+        "erc20-asset"
+      ],
+      "interfaces": [
+        {
+          "description": "Provider discovery, account requests, chain reads, chain switching and provider events.",
+          "execution_allowed": false,
+          "interface_id": "qie-wallet-eip1193",
+          "kind": "EIP1193",
+          "name": "EIP-6963 rdns me.qiewallet, window.qie, injected EIP-1193",
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "Browser extension, host version, provider runtime and transaction flow remain untested.",
+        "A successful mock provider test is not real wallet evidence."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "operations": [
+        {
+          "action": "discover",
+          "execution_allowed": false,
+          "inputs": [
+            "Browser page on HTTPS or localhost",
+            "EIP-6963 announcement event stream"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "Actual extension injection and version behavior were not tested in this environment."
+          ],
+          "name": "Discover QIE Wallet provider",
+          "operation_id": "wallet-discover",
+          "outputs": [
+            "Provider selected by rdns or window.qie fallback"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "authenticate",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit user action",
+            "Provider and requested EVM network"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "The provider reports isMetaMask for compatibility; use rdns or window.qie for identity.",
+            "Non-EVM wallet accounts are not exposed through EIP-1193."
+          ],
+          "name": "Request EVM account access",
+          "operation_id": "wallet-connect",
+          "outputs": [
+            "eth_requestAccounts result or user rejection"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "prepare",
+          "execution_allowed": false,
+          "inputs": [
+            "Explicit selected network",
+            "Numeric chain identity comparison"
+          ],
+          "interface_id": "qie-wallet-eip1193",
+          "limitations": [
+            "QIE Testnet switch may return 4902 until the wallet's Testnet toggle is enabled.",
+            "Never silently switch between Mainnet and Testnet."
+          ],
+          "name": "Switch or add a QIE EVM network",
+          "operation_id": "wallet-switch-network",
+          "outputs": [
+            "wallet_switchEthereumChain or wallet_addEthereumChain request"
+          ],
+          "source_ids": [
+            "S10"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "related_entity_ids": [
+        "qie-rpc"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S10"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which current extension release implements the documented guide?",
+        "Does the current extension preserve all documented event and testnet-toggle behavior?"
+      ],
+      "version_scope": "4.2.2 as documented by the official integration guide"
+    },
+    {
+      "conflict_ids": [
+        "qusdc-backing-asset-naming",
+        "qusdc-candidate-address-role"
+      ],
+      "description": "Issuer-documented QIE receipt-token protocol whose detailed flow uses WUSDC as the QIE-side backing asset and QUSDC as the receipt asset.",
+      "display_name": "QUSDC",
+      "entity_id": "qusdc-protocol",
+      "entity_type": "protocol",
+      "evidence_type": "OFFICIAL_DOC",
+      "execution_allowed": false,
+      "integration_recipe_ids": [
+        "qusdc-escrow",
+        "erc20-asset",
+        "ecosystem-address"
+      ],
+      "interfaces": [
+        {
+          "description": "Minimal vault ABI fragment used by the official JavaScript SDK.",
+          "execution_allowed": false,
+          "interface_id": "qusdc-vault-abi",
+          "kind": "ABI",
+          "name": "depositAndMint(uint256) / burnAndWithdraw(uint256)",
+          "source_ids": [
+            "S28"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "description": "ERC-20 methods the SDK uses to prepare WUSDC allowance and parse human-readable amounts.",
+          "execution_allowed": false,
+          "interface_id": "qusdc-erc20-input",
+          "kind": "ABI",
+          "name": "ERC-20 allowance, approve and decimals",
+          "source_ids": [
+            "S28"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "known_limitations": [
+        "Issuer documentation uses both generic USDC language and the more specific WUSDC implementation flow.",
+        "The official SDK contains no deployment address and no reserve-proof or upgrade-authority inspection.",
+        "1:1 receipt semantics are issuer-documented claims, not an independently verified market-price guarantee."
+      ],
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "operations": [
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Human-readable WUSDC amount or raw integer amount",
+            "Approved vault and WUSDC identities",
+            "Signer-controlled account with sufficient WUSDC and gas"
+          ],
+          "interface_id": "qusdc-vault-abi",
+          "limitations": [
+            "SDK requires separate vaultAddress and wusdcAddress inputs.",
+            "Production vault, WUSDC and QUSDC identities are not issuer-authenticated in this release.",
+            "A receipt is not proof of minting, reserve backing or economic value."
+          ],
+          "name": "Mint QUSDC from WUSDC",
+          "operation_id": "qusdc-mint",
+          "outputs": [
+            "depositAndMint(uint256) transaction and waited receipt",
+            "QUSDC balance change only after application-specific verification"
+          ],
+          "source_ids": [
+            "S23",
+            "S28"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "write",
+          "execution_allowed": false,
+          "inputs": [
+            "Human-readable amount or raw integer amount in the SDK's WUSDC-derived scale",
+            "QUSDC balance and the reviewed vault identity",
+            "Signer-controlled account with sufficient QUSDC and gas"
+          ],
+          "interface_id": "qusdc-vault-abi",
+          "limitations": [
+            "The SDK uses the WUSDC decimals lookup for both mint and burn parsing; QUSDC decimal equality is not independently established.",
+            "Redemption availability, fees, pause controls and reserve liquidity are not verified on a deployment.",
+            "Bridging WUSDC back to Ethereum is a separate cross-chain operation."
+          ],
+          "name": "Redeem QUSDC to WUSDC",
+          "operation_id": "qusdc-redeem",
+          "outputs": [
+            "burnAndWithdraw(uint256) transaction and waited receipt",
+            "WUSDC balance change only after application-specific verification"
+          ],
+          "source_ids": [
+            "S23",
+            "S28"
+          ],
+          "status": "DOCUMENTED"
+        },
+        {
+          "action": "read",
+          "execution_allowed": false,
+          "inputs": [
+            "WUSDC candidate address and read-only provider"
+          ],
+          "interface_id": "qusdc-erc20-input",
+          "limitations": [
+            "A contract-returned decimals value is observation metadata, not proof of token identity or economic denomination.",
+            "Do not default to 6 or 18 without the selected token's read result."
+          ],
+          "name": "Read WUSDC decimals",
+          "operation_id": "qusdc-read-decimals",
+          "outputs": [
+            "uint8 decimals value returned by the token contract"
+          ],
+          "source_ids": [
+            "S28"
+          ],
+          "status": "DOCUMENTED"
+        }
+      ],
+      "related_entity_ids": [
+        "qusdc-sdk",
+        "qie-lending-protocol"
+      ],
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_ids": [
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S28"
+      ],
+      "status": "DOCUMENTED",
+      "unresolved_questions": [
+        "Which exact QIE contracts are the current production QUSDC token, WUSDC token and vault on each network?",
+        "Are minting, redemption, pause, fee and upgrade controls present in the deployed bytecode?",
+        "What independent reserve or supply reconciliation evidence is currently published?"
+      ],
+      "version_scope": null
     }
   ],
   "policy": {
@@ -329,8 +1022,329 @@
       "title": "QIE V3 architecture overview",
       "trust_tier": "T1",
       "url": "https://docs.qie.digital/what-is-qie/qie-v3-key-features"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S10",
+      "title": "QIE Wallet Integration Guide for Websites",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S12",
+      "title": "QIE Oracle Deployed Contracts and Asset Mapping",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/deployed-contracts/table-of-assets-contract-mapping.md"
+    },
+    {
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-native"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "reviewed_at": "2026-10-19T17:00:00Z",
+      "source_id": "S15",
+      "title": "QIE Cosmos Chain Registry Configuration",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/chain-registry/master/qie/chain.json"
+    },
+    {
+      "claim_scope": [
+        "product_discovery",
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QUSDC",
+      "research_outcome": "Issuer documentation describes QUSDC as a 1:1 on-chain receipt token; the backing asset is named generically as USDC on this page.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S22",
+      "title": "QUSDC protocol introduction",
+      "trust_tier": "T1",
+      "url": "https://docs.stable.qie.digital/introduction.md"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QUSDC",
+      "research_outcome": "Issuer documentation explicitly describes USDC bridged from Ethereum as WUSDC on QIE, then deposited to mint QUSDC and burned to release WUSDC.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S23",
+      "title": "QUSDC minting, WUSDC backing and redemption flow",
+      "trust_tier": "T1",
+      "url": "https://docs.stable.qie.digital/how-qusdc-works.md"
+    },
+    {
+      "claim_scope": [
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QUSDC",
+      "research_outcome": "Issuer documentation describes on-chain supply and reserve accounting but does not provide a reviewed deployment identity or independent reserve proof in this release.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S24",
+      "title": "QUSDC supply and reserve transparency claims",
+      "trust_tier": "T1",
+      "url": "https://docs.stable.qie.digital/transparency-and-verifiability.md"
+    },
+    {
+      "claim_scope": [
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QUSDC",
+      "research_outcome": "Issuer documentation distinguishes trust-minimized smart-contract enforcement from USDC, fiat and bridge dependencies.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S25",
+      "title": "QUSDC decentralization and dependency disclosures",
+      "trust_tier": "T1",
+      "url": "https://docs.stable.qie.digital/decentralization-model.md"
+    },
+    {
+      "claim_scope": [
+        "product_discovery",
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": null,
+      "publisher": "QUSDC",
+      "research_outcome": "FAQ distinguishes QUSDC from Circle USDC and states that QUSDC inherits USDC, regulatory, network and bridge dependencies.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S26",
+      "title": "QUSDC FAQ and risk disclosures",
+      "trust_tier": "T1",
+      "url": "https://docs.stable.qie.digital/frequently-asked-questions-faq.md"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "abi_provenance"
+      ],
+      "content_sha256": null,
+      "license": "MIT",
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "qie-testnet",
+        "general"
+      ],
+      "published_at": "2026-02-18T14:20:04Z",
+      "publisher": "QIE",
+      "research_outcome": "Exact SDK implementation inspected; vault ABI fragments, allowance, decimals, estimateGas and receipt-wait behavior are documented, but deployment identity is absent.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "revision": "0877597f8bd51f7c21bb04e70009d3e9cab86944",
+      "source_id": "S28",
+      "technical_paths": [
+        "index.js"
+      ],
+      "title": "QUSDC SDK implementation file at pinned commit",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/qusdc-sdk/0877597f8bd51f7c21bb04e70009d3e9cab86944/index.js"
+    },
+    {
+      "claim_scope": [
+        "product_discovery",
+        "technical_interface",
+        "abi_provenance"
+      ],
+      "content_sha256": null,
+      "license": "MIT",
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet",
+        "general"
+      ],
+      "published_at": "2026-02-18T11:12:56Z",
+      "publisher": "QIE",
+      "research_outcome": "Pinned repository source inspected directly; it is CommonJS, declares ethers v6, publishes candidate market/config addresses and does not establish deployed identity or runtime success.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "revision": "21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262",
+      "source_id": "S29",
+      "technical_paths": [
+        "README.md",
+        "index.js",
+        "LendingSDK.js",
+        "config.js",
+        "actions/borrow.js",
+        "actions/repay.js",
+        "actions/supply.js",
+        "actions/withdraw.js",
+        "read/portfolio.js",
+        "read/totals.js",
+        "utils/approveIfNeeded.js",
+        "utils/health.js",
+        "utils/simulate.js",
+        "abi/comptroller.json",
+        "abi/ctoken.json",
+        "abi/erc20.json",
+        "package.json"
+      ],
+      "title": "QIE Lending SDK pinned source tree",
+      "trust_tier": "T1",
+      "url": "https://github.com/qieadmin/qie-lend-sdk/tree/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "address_publication"
+      ],
+      "content_sha256": null,
+      "license": "MIT",
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": "2026-02-18T11:12:56Z",
+      "publisher": "QIE",
+      "research_outcome": "Exact configuration file inspected; addresses are retained as discovery candidates only and are not executable or issuer-authenticated in this release.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "revision": "21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262",
+      "source_id": "S30",
+      "technical_paths": [
+        "config.js"
+      ],
+      "title": "QIE Lending SDK market configuration at pinned commit",
+      "trust_tier": "T1",
+      "url": "https://raw.githubusercontent.com/qieadmin/qie-lend-sdk/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262/config.js"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "abi_provenance"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "research_outcome": "Official examples use AggregatorV3Interface, latestRoundData, getRoundData and decimals; examples use placeholders and do not verify a deployed address.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S35",
+      "title": "QIE Oracle query examples",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/deployed-contracts/query-examples.md"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "abi_provenance"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "research_outcome": "Official guide states compatibility with AggregatorV3Interface and read-only latestRoundData use; live interface behavior and issuer identity remain unverified.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S36",
+      "title": "QIE Oracle Solidity integration guide",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/developer-guide/how-to-integrate-qie-oracle-in-smart-contracts.md"
+    },
+    {
+      "claim_scope": [
+        "technical_interface",
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "research_outcome": "Official guide recommends positive-range, magnitude and updatedAt freshness checks and warns that updates are not every block.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S37",
+      "title": "QIE Oracle edge-case and freshness guidance",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/developer-guide/handling-edge-cases-and-best-practices.md"
+    },
+    {
+      "claim_scope": [
+        "economic_claim"
+      ],
+      "content_sha256": null,
+      "license": null,
+      "maintainer": null,
+      "network_scope": [
+        "qie-mainnet"
+      ],
+      "published_at": null,
+      "publisher": "QIE",
+      "research_outcome": "Official documentation describes multi-source aggregation and outlier handling as design claims; no independent runtime or audit evidence was found.",
+      "reviewed_at": "2026-10-24T20:00:51Z",
+      "source_id": "S38",
+      "title": "QIE Oracle aggregation description",
+      "trust_tier": "T1",
+      "url": "https://docs.qie.digital/qie-oracle/how-qie-oracle-works/aggregation-and-validation.md"
     }
   ],
-  "status_evaluated_at": "2026-10-21T17:28:25Z",
+  "status_evaluated_at": "2026-10-24T20:05:00Z",
   "validation_runs": []
 }

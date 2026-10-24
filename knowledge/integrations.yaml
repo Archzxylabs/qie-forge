@@ -1,0 +1,1059 @@
+- entity_id: qusdc-protocol
+  entity_type: protocol
+  display_name: QUSDC
+  network_scope:
+    - qie-mainnet
+    - general
+  version_scope: null
+  description: Issuer-documented QIE receipt-token protocol whose detailed flow uses WUSDC as the QIE-side backing asset and QUSDC as the receipt asset.
+  interfaces:
+    - interface_id: qusdc-vault-abi
+      kind: ABI
+      name: depositAndMint(uint256) / burnAndWithdraw(uint256)
+      status: DOCUMENTED
+      source_ids:
+        - S28
+      description: Minimal vault ABI fragment used by the official JavaScript SDK.
+      execution_allowed: false
+    - interface_id: qusdc-erc20-input
+      kind: ABI
+      name: ERC-20 allowance, approve and decimals
+      status: DOCUMENTED
+      source_ids:
+        - S28
+      description: ERC-20 methods the SDK uses to prepare WUSDC allowance and parse human-readable amounts.
+      execution_allowed: false
+  operations:
+    - operation_id: qusdc-mint
+      name: Mint QUSDC from WUSDC
+      action: write
+      interface_id: qusdc-vault-abi
+      status: DOCUMENTED
+      inputs:
+        - Human-readable WUSDC amount or raw integer amount
+        - Approved vault and WUSDC identities
+        - Signer-controlled account with sufficient WUSDC and gas
+      outputs:
+        - depositAndMint(uint256) transaction and waited receipt
+        - QUSDC balance change only after application-specific verification
+      source_ids:
+        - S23
+        - S28
+      limitations:
+        - SDK requires separate vaultAddress and wusdcAddress inputs.
+        - Production vault, WUSDC and QUSDC identities are not issuer-authenticated in this release.
+        - A receipt is not proof of minting, reserve backing or economic value.
+      execution_allowed: false
+    - operation_id: qusdc-redeem
+      name: Redeem QUSDC to WUSDC
+      action: write
+      interface_id: qusdc-vault-abi
+      status: DOCUMENTED
+      inputs:
+        - Human-readable amount or raw integer amount in the SDK's WUSDC-derived scale
+        - QUSDC balance and the reviewed vault identity
+        - Signer-controlled account with sufficient QUSDC and gas
+      outputs:
+        - burnAndWithdraw(uint256) transaction and waited receipt
+        - WUSDC balance change only after application-specific verification
+      source_ids:
+        - S23
+        - S28
+      limitations:
+        - The SDK uses the WUSDC decimals lookup for both mint and burn parsing; QUSDC decimal equality is not independently established.
+        - Redemption availability, fees, pause controls and reserve liquidity are not verified on a deployment.
+        - Bridging WUSDC back to Ethereum is a separate cross-chain operation.
+      execution_allowed: false
+    - operation_id: qusdc-read-decimals
+      name: Read WUSDC decimals
+      action: read
+      interface_id: qusdc-erc20-input
+      status: DOCUMENTED
+      inputs:
+        - WUSDC candidate address and read-only provider
+      outputs:
+        - uint8 decimals value returned by the token contract
+      source_ids:
+        - S28
+      limitations:
+        - A contract-returned decimals value is observation metadata, not proof of token identity or economic denomination.
+        - Do not default to 6 or 18 without the selected token's read result.
+      execution_allowed: false
+  source_ids:
+    - S22
+    - S23
+    - S24
+    - S25
+    - S26
+    - S28
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Issuer documentation uses both generic USDC language and the more specific WUSDC implementation flow.
+    - The official SDK contains no deployment address and no reserve-proof or upgrade-authority inspection.
+    - 1:1 receipt semantics are issuer-documented claims, not an independently verified market-price guarantee.
+  unresolved_questions:
+    - Which exact QIE contracts are the current production QUSDC token, WUSDC token and vault on each network?
+    - Are minting, redemption, pause, fee and upgrade controls present in the deployed bytecode?
+    - What independent reserve or supply reconciliation evidence is currently published?
+  conflict_ids:
+    - qusdc-backing-asset-naming
+    - qusdc-candidate-address-role
+  related_entity_ids:
+    - qusdc-sdk
+    - qie-lending-protocol
+  integration_recipe_ids:
+    - qusdc-escrow
+    - erc20-asset
+    - ecosystem-address
+  execution_allowed: false
+
+- entity_id: qusdc-sdk
+  entity_type: sdk
+  display_name: qieadmin/qusdc-sdk
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+    - general
+  version_scope: commit 0877597f8bd51f7c21bb04e70009d3e9cab86944; package 1.0.0
+  description: Official GitHub JavaScript SDK exposing an ESM QUSDCSdk class built on ethers v6.
+  interfaces:
+    - interface_id: qusdc-sdk-class
+      kind: SDK
+      name: QUSDCSdk({ signer, vaultAddress, wusdcAddress, confirmations })
+      status: DOCUMENTED
+      source_ids:
+        - S27
+        - S28
+      description: Constructor accepts a signer, separate vault and WUSDC addresses, and an optional confirmation count.
+      execution_allowed: false
+  operations:
+    - operation_id: qusdc-sdk-mint
+      name: sdk.mint(amount)
+      action: write
+      interface_id: qusdc-sdk-class
+      status: DOCUMENTED
+      inputs:
+        - string, number or bigint amount
+        - Signer and separately reviewed vaultAddress and wusdcAddress
+      outputs:
+        - ethers transaction receipt after the configured confirmations
+      source_ids:
+        - S27
+        - S28
+      limitations:
+        - _parseAmount uses Number(amount) for the positive check, so very large numeric inputs require caller-side validation.
+        - BigInt inputs are treated as raw units and skip decimal parsing.
+        - Exact approval and estimateGas are implemented in source, but token behavior and deployment identity remain unverified.
+      execution_allowed: false
+    - operation_id: qusdc-sdk-burn
+      name: sdk.burn(amount)
+      action: write
+      interface_id: qusdc-sdk-class
+      status: DOCUMENTED
+      inputs:
+        - string, number or bigint amount
+        - Signer with QUSDC balance and separately reviewed vault identity
+      outputs:
+        - ethers transaction receipt after the configured confirmations
+      source_ids:
+        - S27
+        - S28
+      limitations:
+        - SDK does not construct or validate a QUSDC token contract; it calls the configured vault only.
+        - Returned receipt does not prove WUSDC delivery or redemption success.
+      execution_allowed: false
+  source_ids:
+    - S27
+    - S28
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Repository dependency is not an npm registry package in the reviewed metadata; use a pinned Git source only after dependency review.
+    - No SDK unit tests, deployment addresses or live QIE execution evidence were found in the pinned tree.
+  unresolved_questions:
+    - Does the published implementation remain current after the reviewed commit?
+    - Does the vault accept the same raw unit scale for QUSDC burn as for WUSDC deposit?
+  conflict_ids:
+    - qusdc-candidate-address-role
+  related_entity_ids:
+    - qusdc-protocol
+  integration_recipe_ids:
+    - qusdc-escrow
+  execution_allowed: false
+
+- entity_id: qie-lending-protocol
+  entity_type: protocol
+  display_name: QIE Lending Protocol
+  network_scope:
+    - qie-mainnet
+  version_scope: commit 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262; package 1.0.0
+  description: Compound-style lending interface described by the official QIE Lending SDK with comptroller and cToken market roles.
+  interfaces:
+    - interface_id: qie-lending-ctoken
+      kind: ABI
+      name: mint(uint256), borrow(uint256), repayBorrow(uint256), redeemUnderlying(uint256)
+      status: DOCUMENTED
+      source_ids:
+        - S29
+      description: cToken function fragments shipped in the pinned SDK ABI.
+      execution_allowed: false
+    - interface_id: qie-lending-comptroller
+      kind: ABI
+      name: enterMarkets(address[]) and getAccountLiquidity(address)
+      status: DOCUMENTED
+      source_ids:
+        - S29
+      description: Comptroller fragments used for borrow preparation and portfolio health display.
+      execution_allowed: false
+  operations:
+    - operation_id: lending-supply
+      name: Supply an underlying asset
+      action: write
+      interface_id: qie-lending-ctoken
+      status: DOCUMENTED
+      inputs:
+        - Market key and raw BigInt underlying amount
+        - Underlying token and cToken candidate identities
+        - Signer with allowance and balance
+      outputs:
+        - cToken mint transaction object
+      source_ids:
+        - S29
+      limitations:
+        - SDK calls approveIfNeeded and then cToken.mint without a configured receipt wait in supply.js.
+        - Market and token addresses are published candidates, not identity-approved deployments.
+        - Amount decimals are caller-configured in config.js and are not read dynamically.
+      execution_allowed: false
+    - operation_id: lending-borrow
+      name: Borrow a market asset
+      action: write
+      interface_id: qie-lending-comptroller
+      status: DOCUMENTED
+      inputs:
+        - Market key and raw BigInt borrow amount
+        - Signer, comptroller candidate and cToken candidate
+      outputs:
+        - enterMarkets receipt followed by cToken.borrow transaction object
+      source_ids:
+        - S29
+      limitations:
+        - The SDK enters the market as a state-changing side effect before borrow simulation.
+        - borrow.js does not guard an unknown market before dereferencing its cToken.
+        - Liquidity, collateral factors, oracle values, caps and liquidation parameters are not read by the SDK.
+      execution_allowed: false
+    - operation_id: lending-repay
+      name: Repay a loan
+      action: write
+      interface_id: qie-lending-ctoken
+      status: DOCUMENTED
+      inputs:
+        - Market key and raw BigInt amount
+        - Underlying token approval and signer
+      outputs:
+        - repayBorrow transaction object
+      source_ids:
+        - S29
+      limitations:
+        - repay.js approves every time and does not wait for or validate a receipt after repayBorrow.
+        - No max-repay or balance normalization is implemented.
+      execution_allowed: false
+    - operation_id: lending-withdraw
+      name: Withdraw supplied underlying
+      action: write
+      interface_id: qie-lending-ctoken
+      status: DOCUMENTED
+      inputs:
+        - Market key and raw BigInt underlying amount
+        - Signer and cToken candidate
+      outputs:
+        - redeemUnderlying transaction object
+      source_ids:
+        - S29
+      limitations:
+        - No local simulation, allowance check or receipt wait is performed by withdraw.js.
+        - Cash and liquidity constraints are not checked before the write.
+      execution_allowed: false
+    - operation_id: lending-read-portfolio
+      name: Read user portfolio
+      action: read
+      interface_id: qie-lending-ctoken
+      status: DOCUMENTED
+      inputs:
+        - Read-only provider, user address and configured market candidates
+      outputs:
+        - supplied and borrowed raw amounts plus a numeric health value
+      source_ids:
+        - S29
+      limitations:
+        - balanceOfUnderlying is marked nonpayable in the shipped ABI but called with staticCall.
+        - Health divides a raw liquidity value by 1e18 without documenting the protocol's exact price/scale semantics.
+        - A nonzero shortfall is reduced to health 0 and comptroller error codes are not surfaced.
+      execution_allowed: false
+    - operation_id: lending-read-totals
+      name: Read protocol totals
+      action: read
+      interface_id: qie-lending-ctoken
+      status: DOCUMENTED
+      inputs:
+        - Read-only provider and configured market candidates
+      outputs:
+        - Decimal-string totalSupply and totalBorrow sums across configured markets
+      source_ids:
+        - S29
+      limitations:
+        - Totals sum cToken totalSupply values across markets with different decimals and do not normalize to a common denomination.
+        - No market metadata freshness or deployment identity check is included.
+      execution_allowed: false
+  source_ids:
+    - S29
+    - S30
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Published addresses and ABI fragments are discovery evidence, not proof of current deployed compatibility.
+    - Borrow and collateral safety requires live market metadata and oracle evidence not supplied by the SDK.
+    - No npm registry publication was found; the README instructs GitHub installation.
+  unresolved_questions:
+    - Which deployment, implementation and proxy addresses are current on QIE Mainnet?
+    - What are the live collateral factors, liquidation thresholds, caps, rates and oracle sources?
+    - Does the deployed ABI match the shipped minimal JSON fragments?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-lending-sdk
+    - qusdc-protocol
+    - qie-oracle
+  integration_recipe_ids:
+    - lending-read
+    - erc20-asset
+    - ecosystem-address
+  execution_allowed: false
+
+- entity_id: qie-lending-sdk
+  entity_type: sdk
+  display_name: qieadmin/qie-lend-sdk
+  network_scope:
+    - qie-mainnet
+  version_scope: commit 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262; package 1.0.0
+  description: Official CommonJS JavaScript SDK exporting LendingSDK and a static config object built on ethers v6.
+  interfaces:
+    - interface_id: qie-lending-sdk-export
+      kind: SDK
+      name: require('qie-lend-sdk') -> { LendingSDK, config }
+      status: DOCUMENTED
+      source_ids:
+        - S29
+      description: Read and write methods are thin wrappers around the shipped ABI fragments and config entries.
+      execution_allowed: false
+  operations:
+    - operation_id: lending-sdk-read-adapter
+      name: Read through provider-only LendingSDK
+      action: read
+      interface_id: qie-lending-sdk-export
+      status: DOCUMENTED
+      inputs:
+        - ethers v6 provider
+        - User address for getPortfolio
+        - Candidate config or a reviewed replacement config
+      outputs:
+        - Portfolio or totals object with raw integer strings
+      source_ids:
+        - S29
+      limitations:
+        - The config object is static and contains address and decimal candidates that must be independently reviewed.
+        - Source inspection is suitable for a local adapter and mock tests; it is not a production authorization.
+      execution_allowed: false
+  source_ids:
+    - S29
+    - S30
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Package metadata declares CommonJS and ethers ^6.0.0; no registry publication or lockfile was reviewed.
+    - No live QIE read or write was executed.
+  unresolved_questions:
+    - Are all configured markets still active and correctly scaled?
+    - Does the protocol expose additional metadata required for a safe dashboard?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-lending-protocol
+  integration_recipe_ids:
+    - lending-read
+  execution_allowed: false
+
+- entity_id: qie-wallet
+  entity_type: product
+  display_name: QIE Wallet EIP-1193 integration
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  version_scope: 4.2.2 as documented by the official integration guide
+  description: Officially documented browser-wallet integration through EIP-1193, EIP-6963 discovery and QIE-specific provider behavior.
+  interfaces:
+    - interface_id: qie-wallet-eip1193
+      kind: EIP1193
+      name: EIP-6963 rdns me.qiewallet, window.qie, injected EIP-1193
+      status: DOCUMENTED
+      source_ids:
+        - S10
+      description: Provider discovery, account requests, chain reads, chain switching and provider events.
+      execution_allowed: false
+  operations:
+    - operation_id: wallet-discover
+      name: Discover QIE Wallet provider
+      action: discover
+      interface_id: qie-wallet-eip1193
+      status: DOCUMENTED
+      inputs:
+        - Browser page on HTTPS or localhost
+        - EIP-6963 announcement event stream
+      outputs:
+        - Provider selected by rdns or window.qie fallback
+      source_ids:
+        - S10
+      limitations:
+        - Actual extension injection and version behavior were not tested in this environment.
+      execution_allowed: false
+    - operation_id: wallet-connect
+      name: Request EVM account access
+      action: authenticate
+      interface_id: qie-wallet-eip1193
+      status: DOCUMENTED
+      inputs:
+        - Explicit user action
+        - Provider and requested EVM network
+      outputs:
+        - eth_requestAccounts result or user rejection
+      source_ids:
+        - S10
+      limitations:
+        - The provider reports isMetaMask for compatibility; use rdns or window.qie for identity.
+        - Non-EVM wallet accounts are not exposed through EIP-1193.
+      execution_allowed: false
+    - operation_id: wallet-switch-network
+      name: Switch or add a QIE EVM network
+      action: prepare
+      interface_id: qie-wallet-eip1193
+      status: DOCUMENTED
+      inputs:
+        - Explicit selected network
+        - Numeric chain identity comparison
+      outputs:
+        - wallet_switchEthereumChain or wallet_addEthereumChain request
+      source_ids:
+        - S10
+      limitations:
+        - QIE Testnet switch may return 4902 until the wallet's Testnet toggle is enabled.
+        - Never silently switch between Mainnet and Testnet.
+      execution_allowed: false
+  source_ids:
+    - S10
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Browser extension, host version, provider runtime and transaction flow remain untested.
+    - A successful mock provider test is not real wallet evidence.
+  unresolved_questions:
+    - Which current extension release implements the documented guide?
+    - Does the current extension preserve all documented event and testnet-toggle behavior?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-rpc
+  integration_recipe_ids:
+    - wallet-read
+    - erc20-asset
+  execution_allowed: false
+
+- entity_id: qie-rpc
+  entity_type: service
+  display_name: QIE EVM JSON-RPC endpoints
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  version_scope: null
+  description: Published QIE EVM RPC endpoint set and read-only method surface for explicit network preflight and bounded capability probing.
+  interfaces:
+    - interface_id: qie-json-rpc
+      kind: JSON_RPC
+      name: JSON-RPC 2.0 over HTTPS
+      status: DOCUMENTED
+      source_ids:
+        - S03
+        - S15
+      description: Endpoint selection, eth_chainId and latest block checks are documented; individual method support is not live-verified.
+      execution_allowed: false
+  operations:
+    - operation_id: rpc-identity-preflight
+      name: eth_chainId plus latest block observation
+      action: read
+      interface_id: qie-json-rpc
+      status: DOCUMENTED
+      inputs:
+        - Explicit qie-mainnet or qie-testnet selection
+        - One documented or explicitly supplied HTTPS endpoint
+      outputs:
+        - Observed chain ID and latest block or a typed transport error
+      source_ids:
+        - S03
+      limitations:
+        - A passing observation never promotes a canonical capability status.
+        - No cross-network fallback is permitted.
+      execution_allowed: false
+    - operation_id: rpc-capability-probe
+      name: Bounded read-only JSON-RPC method probe
+      action: read
+      interface_id: qie-json-rpc
+      status: UNKNOWN
+      inputs:
+        - Explicit endpoint and maximum request count
+        - Read-only method list
+      outputs:
+        - Per-method observed, unsupported, malformed or transport-failed result
+      source_ids:
+        - S03
+        - S15
+      limitations:
+        - No provider rate limits, historical range limits or WebSocket behavior are documented in the reviewed sources.
+        - Probe output is an observation and never an evidence promotion.
+      execution_allowed: false
+  source_ids:
+    - S03
+    - S15
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - The source list is documentation, not endpoint liveness or provider compatibility proof.
+    - The official page's RPC list labels do not establish priority beyond the selected canonical endpoint.
+  unresolved_questions:
+    - Which read methods, block tags, log ranges and subscriptions are supported by each current provider?
+    - What provider-specific rate limits and retry guidance apply?
+  conflict_ids:
+    - qie-rpc-document-order
+  related_entity_ids:
+    - qie-wallet
+  integration_recipe_ids:
+    - network
+    - transaction-readonly
+  execution_allowed: false
+
+- entity_id: qie-oracle
+  entity_type: protocol
+  display_name: QIE Oracle
+  network_scope:
+    - qie-mainnet
+  version_scope: null
+  description: Officially documented asset feed product with a published mapping table and AggregatorV3-style read examples.
+  interfaces:
+    - interface_id: qie-oracle-aggregator-v3
+      kind: ABI
+      name: latestRoundData(), getRoundData(uint80), decimals()
+      status: DOCUMENTED
+      source_ids:
+        - S35
+        - S36
+      description: Source-documented read interface for price and round metadata.
+      execution_allowed: false
+  operations:
+    - operation_id: oracle-read-latest
+      name: Read latestRoundData
+      action: read
+      interface_id: qie-oracle-aggregator-v3
+      status: DOCUMENTED
+      inputs:
+        - Issuer-authenticated feed address
+        - Read-only provider
+      outputs:
+        - roundId, signed answer, startedAt, updatedAt and answeredInRound
+      source_ids:
+        - S35
+        - S36
+      limitations:
+        - Feed addresses in the official mapping remain candidates until the shared identity gate passes.
+        - Price scale must be read from decimals and checked against the feed's documented base/quote.
+        - updatedAt freshness and positive-range checks are application responsibilities.
+      execution_allowed: false
+  source_ids:
+    - S12
+    - S35
+    - S36
+    - S37
+    - S38
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Official docs describe AggregatorV3 compatibility but no QIE runtime call or ABI/bytecode match was executed.
+    - Aggregation and manipulation-resistance statements are issuer documentation, not an independent audit.
+  unresolved_questions:
+    - Are all mapped feed contracts current and issuer-owned on QIE Mainnet?
+    - What update interval and outage fallback policy applies to each feed?
+  conflict_ids:
+    - qie-oracle-address-identity
+  related_entity_ids:
+    - qie-lending-protocol
+  integration_recipe_ids:
+    - oracle-collateral
+    - ecosystem-address
+  execution_allowed: false
+
+- entity_id: qie-dex
+  entity_type: product
+  display_name: QIE DEX / QIDEX
+  network_scope:
+    - qie-mainnet
+    - general
+  version_scope: null
+  description: QIE DEX web product discovered through the official ecosystem surface; programmatic router identity was not established.
+  interfaces:
+    - interface_id: qie-dex-web
+      kind: WEB
+      name: QIE Swap web interface
+      status: CLAIMED
+      source_ids:
+        - S31
+        - S34
+      description: Browser interface exposing token, pair, swap and liquidity surfaces.
+      execution_allowed: false
+    - interface_id: qie-dex-router
+      kind: ABI
+      name: Programmatic router/factory interface
+      status: UNKNOWN
+      source_ids:
+        - S31
+      description: No issuer-authenticated router address or ABI was found in the reviewed sources.
+      execution_allowed: false
+  operations:
+    - operation_id: dex-web-swap
+      name: Swap through web interface
+      action: discover
+      interface_id: qie-dex-web
+      status: CLAIMED
+      inputs:
+        - User-selected tokens, amount and slippage in the web UI
+      outputs:
+        - UI-managed swap request if the user approves it externally
+      source_ids:
+        - S31
+        - S34
+      limitations:
+        - Website availability is not programmatic router compatibility.
+        - Do not infer route, fee, liquidity or contract identity from visual UI behavior.
+      execution_allowed: false
+    - operation_id: dex-programmatic-swap
+      name: Execute a programmatic swap
+      action: write
+      interface_id: qie-dex-router
+      status: UNKNOWN
+      inputs:
+        - Issuer-authenticated router/factory ABI and addresses
+        - Token approvals, quote, slippage and deadline policy
+      outputs:
+        - Application-specific swap receipt and balance delta
+      source_ids:
+        - S31
+      limitations:
+        - Router, factory, pair model, fee, price impact and route selection are unresolved.
+        - No QIE-specific executable example may use an Ethereum default address.
+      execution_allowed: false
+  source_ids:
+    - S31
+    - S34
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: COMMUNITY_REPORT
+  status: CLAIMED
+  known_limitations:
+    - The reviewed web surface is a product-discovery lead and not a technical integration specification.
+  unresolved_questions:
+    - Are router and factory contracts published through an issuer-authenticated channel?
+    - What pool, route, fee, slippage and MEV protections are supported?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-bridge
+    - qie-oracle
+  integration_recipe_ids:
+    - ecosystem-selection
+    - ecosystem-address
+  execution_allowed: false
+
+- entity_id: qie-bridge
+  entity_type: product
+  display_name: QIE Bridge
+  network_scope:
+    - qie-mainnet
+    - general
+  version_scope: null
+  description: Officially branded cross-chain bridge web interface discovered for Ethereum, BSC and QIE routes; contract and relayer details remain unresolved.
+  interfaces:
+    - interface_id: qie-bridge-web
+      kind: WEB
+      name: QIE Bridge web interface
+      status: CLAIMED
+      source_ids:
+        - S32
+        - S34
+      description: Browser interface with route selection and transfer history surfaces.
+      execution_allowed: false
+    - interface_id: qie-bridge-programmatic
+      kind: ABI
+      name: Programmatic bridge contract and relay interface
+      status: UNKNOWN
+      source_ids:
+        - S32
+      description: No public contract, message ID, fee or recovery interface was established in the reviewed material.
+      execution_allowed: false
+  operations:
+    - operation_id: bridge-web-transfer
+      name: Transfer assets through web bridge
+      action: bridge
+      interface_id: qie-bridge-web
+      status: CLAIMED
+      inputs:
+        - Source network, destination network, asset and amount
+        - External wallet approval
+      outputs:
+        - UI transfer record or message identifier if provided by the product
+      source_ids:
+        - S32
+      limitations:
+        - No live transfer was attempted.
+        - Route support, fees, finality, token authenticity and recovery are not independently verified.
+      execution_allowed: false
+    - operation_id: bridge-programmatic-transfer
+      name: Execute programmatic bridge transfer
+      action: write
+      interface_id: qie-bridge-programmatic
+      status: UNKNOWN
+      inputs:
+        - Issuer-authenticated contracts, route and message/recovery specification
+      outputs:
+        - Source receipt, message ID, destination observation and recovery state
+      source_ids:
+        - S32
+      limitations:
+        - Do not synthesize bridge contracts, relay calls or refund flows.
+      execution_allowed: false
+  source_ids:
+    - S32
+    - S34
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: COMMUNITY_REPORT
+  status: CLAIMED
+  known_limitations:
+    - Website existence does not establish a safe programmatic bridge route or trust model.
+  unresolved_questions:
+    - Which source/destination chains and assets are canonical?
+    - What are the lock/mint/burn/release, relayer, finality and recovery models?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-dex
+    - qusdc-protocol
+  integration_recipe_ids:
+    - ecosystem-selection
+  execution_allowed: false
+
+- entity_id: qie-id
+  entity_type: product
+  display_name: QIE ID
+  network_scope:
+    - general
+  version_scope: null
+  description: Official product-discovery identity service associated with human-readable .qie names and payment/address use cases.
+  interfaces:
+    - interface_id: qie-id-portal
+      kind: WEB
+      name: QIE ID portal
+      status: CLAIMED
+      source_ids:
+        - S33
+        - S34
+      description: Product portal and marketing surface; resolver, registry ABI and authentication endpoints were not found.
+      execution_allowed: false
+  operations:
+    - operation_id: qie-id-resolve
+      name: Resolve a .qie identifier
+      action: discover
+      interface_id: qie-id-portal
+      status: UNKNOWN
+      inputs:
+        - Human-readable identifier
+        - Explicit target network and resolver source
+      outputs:
+        - Recipient mapping only after a documented resolver response is available
+      source_ids:
+        - S33
+        - S34
+      limitations:
+        - No public resolver API or ABI was established.
+        - Never guess an address or send funds based only on a name string.
+      execution_allowed: false
+  source_ids:
+    - S33
+    - S34
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: COMMUNITY_REPORT
+  status: CLAIMED
+  known_limitations:
+    - Product claims are not a technical identity-resolution interface.
+  unresolved_questions:
+    - What registry, resolution, ownership, revocation and network-mapping interfaces are published?
+    - Are QIE Pass credentials bound to identity resolution or a separate consent flow?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-pass
+  integration_recipe_ids:
+    - ecosystem-selection
+  execution_allowed: false
+
+- entity_id: qie-pass
+  entity_type: product
+  display_name: QIE Pass
+  network_scope:
+    - general
+  version_scope: null
+  description: Product-discovery identity and verification brand referenced by QIE's ecosystem site and described as part of QIE ID.
+  interfaces:
+    - interface_id: qie-pass-product
+      kind: WEB
+      name: QIE Pass verification product
+      status: CLAIMED
+      source_ids:
+        - S34
+      description: Marketing-level product reference without a reviewed SDK, credential schema or authentication endpoint.
+      execution_allowed: false
+  operations:
+    - operation_id: qie-pass-verify
+      name: Verify a QIE Pass credential
+      action: authenticate
+      interface_id: qie-pass-product
+      status: UNKNOWN
+      inputs:
+        - Credential format, issuer metadata, user consent and replay-protected challenge
+      outputs:
+        - Verified result only after a documented issuer and verification protocol are available
+      source_ids:
+        - S34
+      limitations:
+        - Do not invent KYC, credential, OAuth, JWT or resolver semantics.
+        - No personal data or identity documents belong in fixtures.
+      execution_allowed: false
+  source_ids:
+    - S34
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: COMMUNITY_REPORT
+  status: CLAIMED
+  known_limitations:
+    - QIE Pass capability is product discovery only in this release.
+  unresolved_questions:
+    - What is the credential provenance, consent, privacy and replay-protection protocol?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-id
+  integration_recipe_ids:
+    - ecosystem-selection
+  execution_allowed: false
+
+- entity_id: qie-native-cosmos
+  entity_type: network_layer
+  display_name: QIE Native Cosmos layer
+  network_scope:
+    - qie-native
+    - general
+  version_scope: qie_1990-1 registry record; qied v4 documentation
+  description: Native Cosmos SDK layer with aqie denomination, validator delegation and governance operations distinct from EVM transactions.
+  interfaces:
+    - interface_id: qie-native-registry
+      kind: CLI
+      name: qied native Cosmos interface
+      status: DOCUMENTED
+      source_ids:
+        - S13
+        - S14
+        - S15
+        - S16
+      description: Registry and official guides provide native chain, denom and command-shape references.
+      execution_allowed: false
+  operations:
+    - operation_id: native-staking-delegate
+      name: Delegate native QIE to a validator
+      action: stake
+      interface_id: qie-native-registry
+      status: DOCUMENTED
+      inputs:
+        - Native validator address
+        - aqie amount and fee policy
+        - Native account and explicit native chain ID
+      outputs:
+        - Native delegation transaction result
+      source_ids:
+        - S13
+        - S15
+      limitations:
+        - Native account format and current CLI release require separate environment verification.
+        - Never answer this with an EVM staking contract or 0x address.
+      execution_allowed: false
+    - operation_id: native-governance-submit
+      name: Submit a native governance proposal
+      action: stake
+      interface_id: qie-native-registry
+      status: DOCUMENTED
+      inputs:
+        - Native proposal file, account, deposit, fee and chain identity
+      outputs:
+        - Native governance transaction result
+      source_ids:
+        - S14
+        - S15
+      limitations:
+        - No live Cosmos node or governance execution was tested.
+        - Fee values are not hardcoded by this release.
+      execution_allowed: false
+  source_ids:
+    - S13
+    - S14
+    - S15
+    - S16
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Native registry facts and EVM chain facts must not be merged into one transaction workflow.
+  unresolved_questions:
+    - Which native CLI/account versions are current and compatible with the live network?
+    - What IBC and conversion-precompile behavior is live and issuer-authenticated?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-rpc
+  integration_recipe_ids:
+    - ecosystem-selection
+  execution_allowed: false
+
+- entity_id: qie-explorer
+  entity_type: service
+  display_name: QIE Explorer
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  version_scope: null
+  description: Official explorer URLs are documented; API, ABI retrieval and source-verification automation were not technically established.
+  interfaces:
+    - interface_id: qie-explorer-web
+      kind: WEB
+      name: Explorer web interface
+      status: DOCUMENTED
+      source_ids:
+        - S03
+        - S34
+      description: Browser destination for transaction, address and block inspection.
+      execution_allowed: false
+    - interface_id: qie-explorer-api
+      kind: JSON_RPC
+      name: Programmatic explorer API
+      status: UNKNOWN
+      source_ids:
+        - S03
+      description: No official API endpoint or verification plugin was found in the reviewed sources.
+      execution_allowed: false
+  operations:
+    - operation_id: explorer-transaction-lookup
+      name: Look up a transaction in the web explorer
+      action: discover
+      interface_id: qie-explorer-web
+      status: DOCUMENTED
+      inputs:
+        - Transaction hash and selected network
+      outputs:
+        - Human-facing explorer page
+      source_ids:
+        - S03
+      limitations:
+        - Explorer display is not issuer authentication, ABI correspondence or finality proof.
+      execution_allowed: false
+    - operation_id: explorer-source-verification
+      name: Verify contract source programmatically
+      action: prepare
+      interface_id: qie-explorer-api
+      status: UNKNOWN
+      inputs:
+        - Contract address, source bundle, compiler and constructor arguments
+      outputs:
+        - Verification result only after a documented API is found
+      source_ids:
+        - S03
+      limitations:
+        - Do not invent Blockscout/Etherscan endpoints or CLI plugins.
+      execution_allowed: false
+  source_ids:
+    - S03
+    - S34
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: DOCUMENTED
+  known_limitations:
+    - Explorer URLs are documented configuration, not a verified API or source-verification capability.
+  unresolved_questions:
+    - Is there a supported API, proxy implementation view or ABI retrieval endpoint?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-rpc
+  integration_recipe_ids:
+    - transaction-readonly
+    - ecosystem-address
+  execution_allowed: false
+
+- entity_id: qie-indexing
+  entity_type: service
+  display_name: QIE event indexing surface
+  network_scope:
+    - qie-mainnet
+    - qie-testnet
+  version_scope: null
+  description: Direct JSON-RPC event reads are a generic fallback; no QIE-specific hosted indexer was substantiated in the reviewed sources.
+  interfaces:
+    - interface_id: qie-eth-getlogs
+      kind: JSON_RPC
+      name: eth_getLogs direct RPC query
+      status: UNKNOWN
+      source_ids:
+        - S00
+        - S09
+      description: Safe integration pattern requires explicit endpoint, bounded ranges, cursor persistence and idempotent processing.
+      execution_allowed: false
+  operations:
+    - operation_id: indexing-direct-logs
+      name: Query historical logs with eth_getLogs
+      action: read
+      interface_id: qie-eth-getlogs
+      status: UNKNOWN
+      inputs:
+        - Explicit network, address/topic filter and bounded block range
+      outputs:
+        - Raw logs with provider-specific errors or limits
+      source_ids:
+        - S00
+        - S09
+      limitations:
+        - Provider range, result-size and rate limits have not been measured in this release.
+        - Handle removed logs, duplicates, retries, cursor persistence and reorg-sensitive consumers.
+      execution_allowed: false
+  source_ids:
+    - S00
+    - S09
+  reviewed_at: 2026-10-24T20:00:51Z
+  evidence_type: OFFICIAL_DOC
+  status: UNKNOWN
+  known_limitations:
+    - No hosted QIE indexer or provider-specific historical query contract was confirmed.
+  unresolved_questions:
+    - Which indexer providers support QIE today and with what API/version scope?
+  conflict_ids: []
+  related_entity_ids:
+    - qie-rpc
+  integration_recipe_ids:
+    - transaction-readonly
+  execution_allowed: false

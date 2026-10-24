@@ -1,6 +1,6 @@
 {
   "name": "qie-forge",
-  "version": "0.5.2-ecosystem.1",
+  "version": "0.6.0-ecosystem.1",
   "private": true,
   "type": "module",
   "engines": {

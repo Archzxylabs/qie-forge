@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qie-forge.invalid/schema/conflict.json",
+  "type": "object",
+  "properties": {
+    "conflict_id": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/id" },
+    "subject": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "source_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
+    "state": { "enum": ["OPEN", "RESOLVED"] },
+    "resolution": { "type": ["string", "null"], "minLength": 1 },
+    "reviewed_at": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/timestamp" }
+  },
+  "required": ["conflict_id", "subject", "summary", "source_ids", "state", "resolution", "reviewed_at"],
+  "additionalProperties": false
+}

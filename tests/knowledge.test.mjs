@@ -31,8 +31,11 @@ test('inventory covers D01–D15 without inventing tested capabilities or addres
   assert.ok(baseline.capabilities.every((c) => c.status !== 'VERIFIED'));
   assert.ok(baseline.capabilities.some((c) => c.status === 'DOCUMENTED'));
   assert.ok(baseline.capabilities.some((c) => c.status === 'UNKNOWN'));
-  assert.equal(baseline.addresses.length, 0);
+  assert.ok(baseline.addresses.length >= 1, 'published candidates are retained as non-verified discovery records');
+  assert.ok(baseline.addresses.every((address) => ['CLAIMED', 'CONFLICTED', 'UNKNOWN'].includes(address.status)));
   assert.equal(baseline.validationRuns.length, 0);
+  assert.ok(baseline.integrations.length >= 10, 'integration records provide operational protocol knowledge');
+  assert.ok(baseline.integrations.every((integration) => integration.execution_allowed === false));
   assert.deepEqual(baseline.capabilities.find((c) => c.capability_id === 'native-delegate').network_ids, []);
 });
 
