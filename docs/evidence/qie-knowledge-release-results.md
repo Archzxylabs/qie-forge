@@ -25,12 +25,28 @@
 | Local QUSDC Foundry mock | PASS | `forge build` and `forge test`; 3/3 tests passed with pinned solc 0.8.37. |
 | Clean working tree after gates | PASS | Generated test/build artifacts were removed; remaining tracked changes are intentional remediation/release output. |
 | Live QIE RPC probe | NOT_RUN | Explicitly omitted from offline release gates. |
-| Real coding-agent golden tasks | NOT_RUN | No external agent host/model execution was available. |
+| Real coding-agent golden tasks | PARTIAL | OpenCode completed QUSDC, Lending and wallet tasks; Codex completed the address-gate task. Codex mirror tasks 1, 2 and 4 stopped on provider quota before final reports. See task-level evidence below. |
 
 ## Installation and rollback boundary
 
 The existing B09 installer/verifier architecture is preserved. The release identity changes because payload content changed; historical B08/B09 identities are not retroactively altered. Installation and rollback are covered by the 20 fixture suite; owner review must still resolve the B09-first PR order before merge.
 
+## Real coding-agent evaluation evidence
+
+The v0.6 candidate was installed into isolated consumer workspaces and exercised by real coding-agent hosts on October 25, 2026. No simulated conversation or manually authored ideal answer is counted as a result.
+
+| Flow | Host/model | Result | Evidence |
+|---|---|---|---|
+| QUSDC/WUSDC local escrow | OpenCode / `opencode/deepseek-v4.1-flash-free` | PASS | Local Foundry build and 18/18 tests passed, including fuzzing, failure paths, reentrancy and decimal checks. |
+| Lending read-only dashboard | OpenCode / `opencode/deepseek-v4.1-flash-free` | PASS | 21/21 deterministic tests passed and offline TypeScript typecheck passed; adapter remained provider-only and candidate identities untrusted. |
+| Wallet/network connector | OpenCode / `opencode/deepseek-v4.1-flash-free` | PASS | 54/54 deterministic tests passed and TypeScript typecheck passed; no auto-switch, signing or broadcast path was introduced. |
+| Address identity gate | Codex 0.164.0 / `gpt-6.1-sol` | PASS | Five local checks and 18 manifest-hash checks passed; the report retained unresolved identity gates and `execution_allowed=false`. |
+| Codex mirror tasks | Codex 0.164.0 / `gpt-6.1-sol` | BLOCKED | Tasks 1, 2 and 4 began real work but the host usage limit stopped them before final reports. Partial files are not treated as passing results. |
+
+### B09 comparison boundary
+
+The B09 baseline was installed from release identity `b280364ed46be17d048f2b5c7c78485c8c35bb7172d123dd253f784fdf17b3ce`. Static inspection confirms that B09 had no QUSDC token record, no Lending capability record, no address inventory and no QUSDC/Lending local recipe. Its real-agent comparison runs were not complete: the B09 OpenCode tasks stopped on provider quota, while the completed B09 address task returned the honest `NOT_RUN / UNSUPPORTED` verdict. Therefore no numeric pass-rate or latency improvement is claimed for B09; the completed v0.6 results are reported as standalone evidence, not as a fabricated apples-to-apples benchmark.
+
 ## Honest verdict
 
-**P0 knowledge expansion: materially improved, but release candidate only.** QIE Forge now provides source-grounded QUSDC and Lending integration guidance, protocol-specific local recipes, address candidates with a shared identity gate, fail-closed integration authorization, and useful P1 discovery boundaries. It must not be called production-ready or fully accepted until the real host/model evaluation is completed or explicitly recorded as `NOT_RUN`, owner review resolves the B09-first PR order, and PR #2's CI checks pass on the remediation commit.
+**P0 knowledge expansion: materially improved, but release candidate only.** QIE Forge now provides source-grounded QUSDC and Lending integration guidance, protocol-specific local recipes, address candidates with a shared identity gate, fail-closed integration authorization, and useful P1 discovery boundaries. Real local usefulness is demonstrated by completed OpenCode tasks and one completed Codex task, but the host/model matrix is not fully complete because three Codex mirror tasks were quota-blocked and the B09 comparison was incomplete. It must not be called production-ready or fully accepted until owner review resolves the B09-first PR order and PR #2's CI checks pass on the remediation commit.

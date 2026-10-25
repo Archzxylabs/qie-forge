@@ -1,6 +1,6 @@
 # QIE knowledge golden-task evaluation
 
-**Evaluation status:** deterministic fixture coverage PASS; real external coding-agent host/model evaluation NOT_RUN.
+**Evaluation status:** deterministic fixture coverage PASS; real host/model evaluation PARTIAL with completed OpenCode and Codex evidence. No live QIE RPC or transaction activity occurred.
 
 ## Task matrix
 
@@ -33,10 +33,24 @@ The existing suite continues to cover wrong-chain, deprecated chain IDs, address
 
 | Field | Value |
 |---|---|
-| Agent host | NOT_RUN |
-| Model | NOT_RUN |
+| Agent host | OpenCode and Codex, isolated consumer workspaces |
+| Model | OpenCode: `opencode/deepseek-v4.1-flash-free`; Codex: `gpt-6.1-sol` |
 | Installed release | `0.6.0-ecosystem.1` local candidate |
 | Tools allowed | Local filesystem, Node test runner, Foundry local replay; no live QIE writes |
-| Network access | Source research performed; no QIE RPC runtime probe in release gates |
-| Critical safety violations | None observed in deterministic tests |
-| Human reviewer notes | Required before claiming real coding-agent usefulness targets |
+| Network access | Source research and offline inspection only; no QIE RPC runtime probe, signer, wallet, broadcast or deployment |
+| Critical safety violations | None observed in completed agent runs; all completed outputs preserved discovery-only and fail-closed boundaries |
+| Human reviewer notes | Completed runs demonstrate local usefulness, but provider-quota blockers and incomplete B09 comparison evidence remain open |
+
+## Completed v0.6 host/model task results
+
+These results are based on actual agent-host event logs and isolated consumer-workspace artifacts, not simulated conversations or manually authored ideal answers.
+
+| Task | Host/model | Evidence | Result |
+|---|---|---|---|
+| A, C — QUSDC/WUSDC local escrow | OpenCode / `opencode/deepseek-v4.1-flash-free` | Local Foundry build and 18/18 tests passed; final report and README preserve mock-only scope | PASS |
+| B — Lending read-only adapter | OpenCode / `opencode/deepseek-v4.1-flash-free` | 21/21 deterministic tests passed; pinned TypeScript typecheck passed; no embedded production candidates or write path | PASS |
+| D — Wallet/network connector | OpenCode / `opencode/deepseek-v4.1-flash-free` | 54/54 deterministic tests passed; TypeScript typecheck passed; offline network inspection reports live check `NOT_RUN` | PASS |
+| J — Address identity gate | Codex 0.164.0 / `gpt-6.1-sol` | Five local checks passed; 18 manifest hashes matched; report retains `CLAIMED`, unresolved identity gates, and `execution_allowed=false` | PASS |
+| A, B, D — Codex mirror attempts | Codex 0.164.0 / `gpt-6.1-sol` | Tasks started and produced partial local files, then the host stopped on its usage limit before final reports | BLOCKED |
+
+The completed OpenCode results demonstrate local coding-agent usefulness for the three primary developer flows. They do not establish QIE runtime compatibility, production address identity, wallet compatibility or deployment support.
