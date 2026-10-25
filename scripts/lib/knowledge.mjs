@@ -101,28 +101,34 @@ function checkAddresses(data, indexes) {
   }
 }
 
+function requireExecutionBlocked(value, label) {
+  if (value !== false) {
+    throw new Error(`${label} execution_allowed must remain false until a tested promotion mechanism exists`);
+  }
+}
+
 function checkIntegrations(data, indexes) {
   const integrationIds = new Set(data.integrations.map((entry) => entry.entity_id));
   const conflictIds = new Set(data.conflicts.map((entry) => entry.conflict_id));
   for (const conflict of data.conflicts) requireReferences(conflict.source_ids, indexes.sources, 'conflict source');
   for (const integration of data.integrations) {
+    requireExecutionBlocked(integration.execution_allowed, `Integration ${integration.entity_id}`);
     requireReferences(integration.source_ids, indexes.sources, 'integration source');
     requireReferences(integration.conflict_ids, indexes.conflicts, 'integration conflict');
     requireReferences(integration.related_entity_ids, indexes.integrations, 'related integration');
     for (const iface of integration.interfaces) {
+      requireExecutionBlocked(iface.execution_allowed, `Interface ${iface.interface_id}`);
       requireReferences(iface.source_ids, indexes.sources, 'interface source');
-      if (iface.execution_allowed && iface.status !== 'VERIFIED') throw new Error('Unverified interface cannot allow execution');
     }
     const interfaceIds = new Set(integration.interfaces.map((iface) => iface.interface_id));
     const operationIds = new Set();
     for (const operation of integration.operations) {
+      requireExecutionBlocked(operation.execution_allowed, `Operation ${operation.operation_id}`);
       if (operationIds.has(operation.operation_id)) throw new Error(`Duplicate integration operation: ${operation.operation_id}`);
       operationIds.add(operation.operation_id);
       if (!interfaceIds.has(operation.interface_id)) throw new Error(`Missing integration interface: ${operation.interface_id}`);
       requireReferences(operation.source_ids, indexes.sources, 'operation source');
-      if (operation.execution_allowed && operation.status !== 'VERIFIED') throw new Error('Unverified operation cannot allow execution');
     }
-    if (integration.execution_allowed && integration.status !== 'VERIFIED') throw new Error('Unverified integration cannot allow execution');
     if (integration.status === 'DOCUMENTED' && !integration.source_ids.some((id) => ['T0', 'T1', 'T2'].includes(indexes.sources.get(id).trust_tier))) {
       throw new Error('Documented integration needs a technical primary source');
     }

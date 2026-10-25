@@ -12,9 +12,9 @@
 1. Added optional source provenance fields: revision, technical paths, claim scopes and research outcome.
 2. Added strict `integration.schema.json` and `conflict.schema.json`.
 3. Added `knowledge/integrations.yaml` for product, protocol, SDK, network-layer and service records.
-4. Added `knowledge/conflicts.yaml` for QUSDC terminology, QUSDC candidate role, RPC list and Oracle identity conflicts.
-5. Extended `skills.yaml` with `integration_ids`; validation now checks integration/interface/operation references and rejects unverified execution permissions.
-6. Retained address candidates in `knowledge/addresses.yaml` with CLAIMED/CONFLICTED statuses. They are discovery-only, not trusted addresses.
+4. Added `knowledge/conflicts.yaml` for the one genuine same-scope RPC documentation contradiction; QUSDC terminology and candidate-role uncertainty remain documented limitations instead of conflicts.
+5. Extended `skills.yaml` with `integration_ids`; schema and runtime validation now reject every `execution_allowed: true` value until a tested promotion mechanism exists.
+6. Retained address candidates in `knowledge/addresses.yaml` as CLAIMED discovery records unless technical sources genuinely disagree. They are never trusted addresses.
 
 ## Generated release changes
 
@@ -28,7 +28,7 @@
 
 - `execution_allowed` is false for every new integration, interface and operation.
 - No live RPC, signer, wallet, bridge, oracle, DEX or contract write is executed.
-- The shared identity gate remains the only path to address-bound write eligibility.
+- No address-bound write eligibility path exists in this release; the shared identity gate is a prerequisite for any future promotion mechanism.
 - Candidate addresses are shown in a separate discovery table and never in the generated catalogue's executable guidance.
 - Historical B08/B09 evidence remains historical; active source review is recorded in the new inventory.
 
@@ -37,4 +37,11 @@
 - Integration records are intentionally additive rather than a full entity graph rewrite.
 - The existing capability model remains unchanged; protocol operations use the new integration model to avoid pretending that a product-wide capability status is precise enough.
 - The RPC probe is a contributor/installed-helper tool and never promotes evidence automatically.
-- Real coding-agent host/model execution was not available in this workspace; golden-task execution is therefore NOT_RUN.
+- Real coding-agent host/model execution status is recorded in `docs/evidence/qie-knowledge-golden-tasks.md` and is never inferred from deterministic fixtures.
+
+## Pull-request integration order
+
+1. Approve and merge PR #1 (`feat/b09-distribution`) into `main` first, after owner review. It carries the B09 release/distribution hardening and commit `40ab7a7`, including the original engineering-gates workflow.
+2. Rebase PR #2 (`feat/qie-ecosystem-intelligence`) onto the resulting `main`, preserving `4b10710`, the knowledge expansion, and this branch's unified CI workflow.
+3. Resolve `.github/workflows/ci.yml` explicitly in favor of one workflow that retains B09's native-toolchain, coverage and installation gates plus the knowledge branch's browser/example checks. Do not let either branch silently replace the other's checks.
+4. Re-run the full gates on the rebased PR #2 and keep both PRs unmerged until the owner approves the integration order.

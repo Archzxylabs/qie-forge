@@ -97,9 +97,7 @@
     - Which exact QIE contracts are the current production QUSDC token, WUSDC token and vault on each network?
     - Are minting, redemption, pause, fee and upgrade controls present in the deployed bytecode?
     - What independent reserve or supply reconciliation evidence is currently published?
-  conflict_ids:
-    - qusdc-backing-asset-naming
-    - qusdc-candidate-address-role
+  conflict_ids: []
   related_entity_ids:
     - qusdc-sdk
     - qie-lending-protocol
@@ -176,8 +174,7 @@
   unresolved_questions:
     - Does the published implementation remain current after the reviewed commit?
     - Does the vault accept the same raw unit scale for QUSDC burn as for WUSDC deposit?
-  conflict_ids:
-    - qusdc-candidate-address-role
+  conflict_ids: []
   related_entity_ids:
     - qusdc-protocol
   integration_recipe_ids:
@@ -593,8 +590,7 @@
   unresolved_questions:
     - Are all mapped feed contracts current and issuer-owned on QIE Mainnet?
     - What update interval and outage fallback policy applies to each feed?
-  conflict_ids:
-    - qie-oracle-address-identity
+  conflict_ids: []
   related_entity_ids:
     - qie-lending-protocol
   integration_recipe_ids:

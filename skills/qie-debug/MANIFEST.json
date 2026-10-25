@@ -7,7 +7,7 @@
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "9af64c1b0c106948b6a9ecd04f7796e73bde8e9fc010fb62adfa1afc969b62a2"
+      "sha256": "bcbe2666f5812f4b4451d27164eb27202fe724d427841c89e9eb9674e4378e6d"
     },
     {
       "path": "recipes/debug/recipe.md",
@@ -55,9 +55,9 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "9af64c1b0c106948b6a9ecd04f7796e73bde8e9fc010fb62adfa1afc969b62a2",
+  "knowledge_sha256": "bcbe2666f5812f4b4451d27164eb27202fe724d427841c89e9eb9674e4378e6d",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-debug",

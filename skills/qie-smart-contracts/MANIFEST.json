@@ -7,7 +7,7 @@
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "abc1e7dbbe626a3f96e60450b1eda0592216b2f4cefb0ebee049eee76812e4cb"
+      "sha256": "8d652e0d0ae35b256ee6868d139eb1828864dfd6a81a83e8aa4245bbae1260be"
     },
     {
       "path": "recipes/build-test/assets/foundry.toml",
@@ -51,7 +51,7 @@
     },
     {
       "path": "references/evidence.md",
-      "sha256": "334e8cf54e79856b78f06af3671dbf1fd2a479e7ddb4669eb74fdf249ed32a93"
+      "sha256": "dad654fe10bca28d641f6f60a399e3d825ba49e708668a3c1ba81deffb5de509"
     },
     {
       "path": "references/release-info.md",
@@ -59,9 +59,9 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "abc1e7dbbe626a3f96e60450b1eda0592216b2f4cefb0ebee049eee76812e4cb",
+  "knowledge_sha256": "8d652e0d0ae35b256ee6868d139eb1828864dfd6a81a83e8aa4245bbae1260be",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-smart-contracts",

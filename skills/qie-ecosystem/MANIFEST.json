@@ -7,7 +7,7 @@
     },
     {
       "path": "data/ecosystem-catalogue.json",
-      "sha256": "16b811113b96d5c4e83878b70a1d4461496805e8f6d74864a4f4c9efff8f1b9d"
+      "sha256": "433156b8471c72431fa6e5784ab7b18c6a286d1ca00c6347a871f72153686281"
     },
     {
       "path": "recipes/ecosystem-address/recipe.md",
@@ -51,7 +51,7 @@
     },
     {
       "path": "references/address-candidates.md",
-      "sha256": "a265c5a9d4debae9dbd22908f222726bda079be270f98864e174becd91e35093"
+      "sha256": "0b464830ed2cbb76bb62b8d9053130ce27ad1bb78751198ae17be0e338d831ed"
     },
     {
       "path": "references/catalogue.md",
@@ -75,9 +75,9 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "16b811113b96d5c4e83878b70a1d4461496805e8f6d74864a4f4c9efff8f1b9d",
+  "knowledge_sha256": "433156b8471c72431fa6e5784ab7b18c6a286d1ca00c6347a871f72153686281",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-ecosystem",

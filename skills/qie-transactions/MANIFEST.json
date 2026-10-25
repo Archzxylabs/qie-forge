@@ -7,7 +7,7 @@
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "c0aa9a1110f059839707231b6d5c2a54c03271f778159cbac40371820a1ed5e1"
+      "sha256": "9ffb0a00ca144f8ef2a06031274ea142bd3dcd4b6a965279e6a008e4b64ff730"
     },
     {
       "path": "recipes/debug/recipe.md",
@@ -55,9 +55,9 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "c0aa9a1110f059839707231b6d5c2a54c03271f778159cbac40371820a1ed5e1",
+  "knowledge_sha256": "9ffb0a00ca144f8ef2a06031274ea142bd3dcd4b6a965279e6a008e4b64ff730",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-transactions",

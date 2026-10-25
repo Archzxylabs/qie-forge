@@ -70,7 +70,7 @@ The documentation itself discloses dependencies on USDC, fiat reserves and exter
 
 ## Address candidates and conflicts
 
-The Lending SDK publishes `0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5` as the QUSDC market underlying candidate. The QUSDC SDK does not identify it as WUSDC, QUSDC or the vault. This candidate is recorded as `CONFLICTED`/discovery-only in `knowledge/addresses.yaml` and `knowledge/conflicts.yaml`.
+The Lending SDK publishes `0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5` as the QUSDC market underlying candidate. The QUSDC SDK does not identify it as WUSDC, QUSDC or the vault. This is missing deployment-role validation rather than contradictory technical evidence, so the candidate remains `CLAIMED` and discovery-only in `knowledge/addresses.yaml`; it is not executable configuration.
 
 No QUSDC vault, WUSDC token or QUSDC token is executable in this release. No live `eth_getCode`, ABI match, proxy inspection or issuer-authenticated deployment observation was run.
 

@@ -20,7 +20,7 @@ Methods:
 
 ## Market configuration
 
-The static configuration lists WBNB, WETH, QUSDC and WQIE, plus a Comptroller candidate. It supplies cToken, underlying and decimal fields. These are published discovery candidates, not issuer-authenticated deployment identities. The QUSDC underlying candidate is preserved as a conflict because its role is not reconciled with the separate QUSDC SDK inputs.
+The static configuration lists WBNB, WETH, QUSDC and WQIE, plus a Comptroller candidate. It supplies cToken, underlying and decimal fields. These are published discovery candidates, not issuer-authenticated deployment identities. The QUSDC underlying candidate remains `CLAIMED` and discovery-only because its role is not validated against the separate QUSDC SDK inputs; the sources do not directly contradict each other in a shared deployment scope.
 
 ## ABI and source observations
 

@@ -11,7 +11,7 @@
         "status": { "$ref": "https://qie-forge.invalid/schema/status.json" },
         "source_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
         "description": { "type": "string", "minLength": 1 },
-        "execution_allowed": { "type": "boolean" }
+        "execution_allowed": { "const": false }
       },
       "required": ["interface_id", "kind", "name", "status", "source_ids", "description", "execution_allowed"],
       "additionalProperties": false
@@ -43,7 +43,7 @@
           "minItems": 1,
           "uniqueItems": true
         },
-        "execution_allowed": { "type": "boolean" }
+        "execution_allowed": { "const": false }
       },
       "required": ["operation_id", "name", "action", "interface_id", "status", "inputs", "outputs", "source_ids", "limitations", "execution_allowed"],
       "additionalProperties": false
@@ -90,7 +90,7 @@
     "conflict_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
     "related_entity_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
     "integration_recipe_ids": { "$ref": "https://qie-forge.invalid/schema/common.json#/$defs/ids" },
-    "execution_allowed": { "type": "boolean" }
+    "execution_allowed": { "const": false }
   },
   "required": [
     "entity_id", "entity_type", "display_name", "network_scope", "version_scope", "description",

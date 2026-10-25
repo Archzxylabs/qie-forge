@@ -249,48 +249,7 @@
       "version_scope": "Published EVM configuration; live identity not tested"
     }
   ],
-  "conflicts": [
-    {
-      "conflict_id": "qie-oracle-address-identity",
-      "resolution": "Treat every oracle address as a discovery candidate; use the ABI pattern only for local mocks until the shared identity gate passes.",
-      "reviewed_at": "2026-10-24T20:00:51Z",
-      "source_ids": [
-        "S12",
-        "S35",
-        "S36"
-      ],
-      "state": "OPEN",
-      "subject": "Oracle address and interface identity",
-      "summary": "Official pages publish asset-to-address mappings and AggregatorV3 examples, but no reviewed chain observation or issuer-to-bytecode correlation is present in this release."
-    },
-    {
-      "conflict_id": "qusdc-backing-asset-naming",
-      "resolution": "Treat WUSDC as the implementation-level input/output required by the reviewed SDK; do not equate WUSDC with native Circle USDC or claim reserve quality beyond issuer documentation.",
-      "reviewed_at": "2026-10-24T20:00:51Z",
-      "source_ids": [
-        "S22",
-        "S23",
-        "S26",
-        "S28"
-      ],
-      "state": "OPEN",
-      "subject": "QUSDC backing asset terminology",
-      "summary": "QUSDC product pages often say USDC generically, while the detailed flow and SDK use WUSDC as the QIE-side input and redemption asset."
-    },
-    {
-      "conflict_id": "qusdc-candidate-address-role",
-      "resolution": "Retain the address as a lending configuration candidate only; do not label it as the QUSDC token, WUSDC token or vault without issuer and ABI identity evidence.",
-      "reviewed_at": "2026-10-24T20:00:51Z",
-      "source_ids": [
-        "S28",
-        "S29",
-        "S30"
-      ],
-      "state": "OPEN",
-      "subject": "QUSDC address role in the lending SDK",
-      "summary": "The lending SDK publishes 0x3F43... as the QUSDC market underlying, while the QUSDC SDK requires separate vaultAddress and wusdcAddress constructor inputs and publishes no deployment address."
-    }
-  ],
+  "conflicts": [],
   "domains": [
     {
       "capability_ids": [
@@ -521,9 +480,7 @@
       "version_scope": "commit 21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262; package 1.0.0"
     },
     {
-      "conflict_ids": [
-        "qie-oracle-address-identity"
-      ],
+      "conflict_ids": [],
       "description": "Officially documented asset feed product with a published mapping table and AggregatorV3-style read examples.",
       "display_name": "QIE Oracle",
       "entity_id": "qie-oracle",
@@ -600,10 +557,7 @@
       "version_scope": null
     },
     {
-      "conflict_ids": [
-        "qusdc-backing-asset-naming",
-        "qusdc-candidate-address-role"
-      ],
+      "conflict_ids": [],
       "description": "Issuer-documented QIE receipt-token protocol whose detailed flow uses WUSDC as the QIE-side backing asset and QUSDC as the receipt asset.",
       "display_name": "QUSDC",
       "entity_id": "qusdc-protocol",

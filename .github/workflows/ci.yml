@@ -18,7 +18,12 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      CI: "true"
+      CI: '1'
+      DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Check out the requested revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -32,7 +37,10 @@ jobs:
           cache: npm
 
       - name: Install pinned npm
-        run: npm install --global npm@11.19.0
+        run: |
+          npm install --global npm@11.19.0 --ignore-scripts --no-audit --no-fund
+          test "$(node --version)" = 'v24.20.0'
+          test "$(npm --version)" = '11.19.0'
 
       - name: Install pinned Foundry
         uses: foundry-rs/foundry-toolchain@908c540300062bd5a7e473851cdb4282204cee09 # v1.9.1
@@ -54,14 +62,22 @@ jobs:
       - name: Install dependencies from the lockfile
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      # Non-mutating checks run before any command that writes generated output.
-      # build:check proves the committed generated bundles match the canonical
-      # sources in this checkout; it does not rebuild them first.
-      - name: Prove generated bundles are current
-        run: npm run build:check
+      - name: Verify native test prerequisites
+        run: |
+          set -euo pipefail
+          test -x "$(git --exec-path)/git-http-backend"
+          forge --version | tee "$RUNNER_TEMP/forge-version.txt"
+          grep -F 'Version: 1.8.1' "$RUNNER_TEMP/forge-version.txt"
+          "$QIE_FORGE_SOLC" --version
 
       - name: Prove the example asset is current
         run: npm run example:prepare:check
+
+      # Build is intentionally retained as a first-class gate. It is followed
+      # by build:check so the same checkout proves both reproducible generation
+      # and committed publication parity.
+      - name: Build the deterministic skill release
+        run: npm run build
 
       - name: Check the supported environment
         run: npm run doctor
@@ -69,22 +85,31 @@ jobs:
       - name: Validate knowledge and skills
         run: npm run validate
 
+      - name: Prove generated bundles are current
+        run: npm run build:check
+
       - name: Verify generated documentation
         run: npm run docs:check
 
       - name: Check JavaScript syntax
         run: npm run lint
 
+      - name: Type-check the example and canonical controller
+        run: npm run typecheck
+
       - name: Run the repository test suite
         run: npm test
 
-      - name: Type-check the example and canonical controller
-        run: npm run typecheck
+      - name: Run test coverage
+        run: npm run test:coverage
+
+      - name: Run installation fixture suite
+        run: npm run test:install
 
       - name: Install the browser required by the deterministic checks
         run: npx playwright install --with-deps --no-shell chromium
 
-      - name: Build the example from the canonical contract source
+      - name: Build the counter example from the canonical contract source
         run: npm run example:build
 
       - name: Run deterministic browser checks

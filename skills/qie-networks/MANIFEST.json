@@ -65,7 +65,7 @@
   "generated": true,
   "knowledge_sha256": "d9f07297802e8f4f39fb40c965b1ab0788c0f7fd85d8e60f308d8c8ff78d6ac2",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-networks",

@@ -85,7 +85,7 @@
   abi_source_ids:
     - S29
   code_observation: null
-  status: CONFLICTED
+  status: CLAIMED
   checked_at: null
   expires_at: null
 

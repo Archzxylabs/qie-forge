@@ -33,6 +33,8 @@ test('inventory covers D01–D15 without inventing tested capabilities or addres
   assert.ok(baseline.capabilities.some((c) => c.status === 'UNKNOWN'));
   assert.ok(baseline.addresses.length >= 1, 'published candidates are retained as non-verified discovery records');
   assert.ok(baseline.addresses.every((address) => ['CLAIMED', 'CONFLICTED', 'UNKNOWN'].includes(address.status)));
+  assert.equal(baseline.addresses.find((address) => address.claimed_product === 'qie-lending:QUSDC-underlying-candidate')?.status, 'CLAIMED');
+  assert.deepEqual(baseline.conflicts.map((conflict) => conflict.conflict_id), ['qie-rpc-document-order']);
   assert.equal(baseline.validationRuns.length, 0);
   assert.ok(baseline.integrations.length >= 10, 'integration records provide operational protocol knowledge');
   assert.ok(baseline.integrations.every((integration) => integration.execution_allowed === false));
@@ -165,3 +167,19 @@ test('rejects address identity inferred from code presence alone', async () => {
     status: 'VERIFIED', checked_at: '2026-01-01T00:00:00Z', expires_at: '2026-01-02T00:00:00Z' }];
   await assert.rejects(verify(data), /bytecode alone/);
 });
+
+for (const [label, mutate] of [
+  ['an integration', (data) => { data.integrations[0].execution_allowed = true; }],
+  ['an interface', (data) => { data.integrations[0].interfaces[0].execution_allowed = true; }],
+  ['an operation', (data) => { data.integrations[0].operations[0].execution_allowed = true; }],
+]) {
+  test(`rejects execution authorization on ${label}`, async () => {
+    const data = structuredClone(baseline);
+    mutate(data);
+    await assert.rejects(
+      verify(data),
+      /false|constant|execution_allowed/,
+      'execution authorization must fail closed until a tested promotion mechanism exists',
+    );
+  });
+}

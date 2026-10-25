@@ -7,7 +7,7 @@
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "aba1f7725125a3e348d1d1929592df6210d9502b656c098d7e719fcb8d22185e"
+      "sha256": "92675194b04bd500431b0b858806ea7933e0f189f62c3f87b256c10169767f56"
     },
     {
       "path": "recipes/erc20-asset/recipe.md",
@@ -71,9 +71,9 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "aba1f7725125a3e348d1d1929592df6210d9502b656c098d7e719fcb8d22185e",
+  "knowledge_sha256": "92675194b04bd500431b0b858806ea7933e0f189f62c3f87b256c10169767f56",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b",
+  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
   "release_version": "0.6.0-ecosystem.1",
   "schema_version": "1.4.0",
   "skill_id": "qie-frontend",

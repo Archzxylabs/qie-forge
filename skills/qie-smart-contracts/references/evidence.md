@@ -31,8 +31,6 @@ Published QIE configuration is DOCUMENTED, not a live result. Local recipe repla
 - [S25: QUSDC decentralization and dependency disclosures](https://docs.stable.qie.digital/decentralization-model.md) (T1)
 - [S26: QUSDC FAQ and risk disclosures](https://docs.stable.qie.digital/frequently-asked-questions-faq.md) (T1)
 - [S28: QUSDC SDK implementation file at pinned commit](https://raw.githubusercontent.com/qieadmin/qusdc-sdk/0877597f8bd51f7c21bb04e70009d3e9cab86944/index.js) (T1)
-- [S29: QIE Lending SDK pinned source tree](https://github.com/qieadmin/qie-lend-sdk/tree/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262) (T1)
-- [S30: QIE Lending SDK market configuration at pinned commit](https://raw.githubusercontent.com/qieadmin/qie-lend-sdk/21d2ef2d5c4e9ac82f7e5d72e628341bd0b15262/config.js) (T1)
 - [S35: QIE Oracle query examples](https://docs.qie.digital/qie-oracle/deployed-contracts/query-examples.md) (T1)
 - [S36: QIE Oracle Solidity integration guide](https://docs.qie.digital/qie-oracle/developer-guide/how-to-integrate-qie-oracle-in-smart-contracts.md) (T1)
 - [S37: QIE Oracle edge-case and freshness guidance](https://docs.qie.digital/qie-oracle/developer-guide/handling-edge-cases-and-best-practices.md) (T1)
