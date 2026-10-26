@@ -1,0 +1,24 @@
+note[low-level-calls]: Low-level calls should be avoided
+   ╭▸ test/Counter.t.sol:27:22
+   │
+27 │         (bool ok,) = address(counter).call(hex"ffffffff");
+   │                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/low-level-calls
+
+warning[uninitialized-local]: local variable is read before being initialized
+   ╭▸ test/Counter.t.sol:34:25
+   │
+34 │         for (uint256 i; i < steps; ++i) counter.increment();
+   │                         ━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/uninitialized-local
+
+warning[calls-loop]: external call inside a loop
+   ╭▸ test/Counter.t.sol:34:41
+   │
+34 │         for (uint256 i; i < steps; ++i) counter.increment();
+   │                                         ━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/calls-loop
+

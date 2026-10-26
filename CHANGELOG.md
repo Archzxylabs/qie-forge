@@ -2,6 +2,12 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Counter testnet preparation — 2026-10-26
+
+- Capture pinned offline Counter build/test results, ABI, creation/runtime bytecode and a standard JSON compiler input with matching bytecode output.
+- Record a read-only creation simulation on testnet RPC2, compare its returned runtime with the compiled artifact, and retain the synthetic-sender gas quote.
+- Add an [unsigned deployment review](docs/deployment/counter-testnet-review.json) with explicit signer, fee and submission blockers; see the [preparation report](docs/results/counter-testnet-preparation-2026-10-26.md).
+
 ## Read-only testnet observations — 2026-10-26
 
 - Record real QIE EVM testnet identity, block progression and bounded read-only method observations on the officially documented RPC2 endpoint, preserving RPC1 and RPC3 failures alongside the passing observations.

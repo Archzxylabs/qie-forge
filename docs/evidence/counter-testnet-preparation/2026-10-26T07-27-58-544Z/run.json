@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "scope": "COUNTER_TESTNET_DEPLOYMENT_PREPARATION",
+  "started_at": "2026-10-26T07:27:58.544Z",
+  "source_commit": "608952e7169b825ede56e943dc177ee217993850",
+  "source_worktree_status_before_capture": "",
+  "node_version": "v24.20.0",
+  "platform": "linux",
+  "architecture": "x64",
+  "skill_release_version": "0.6.0-ecosystem.1",
+  "skill_release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
+  "toolchain": {
+    "forge_version": "1.8.1",
+    "forge_commit": "982849d3140c01fd3b72905759581a132df7aa98",
+    "solc_version": "0.8.37+commit.f401782d",
+    "evm_version": "paris",
+    "evidence_scope": "LOCAL_REPLAY",
+    "qie_deployment_compatibility": "UNKNOWN"
+  },
+  "compiler": {
+    "path": "/home/pupulion/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+    "version": "0.8.37+commit.f401782d.Linux.g++",
+    "source": "solc-select artifact",
+    "binary_sha256": "5de843c2c93563cc66425c99a4fb13fdbf32b4c4ae07469480faaf126e14404a"
+  },
+  "canonical_input_sha256": {
+    "recipes/build-test/assets/src/Counter.sol": "d48a5a381722d110299b9ef71492c6e41ad6ef4f22a446a7fbe21b7c4c0f8070",
+    "recipes/build-test/assets/test/Counter.t.sol": "5921ade98e806b5b73c5593c161b3aa50b03512248b1027d2637dda00741d556",
+    "recipes/build-test/assets/foundry.toml": "d8dc0144a73e3ab4bc827c571a19137f10ef392708ac52d1e9539f22e05e69e4",
+    "recipes/build-test/toolchain.json": "d076dca1b827a6c0b76ca0630e4efaa5545b7c6c012e5802afb79bfa759b53fa",
+    "skills/qie-deployment/data/network-claims.json": "6123cc7c1349ca1da8f9175a05e00d567286a2945bcd0ec721bad7177e041710",
+    "scripts/lib/solc.mjs": "d7fc726f294e9f2e4254d52040b44e85939fdc82947cc361e48006cdb29d4b32",
+    "scripts/lib/rpc.mjs": "b492fd97c70c2bc44dd0d69edfb0e76a9e19119e84df80aa1c10a4dfd8fff1c1",
+    "skills/qie-deployment/MANIFEST.json": "16c943649694a365d66c9fae3b2432e6c6eef228918913ffc41ec49bd5c48638",
+    "skills/qie-deployment/scripts/verify-network.mjs": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f",
+    "scripts/lib/network-diagnostic.mjs": "8c1531644f52eef437d5ce0429f2a76586be66715dfb222fa5e7436dfc523cb7"
+  },
+  "build_project": "/tmp/qie-counter-preparation-aWxUAW",
+  "network_id": "qie-testnet",
+  "expected_chain_id": 1983,
+  "endpoint": "https://rpc2testnet.qie.digital/",
+  "signer_selection": {
+    "mode": "developer-controlled-injected-EIP1193",
+    "status": "NOT_CONNECTED",
+    "account": null
+  },
+  "canonical_status_promotion": false,
+  "reviewer": null,
+  "native_currency_documentation": {
+    "source_id": "S10",
+    "url": "https://docs.qie.digital/qie-wallet-integration-guide-for-websites.md",
+    "http_status": 200,
+    "captured_at": "2026-10-26T07:28:41.284Z",
+    "body_sha256": "a511d773a95ed6223d2dc7dc1d8c673001c5c99cc169b7baf66a3a6e480f9fba",
+    "testnet": {
+      "chain_id": 1983,
+      "symbol": "QIE",
+      "decimals": 18
+    },
+    "status": "DOCUMENTED"
+  },
+  "standard_json_parity": {
+    "abi_semantic": true,
+    "creation_bytes": true,
+    "runtime_bytes": true
+  },
+  "abi_comparison_note": "Forge reorders JSON object keys; ABI equality is structural, while creation/runtime hex bytes match exactly.",
+  "artifact_sha256": {
+    "Counter.artifact.json": "7fd0b784d28103a266070b0d6ae1c8eac7fb078a9f445e2d23224307ab5884d3",
+    "Counter.abi.json": "c26ffb152b71949090449d14c6d467369d66b0c3880ec8ca2a3007181573c203",
+    "Counter.methods.json": "a0022e842877e9e3d5923187726f72c1e96c6aef85544037980ad1b3e065ec09",
+    "Counter.creation.hex": "ccc663a602838fa755cd3da9a906fd95d504d6fc412b89641c4a9b7d0cacdb4e",
+    "Counter.runtime.hex": "53608dc323609c487d5386b2da60f3ccbc19c7b7993678d43f6d555da158b229",
+    "Counter.standard-input.json": "941c7cf07714681c34a259f4fd48c13832ff2167985a35d4fceea45bd8cc901a",
+    "Counter.standard-output.json": "3dd6c06bea5deacb4fae0872f56a69fbde072a73f5f4fe56fce611efc9cad6a2"
+  },
+  "finished_at": "2026-10-26T07:35:08.171Z",
+  "local_test_summary": {
+    "passed": 5,
+    "failed": 0,
+    "fuzz_runs": 256
+  },
+  "bytecode_sizes": {
+    "creation_bytes": 327,
+    "runtime_bytes": 296
+  },
+  "simulation_summary": {
+    "outcome": "OBSERVED",
+    "preflight_outcome": "PASS",
+    "block": "0x8f1f23",
+    "block_decimal": "9379619",
+    "runtime_matches_compiled_artifact": true,
+    "same_block_hash_at_recheck": true,
+    "gas_estimate": "116739",
+    "gas_price_base_units_per_gas": "7",
+    "quoted_fee_base_units": "817173",
+    "quoted_fee_qie": "0.000000000000817173"
+  },
+  "review_path": "docs/deployment/counter-testnet-review.json",
+  "review_sha256": "aafb1ff8d7c4804f7daeff33810c53f73e6fdf9b8eda80b2d9868329347a308c",
+  "evidence_replay_sha256": "3420980cee7a54d0019fd6abb554013aca4c294525455ef0b0e56f8df78504cb"
+}

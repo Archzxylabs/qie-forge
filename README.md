@@ -22,6 +22,8 @@ Current candidate evidence is recorded in the [release results](docs/evidence/qi
 
 Read-only QIE testnet checks were captured on 2026-10-26: RPC2 returned the documented chain ID and advancing blocks, while RPC1 and RPC3 were unavailable from the capture machine. The [testnet observation report](docs/results/qie-testnet-readonly-2026-10-26.md) retains each attempt, command, exit code and artifact hash. These observations do not promote canonical claims or qualify deployment or wallet compatibility. Automated tests and install checks continue to use injected mock transports; live RPC checks remain separate from CI.
 
+The [Counter testnet preparation](docs/results/counter-testnet-preparation-2026-10-26.md) adds compiled ABI/initcode/runtime artifacts and a read-only creation simulation whose returned runtime matches the compiled contract. Its [unsigned deployment review](docs/deployment/counter-testnet-review.json) remains `BLOCKED` until a developer-controlled account, actual-signer estimate, fee limits and submission path are established. The simulation is not a deployed reference application.
+
 ## Develop and verify
 
 New to this checkout? Follow the [developer quickstart](docs/quickstart.md) for the tested toolchain acquisition path, exact commands and recovery steps. The implementation record for the earlier slice is in [docs/results/developer-experience-slice.md](docs/results/developer-experience-slice.md); the remediation record is in [docs/results/developer-experience-remediation.md](docs/results/developer-experience-remediation.md).
