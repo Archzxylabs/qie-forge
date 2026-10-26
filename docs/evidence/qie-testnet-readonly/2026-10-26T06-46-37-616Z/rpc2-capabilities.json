@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "network_id": "qie-testnet",
+  "endpoint": "https://rpc2testnet.qie.digital/",
+  "endpoint_source": "explicit-override",
+  "expected_chain_id": 1983,
+  "checked_at": "2026-10-26T06:50:23.929Z",
+  "observed": {
+    "chain_id": 1983,
+    "latest_block": 9379003
+  },
+  "requests": [
+    {
+      "method": "eth_chainId",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x7bf"
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "object"
+    },
+    {
+      "method": "eth_blockNumber",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x8f1cbb"
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "object"
+    },
+    {
+      "method": "eth_getBalance",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x4563918244f40000"
+    },
+    {
+      "method": "eth_getCode",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x"
+    },
+    {
+      "method": "eth_call",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x"
+    },
+    {
+      "method": "eth_getLogs",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "array(0)"
+    },
+    {
+      "method": "eth_getTransactionByHash",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "null"
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "null"
+    },
+    {
+      "method": "eth_feeHistory",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "object"
+    },
+    {
+      "method": "eth_gasPrice",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x7"
+    },
+    {
+      "method": "eth_getTransactionCount",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x0"
+    },
+    {
+      "method": "eth_getStorageAt",
+      "outcome": "OBSERVED",
+      "error_code": null,
+      "result_shape": "0x0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "warnings": [
+    "This is a bounded read-only observation. It never promotes a canonical capability status.",
+    "No fallback endpoint or other network is attempted.",
+    "Method success with synthetic zero-address parameters does not prove application-specific compatibility."
+  ],
+  "outcome": "OBSERVED",
+  "reason": "Selected network identity and latest block matched; 14 bounded read-only requests were attempted."
+}

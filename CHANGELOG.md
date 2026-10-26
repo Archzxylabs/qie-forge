@@ -2,6 +2,11 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Read-only testnet observations — 2026-10-26
+
+- Record real QIE EVM testnet identity, block progression and bounded read-only method observations on the officially documented RPC2 endpoint, preserving RPC1 and RPC3 failures alongside the passing observations.
+- Retain timestamped reports, commands, exit codes, input fingerprints and artifact checksums in [the testnet observation report](docs/results/qie-testnet-readonly-2026-10-26.md); canonical statuses remain unchanged.
+
 ## Dependency security maintenance — 2026-10-26
 
 - Update AJV's transitive `fast-uri` dependency from `3.1.8` to `3.1.9`, which patches four URI parsing and normalization advisories (two medium, two low).

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "network_id": "qie-testnet",
+  "expected_chain_id": 1983,
+  "endpoint": "https://rpc1testnet.qie.digital/",
+  "endpoint_source": "packaged-documented",
+  "rpc_host": "rpc1testnet.qie.digital",
+  "observed": {
+    "chain_id": null,
+    "chain_id_hex": null,
+    "latest_block": null,
+    "latest_block_hex": null,
+    "latest_block_timestamp": null
+  },
+  "effective_claims": [
+    {
+      "claim_id": "qie-testnet.chain_id",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    },
+    {
+      "claim_id": "qie-testnet.explorer_url",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    },
+    {
+      "claim_id": "qie-testnet.faucet_url",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    },
+    {
+      "claim_id": "qie-testnet.native_symbol",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    },
+    {
+      "claim_id": "qie-testnet.network_name",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    },
+    {
+      "claim_id": "qie-testnet.rpc_url",
+      "status": "DOCUMENTED",
+      "reason": "Stored evidence level; no live check or evidence promotion."
+    }
+  ],
+  "live_check": {
+    "outcome": "UNKNOWN",
+    "error_code": "RPC_UNAVAILABLE",
+    "reason": "RPC request failed or timed out within 10000 ms: The operation was aborted due to timeout No fallback endpoint or network was attempted."
+  },
+  "checked_at": "2026-10-26T06:46:37.671Z",
+  "warnings": [
+    "A live observation never promotes a packaged claim or capability status.",
+    "No reviewed freshness threshold exists for QIE block heights, so block freshness is reported but never claimed."
+  ]
+}

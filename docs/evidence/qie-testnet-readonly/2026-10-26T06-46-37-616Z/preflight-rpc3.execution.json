@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "skills/qie-networks/scripts/verify-network.mjs",
+    "qie-testnet",
+    "--rpc",
+    "https://rpc3testnet.qie.digital/"
+  ],
+  "started_at": "2026-10-26T06:49:20.826Z",
+  "finished_at": "2026-10-26T06:49:21.010Z",
+  "exit_code": 1,
+  "signal": null
+}

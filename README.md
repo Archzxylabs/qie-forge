@@ -20,7 +20,7 @@ The generated suite in this working tree is the `0.6.0-ecosystem.1` candidate wi
 
 Current candidate evidence is recorded in the [release results](docs/evidence/qie-knowledge-release-results.md). Follow the [B09-first integration order](docs/implementation/qie-knowledge-expansion.md#pull-request-integration-order): review PR #1 before integrating PR #2, preserve the combined engineering gates, and rerun them after rebasing. CI acceptance must cover the current PR head; a successful run on an earlier commit does not certify later changes.
 
-No live network check has been run against a real QIE endpoint. The diagnostic helpers are exercised in tests and install checks exclusively against injected mock transports; their output is always framed as an observation, never as new evidence or a status promotion.
+Read-only QIE testnet checks were captured on 2026-10-26: RPC2 returned the documented chain ID and advancing blocks, while RPC1 and RPC3 were unavailable from the capture machine. The [testnet observation report](docs/results/qie-testnet-readonly-2026-10-26.md) retains each attempt, command, exit code and artifact hash. These observations do not promote canonical claims or qualify deployment or wallet compatibility. Automated tests and install checks continue to use injected mock transports; live RPC checks remain separate from CI.
 
 ## Develop and verify
 

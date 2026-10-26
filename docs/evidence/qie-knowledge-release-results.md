@@ -27,6 +27,8 @@
 | Live QIE RPC probe | NOT_RUN | Explicitly omitted from offline release gates. |
 | Real coding-agent golden tasks | PARTIAL | OpenCode completed QUSDC, Lending and wallet tasks; Codex completed the address-gate task. Codex mirror tasks 1, 2 and 4 stopped on provider quota before final reports. See task-level evidence below. |
 
+Subsequent live observations are recorded separately in the [2026-10-26 testnet report](../results/qie-testnet-readonly-2026-10-26.md). They do not change the historical `NOT_RUN` RPC result in these offline release gates or promote any canonical capability status.
+
 ## Installation and rollback boundary
 
 The existing B09 installer/verifier architecture is preserved. The release identity changes because payload content changed; historical B08/B09 identities are not retroactively altered. Installation and rollback are covered by the 20 fixture suite; owner review must still resolve the B09-first PR order before merge.

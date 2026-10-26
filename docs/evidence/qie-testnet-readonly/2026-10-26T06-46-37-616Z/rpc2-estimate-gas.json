@@ -1,0 +1,19 @@
+{
+  "network_id": "qie-testnet",
+  "endpoint": "https://rpc2testnet.qie.digital/",
+  "checked_at": "2026-10-26T06:53:53.843Z",
+  "method": "eth_estimateGas",
+  "params": [
+    {
+      "from": "0x0000000000000000000000000000000000000000",
+      "to": "0x0000000000000000000000000000000000000000",
+      "data": "0x"
+    }
+  ],
+  "preflight_checked_at": "2026-10-26T06:53:52.732Z",
+  "outcome": "OBSERVED",
+  "error_code": null,
+  "result_hex": "0x5208",
+  "result_gas_units": "21000",
+  "warning": "Synthetic zero-value empty-data estimation only; no deployment, contract-specific compatibility or fee budget is established."
+}
