@@ -6,7 +6,7 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 
 - **Release version:** `0.6.0-ecosystem.1` (working-tree candidate; not published)
 - **Schema version:** `1.4.0` (integration records are additive)
-- **Release identity:** `420cded32a598d9aa64cd816391aec5b125c6759837ff350f54eaddd2442103b`
+- **Release identity:** `838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309`
 - **Scope:** source-grounded QUSDC and QIE Lending intelligence, token accounting, QIE Wallet/RPC integration guidance, Oracle/DEX/Bridge/ID/Pass/native/indexing boundaries, shared address identity gate and seven new reusable recipes.
 - **Safety:** source-published address candidates are retained as CLAIMED discovery records unless technical sources genuinely disagree; all integration, interface and operation records are fail-closed with `execution_allowed: false`; no QIE RPC write, signer, bridge transfer or live wallet action was run.
 - **Evidence:** see [source inventory](docs/research/qie-ecosystem-source-inventory.md), [QUSDC review](docs/research/qusdc-protocol-review.md), [Lending review](docs/research/qie-lending-protocol-review.md), [golden-task evaluation](docs/evidence/qie-knowledge-golden-tasks.md) and [release results](docs/evidence/qie-knowledge-release-results.md).
