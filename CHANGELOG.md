@@ -2,6 +2,11 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Dependency security maintenance — 2026-10-26
+
+- Update AJV's transitive `fast-uri` dependency from `3.1.8` to `3.1.9`, which patches four URI parsing and normalization advisories (two medium, two low).
+- Add `npm run audit:security` and a separate CI dependency-audit job covering production and development dependencies, with a low-or-higher failure threshold.
+
 ## QIE ecosystem intelligence expansion — 2026-10-24
 
 - **Release version:** `0.6.0-ecosystem.1` (working-tree candidate; not published)

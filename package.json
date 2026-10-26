@@ -8,6 +8,7 @@
   },
   "packageManager": "npm@11.19.0",
   "scripts": {
+    "audit:security": "npm audit --include=dev --audit-level=low",
     "build": "node scripts/build-skill-release.mjs",
     "build:check": "node scripts/build-skill-release.mjs --check",
     "validate": "node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs",

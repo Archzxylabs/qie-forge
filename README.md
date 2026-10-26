@@ -44,6 +44,8 @@ npm run example:build
 npm run test:browser
 ```
 
+`npm run audit:security` checks production and development dependencies against the npm registry and fails on advisories rated low or higher. CI runs this online check in a separate **Audit dependencies** job alongside the engineering gates.
+
 Install the browser once with `npx playwright install --with-deps --no-shell chromium`. Regenerate owned output only with `npm run build` and `npm run example:prepare`; never hand-edit `skills/` or the generated Counter asset.
 
 `npm run verify:b09-evidence` re-executes the eight B09 gates in order, writes the complete logs to `docs/evidence/b09/`, and fails when `docs/b09-results.md` quotes numbers the run did not produce. `npm run verify:evidence` remains the preserved B08 evidence generator and is bound to the historical B08 report figures; it is not the B09 evidence path.
