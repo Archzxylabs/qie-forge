@@ -13,13 +13,15 @@ type WalletFixture = {
   callResult: string;
   delayCall: boolean;
   pendingCall: (() => void) | null;
-  emit(event: string): void;
+  emit(event: string, ...args: unknown[]): void;
 };
 
 declare global {
   interface Window {
     __wallet?: WalletFixture;
+    __otherWalletCalls?: string[];
     ethereum?: unknown;
+    qie?: unknown;
   }
 }
 
@@ -73,8 +75,8 @@ async function installWallet(page: Page): Promise<void> {
       removeListener(event: string, listener: (...args: unknown[]) => void): void {
         listeners.get(event)?.delete(listener);
       },
-      emit(event: string): void {
-        for (const listener of listeners.get(event) ?? []) listener();
+      emit(event: string, ...args: unknown[]): void {
+        for (const listener of listeners.get(event) ?? []) listener(...args);
       },
     };
     window.__wallet = wallet;
@@ -94,6 +96,41 @@ async function connect(page: Page): Promise<void> {
 async function expectConnected(page: Page): Promise<void> {
   await expect(page.locator('#phase')).toHaveText('Connected');
   await expect(page.locator('#account')).toHaveText(ACCOUNT);
+}
+
+async function installCompetingWallet(page: Page, options: {
+  qieGlobal?: boolean;
+  announcement?: 'immediate' | 'on-request';
+}): Promise<void> {
+  await page.evaluate(({ qieGlobal, announcement }) => {
+    const qieProvider = window.ethereum;
+    window.__otherWalletCalls = [];
+    window.ethereum = {
+      async request({ method }: { method: string }): Promise<unknown> {
+        window.__otherWalletCalls?.push(method);
+        if (method === 'eth_chainId') return '0x1';
+        throw new Error('The competing wallet must not receive account or read requests.');
+      },
+      on(): void {},
+      removeListener(): void {},
+    };
+    if (qieGlobal) window.qie = qieProvider;
+    const announce = (): void => {
+      window.dispatchEvent(new CustomEvent('eip6963:announceProvider', {
+        detail: {
+          info: {
+            uuid: '69636963-6963-4963-8963-696369636963',
+            rdns: 'me.qiewallet',
+            name: 'QIE Wallet fixture',
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>',
+          },
+          provider: qieProvider,
+        },
+      }));
+    };
+    if (announcement === 'immediate') announce();
+    if (announcement === 'on-request') window.addEventListener('eip6963:requestProvider', announce);
+  }, options);
 }
 
 test.beforeEach(async ({ page }) => {
@@ -122,6 +159,85 @@ test('connects only after an explicit user action', async ({ page }) => {
   const calls = await page.evaluate(() => window.__wallet?.calls ?? []);
   expect(calls).toContain('eth_requestAccounts');
   expect(calls[0]).toBe('eth_chainId');
+});
+
+test('an announced QIE provider is selected while another wallet owns window.ethereum', async ({ page }) => {
+  await installCompetingWallet(page, { announcement: 'immediate' });
+  await chooseInjected(page);
+  expect(await page.evaluate(() => window.__wallet?.calls)).toEqual([]);
+  await connect(page);
+  await expectConnected(page);
+  await page.getByRole('button', { name: 'Read counter value' }).click();
+  await expect(page.locator('#value')).toHaveText('42 (uint256)');
+  expect(await page.evaluate(() => window.__otherWalletCalls)).toEqual([]);
+});
+
+test('window.qie is preferred over a competing legacy provider', async ({ page }) => {
+  await installCompetingWallet(page, { qieGlobal: true });
+  await chooseInjected(page);
+  await connect(page);
+  await expectConnected(page);
+  expect(await page.evaluate(() => window.__otherWalletCalls)).toEqual([]);
+});
+
+test('Connect requests QIE discovery when its initial announcement was missed', async ({ page }) => {
+  await installCompetingWallet(page, { announcement: 'on-request' });
+  await chooseInjected(page);
+  expect(await page.evaluate(() => window.__wallet?.calls)).toEqual([]);
+  await connect(page);
+  await expectConnected(page);
+  expect(await page.evaluate(() => window.__otherWalletCalls)).toEqual([]);
+});
+
+test('malformed and unrelated announcements preserve the usable legacy fallback', async ({ page }) => {
+  await page.evaluate(() => {
+    window.qie = { request: async () => [] };
+    for (const detail of [
+      null,
+      { info: { rdns: 'me.qiewallet' }, provider: null },
+      { info: { rdns: 'me.qiewallet' }, provider: window.qie },
+      {
+        info: { rdns: 'other.wallet' },
+        provider: {
+          async request(): Promise<never> { throw new Error('An unrelated announcement must not replace the legacy selection.'); },
+          on(): void {},
+          removeListener(): void {},
+        },
+      },
+    ]) window.dispatchEvent(new CustomEvent('eip6963:announceProvider', { detail }));
+  });
+  await chooseInjected(page);
+  await connect(page);
+  await expectConnected(page);
+});
+
+test('missing providers expose the supplied QIE Wallet installation listing', async ({ page }) => {
+  await page.evaluate(() => { delete window.ethereum; delete window.qie; });
+  await expect(page.locator('#wallet-install')).toBeHidden();
+  await chooseInjected(page);
+  await connect(page);
+  await expect(page.locator('#error-code')).toHaveText('Code: PROVIDER_MISSING');
+  await expect(page.getByRole('link', { name: 'Install QIE Wallet' })).toBeVisible();
+  await expect(page.locator('#wallet-install')).toHaveAttribute('href', /\/oljchdcgmibnjbbopolafbjncfhdacjb$/);
+  expect(await page.evaluate(() => window.__wallet?.calls)).toEqual([]);
+  await expect(page.locator('#phase')).toHaveText('Disconnected');
+});
+
+test('QIE-style accountsChanged with an empty array disconnects and clears the read', async ({ page }) => {
+  await installCompetingWallet(page, { qieGlobal: true });
+  await chooseInjected(page);
+  await connect(page);
+  await page.getByRole('button', { name: 'Read counter value' }).click();
+  await expect(page.locator('#value')).toHaveText('42 (uint256)');
+  await page.evaluate(() => {
+    if (window.__wallet) window.__wallet.accounts = [];
+    window.__wallet?.emit('accountsChanged', []);
+  });
+  await expect(page.locator('#phase')).toHaveText('Disconnected');
+  await expect(page.locator('#account')).toHaveText('Not connected');
+  await expect(page.locator('#value')).toHaveText('—');
+  await expect(page.locator('#read')).toBeDisabled();
+  expect(await page.evaluate(() => window.__otherWalletCalls)).toEqual([]);
 });
 
 test('rejects a wrong-chain wallet, clears state and offers a deliberate retry', async ({ page }) => {

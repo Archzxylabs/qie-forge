@@ -44,7 +44,11 @@ Select **Injected wallet (real provider)**, choose QIE testnet or mainnet, paste
 - renders all wallet- and provider-derived values with `textContent`, never HTML;
 - never signs or broadcasts a transaction.
 
-No contract is deployed by this example and no address is invented for real mode. If no injected provider is present, the app reports that and suggests either enabling a wallet or deliberately selecting the mock. It does not fall back automatically.
+Provider discovery follows the [QIE wallet guide](https://docs.qie.digital/qie-wallet-integration-guide-for-websites): a usable EIP-6963 announcement with `rdns: me.qiewallet` takes priority, followed by `window.qie`, then the legacy `window.ethereum` provider. The app listens for announcements throughout the page lifetime and requests re-announcement when the user clicks Connect. Discovery does not request accounts or connect automatically, and a new announcement does not replace an already bound session. Provider metadata is a discovery hint; it does not establish wallet authenticity or tested capabilities.
+
+The supplied [QIE Wallet listing](https://chromewebstore.google.com/detail/oljchdcgmibnjbbopolafbjncfhdacjb) matches source S19's extension ID. Enable **Testnet** in QIE Wallet settings before selecting QIE testnet. Open the app through the local development server or HTTPS so the extension can inject its provider.
+
+You can click Connect before entering a Counter address to select an account and display its public address. Enter a deployed Counter address before reading. Changing that address clears the session, so connect again deliberately after setting it. No contract is deployed by this example and no address is invented for real mode. If no usable injected provider is present, the error offers the QIE Wallet installation link; mock mode remains an explicit user choice.
 
 ## Browser checks
 
@@ -53,7 +57,7 @@ npx playwright install --with-deps --no-shell chromium
 npm run test:browser
 ```
 
-The 16 checks use a deterministic injected-provider fixture (`window.ethereum`) plus a no-wallet mock test. They verify: no automatic account request; explicit connect; wrong-chain rejection and rejection recovery; missing/invalid-address feedback without a session retry; safe recovery after correcting the address; failed-read recovery; successful read; account/chain/disconnect invalidation; late-result discard for reads and connections; address-change invalidation and stale-value clearing; malformed-read clearing; and mock labelling. They do **not** prove compatibility with any real wallet or QIE RPC endpoint.
+The 22 checks use deterministic provider fixtures plus a no-wallet mock test. They retain the original connection, chain, read, invalidation, recovery and mock-labelling coverage, and add six cases: QIE announcements alongside a competing legacy wallet; `window.qie` priority; discovery on Connect after a missed announcement; malformed/unrelated announcements and legacy fallback; the supplied installation link when providers are missing; and QIE-style site disconnection through `accountsChanged([])`. They do **not** prove compatibility with an installed extension or a real wallet/version/network combination.
 
 ## Type checking
 

@@ -79,7 +79,7 @@
   ],
   "approvalState": "NOT_REQUESTED",
   "blockers": [
-    "Actual developer-controlled wallet account and provider/version have not been selected.",
+    "The actual wallet account is not connected and the installed QIE Wallet version has not been observed.",
     "Nonce, balance and a fresh creation simulation/gas quote for the actual signer are missing.",
     "Transaction fee mode, gas limit and maximum spend have not been reviewed and approved.",
     "A wallet/provider submission path has not been qualified for this action."
@@ -87,7 +87,12 @@
   "signerSelection": {
     "mode": "developer-controlled-injected-EIP1193",
     "status": "NOT_CONNECTED",
-    "account": null
+    "account": null,
+    "preferredWallet": "QIE Wallet",
+    "extensionId": "oljchdcgmibnjbbopolafbjncfhdacjb",
+    "installationUrl": "https://chromewebstore.google.com/detail/oljchdcgmibnjbbopolafbjncfhdacjb",
+    "discoveryRdns": "me.qiewallet",
+    "providerVersion": null
   },
   "unsignedTransaction": {
     "chainId": "0x7bf",
@@ -115,5 +120,6 @@
     "Establish the actual explorer source-verification path and result.",
     "Retain UNKNOWN finality until a reviewed QIE finality policy and relevant evidence exist."
   ],
-  "canonicalStatusPromotion": false
+  "canonicalStatusPromotion": false,
+  "updatedAt": "2026-10-26T10:11:12.687Z"
 }

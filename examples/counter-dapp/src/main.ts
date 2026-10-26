@@ -32,6 +32,8 @@ const modeSelect = element<HTMLSelectElement>('mode');
 const networkSelect = element<HTMLSelectElement>('network');
 const addressInput = element<HTMLInputElement>('address');
 const addressHint = element<HTMLParagraphElement>('address-hint');
+const walletHint = element<HTMLParagraphElement>('wallet-hint');
+const walletInstall = element<HTMLAnchorElement>('wallet-install');
 const connectButton = element<HTMLButtonElement>('connect');
 const readButton = element<HTMLButtonElement>('read');
 const retryButton = element<HTMLButtonElement>('retry');
@@ -196,6 +198,8 @@ function render(): void {
   valueOutput.textContent = state.value !== null ? `${state.value.toString()} (uint256)` : '—';
 
   addressInput.disabled = mock;
+  walletHint.hidden = mock;
+  walletInstall.hidden = mock || code !== 'PROVIDER_MISSING';
   addressHint.textContent = mock
     ? 'Mock mode uses a labelled synthetic fixture address; no contract is deployed and no RPC is contacted.'
     : 'Paste the deployed Counter address for the selected QIE network. The session fails closed on a wrong chain.';

@@ -97,7 +97,7 @@ npm run example:build
 npm run test:browser
 ```
 
-`--no-shell` matches the example's `channel: 'chromium'` configuration; it installs the full Chromium build, not the headless shell. Expected browser result for this remediation cut: **16 passed**.
+`--no-shell` matches the example's `channel: 'chromium'` configuration; it installs the full Chromium build, not the headless shell. Expected browser result for the current candidate: **22 passed**. The earlier [developer-experience remediation](results/developer-experience-remediation.md) retains its historical 16-test result.
 
 `npm run build:check` and `npm run example:prepare:check` must run against the checkout as committed. They fail instead of rewriting files. `npm run build` and `npm run example:prepare` are the explicit regeneration commands.
 
@@ -112,10 +112,12 @@ Open the printed URL. The default **Mock demonstration** mode is deliberately la
 
 To exercise **Injected wallet** mode:
 
-1. Select `Injected wallet (real provider)`.
-2. Select QIE testnet or mainnet.
-3. Paste the deployed Counter contract address for that network.
-4. Click **Connect**, approve the request in the wallet, then click **Read counter value**.
+1. Enable the [QIE Wallet extension](https://chromewebstore.google.com/detail/oljchdcgmibnjbbopolafbjncfhdacjb) in the browser profile. Enable its Testnet setting when using QIE testnet.
+2. Select `Injected wallet (real provider)` and the intended QIE network in the app.
+3. Click **Connect** and approve account access in the wallet. The connected public address is displayed even before a Counter address is configured.
+4. To read a deployed Counter, enter its address for the selected network. Changing the address clears the old session; Connect again, then click **Read counter value**.
+
+The app prefers QIE Wallet's EIP-6963 announcement, then `window.qie`, then the legacy `window.ethereum` provider. Missing providers produce an installation link. Discovery stays separate from account permission requests.
 
 The session rejects a wrong chain, clears account and value on `accountsChanged`, `chainChanged` and `disconnect`, invalidates on a changed contract address, discards late in-flight results, and fails closed when no injected provider exists. It never falls back to mock mode. No transaction is signed or broadcast. An invalid or missing address is reported as an input error without replacing a ready session: **Retry connection** is not offered, the address field is focused, and changing the target disconnects and clears the old value. Correct the address, then connect and read again deliberately.
 

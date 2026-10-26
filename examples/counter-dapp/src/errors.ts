@@ -43,7 +43,7 @@ export function describeError(code: string, expectedChainId: bigint): FailureCop
     case 'PROVIDER_MISSING':
       return {
         title: 'No injected EIP-1193 provider was found.',
-        recovery: 'Enable an EIP-1193 wallet in this browser profile, or select the labelled mock demonstration. Real mode never falls back to mock automatically.',
+        recovery: 'Enable QIE Wallet or another EIP-1193 wallet in this browser profile and open the app over HTTPS or localhost, then use Connect. You can also select the labelled mock demonstration deliberately.',
       };
     case 'INVALID_ADDRESS':
       return {

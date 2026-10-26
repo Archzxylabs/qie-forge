@@ -56,7 +56,7 @@ Install the browser once with `npx playwright install --with-deps --no-shell chr
 
 ## Counter reference app
 
-[`examples/counter-dapp`](examples/counter-dapp/README.md) is a small read-only app that imports the canonical wallet-read controller and packaged network snapshot instead of copying them. Its ABI/selector asset is generated from the single canonical Counter source in `recipes/build-test/assets` by `npm run example:prepare`. The default mode is a clearly labelled deterministic mock; injected-wallet mode is explicit, requires a configured contract address, rejects a wrong chain, invalidates on wallet events and address changes, discards late results and never signs or broadcasts. See the [quickstart](docs/quickstart.md#4-run-the-counter-reference-app) for commands and the mock/local/live boundary.
+[`examples/counter-dapp`](examples/counter-dapp/README.md) is a small read-only app that imports the canonical wallet-read controller and packaged network snapshot instead of copying them. Its ABI/selector asset is generated from the single canonical Counter source in `recipes/build-test/assets` by `npm run example:prepare`. The default mode is a clearly labelled deterministic mock. Injected-wallet mode discovers QIE Wallet through EIP-6963 or `window.qie` before the legacy `window.ethereum` fallback; Connect displays the selected account, and reads require a configured contract address. The session rejects a wrong chain, invalidates on wallet events and address changes, discards late results and never signs or broadcasts. See the [quickstart](docs/quickstart.md#4-run-the-counter-reference-app) for commands and the [wallet discovery results](docs/results/qie-wallet-discovery-2026-10-26.md) for the tested scope.
 
 
 ## Install the skills

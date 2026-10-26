@@ -2,6 +2,12 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## QIE Wallet discovery — 2026-10-26
+
+- Prefer QIE Wallet's EIP-6963 announcement and `window.qie` over a competing legacy provider, with re-announcement on explicit Connect and provider-shape checks.
+- Add the supplied Chrome Web Store listing to the missing-provider recovery path and document QIE Wallet's Testnet setting.
+- Expand deterministic browser coverage from 16 to 22 cases, including multiple wallets and `accountsChanged([])` disconnection; see [wallet discovery results](docs/results/qie-wallet-discovery-2026-10-26.md).
+
 ## Counter testnet preparation — 2026-10-26
 
 - Capture pinned offline Counter build/test results, ABI, creation/runtime bytecode and a standard JSON compiler input with matching bytecode output.
