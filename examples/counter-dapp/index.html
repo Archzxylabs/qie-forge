@@ -69,10 +69,11 @@
       </section>
 
       <p class="note" id="real-mode-note">
-        Injected-wallet mode requires a developer-selected EIP-1193 provider and an explicitly
-        configured Counter address. It has not been exercised against an actual wallet or QIE
-        endpoint by this repository's checks; browser tests use deterministic fixtures. No
-        transaction is signed or broadcast. A local chain is not accepted as QIE.
+        Injected-wallet mode connects through the selected EIP-1193 provider and displays the
+        public account. Contract reads require an explicitly configured Counter address.
+        Browser tests use deterministic fixtures; actual extension compatibility remains
+        unverified. This app never signs or broadcasts transactions. A local chain is not
+        accepted as QIE.
       </p>
     </main>
     <script type="module" src="/src/main.ts"></script>
