@@ -1,0 +1,364 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Instruction and skill projection matrix for coding agents. The canonical .agents/skills installation is shared by every agent whose skillsDir is .agents/skills. Agent-specific entries only add instruction files or a non-shared skills projection.",
+  "canonical": {
+    "id": "universal",
+    "label": "Universal .agents/skills",
+    "cli_agent": "universal",
+    "project_skills": ".agents/skills",
+    "global_skills": "~/.agents/skills",
+    "detect": [],
+    "instructions": [
+      {
+        "path": "AGENTS.md",
+        "format": "markdown",
+        "body": "full"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "id": "opencode",
+      "label": "OpenCode",
+      "cli_agent": "opencode",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".opencode",
+        "opencode.json",
+        "opencode.jsonc"
+      ],
+      "instructions": [
+        {
+          "path": "AGENTS.md",
+          "format": "markdown",
+          "body": "full"
+        },
+        {
+          "path": "opencode.jsonc",
+          "format": "opencode-config",
+          "template": "opencode.jsonc",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "cli_agent": "claude-code",
+      "project_skills": ".claude/skills",
+      "global_skills": "~/.claude/skills",
+      "detect": [
+        ".claude",
+        "CLAUDE.md"
+      ],
+      "instructions": [
+        {
+          "path": "CLAUDE.md",
+          "format": "markdown",
+          "body": "import-agents"
+        }
+      ]
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "cli_agent": "codex",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".codex"
+      ],
+      "instructions": [
+        {
+          "path": "AGENTS.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "cli_agent": "cursor",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".cursor",
+        ".cursorrules"
+      ],
+      "instructions": [
+        {
+          "path": ".cursor/rules/qie-forge.mdc",
+          "format": "cursor-rule",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "gemini-cli",
+      "label": "Gemini CLI",
+      "cli_agent": "gemini-cli",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".gemini",
+        "GEMINI.md"
+      ],
+      "instructions": [
+        {
+          "path": "GEMINI.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "github-copilot",
+      "label": "GitHub Copilot",
+      "cli_agent": "github-copilot",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".github/copilot-instructions.md",
+        ".github/instructions"
+      ],
+      "instructions": [
+        {
+          "path": ".github/copilot-instructions.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "windsurf",
+      "label": "Windsurf",
+      "cli_agent": "windsurf",
+      "project_skills": ".windsurf/skills",
+      "global_skills": "~/.codeium/windsurf/skills",
+      "detect": [
+        ".windsurf",
+        ".windsurfrules"
+      ],
+      "instructions": [
+        {
+          "path": ".windsurf/rules/qie-forge.md",
+          "format": "windsurf-rule",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "cline",
+      "label": "Cline",
+      "cli_agent": "cline",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".clinerules",
+        ".cline"
+      ],
+      "instructions": [
+        {
+          "path": ".clinerules/qie-forge.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "roo",
+      "label": "Roo Code",
+      "cli_agent": "roo",
+      "project_skills": ".roo/skills",
+      "global_skills": "~/.roo/skills",
+      "detect": [
+        ".roo"
+      ],
+      "instructions": [
+        {
+          "path": ".roo/rules/qie-forge.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "kiro-cli",
+      "label": "Kiro CLI",
+      "cli_agent": "kiro-cli",
+      "project_skills": ".kiro/skills",
+      "global_skills": "~/.kiro/skills",
+      "detect": [
+        ".kiro"
+      ],
+      "instructions": [
+        {
+          "path": ".kiro/steering/qie-forge.md",
+          "format": "kiro-steering",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "qwen-code",
+      "label": "Qwen Code",
+      "cli_agent": "qwen-code",
+      "project_skills": ".qwen/skills",
+      "global_skills": "~/.qwen/skills",
+      "detect": [
+        ".qwen",
+        "QWEN.md"
+      ],
+      "instructions": [
+        {
+          "path": "QWEN.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "continue",
+      "label": "Continue",
+      "cli_agent": "continue",
+      "project_skills": ".continue/skills",
+      "global_skills": "~/.continue/skills",
+      "detect": [
+        ".continue"
+      ],
+      "instructions": [
+        {
+          "path": ".continue/rules/qie-forge.md",
+          "format": "continue-rule",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "junie",
+      "label": "Junie",
+      "cli_agent": "junie",
+      "project_skills": ".junie/skills",
+      "global_skills": "~/.junie/skills",
+      "detect": [
+        ".junie"
+      ],
+      "instructions": [
+        {
+          "path": ".junie/guidelines.md",
+          "format": "markdown",
+          "body": "pointer"
+        }
+      ]
+    },
+    {
+      "id": "trae",
+      "label": "Trae",
+      "cli_agent": "trae",
+      "project_skills": ".trae/skills",
+      "global_skills": "~/.trae/skills",
+      "detect": [
+        ".trae"
+      ],
+      "instructions": [
+        {
+          "path": ".trae/rules/project_rules.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "amazon-q",
+      "label": "Amazon Q Developer",
+      "cli_agent": null,
+      "project_skills": null,
+      "global_skills": null,
+      "detect": [
+        ".amazonq"
+      ],
+      "instructions": [
+        {
+          "path": ".amazonq/rules/qie-forge.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ],
+      "notes": "The pinned Skills CLI has no Amazon Q target. The rules file is installed, but QIE skills remain in .agents/skills and must be discoverable by the host."
+    },
+    {
+      "id": "goose",
+      "label": "Goose",
+      "cli_agent": "goose",
+      "project_skills": ".goose/skills",
+      "global_skills": "~/.config/goose/skills",
+      "detect": [
+        ".goose",
+        ".goosehints"
+      ],
+      "instructions": [
+        {
+          "path": ".goosehints",
+          "format": "markdown",
+          "body": "pointer"
+        }
+      ]
+    },
+    {
+      "id": "aider",
+      "label": "Aider",
+      "cli_agent": null,
+      "project_skills": null,
+      "global_skills": null,
+      "detect": [
+        ".aider.conf.yml",
+        ".aider",
+        "CONVENTIONS.md"
+      ],
+      "instructions": [
+        {
+          "path": "CONVENTIONS.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ],
+      "notes": "Aider does not auto-load CONVENTIONS.md. Run `aider --read CONVENTIONS.md` or add `read: CONVENTIONS.md` to .aider.conf.yml."
+    },
+    {
+      "id": "openhands",
+      "label": "OpenHands",
+      "cli_agent": "openhands",
+      "project_skills": ".openhands/skills",
+      "global_skills": "~/.openhands/skills",
+      "detect": [
+        ".openhands"
+      ],
+      "instructions": [
+        {
+          "path": "AGENTS.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    },
+    {
+      "id": "zed",
+      "label": "Zed",
+      "cli_agent": "zed",
+      "project_skills": ".agents/skills",
+      "global_skills": "~/.agents/skills",
+      "detect": [
+        ".zed"
+      ],
+      "instructions": [
+        {
+          "path": "AGENTS.md",
+          "format": "markdown",
+          "body": "full"
+        }
+      ]
+    }
+  ]
+}

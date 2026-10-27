@@ -2,6 +2,13 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Agent-agnostic consumer bootstrap — 2026-10-27
+
+- Add `scripts/bootstrap-consumer.mjs`, a wrapper around the pinned Skills CLI that installs the canonical `.agents/skills` suite plus agent-specific projections, writes managed instruction blocks for AGENTS.md-aware and native agent surfaces, and verifies the installed payload.
+- Add `templates/consumer/agents.json` with 19 curated agent entries plus the universal canonical entry, `templates/consumer/AGENTS.md` with mandatory routing, evidence, network and approval rules, and `templates/consumer/opencode.jsonc`.
+- Preserve existing instruction files and OpenCode config. Merging an existing OpenCode config requires `--merge-opencode-config` and creates a timestamped backup; comments are not preserved by that rewrite.
+- Add integration tests for universal and Claude Code installs, global mode, the curated matrix, dry-run, idempotency, existing-file preservation and JSONC merge behavior.
+
 ## QIE Wallet discovery — 2026-10-26
 
 - Prefer QIE Wallet's EIP-6963 announcement and `window.qie` over a competing legacy provider, with re-announcement on explicit Connect and provider-shape checks.

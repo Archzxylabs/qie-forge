@@ -61,6 +61,41 @@ Install the browser once with `npx playwright install --with-deps --no-shell chr
 
 ## Install the skills
 
+### Bootstrap for any coding agent
+
+The bootstrap wrapper installs the same pinned payload and adds agent-native
+instruction files. Build the release first (`npm run build`); the bootstrap
+validates the generated `skills/qie/SKILL.md` in the source. It always writes
+the canonical `.agents/skills` tree; agents with a separate project directory
+(Claude Code, Kiro CLI, Windsurf, Roo, Qwen Code, Continue, Junie, Trae, Goose,
+OpenHands) receive an additional projection.
+
+```sh
+node /absolute/path/to/QIE-FORGE/scripts/bootstrap-consumer.mjs \
+  --source /absolute/path/to/QIE-FORGE \
+  --target /path/to/consumer \
+  --agent auto \
+  --copy
+```
+
+`--agent auto` detects project agents. `--agent matrix` installs the curated
+matrix in `templates/consumer/agents.json`; `--agent '*'` passes `*` to the
+pinned Skills CLI and writes every curated instruction surface. Named agents
+can be combined. `--global` installs skills only. `--copy` is the default; use
+`--symlink` to request symlinked agent projections. The pinned CLI may copy
+instead when only one target directory is involved, and the report records both
+the requested and actual mode.
+
+The wrapper preserves existing instruction files with managed blocks, writes
+`opencode.jsonc` only when absent, and merges an existing OpenCode config only
+with `--merge-opencode-config` (timestamped backup; comments are lost).
+`--force` overwrites an existing OpenCode config after a timestamped backup.
+It runs the installed-release verifier with `--expect-suite` by default and
+structurally checks non-canonical projections. Use `--dry-run --json` to inspect
+the plan without writing.
+
+### Manual pinned install
+
 After building, run the existing, pinned Skills CLI from a separate consumer project. Replace the checkout path below with this checkout's absolute path:
 
 ```sh

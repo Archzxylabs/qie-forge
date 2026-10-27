@@ -17,6 +17,7 @@
     "test:coverage": "node --test --test-isolation=none --experimental-test-coverage --test-coverage-include='scripts/**' tests/*.test.mjs",
     "test:install": "node --test --test-isolation=none tests/installation.test.mjs",
     "doctor": "node scripts/doctor.mjs",
+    "bootstrap:consumer": "node scripts/bootstrap-consumer.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "example:prepare": "node scripts/prepare-counter-example.mjs",
     "example:prepare:check": "node scripts/prepare-counter-example.mjs --check",

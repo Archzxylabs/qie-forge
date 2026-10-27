@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // OpenCode already discovers .agents/skills from the project root. This
+  // explicit entry is optional and resolves from the active working directory.
+  "skills": ["./.agents/skills"],
+
+  // Load the repository bootstrap rules alongside discovered AGENTS.md files.
+  "instructions": ["./AGENTS.md"],
+
+  // Allow the QIE router and its topical skills without a prompt. Last matching
+  // rule wins, so keep more specific deny/ask rules below these entries.
+  "permissions": [
+    { "action": "skill", "resource": "qie", "effect": "allow" },
+    { "action": "skill", "resource": "qie-*", "effect": "allow" }
+  ]
+}

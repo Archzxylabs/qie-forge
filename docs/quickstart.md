@@ -123,12 +123,61 @@ The session rejects a wrong chain, clears account and value on `accountsChanged`
 
 The browser tests use a deterministic injected-provider fixture and a fixture-only mock adapter. They do **not** establish compatibility with any real wallet or QIE endpoint.
 
-## 5. Install the skills into a consumer project
+## 5. Bootstrap a consumer project for any coding agent
 
-The generated skills are installed with the pinned Skills CLI from a separate consumer directory. Replace the checkout path with the absolute path to this repository.
+The generated skills are installed with the pinned Skills CLI. Build the
+release first (`npm run build`) so the source contains `skills/qie/SKILL.md`.
+The bootstrap wrapper adds agent-native instruction files and a post-install
+verification step. Replace the checkout path with the absolute path to this
+repository.
 
 ```sh
 cd /path/to/consumer
+node /absolute/path/to/QIE-FORGE/scripts/bootstrap-consumer.mjs \
+  --source /absolute/path/to/QIE-FORGE \
+  --target . \
+  --agent auto \
+  --copy
+```
+
+`auto` always installs the canonical `.agents/skills` suite and adds every agent
+detected in the consumer project. Use `--agent matrix` to install the curated
+agent set in `templates/consumer/agents.json`, or `--agent '*'` to pass `*` to
+the pinned Skills CLI (every agent it supports). Named agents can be combined:
+`--agent claude-code --agent kiro-cli`. `--global` installs skills in the
+user-level directories and intentionally skips project instruction files.
+`--copy` is the default; use `--symlink` to request symlinked agent
+projections. The pinned CLI may copy instead when only one target directory is
+involved, and the JSON report records both the requested and actual mode.
+
+The bootstrap writes managed blocks, so existing `AGENTS.md`, `CLAUDE.md`,
+`GEMINI.md`, Cursor/Windsurf/Kiro/Continue rules, Copilot instructions and
+other agent files keep their content. It writes `opencode.jsonc` only when no
+OpenCode config exists; use `--merge-opencode-config` to merge QIE entries into
+an existing `opencode.json(c)` with a timestamped backup. `--force` overwrites
+an existing OpenCode config after a timestamped backup. Comments are not
+preserved by those rewrites.
+
+Verify the plan without writing anything first:
+
+```sh
+node /absolute/path/to/QIE-FORGE/scripts/bootstrap-consumer.mjs \
+  --source /absolute/path/to/QIE-FORGE \
+  --target . \
+  --agent matrix \
+  --dry-run --json
+```
+
+The default post-install check runs `scripts/verify-installed-release.mjs
+--expect-suite` against the canonical `.agents/skills` tree and structurally
+checks every non-canonical agent projection. This proves the installed payload
+and projection shape; it does **not** launch each agent or prove that a host
+loads its instruction file. Use `--no-verify` only when you are deliberately
+deferring that check.
+
+The pinned Skills CLI remains available for a manual install:
+
+```sh
 node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/path/to/QIE-FORGE --list
 node /absolute/path/to/QIE-FORGE/node_modules/skills/bin/cli.mjs add /absolute/path/to/QIE-FORGE \
   --skill qie-smart-contracts qie-wallets qie-networks \
