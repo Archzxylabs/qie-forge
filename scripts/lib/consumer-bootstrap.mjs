@@ -86,6 +86,12 @@ export function validateAgentMatrix(matrix) {
   if (!matrix.canonical || typeof matrix.canonical !== 'object') {
     throw new Error('Agent matrix is missing the canonical entry');
   }
+  if (matrix.canonical.id !== 'universal') {
+    throw new Error('Agent matrix canonical entry must use the id "universal"');
+  }
+  if (matrix.canonical.cli_agent !== 'universal') {
+    throw new Error('Agent matrix canonical entry must map to the CLI agent "universal"');
+  }
   if (!Array.isArray(matrix.agents) || matrix.agents.length === 0) {
     throw new Error('Agent matrix must contain at least one agent');
   }
