@@ -20,6 +20,7 @@ import {
   buildInstallArgs,
   expandHome,
   installSkills,
+  isRemoteSource,
   loadAgentMatrix,
   resolveSkillCli,
   selectAgents,
@@ -150,10 +151,12 @@ function parseArgs(argv) {
     throw new UsageError('--force and --merge-opencode-config cannot be combined');
   }
 
-  options.source = path.isAbsolute(options.source) || /^(?:https?:\/\/|git\+|git@|ssh:\/\/|git:\/\/)/.test(options.source)
+  options.source = expandHome(options.source);
+  options.source = path.isAbsolute(options.source) || isRemoteSource(options.source)
     ? options.source
     : path.resolve(options.source);
-  options.target = path.resolve(options.target);
+  options.target = path.resolve(expandHome(options.target));
+  if (options.cli !== undefined) options.cli = expandHome(options.cli);
   return options;
 }
 
@@ -196,7 +199,7 @@ async function main() {
   if (!existsSync(options.target) || !statSync(options.target).isDirectory()) {
     throw new UsageError(`--target is not a directory: ${options.target}`);
   }
-  if (!/^(?:https?:\/\/|git\+|git@|ssh:\/\/|git:\/\/)/.test(options.source)) {
+  if (!isRemoteSource(options.source)) {
     if (!existsSync(path.join(options.source, 'skills/qie/SKILL.md'))) {
       throw new UsageError(`--source does not contain the generated QIE Forge skills: ${options.source}`);
     }

@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { access, cp, lstat, mkdir, mkdtemp, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises';
+import { access, chmod, cp, lstat, mkdir, mkdtemp, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { runNode, runNodeResult } from './support/process.mjs';
 import { buildRelease } from '../scripts/lib/release.mjs';
 import { projectRoot, releasedSkills } from './support/fixtures.mjs';
 import { parseJsonc } from '../scripts/lib/jsonc.mjs';
-import { buildInstallArgs, expandHome, loadAgentMatrix, MANAGED_END, MANAGED_START, selectAgents, upsertManagedBlock } from '../scripts/lib/consumer-bootstrap.mjs';
+import { buildInstallArgs, expandHome, isRemoteSource, loadAgentMatrix, MANAGED_END, MANAGED_START, selectAgents, upsertManagedBlock, validateAgentMatrix } from '../scripts/lib/consumer-bootstrap.mjs';
 
 const bootstrap = path.join(projectRoot, 'scripts/bootstrap-consumer.mjs');
 const cli = path.join(projectRoot, 'node_modules/skills/bin/cli.mjs');
@@ -393,6 +393,110 @@ test('expandHome honors XDG_CONFIG_HOME and CLAUDE_CONFIG_DIR', () => {
   assert.equal(expandHome('~/.claude/skills', '/home/user', '/xdg', undefined), path.join('/home/user', '.claude/skills'));
   assert.equal(expandHome('~/.claude/skills', '/home/user', '/xdg', '/claude'), path.join('/claude', 'skills'));
   assert.equal(expandHome('~/.config/goose/skills', '/home/user', undefined, undefined), path.join('/home/user', '.config/goose/skills'));
+});
+
+test('isRemoteSource recognizes remote source forms and rejects local paths', () => {
+  for (const remote of [
+    'https://example.com/skills.git',
+    'http://example.com/skills',
+    'git+https://example.com/skills.git',
+    'git@github.com:owner/skills.git',
+    'ssh://git@example.com/skills.git',
+    'git://example.com/skills.git',
+  ]) {
+    assert.equal(isRemoteSource(remote), true, remote);
+  }
+  for (const local of ['./skills', '/opt/skills', '../skills', 'skills', '', undefined, null]) {
+    assert.equal(isRemoteSource(local), false, String(local));
+  }
+});
+
+test('validateAgentMatrix rejects a canonical entry that cannot route the CLI', () => {
+  const fixture = () => ({
+    schema_version: '1.0.0',
+    canonical: {
+      id: 'universal',
+      cli_agent: 'universal',
+      project_skills: '.agents/skills',
+      global_skills: '~/.agents/skills',
+      detect: [],
+      instructions: [{ path: 'AGENTS.md', format: 'markdown', body: 'full' }],
+    },
+    agents: [
+      {
+        id: 'codex',
+        cli_agent: 'codex',
+        project_skills: '.agents/skills',
+        global_skills: '~/.agents/skills',
+        detect: ['.codex'],
+        instructions: [{ path: 'AGENTS.md', format: 'markdown', body: 'full' }],
+      },
+    ],
+  });
+
+  assert.equal(validateAgentMatrix(fixture()).canonical.id, 'universal');
+
+  const wrongId = fixture();
+  wrongId.canonical.id = 'base';
+  assert.throws(() => validateAgentMatrix(wrongId), /canonical entry must use the id "universal"/);
+
+  const wrongCliAgent = fixture();
+  wrongCliAgent.canonical.cli_agent = 'claude-code';
+  assert.throws(() => validateAgentMatrix(wrongCliAgent), /must map to the CLI agent "universal"/);
+
+  const missingCanonical = fixture();
+  delete missingCanonical.canonical;
+  assert.throws(() => validateAgentMatrix(missingCanonical), /missing the canonical entry/);
+});
+
+test('bootstrap keeps a remote source URL and expands ~ for the target', async (t) => {
+  const root = await consumer(t);
+  await mkdir(path.join(root, 'home/project'), { recursive: true });
+
+  const remote = runBootstrap(root, [
+    '--source', 'https://example.com/qie-forge.git#0123456789abcdef',
+    '--target', root,
+    '--cli', cli,
+    '--agent', 'universal',
+    '--dry-run',
+    '--no-instructions',
+    '--json',
+  ]);
+  assert.equal(remote.ok, true);
+  assert.equal(remote.source, 'https://example.com/qie-forge.git#0123456789abcdef');
+  assert.equal(remote.install.status, 'PLANNED');
+  assert.equal(remote.install.args[1], remote.source);
+  assert.equal(remote.verification.status, 'SKIPPED');
+
+  const homeTarget = runBootstrap(root, [
+    '--target', '~/project',
+    '--no-install',
+    '--no-instructions',
+    '--no-verify',
+    '--json',
+  ]);
+  assert.equal(homeTarget.ok, true);
+  assert.equal(homeTarget.target, path.join(root, 'home/project'));
+});
+
+test('OpenCode config backups preserve the original file mode', async (t) => {
+  const root = await consumer(t);
+  const filename = path.join(root, 'opencode.jsonc');
+  await writeFile(filename, '{ "model": "keep/me" }\n', { mode: 0o600 });
+  await chmod(filename, 0o600);
+
+  const report = runBootstrap(root, [
+    '--target', root,
+    '--agent', 'opencode',
+    '--no-install',
+    '--no-verify',
+    '--merge-opencode-config',
+    '--json',
+  ]);
+  assert.equal(report.ok, true);
+  const result = report.instructions.find((item) => item.path === 'opencode.jsonc');
+  assert.equal(result.status, 'merged');
+  assert.equal((await stat(path.join(root, result.backup))).mode & 0o777, 0o600);
 });
 
 test('selectAgents combines auto detection with explicit agents', async (t) => {

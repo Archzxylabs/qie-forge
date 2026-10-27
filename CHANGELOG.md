@@ -8,6 +8,8 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 - Add `templates/consumer/agents.json` with 19 curated agent entries plus the universal canonical entry, `templates/consumer/AGENTS.md` with mandatory routing, evidence, network and approval rules, and `templates/consumer/opencode.jsonc`.
 - Preserve existing instruction files and OpenCode config. Merging an existing OpenCode config requires `--merge-opencode-config` and creates a timestamped backup; comments are not preserved by that rewrite.
 - Add integration tests for universal and Claude Code installs, global mode, the curated matrix, dry-run, idempotency, existing-file preservation and JSONC merge behavior.
+- Keep Git source URLs intact while expanding `~` for `--source`, `--target` and `--cli`, and reject malformed canonical matrix entries that cannot route the `universal` CLI agent.
+- Preserve the original OpenCode config file mode on timestamped backups, so a private `0600` config does not become world-readable.
 
 ## QIE Wallet discovery — 2026-10-26
 

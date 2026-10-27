@@ -6,7 +6,7 @@
 
 import { spawnSync } from 'node:child_process';
 import { closeSync, existsSync, mkdtempSync, openSync, readFileSync, rmSync } from 'node:fs';
-import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, chmod, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { CANONICAL_SKILLS } from './release-contract.mjs';
@@ -542,6 +542,14 @@ function backupFilename(filename) {
   return `${filename}.qie-forge.${stamp}.bak`;
 }
 
+async function writeBackup(filename, content) {
+  const backup = backupFilename(filename);
+  const { mode } = await stat(filename);
+  await writeFile(backup, content);
+  await chmod(backup, mode);
+  return backup;
+}
+
 function templateForFilename(template, filename) {
   if (!filename.endsWith('.json')) return template;
   return `${JSON.stringify(parseJsonc(template), null, 2)}\n`;
@@ -576,8 +584,7 @@ export async function writeOpencodeConfig({
   const content = await readFile(filename, 'utf8');
   if (!merge) {
     if (force) {
-      const backup = backupFilename(filename);
-      await writeFile(backup, content);
+      const backup = await writeBackup(filename, content);
       await writeFile(filename, templateForFilename(template, filename));
       return { path: relative, status: 'overwritten', format: 'opencode-config', backup: path.basename(backup) };
     }
@@ -633,8 +640,7 @@ export async function writeOpencodeConfig({
     };
   }
 
-  const backup = backupFilename(filename);
-  await writeFile(backup, content);
+  const backup = await writeBackup(filename, content);
   await writeFile(filename, `${JSON.stringify(config, null, 2)}\n`);
   return {
     path: relative,
