@@ -90,6 +90,8 @@ The wrapper preserves existing instruction files with managed blocks, writes
 `opencode.jsonc` only when absent, and merges an existing OpenCode config only
 with `--merge-opencode-config` (timestamped backup; comments are lost).
 `--force` overwrites an existing OpenCode config after a timestamped backup.
+Instruction and config targets must be regular files; symlinked files or parent
+directories are refused so writes cannot escape the target project.
 It runs the installed-release verifier with `--expect-suite` by default and
 structurally checks non-canonical projections. Use `--dry-run --json` to inspect
 the plan without writing.

@@ -156,7 +156,9 @@ other agent files keep their content. It writes `opencode.jsonc` only when no
 OpenCode config exists; use `--merge-opencode-config` to merge QIE entries into
 an existing `opencode.json(c)` with a timestamped backup. `--force` overwrites
 an existing OpenCode config after a timestamped backup. Comments are not
-preserved by those rewrites.
+preserved by those rewrites. Instruction and config targets must be regular
+files; symlinked files or parent directories are refused so a cloned consumer
+repository cannot redirect writes outside the project.
 
 Verify the plan without writing anything first:
 

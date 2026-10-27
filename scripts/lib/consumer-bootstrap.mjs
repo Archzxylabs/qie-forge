@@ -6,7 +6,7 @@
 
 import { spawnSync } from 'node:child_process';
 import { closeSync, existsSync, mkdtempSync, openSync, readFileSync, rmSync } from 'node:fs';
-import { access, chmod, mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { access, chmod, lstat, mkdir, readFile, realpath, stat, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { CANONICAL_SKILLS } from './release-contract.mjs';
@@ -73,6 +73,36 @@ function assertSafeRelativePath(value, label) {
     throw new Error(`${label} must stay inside the consumer project: ${value}`);
   }
   return normalized;
+}
+
+async function resolveWriteTarget(target, relative) {
+  const base = await realpath(target);
+  const absolute = path.resolve(base, relative);
+  const remainder = path.relative(base, absolute);
+  if (!remainder || remainder === '..' || remainder.startsWith(`..${path.sep}`) || path.isAbsolute(remainder)) {
+    throw new Error(`Refusing to write outside the consumer project: ${relative}`);
+  }
+
+  const parts = remainder.split(path.sep);
+  let current = base;
+  for (const [index, part] of parts.entries()) {
+    current = path.join(current, part);
+    let info;
+    try {
+      info = await lstat(current);
+    } catch (error) {
+      if (error.code === 'ENOENT') return absolute;
+      throw error;
+    }
+    if (info.isSymbolicLink()) {
+      throw new Error(`Refusing to follow a symlink at ${path.relative(base, current)}`);
+    }
+    const last = index === parts.length - 1;
+    if (last ? !info.isFile() : !info.isDirectory()) {
+      throw new Error(`Refusing to write through a non-${last ? 'file' : 'directory'} at ${path.relative(base, current)}`);
+    }
+  }
+  return absolute;
 }
 
 export function validateAgentMatrix(matrix) {
@@ -472,15 +502,21 @@ function normalizeNewlines(value, newline) {
 }
 
 export async function writeInstructionFile({ target, spec, blocks, dryRun = false }) {
-  const filename = path.join(target, spec.path);
+  let filename;
+  try {
+    filename = await resolveWriteTarget(target, spec.path);
+  } catch (error) {
+    return { path: spec.path, status: 'unsafe-path', format: spec.format, error: error.message };
+  }
   const rendered = renderInstruction(spec, blocks);
-  const existing = existsSync(filename) ? await readFile(filename, 'utf8') : null;
-  const newline = existing?.includes('\r\n') ? '\r\n' : '\n';
-  const block = normalizeNewlines(rendered.body, newline).trimEnd() + newline;
 
   if (dryRun) {
     return { path: spec.path, status: 'planned', format: spec.format };
   }
+
+  const existing = existsSync(filename) ? await readFile(filename, 'utf8') : null;
+  const newline = existing?.includes('\r\n') ? '\r\n' : '\n';
+  const block = normalizeNewlines(rendered.body, newline).trimEnd() + newline;
 
   await mkdir(path.dirname(filename), { recursive: true });
 
@@ -545,7 +581,7 @@ function backupFilename(filename) {
 async function writeBackup(filename, content) {
   const backup = backupFilename(filename);
   const { mode } = await stat(filename);
-  await writeFile(backup, content);
+  await writeFile(backup, content, { flag: 'wx', mode });
   await chmod(backup, mode);
   return backup;
 }
@@ -564,7 +600,12 @@ export async function writeOpencodeConfig({
 }) {
   const existing = findOpencodeConfig(target);
   const relative = existing?.relative ?? 'opencode.jsonc';
-  const filename = existing?.filename ?? path.join(target, relative);
+  let filename;
+  try {
+    filename = await resolveWriteTarget(target, relative);
+  } catch (error) {
+    return { path: relative, status: 'unsafe-path', format: 'opencode-config', error: error.message };
+  }
 
   if (dryRun) {
     return {

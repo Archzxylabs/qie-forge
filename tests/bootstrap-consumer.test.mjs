@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { access, chmod, cp, lstat, mkdir, mkdtemp, readdir, readFile, realpath, rm, stat, writeFile } from 'node:fs/promises';
+import { access, chmod, cp, lstat, mkdir, mkdtemp, readdir, readFile, realpath, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { runNode, runNodeResult } from './support/process.mjs';
@@ -386,6 +386,63 @@ test('bootstrap reports a malformed managed block without rewriting the file', a
   const result = report.instructions.find((item) => item.path === 'AGENTS.md');
   assert.equal(result.status, 'malformed-managed-block');
   assert.ok(report.warnings.some((warning) => warning.includes('managed block markers are incomplete')));
+});
+
+test('bootstrap refuses to follow symlinked instruction and config targets', async (t) => {
+  const outside = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-bootstrap-outside-'));
+  t.after(() => rm(outside, { recursive: true, force: true }));
+
+  const fileRoot = await consumer(t);
+  const outsideFile = path.join(outside, 'AGENTS.md');
+  await writeFile(outsideFile, '# Outside file\n');
+  await symlink(outsideFile, path.join(fileRoot, 'AGENTS.md'));
+  const fileResult = runBootstrapResult(fileRoot, [
+    '--target', fileRoot,
+    '--agent', 'universal',
+    '--no-install',
+    '--no-verify',
+    '--json',
+  ]);
+  assert.equal(fileResult.status, 1);
+  assert.equal(fileResult.report.ok, false);
+  assert.equal(fileResult.report.instructions.find((item) => item.path === 'AGENTS.md').status, 'unsafe-path');
+  assert.equal(await readFile(outsideFile, 'utf8'), '# Outside file\n');
+
+  const directoryRoot = await consumer(t);
+  const outsideRules = path.join(outside, 'rules');
+  await mkdir(outsideRules, { recursive: true });
+  await symlink(outsideRules, path.join(directoryRoot, '.cursor'));
+  const directoryResult = runBootstrapResult(directoryRoot, [
+    '--target', directoryRoot,
+    '--agent', 'cursor',
+    '--no-install',
+    '--no-verify',
+    '--json',
+  ]);
+  assert.equal(directoryResult.status, 1);
+  assert.equal(directoryResult.report.ok, false);
+  assert.equal(
+    directoryResult.report.instructions.find((item) => item.path === '.cursor/rules/qie-forge.mdc').status,
+    'unsafe-path',
+  );
+  assert.deepEqual(await readdir(outsideRules), []);
+
+  const configRoot = await consumer(t);
+  const outsideConfig = path.join(outside, 'opencode.jsonc');
+  await writeFile(outsideConfig, '{ "model": "keep/me" }\n');
+  await symlink(outsideConfig, path.join(configRoot, 'opencode.jsonc'));
+  const configResult = runBootstrapResult(configRoot, [
+    '--target', configRoot,
+    '--agent', 'opencode',
+    '--no-install',
+    '--no-verify',
+    '--merge-opencode-config',
+    '--json',
+  ]);
+  assert.equal(configResult.status, 1);
+  assert.equal(configResult.report.ok, false);
+  assert.equal(configResult.report.instructions.find((item) => item.path === 'opencode.jsonc').status, 'unsafe-path');
+  assert.equal(await readFile(outsideConfig, 'utf8'), '{ "model": "keep/me" }\n');
 });
 
 test('expandHome honors XDG_CONFIG_HOME and CLAUDE_CONFIG_DIR', () => {

@@ -10,6 +10,7 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 - Add integration tests for universal and Claude Code installs, global mode, the curated matrix, dry-run, idempotency, existing-file preservation and JSONC merge behavior.
 - Keep Git source URLs intact while expanding `~` for `--source`, `--target` and `--cli`, and reject malformed canonical matrix entries that cannot route the `universal` CLI agent.
 - Preserve the original OpenCode config file mode on timestamped backups, so a private `0600` config does not become world-readable.
+- Refuse to write instruction files or OpenCode configs through symlinked files or parent directories, so a cloned consumer repository cannot redirect bootstrap writes outside the project.
 
 ## QIE Wallet discovery — 2026-10-26
 
