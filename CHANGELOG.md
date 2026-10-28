@@ -4,6 +4,8 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 
 ## MIT candidate cut — 2026-10-28
 
+- Mount the existing read-only Counter app at `/counter/` through an in-memory Vite build of its original source graph. Check the built app's explicit mock/injected modes on desktop and mobile.
+- Improve Counter hint contrast and preserve native definition-list semantics while retaining live connection-status announcements. Check mock and missing-wallet states in light/dark mode with axe.
 - Add a version-qualified HTTP discovery source for the pinned Skills CLI, preserving complete raw bundle inventories and MIT notices. Exercise a four-profile installation and rejection of an incomplete download through the independent verifier.
 
 - Apply the owner-selected MIT license to original QIE Forge code and documentation; include the canonical notice and license metadata in all nine standalone skill bundles.

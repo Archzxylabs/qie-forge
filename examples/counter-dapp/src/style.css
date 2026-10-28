@@ -24,7 +24,7 @@ h1 {
 .subtitle,
 .hint,
 .note {
-  color: GrayText;
+  color: color-mix(in srgb, CanvasText 70%, Canvas);
 }
 
 .banner {

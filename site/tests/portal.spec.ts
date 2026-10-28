@@ -93,3 +93,23 @@ test('reduced motion remains readable and unavailable routes return a real 404',
   expect(response?.status()).toBe(404);
   await expect(page.getByRole('link', { name: 'Return to the documentation overview' })).toBeVisible();
 });
+
+test('published Counter keeps simulation explicit and handles a missing injected wallet', async ({ page }) => {
+  await page.goto('/counter/');
+  await expect(page.locator('#mode')).toHaveValue('mock');
+  await expect(page.locator('#simulation-banner')).toBeVisible();
+  await page.locator('#connect').click();
+  await expect(page.locator('#read')).toBeEnabled();
+  await page.locator('#read').click();
+  await expect(page.locator('#value')).toHaveText('7 (uint256)');
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()).violations).toEqual([]);
+  await page.locator('#mode').selectOption('injected');
+  await expect(page.locator('#simulation-banner')).toBeHidden();
+  await expect(page.locator('#account')).toHaveText('Not connected');
+  await page.locator('#connect').click();
+  await expect(page.locator('#error-code')).toContainText('PROVIDER_MISSING');
+  await expect(page.locator('#wallet-install')).toBeVisible();
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()).violations).toEqual([]);
+  await page.emulateMedia({ colorScheme: 'dark' });
+  expect((await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()).violations).toEqual([]);
+});

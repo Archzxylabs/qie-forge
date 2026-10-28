@@ -8,6 +8,7 @@ import { validateFrontmatter } from './bundle.mjs';
 import { effectiveStatus } from './effective-status.mjs';
 import { sha256, stableJson, walkFiles } from './io.mjs';
 import { DOCUMENTATION_CSP } from './documentation-server.mjs';
+import { build as buildVite } from 'vite';
 
 export const PORTAL_ROUTES = Object.freeze([
   ['/', 'Overview'], ['/get-started/', 'Get started'], ['/skills/', 'Skills'],
@@ -100,6 +101,16 @@ export async function documentationFiles(root) {
   const release = await inspectInstalledRelease(path.join(root, 'skills'), { requireSuite: true, claudeRoot: null });
   if (!release.verificationComplete) throw new Error(`Documentation requires coherent skill bundles: ${release.problems.join('; ')}`);
   const files = {};
+  // Publish the existing reference app from its canonical source graph. The
+  // in-memory build neither regenerates contract assets nor writes a second app.
+  const counter = await buildVite({
+    configFile: false, root: path.join(root, 'examples/counter-dapp'),
+    base: '/counter/', logLevel: 'silent',
+    build: { write: false, emptyOutDir: false, sourcemap: false, modulePreload: { polyfill: false } },
+  });
+  for (const output of (Array.isArray(counter) ? counter : [counter]).flatMap((result) => result.output)) {
+    files[`counter/${output.fileName}`] = Buffer.from(output.type === 'chunk' ? output.code : output.source);
+  }
   const manifests = new Map(); const snapshots = new Map(); const metadata = new Map(); const bundleFiles = new Map();
   const prefix = `/releases/${release.releaseVersion}/${release.releaseId}`;
   const raw = (skill, filename) => `${prefix}/skills/${skill}/${filename}`;
@@ -158,6 +169,7 @@ export async function documentationFiles(root) {
       ['/reference/networks/', 'Choose a QIE network', 'Mainnet and testnet settings, with their evidence scope.'],
       ['/ecosystem/', 'Evaluate an integration', 'Operation-specific support, sources and visible gaps.'],
       ['/troubleshooting/', 'Resolve a failure', 'Wrong-chain, unavailable RPC and evidence diagnostics.'],
+      ['/counter/', 'Open the Counter reference', 'A labelled simulation and an explicit injected-wallet read flow.'],
     ].map(([url, title, description]) => `<a href="${url}"><strong>${title} →</strong><span>${description}</span></a>`).join('')}</div>${releaseNote}`);
 
   addPage('/get-started/', 'Start with a local, inspectable workflow.', 'Prepare the checkout, install the skills into your project, and give your agent a concrete first task.',
