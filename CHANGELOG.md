@@ -6,6 +6,7 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 
 - Fix OpenCode config merges that appended QIE allow rules after existing restrictions. New defaults now precede existing rules, preserving user permission precedence and order.
 - Add a regression covering existing catch-all, allow, ask and deny rules, unchanged backup bytes and stable rule order on repeated merges.
+- Make home-path unit-test inputs independent of the runner's XDG and Claude configuration environment.
 
 ## Agent-agnostic consumer bootstrap — 2026-10-27
 

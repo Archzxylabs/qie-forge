@@ -484,10 +484,11 @@ test('bootstrap refuses to follow symlinked instruction and config targets', asy
 });
 
 test('expandHome honors XDG_CONFIG_HOME and CLAUDE_CONFIG_DIR', () => {
-  assert.equal(expandHome('~/.config/goose/skills', '/home/user', '/xdg', undefined), path.join('/xdg', 'goose/skills'));
-  assert.equal(expandHome('~/.claude/skills', '/home/user', '/xdg', undefined), path.join('/home/user', '.claude/skills'));
+  // null explicitly disables an override; undefined uses the process defaults.
+  assert.equal(expandHome('~/.config/goose/skills', '/home/user', '/xdg', null), path.join('/xdg', 'goose/skills'));
+  assert.equal(expandHome('~/.claude/skills', '/home/user', '/xdg', null), path.join('/home/user', '.claude/skills'));
   assert.equal(expandHome('~/.claude/skills', '/home/user', '/xdg', '/claude'), path.join('/claude', 'skills'));
-  assert.equal(expandHome('~/.config/goose/skills', '/home/user', undefined, undefined), path.join('/home/user', '.config/goose/skills'));
+  assert.equal(expandHome('~/.config/goose/skills', '/home/user', null, null), path.join('/home/user', '.config/goose/skills'));
 });
 
 test('isRemoteSource recognizes remote source forms and rejects local paths', () => {
