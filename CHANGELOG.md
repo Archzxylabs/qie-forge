@@ -4,6 +4,8 @@ QIE Forge identifies a release by the human `release_version` in `release-contex
 
 ## MIT candidate cut — 2026-10-28
 
+- Add a version-qualified HTTP discovery source for the pinned Skills CLI, preserving complete raw bundle inventories and MIT notices. Exercise a four-profile installation and rejection of an incomplete download through the independent verifier.
+
 - Apply the owner-selected MIT license to original QIE Forge code and documentation; include the canonical notice and license metadata in all nine standalone skill bundles.
 - Cut `0.6.0-ecosystem.2` with a new payload identity and frozen build clock. Earlier test, agent and chain observations remain tied to their original payloads.
 - Add notice-retention and missing-notice rejection checks; preserve third-party source and dependency license boundaries.

@@ -1,12 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cp, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { documentationFiles, PORTAL_ROUTES, renderMarkdown } from '../scripts/lib/documentation.mjs';
 import { documentationServer } from '../scripts/lib/documentation-server.mjs';
 import { sha256, writeTree } from '../scripts/lib/io.mjs';
 import { projectRoot } from './support/fixtures.mjs';
+import { runNodeResultAsync } from './support/process.mjs';
+import { inspectInstalledRelease } from '../scripts/lib/installed-release.mjs';
 
 let files;
 test.before(async () => { files = await documentationFiles(projectRoot); });
@@ -112,4 +114,45 @@ test('static preview serves correct MIME and immutable cache; missing paths and 
   }
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
   assert.equal((await fetch(base, { method: 'HEAD' })).status, 200);
+});
+
+test('pinned Skills CLI installs the HTTP release into four profiles with exact payload identity', async (t) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'qie-docs-http-install-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const web = path.join(root, 'web');
+  await writeTree(web, files);
+  const consumer = path.join(root, 'consumer');
+  await mkdir(path.join(consumer, 'home'), { recursive: true });
+  const server = documentationServer(web);
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const build = JSON.parse(files['portal-build.json']);
+  const source = `http://127.0.0.1:${server.address().port}${build.raw_prefix}`;
+  const result = await runNodeResultAsync([
+    path.join(projectRoot, 'node_modules/skills/bin/cli.mjs'), 'add', source,
+    '--skill', '*', '--agent', 'codex', '--agent', 'claude-code', '--agent', 'cursor', '--agent', 'opencode', '--copy', '--yes',
+  ], { cwd: consumer, timeout: 60000, env: { ...process.env, HOME: path.join(consumer, 'home'), XDG_CONFIG_HOME: path.join(root, 'config'), CI: '1', DISABLE_TELEMETRY: '1', DO_NOT_TRACK: '1' } });
+  assert.equal(result.status, 0, result.stderr + result.stdout);
+  const report = await inspectInstalledRelease(path.join(consumer, '.agents/skills'), { requireSuite: true, expectedReleaseId: build.release_id });
+  assert.equal(report.verificationComplete, true, report.problems.join('\n'));
+  assert.equal(report.publisherAuthenticity, 'PINNED_MATCH');
+  assert.equal(report.skills.length, 9);
+  assert.equal(report.projections.length, 9);
+  for (const skill of report.skills) {
+    assert.deepEqual(await readFile(path.join(consumer, '.agents/skills', skill.name, 'LICENSE')), files.LICENSE);
+  }
+  // The CLI tolerates an unavailable file. A nominally successful download
+  // must still fail the independent integrity check when the notice is absent.
+  await rm(path.join(web, build.raw_prefix.slice(1), '.well-known/skills/qie/LICENSE'));
+  const incomplete = path.join(root, 'incomplete');
+  await mkdir(path.join(incomplete, 'home'), { recursive: true });
+  const partial = await runNodeResultAsync([
+    path.join(projectRoot, 'node_modules/skills/bin/cli.mjs'), 'add', source,
+    '--skill', 'qie', '--agent', 'codex', '--copy', '--yes',
+  ], { cwd: incomplete, timeout: 60000, env: { ...process.env, HOME: path.join(incomplete, 'home'), XDG_CONFIG_HOME: path.join(root, 'incomplete-config'), CI: '1', DISABLE_TELEMETRY: '1', DO_NOT_TRACK: '1' } });
+  assert.equal(partial.status, 0, partial.stderr + partial.stdout);
+  const rejected = await inspectInstalledRelease(path.join(incomplete, '.agents/skills'), { expectedSkills: ['qie'], expectedReleaseId: build.release_id, claudeRoot: null });
+  assert.equal(rejected.verificationComplete, false);
+  assert.equal(rejected.status, 'REJECTED');
+  assert.match(rejected.problems.join('\n'), /LICENSE|INVENTORY|MISSING/);
 });

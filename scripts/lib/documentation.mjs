@@ -138,6 +138,16 @@ export async function documentationFiles(root) {
     return `<div class="evidence"><span>Stored ${badge(record.status)}</span><span>Effective ${badge(result.status)}</span></div><p class="small muted">${e(result.reason)}</p>`;
   };
   const install = 'node /absolute/path/to/QIE-FORGE/scripts/bootstrap-consumer.mjs \\\n  --target /path/to/your-project --agent auto --copy';
+  // The pinned CLI's HTTP discovery surface preserves the original inventory.
+  const discovery = `${prefix}/.well-known/skills`;
+  const discoveryEntries = [];
+  for (const name of CANONICAL_SKILLS) {
+    const names = [...bundleFiles.get(name)].sort();
+    discoveryEntries.push({ name, description: metadata.get(name).description, files: names });
+    for (const filename of names) files[`${discovery.slice(1)}/${name}/${filename}`] = files[raw(name, filename).slice(1)];
+  }
+  files[`${discovery.slice(1)}/index.json`] = Buffer.from(stableJson({ skills: discoveryEntries }));
+  const httpInstallation = `<h2>Install published skills over HTTP</h2><p>From your consumer project, use the pinned Skills CLI. Replace <code>&lt;portal-origin&gt;</code> with this site's HTTPS origin and select your agent explicitly.</p>${command('http-install', 'Public release installation', `npx --yes skills@1.7.2 add '<portal-origin>${prefix}' --skill '*' --agent codex --copy --yes`)}<p>${link(`${discovery}/index.json`, 'Inspect the discovery inventory')}. Preserve a known-good deployment URL for reproducible reinstallation. The CLI's install result is separate from manifest verification.</p><h2>Contributor checkout and bootstrap</h2>`;
   const releaseNote = `<div class="notice"><p><strong>Candidate snapshot.</strong> QIE facts are evaluated at ${e(router.status_evaluated_at)}. Check current sources and run an explicit network preflight before operational use.</p></div>`;
 
   addPage('/', 'A clearer path to building on QIE.', 'Source-grounded skills, explicit evidence and reproducible workflows for your coding agent.',
@@ -151,7 +161,7 @@ export async function documentationFiles(root) {
     ].map(([url, title, description]) => `<a href="${url}"><strong>${title} →</strong><span>${description}</span></a>`).join('')}</div>${releaseNote}`);
 
   addPage('/get-started/', 'Start with a local, inspectable workflow.', 'Prepare the checkout, install the skills into your project, and give your agent a concrete first task.',
-    `<ol class="step-list"><li><h2>Prepare the checkout</h2><p>Use an authorized checkout of ${link(REPOSITORY, 'QIE Forge')}. Checkout access follows repository permissions. Original QIE Forge content is MIT licensed. Install the versions pinned in ${link(`${REPOSITORY}/blob/feat/qie-ecosystem-intelligence/docs/quickstart.md`, 'the developer quickstart')}.</p>${command('prepare', 'In the QIE Forge checkout', 'npm ci --ignore-scripts --no-audit --no-fund\nnpm run doctor\nnpm run build:check')}</li>
+    `${httpInstallation}<ol class="step-list"><li><h2>Prepare the checkout</h2><p>Use an authorized checkout of ${link(REPOSITORY, 'QIE Forge')}. Checkout access follows repository permissions. Original QIE Forge content is MIT licensed. Install the versions pinned in ${link(`${REPOSITORY}/blob/feat/qie-ecosystem-intelligence/docs/quickstart.md`, 'the developer quickstart')}.</p>${command('prepare', 'In the QIE Forge checkout', 'npm ci --ignore-scripts --no-audit --no-fund\nnpm run doctor\nnpm run build:check')}</li>
     <li><h2>Install into your project</h2><p>The bootstrap uses the pinned Skills CLI and writes managed agent instructions. Preview changes with <code>--dry-run --json</code>. Replace both absolute paths below.</p>${command('install-start', 'Consumer setup', install)}</li>
     <li><h2>Verify the installed bytes</h2><p>Run from your consumer project. Compare with the payload identity shown on this site.</p>${command('verify-install', 'Read-only verification', `node /absolute/path/to/QIE-FORGE/scripts/verify-installed-release.mjs \\\n  --root .agents/skills --expect-suite --release-id ${release.releaseId}`)}</li>
     <li><h2>Ask for the first workflow</h2>${command('first-task', 'Prompt for your coding agent', 'Load the qie skill, then use qie-smart-contracts to build and test the Counter fixture locally. Report the commands and actual results.')}<p>${link(read('qie-smart-contracts', 'recipes/build-test/recipe.md'), 'Open the canonical build/test recipe')} for prerequisites, failure branches and expected local results.</p></li></ol>${releaseNote}`);

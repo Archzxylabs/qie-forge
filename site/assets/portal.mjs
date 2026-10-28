@@ -1,4 +1,7 @@
 // Progressive enhancement only: every document and source link works without JS.
+const publicInstall = document.getElementById('http-install');
+if (publicInstall) publicInstall.textContent = publicInstall.textContent.replace('<portal-origin>', location.origin);
+
 for (const group of document.querySelectorAll('[data-filter-group]')) {
   const input = group.querySelector('input[type="search"]');
   const select = group.querySelector('select');

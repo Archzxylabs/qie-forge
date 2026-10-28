@@ -60,6 +60,10 @@ Install the browser once with `npx playwright install --with-deps --no-shell chr
 
 ## Static documentation portal
 
+Open the [hosted candidate portal](https://qie-forge-docs-fao2-5364s-projects.vercel.app/).
+Its [hosted acceptance record](docs/results/documentation-hosted-2026-10-28.md)
+separates the captured deployment from later updates to the stable alias.
+
 The original portal in [`site/`](site/design-contract.md) renders all eleven PRD
 routes from verified installed snapshots. Skill and recipe pages link to
 byte-identical raw files under paths containing both the release version and
@@ -81,6 +85,15 @@ gates in the [release-readiness checklist](docs/release-readiness.md). The
 [pilot protocol](docs/pilot-protocol.md) prepares external evaluation without
 claiming participants or results. See the [local portal acceptance report](docs/results/documentation-portal-2026-10-28.md)
 for captured checks and rendered evidence.
+
+The hosted portal's **Get started** page also exposes a version-qualified HTTP
+installation source for the existing Skills CLI `1.7.2`. The discovery inventory
+includes every original bundle file and notice. HTTP installation is checked
+against the expected payload identity; a nominal CLI success with a missing
+file fails the independent verifier. Use the direct CLI for this source: its
+HTTP mode does not support the JSON output required by the consumer bootstrap.
+Preserve an immutable deployment URL for reproducible reinstallation. Historical
+B09 Git/update evidence and public Git access remain separately scoped.
 
 
 ## Install the skills

@@ -8,7 +8,7 @@ CI run must name the actual PR head. Historical results retain their own scope.
 |---|---|---|
 | Canonical knowledge and portable skills | Implemented; nine coherent bundles with pinned tools and deterministic packaging | Current-head CI, review and integration |
 | Consumer bootstrap | Implemented; canonical and curated projections, preserved instructions, safe config targets and permission precedence | Actual host discovery and workflow evaluations remain separate |
-| Static documentation | Implemented locally; all eleven required routes, readable skill/recipe pages and byte-identical raw release files | Hosting review, stable public URL and hosted MIME/cache/accessibility checks |
+| Static documentation | Hosted MIT candidate observed: eleven routes, 149 matching canonical raw files and fourteen HTTPS browser checks | Recheck each changed deployment and retain its exact source/payload binding |
 | Reference app | Local build and deterministic browser fixtures pass | Actual wallet/version connection and deployed contract reads |
 | Testnet Counter | Compiled artifacts and read-only constructor simulation exist | Actual signer, fresh quote, reviewed maximum spend, wallet submission and action-linked receipt/code/state evidence |
 | Mainnet demonstration | NOT_RUN | Testnet qualification, reviewed signer/budget/action, developer-controlled submission and scoped application evidence |
