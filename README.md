@@ -89,6 +89,8 @@ the requested and actual mode.
 The wrapper preserves existing instruction files with managed blocks, writes
 `opencode.jsonc` only when absent, and merges an existing OpenCode config only
 with `--merge-opencode-config` (timestamped backup; comments are lost).
+Merged QIE permission defaults precede existing OpenCode rules, preserving the
+priority of existing allow, ask and deny decisions.
 `--force` overwrites an existing OpenCode config after a timestamped backup.
 Instruction and config targets must be regular files; symlinked files or parent
 directories are refused so writes cannot escape the target project.

@@ -665,13 +665,12 @@ export async function writeOpencodeConfig({
     addUnique(asConfigArray(config, 'skills'), OPENCODE_SKILLS_PATH);
     addUnique(asConfigArray(config, 'instructions'), OPENCODE_INSTRUCTIONS_PATH);
     const permissions = asConfigArray(config, 'permissions');
-    for (const rule of OPENCODE_PERMISSIONS) {
-      addUnique(
-        permissions,
-        rule,
-        (left, right) => left?.action === right.action && left?.resource === right.resource && left?.effect === right.effect,
-      );
-    }
+    // The last matching rule wins. Add defaults before the user's rules so
+    // merging never overrides existing ask/deny decisions or reorders them.
+    const defaults = OPENCODE_PERMISSIONS.filter((rule) => !permissions.some(
+      (existing) => existing?.action === rule.action && existing?.resource === rule.resource && existing?.effect === rule.effect,
+    ));
+    permissions.unshift(...defaults);
   } catch (error) {
     return {
       path: relative,

@@ -155,8 +155,10 @@ The bootstrap writes managed blocks, so existing `AGENTS.md`, `CLAUDE.md`,
 other agent files keep their content. It writes `opencode.jsonc` only when no
 OpenCode config exists; use `--merge-opencode-config` to merge QIE entries into
 an existing `opencode.json(c)` with a timestamped backup. `--force` overwrites
-an existing OpenCode config after a timestamped backup. Comments are not
-preserved by those rewrites. Instruction and config targets must be regular
+an existing OpenCode config after a timestamped backup. Merging puts QIE
+permission defaults before existing rules, preserving the priority of existing
+allow, ask and deny decisions. Comments are not preserved by those rewrites.
+Instruction and config targets must be regular
 files; symlinked files or parent directories are refused so a cloned consumer
 repository cannot redirect writes outside the project.
 

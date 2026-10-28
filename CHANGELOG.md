@@ -2,6 +2,11 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Consumer bootstrap permission precedence — 2026-10-28
+
+- Fix OpenCode config merges that appended QIE allow rules after existing restrictions. New defaults now precede existing rules, preserving user permission precedence and order.
+- Add a regression covering existing catch-all, allow, ask and deny rules, unchanged backup bytes and stable rule order on repeated merges.
+
 ## Agent-agnostic consumer bootstrap — 2026-10-27
 
 - Add `scripts/bootstrap-consumer.mjs`, a wrapper around the pinned Skills CLI that installs the canonical `.agents/skills` suite plus agent-specific projections, writes managed instruction blocks for AGENTS.md-aware and native agent surfaces, and verifies the installed payload.

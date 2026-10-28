@@ -199,6 +199,44 @@ test('bootstrap merges an existing OpenCode config on request', async (t) => {
   assert.ok(config.permissions.some((rule) => rule.action === 'skill' && rule.resource === 'qie-*'));
 });
 
+test('OpenCode merges preserve the precedence and order of existing permission rules', async (t) => {
+  const root = await consumer(t);
+  const filename = path.join(root, 'opencode.jsonc');
+  const originalRules = [
+    { action: 'skill', resource: '*', effect: 'ask' },
+    { action: 'skill', resource: 'qie', effect: 'allow' },
+    { action: 'skill', resource: 'qie-deployment', effect: 'deny' },
+    { action: 'skill', resource: 'qie-wallets', effect: 'ask' },
+    { action: 'bash', resource: '*', effect: 'deny' },
+  ];
+  const original = `${JSON.stringify({ permissions: originalRules }, null, 2)}\n`;
+  await writeFile(filename, original);
+
+  const args = [
+    '--target', root,
+    '--agent', 'opencode',
+    '--no-install',
+    '--no-verify',
+    '--merge-opencode-config',
+    '--json',
+  ];
+  const first = runBootstrap(root, args);
+  assert.equal(first.ok, true);
+  const config = parseJsonc(await readFile(filename, 'utf8'));
+  // OpenCode applies the last matching rule. Existing catch-all, ask and deny
+  // rules must retain priority over defaults introduced by the bootstrap.
+  assert.deepEqual(config.permissions, [
+    { action: 'skill', resource: 'qie-*', effect: 'allow' },
+    ...originalRules,
+  ]);
+  const result = first.instructions.find((item) => item.path === 'opencode.jsonc');
+  assert.equal(await readFile(path.join(root, result.backup), 'utf8'), original);
+
+  const second = runBootstrap(root, args);
+  assert.equal(second.ok, true);
+  assert.deepEqual(parseJsonc(await readFile(filename, 'utf8')).permissions, config.permissions);
+});
+
 test('bootstrap dry-run plans installation without writing skills', async (t) => {
   const root = await consumer(t);
   const report = runBootstrap(root, [
