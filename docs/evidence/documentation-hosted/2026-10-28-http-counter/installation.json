@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-28T11:01:56.621Z",
+  "source": "https://qie-forge-docs-5eqg24rws-fao2-5364s-projects.vercel.app/releases/0.6.0-ecosystem.2/3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "target": "/tmp/qie-public-http-install-ytWX85",
+  "exitStatus": 0,
+  "verification": true,
+  "releaseId": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "publisherAuthenticity": "PINNED_MATCH",
+  "skills": 9,
+  "projections": 9,
+  "problems": [],
+  "scope": "ANONYMOUS_HTTPS_INSTALLATION_AND_PINNED_BYTES_ONLY",
+  "hostModelWorkflows": "NOT_RUN"
+}

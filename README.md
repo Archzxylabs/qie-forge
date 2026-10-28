@@ -56,7 +56,8 @@ Install the browser once with `npx playwright install --with-deps --no-shell chr
 
 ## Counter reference app
 
-The documentation build also mounts this same app at `/counter/`, with its
+Open the [hosted Counter reference](https://qie-forge-docs-fao2-5364s-projects.vercel.app/counter/).
+The documentation build mounts this same app at `/counter/`, with its
 canonical controller and packaged network snapshot. The hosted page starts in
 labelled mock mode; selecting Injected keeps wallet connection explicit.
 
@@ -65,8 +66,10 @@ labelled mock mode; selecting Injected keeps wallet connection explicit.
 ## Static documentation portal
 
 Open the [hosted candidate portal](https://qie-forge-docs-fao2-5364s-projects.vercel.app/).
-Its [hosted acceptance record](docs/results/documentation-hosted-2026-10-28.md)
-separates the captured deployment from later updates to the stable alias.
+Its [HTTP installation and Counter acceptance record](docs/results/documentation-hosted-http-counter-2026-10-28.md)
+binds the captured deployment to its exact source and payload. The
+[initial hosted record](docs/results/documentation-hosted-2026-10-28.md) retains
+the earlier deployment's scope; stable aliases can advance.
 
 The original portal in [`site/`](site/design-contract.md) renders all eleven PRD
 routes from verified installed snapshots. Skill and recipe pages link to
@@ -96,7 +99,10 @@ includes every original bundle file and notice. HTTP installation is checked
 against the expected payload identity; a nominal CLI success with a missing
 file fails the independent verifier. Use the direct CLI for this source: its
 HTTP mode does not support the JSON output required by the consumer bootstrap.
-Preserve an immutable deployment URL for reproducible reinstallation. Historical
+Anonymous HTTPS installation into all four agent profiles matched all nine
+bundles and their Claude projections. This establishes installed bytes; actual
+host/model workflows remain separately scoped. Preserve an immutable deployment
+URL for reproducible reinstallation. Historical
 B09 Git/update evidence and public Git access remain separately scoped.
 
 
@@ -179,7 +185,7 @@ The JSON report separates four claims. `inventoryComplete` is structural: the ex
 
 `MANIFEST.json` is deliberately excluded from the release identity to avoid self-hashing. The verifier derives each bundle's `sources_checked_at` from the review timestamps of the selected snapshot's source records and rejects a manifest value that differs. That checks consistency with the payload, but it does **not** make manifest-only metadata part of the content address. `provenance.manifestMetadataAuthenticated` is therefore always `false`; a caller needs an independently trusted manifest or a separately signed index to authenticate metadata outside the release identity. A trusted release-ID match must not be read as authentication of that metadata.
 
-`npm run test:install` executes twenty local combinations (suite plus nine single selections, each in copy/symlink mode) in clean temporary consumer projects and temporary homes. It denies network access, removes the source fixture, validates installed hashes, manifest hashes, release identity, frontmatter and Claude copy/symlink projections, and exercises helpers and wallet invalidation guards. The B09 suite adds eleven local scenarios built on a loopback smart-HTTP Git source, malformed installed trees, path-containment attacks, canonical-inventory checks, projection failures and provenance mutation checks; an authenticated private GitHub proof at an immutable B09 SHA exercised suite/single, copy/symlink, verifier, helper, unrelated-skill and rollback paths. See [B09 results](docs/b09-results.md). B09 is accepted for private distribution only; public distribution, anonymous access and repository licensing remain unproven. These are installer-target checks for Codex/Claude, not execution inside either agent. No global skill directory is modified.
+`npm run test:install` executes twenty local combinations (suite plus nine single selections, each in copy/symlink mode) in clean temporary consumer projects and temporary homes. It denies network access, removes the source fixture, validates installed hashes, manifest hashes, release identity, frontmatter and Claude copy/symlink projections, and exercises helpers and wallet invalidation guards. The B09 suite adds eleven local scenarios built on a loopback smart-HTTP Git source, malformed installed trees, path-containment attacks, canonical-inventory checks, projection failures and provenance mutation checks; an authenticated private GitHub proof at an immutable B09 SHA exercised suite/single, copy/symlink, verifier, helper, unrelated-skill and rollback paths. See [B09 results](docs/b09-results.md). That historical B09 acceptance covers private Git distribution. The current candidate separately records MIT selection and anonymous HTTPS installation; public Git access remains unproven. These are installer-target checks for Codex/Claude, not execution inside either agent. No global skill directory is modified.
 
 From the installed `qie-networks` directory:
 

@@ -1,0 +1,142 @@
+
+│
+●   codex  Agent detected — installing non-interactively
+[?25l│
+◇  Source: https://qie-forge-docs-5eqg24rws-fao2-5364s-projects.vercel.app/releases/0.6.0-ecosystem.2/3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b
+[?25h[?25l│
+◒  Discovering skills from well-known endpoint[1G[J◐  Discovering skills from well-known endpoint[1G[J◓  Discovering skills from well-known endpoint[1G[J◑  Discovering skills from well-known endpoint[1G[J◒  Discovering skills from well-known endpoint[1G[J◐  Discovering skills from well-known endpoint[1G[J◓  Discovering skills from well-known endpoint[1G[J◑  Discovering skills from well-known endpoint[1G[J◒  Discovering skills from well-known endpoint.[1G[J◐  Discovering skills from well-known endpoint.[1G[J◓  Discovering skills from well-known endpoint.[1G[J◑  Discovering skills from well-known endpoint.[1G[J◒  Discovering skills from well-known endpoint.[1G[J◐  Discovering skills from well-known endpoint.[1G[J◓  Discovering skills from well-known endpoint.[1G[J◑  Discovering skills from well-known endpoint.[1G[J◒  Discovering skills from well-known endpoint..[1G[J◐  Discovering skills from well-known endpoint..[1G[J◓  Discovering skills from well-known endpoint..[1G[J◑  Discovering skills from well-known endpoint..[1G[J◒  Discovering skills from well-known endpoint..[1G[J◐  Discovering skills from well-known endpoint..[1G[J◓  Discovering skills from well-known endpoint..[1G[J◑  Discovering skills from well-known endpoint..[1G[J◒  Discovering skills from well-known endpoint...[1G[J◐  Discovering skills from well-known endpoint...[1G[J◓  Discovering skills from well-known endpoint...[1G[J◑  Discovering skills from well-known endpoint...[1G[J◒  Discovering skills from well-known endpoint...[1G[J◐  Discovering skills from well-known endpoint...[1G[J◓  Discovering skills from well-known endpoint...[1G[J◑  Discovering skills from well-known endpoint...[1G[J◒  Discovering skills from well-known endpoint...[1G[J◇  Found 9 skills
+[?25h│
+●  Skill: qie
+│
+│  Entry router for QIE blockchain development tasks. Use when a developer asks how to build, integrate, debug, deploy or research anything on QIE, or when the correct QIE topical skill, target network (mainnet vs testnet), or EVM-versus-native workflow is unclear. Classifies intent, selects the minimal topical skills or bundled QIE A–Z coverage references, and flags missing skills instead of guessing.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/qie-a-z.json, references/qie-a-z.md, references/release-info.md, references/routing.md
+│
+●  Skill: qie-debug
+│
+│  Diagnose QIE EVM build, wallet, RPC, receipt and application-observation failures with bounded read-only checks and symptom-specific recovery. Use for wrong-chain, offline/rate-limited RPC, pending/reverted transactions or an app showing no expected effect. Native failures route to official native sources.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/debug/recipe.md, recipes/ecosystem-address/recipe.md, recipes/transaction-readonly/recipe.md, references/evidence.md, references/release-info.md, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/lib/transaction-diagnostic.mjs, scripts/verify-network.mjs, scripts/verify-transaction.mjs
+│
+●  Skill: qie-deployment
+│
+│  Prepare a QIE EVM testnet or mainnet contract release with local artifacts, network preflight, explicit capability blockers, signing review and scoped post-submission observations. Use for deployment readiness and production checklists. No tested QIE broadcast, signer or explorer-verification integration is supplied.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/build-test/assets/foundry.toml, recipes/build-test/assets/src/Counter.sol, recipes/build-test/assets/test/Counter.t.sol, recipes/build-test/recipe.md, recipes/build-test/toolchain.json, recipes/deployment/assets/deployment-review.json, recipes/deployment/recipe.md, recipes/ecosystem-address/recipe.md, recipes/network/recipe.md, recipes/oracle-collateral/recipe.md, recipes/qusdc-escrow/assets/foundry.toml, recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol, recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol, recipes/qusdc-escrow/recipe.md, references/evidence.md, references/release-info.md, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/lib/transaction-diagnostic.mjs, scripts/verify-network.mjs, scripts/verify-transaction.mjs
+│
+●  Skill: qie-ecosystem
+│
+│  QIE ecosystem intelligence, product catalogue, and evidence-based compatibility decision guide. Use when a developer asks which wallets, SDKs, development frameworks, DEXs, bridges, oracles, indexers, or tools work on QIE, or when evaluating whether a specific tool or operation is supported. Implements a 7-step decision procedure, provides grounded compatibility guidance, and enforces safety boundaries without guessing.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/ecosystem-catalogue.json, recipes/ecosystem-address/recipe.md, recipes/ecosystem-selection/recipe.md, recipes/erc20-asset/recipe.md, recipes/lending-read/recipe.md, recipes/oracle-collateral/recipe.md, recipes/qusdc-escrow/assets/foundry.toml, recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol, recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol, recipes/qusdc-escrow/recipe.md, recipes/transaction-readonly/recipe.md, references/address-candidates.md, references/catalogue.md, references/compatibility.md, references/decision-guide.md, references/release-info.md, scripts/lib/effective-status.mjs
+│
+●  Skill: qie-frontend
+│
+│  Integrate a TypeScript frontend with explicit QIE EVM network selection, wallet account and chain gating, ABI-bound reads and invalidation after provider changes. Use for an existing frontend or its read controller; does not scaffold a new dApp or claim untested Viem, Wagmi or wallet-provider compatibility.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/erc20-asset/recipe.md, recipes/lending-read/recipe.md, recipes/qusdc-escrow/assets/foundry.toml, recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol, recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol, recipes/qusdc-escrow/recipe.md, recipes/wallet-read/assets/wallet-read.ts, recipes/wallet-read/recipe.md, references/evidence.md, references/release-info.md, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/probe-rpc-capabilities.mjs, scripts/verify-network.mjs
+│
+●  Skill: qie-networks
+│
+│  Find published QIE EVM mainnet and testnet settings, distinguish documented configuration from live network evidence, inspect packaged network references offline, and run an optional read-only live preflight against the selected network. Use when choosing a QIE network, locating RPC or explorer settings, or investigating a possible wrong-chain configuration.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/network/recipe.md, recipes/transaction-readonly/recipe.md, references/network-mainnet.md, references/network-testnet.md, references/preflight.md, references/release-info.md, references/scope.md, scripts/inspect-network.mjs, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/probe-rpc-capabilities.mjs, scripts/verify-network.mjs
+│
+●  Skill: qie-smart-contracts
+│
+│  Build and test original Solidity contracts locally for a QIE EVM project using the pinned Foundry recipe. Use for contract scaffolding, compiler configuration, ABI artifacts, tests and local failures. Local execution does not establish QIE deployment compatibility; native validator operations use a different account and execution model.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/build-test/assets/foundry.toml, recipes/build-test/assets/src/Counter.sol, recipes/build-test/assets/test/Counter.t.sol, recipes/build-test/recipe.md, recipes/build-test/toolchain.json, recipes/ecosystem-address/recipe.md, recipes/qusdc-escrow/assets/foundry.toml, recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol, recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol, recipes/qusdc-escrow/recipe.md, references/evidence.md, references/release-info.md
+│
+●  Skill: qie-transactions
+│
+│  Inspect QIE EVM transaction receipts, direct-creation linkage and runtime-code observations using bundled read-only diagnostics. Use for pending/reverted transactions, gas or nonce investigation and distinguishing receipt facts from application effects. Does not sign, broadcast, verify a mint or establish QIE finality.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/debug/recipe.md, recipes/ecosystem-address/recipe.md, recipes/transaction-readonly/recipe.md, references/evidence.md, references/release-info.md, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/lib/transaction-diagnostic.mjs, scripts/verify-network.mjs, scripts/verify-transaction.mjs
+│
+●  Skill: qie-wallets
+│
+│  Evaluate QIE EVM wallet capabilities, connect accounts deliberately, handle wrong-chain/account changes and prepare developer-controlled signing review. Use for choosing a wallet or connector, connection errors and signing boundaries. Does not supply native delegation commands, custody keys or claim a tested QIE wallet integration.
+│
+│    Files: SKILL.md, LICENSE, MANIFEST.json, data/network-claims.json, recipes/erc20-asset/recipe.md, recipes/wallet-read/assets/wallet-read.ts, recipes/wallet-read/recipe.md, references/evidence.md, references/release-info.md, scripts/lib/effective-status.mjs, scripts/lib/network-diagnostic.mjs, scripts/lib/rpc.mjs, scripts/probe-rpc-capabilities.mjs, scripts/verify-network.mjs
+│
+●  Installing all 9 skills
+
+│
+◇  Installation Summary ──────────────────────────╮
+│                                                 │
+│  ./.agents/skills/qie                           │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 7                                     │
+│                                                 │
+│  ./.agents/skills/qie-debug                     │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 15                                    │
+│                                                 │
+│  ./.agents/skills/qie-deployment                │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 26                                    │
+│                                                 │
+│  ./.agents/skills/qie-ecosystem                 │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 20                                    │
+│                                                 │
+│  ./.agents/skills/qie-frontend                  │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 19                                    │
+│                                                 │
+│  ./.agents/skills/qie-networks                  │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 17                                    │
+│                                                 │
+│  ./.agents/skills/qie-smart-contracts           │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 16                                    │
+│                                                 │
+│  ./.agents/skills/qie-transactions              │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 15                                    │
+│                                                 │
+│  ./.agents/skills/qie-wallets                   │
+│    copy → Codex, Claude Code, Cursor, OpenCode  │
+│    files: 14                                    │
+│                                                 │
+├─────────────────────────────────────────────────╯
+[?25l│
+[1G[J◒  Installing skills…[1G[J◐  Installing skills…[1G[J◇  Installation complete
+[?25h
+│
+◇  Installed 9 skills ───────────────────────╮
+│                                            │
+│  ✓ qie (copied)                            │
+│    → ./.agents/skills/qie                  │
+│    → ./.claude/skills/qie                  │
+│  ✓ qie-debug (copied)                      │
+│    → ./.agents/skills/qie-debug            │
+│    → ./.claude/skills/qie-debug            │
+│  ✓ qie-deployment (copied)                 │
+│    → ./.agents/skills/qie-deployment       │
+│    → ./.claude/skills/qie-deployment       │
+│  ✓ qie-ecosystem (copied)                  │
+│    → ./.agents/skills/qie-ecosystem        │
+│    → ./.claude/skills/qie-ecosystem        │
+│  ✓ qie-frontend (copied)                   │
+│    → ./.agents/skills/qie-frontend         │
+│    → ./.claude/skills/qie-frontend         │
+│  ✓ qie-networks (copied)                   │
+│    → ./.agents/skills/qie-networks         │
+│    → ./.claude/skills/qie-networks         │
+│  ✓ qie-smart-contracts (copied)            │
+│    → ./.agents/skills/qie-smart-contracts  │
+│    → ./.claude/skills/qie-smart-contracts  │
+│  ✓ qie-transactions (copied)               │
+│    → ./.agents/skills/qie-transactions     │
+│    → ./.claude/skills/qie-transactions     │
+│  ✓ qie-wallets (copied)                    │
+│    → ./.agents/skills/qie-wallets          │
+│    → ./.claude/skills/qie-wallets          │
+│                                            │
+├────────────────────────────────────────────╯
+
+│
+└  Done!  Review skills before use; they run with full agent permissions.

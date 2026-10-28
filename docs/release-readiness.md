@@ -8,8 +8,8 @@ CI run must name the actual PR head. Historical results retain their own scope.
 |---|---|---|
 | Canonical knowledge and portable skills | Implemented; nine coherent bundles with pinned tools and deterministic packaging | Current-head CI, review and integration |
 | Consumer bootstrap | Implemented; canonical and curated projections, preserved instructions, safe config targets and permission precedence | Actual host discovery and workflow evaluations remain separate |
-| Static documentation | Hosted MIT candidate observed: eleven routes, 149 matching canonical raw files and fourteen HTTPS browser checks | Recheck each changed deployment and retain its exact source/payload binding |
-| Reference app | Local build and deterministic browser fixtures pass | Actual wallet/version connection and deployed contract reads |
+| Static documentation | Hosted MIT candidate observed: eleven portal routes plus Counter, 393 byte-matching public files, sixteen HTTPS browser checks and a pinned anonymous installation into four profiles | Recheck each changed deployment and retain its exact source/payload binding |
+| Reference app | Hosted at `/counter/`; local and HTTPS deterministic browser fixtures pass | Actual wallet/version connection and deployed contract reads |
 | Testnet Counter | Compiled artifacts and read-only constructor simulation exist | Actual signer, fresh quote, reviewed maximum spend, wallet submission and action-linked receipt/code/state evidence |
 | Mainnet demonstration | NOT_RUN | Testnet qualification, reviewed signer/budget/action, developer-controlled submission and scoped application evidence |
 | QIE finality | UNKNOWN | Trusted QIE policy and observations matching that policy |
@@ -23,8 +23,9 @@ CI run must name the actual PR head. Historical results retain their own scope.
 
 1. Keep the current engineering and audit jobs green, review PR #1 first, then
    rebase PR #2 without dropping either job and rerun the complete gates.
-2. Finish local documentation and its hosted acceptance while the wallet owner
-   connects the selected testnet account. MIT is selected; record the remaining publication decisions.
+2. Preserve the [hosted HTTP/Counter acceptance](results/documentation-hosted-http-counter-2026-10-28.md)
+   while the wallet owner connects the selected testnet account. MIT is selected;
+   record the remaining publication decisions.
 3. Complete the actual signer-specific Counter review. Wallet approval covers
    the displayed chain, creation bytecode, native value and maximum fee.
 4. Observe the externally submitted testnet transaction and contract state.
@@ -45,7 +46,8 @@ npm run test:site
 npm run site:preview
 ```
 
-The preview binds to loopback at `http://127.0.0.1:5174/`. It provides no write,
-wallet, account, analytics or RPC endpoint. Build output in `dist/docs` can be
-reviewed and hosted as ordinary static files. The local server's MIME/cache/CSP
-checks must be repeated against the actual chosen host before public acceptance.
+The preview binds to loopback at `http://127.0.0.1:5174/`. It provides no backend
+write, account, analytics or RPC endpoint. Its `/counter/` page starts in mock
+mode and can explicitly connect an injected wallet for reads. Build output in
+`dist/docs` can be reviewed and hosted as ordinary static files. Repeat the
+MIME/cache/CSP checks against each changed deployment before accepting it.
