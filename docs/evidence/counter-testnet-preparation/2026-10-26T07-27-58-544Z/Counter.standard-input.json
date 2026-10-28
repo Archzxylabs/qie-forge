@@ -1,0 +1,30 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "src/Counter.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity 0.8.37;\n\n/// @notice Original local teaching fixture. No custody, token or admin interface.\n/// @dev Anyone may increment. This is not an audited production application.\ncontract Counter {\n    uint256 public value;\n\n    function increment() external {\n        value += 1;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "remappings": [],
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "metadata": {
+      "bytecodeHash": "none"
+    },
+    "evmVersion": "paris",
+    "libraries": {},
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode.object",
+          "evm.deployedBytecode.object",
+          "metadata"
+        ]
+      }
+    }
+  }
+}

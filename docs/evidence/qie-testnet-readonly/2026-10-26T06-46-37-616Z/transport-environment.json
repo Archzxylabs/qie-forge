@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-26T06:48:27.800Z",
+  "host": "rpc1testnet.qie.digital",
+  "addresses": [
+    {
+      "address": "152.42.156.219",
+      "family": 4
+    }
+  ],
+  "proxy_environment_present": {
+    "HTTPS_PROXY": false,
+    "HTTP_PROXY": false,
+    "ALL_PROXY": false,
+    "NODE_USE_ENV_PROXY": false
+  }
+}

@@ -1,5 +1,6 @@
 ---
 name: qie-transactions
+license: MIT
 description: Inspect QIE EVM transaction receipts, direct-creation linkage and runtime-code observations using bundled read-only diagnostics. Use for pending/reverted transactions, gas or nonce investigation and distinguishing receipt facts from application effects. Does not sign, broadcast, verify a mint or establish QIE finality.
 compatibility: Node 24.20.0 in the tested Node 24 line. Local helper imports and data are bundled. HTTPS RPC calls are optional, bounded read-only observations; QIE endpoint behavior has not been tested live.
 ---
@@ -11,6 +12,7 @@ compatibility: Node 24.20.0 in the tested Node 24 line. Local helper imports and
 3. Run the bundled network preflight first. A wrong-chain observation stops; an unavailable observation is UNKNOWN. Use the same selected endpoint for follow-up reads; never fall back across networks.
 4. Use the recipe's generic receipt command for receipt facts. For DEPLOY_DIRECT, additionally supply the independently expected created address. The helper validates receipt/code format but does not establish original transaction intent, inclusion-block code, canonical continuity or issuer identity.
 5. Report inclusion, execution, identityLinkage, applicationEffect and finality separately. Transaction CLI exit 0 means a report exists, not success. Inspect its errorCode/checks/applicationOutcome.
+6. For QUSDC or Lending actions, decode application events only with a reviewed ABI and compare expected token balance deltas at the selected block. A generic receipt cannot certify minting, redemption, supply, borrow, repayment or withdrawal.
 
 The installed [transaction observer](scripts/verify-transaction.mjs) and [network preflight](scripts/verify-network.mjs) use the packaged snapshot. No checkout, sibling skill or secret is required. [Release metadata](references/release-info.md) identifies that snapshot.
 

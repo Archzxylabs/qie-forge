@@ -1,0 +1,23 @@
+
+Running 14 tests using 1 worker
+
+(node:660623) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › site/tests/portal.spec.ts:6:1 › all required routes render without page errors, horizontal overflow or WCAG A/AA violations (15.5s)
+  ✓   2 [desktop] › site/tests/portal.spec.ts:25:1 › homepage exposes install and first task; networks are one navigation step away (1.4s)
+  ✓   3 [desktop] › site/tests/portal.spec.ts:39:1 › catalogue filters include unknown support and recover from an empty result (2.5s)
+  ✓   4 [desktop] › site/tests/portal.spec.ts:54:1 › copy reports success and offers manual recovery when the clipboard is denied (607ms)
+  ✓   5 [desktop] › site/tests/portal.spec.ts:64:1 › keyboard navigation exposes skip link and visible focus (643ms)
+  ✓   6 [desktop] › site/tests/portal.spec.ts:75:1 › documents and raw files work without JavaScript (1.4s)
+  ✓   7 [desktop] › site/tests/portal.spec.ts:88:1 › reduced motion remains readable and unavailable routes return a real 404 (791ms)
+(node:661392) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   8 [mobile] › site/tests/portal.spec.ts:6:1 › all required routes render without page errors, horizontal overflow or WCAG A/AA violations (13.6s)
+  ✓   9 [mobile] › site/tests/portal.spec.ts:25:1 › homepage exposes install and first task; networks are one navigation step away (869ms)
+  ✓  10 [mobile] › site/tests/portal.spec.ts:39:1 › catalogue filters include unknown support and recover from an empty result (1.6s)
+  ✓  11 [mobile] › site/tests/portal.spec.ts:54:1 › copy reports success and offers manual recovery when the clipboard is denied (655ms)
+  ✓  12 [mobile] › site/tests/portal.spec.ts:64:1 › keyboard navigation exposes skip link and visible focus (572ms)
+  ✓  13 [mobile] › site/tests/portal.spec.ts:75:1 › documents and raw files work without JavaScript (826ms)
+  ✓  14 [mobile] › site/tests/portal.spec.ts:88:1 › reduced motion remains readable and unavailable routes return a real 404 (708ms)
+
+  14 passed (43.9s)

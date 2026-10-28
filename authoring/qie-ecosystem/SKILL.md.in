@@ -1,5 +1,6 @@
 ---
 name: qie-ecosystem
+license: MIT
 description: QIE ecosystem intelligence, product catalogue, and evidence-based compatibility decision guide. Use when a developer asks which wallets, SDKs, development frameworks, DEXs, bridges, oracles, indexers, or tools work on QIE, or when evaluating whether a specific tool or operation is supported. Implements a 7-step decision procedure, provides grounded compatibility guidance, and enforces safety boundaries without guessing.
 compatibility: Local references work offline without an account or network. This skill performs no on-chain transaction signing, broadcasting, or secret handling.
 ---
@@ -42,11 +43,31 @@ When evaluating any ecosystem tool, product, or integration for QIE, follow this
    - **Case H**: Evidence freshness, expiry, and effective status.
 7. **Provide recommendation or safe handoff**: Recommend the best-supported approach, declare what is unverified, and hand off to the relevant topical skill when implementation begins.
 
+## Required answer shape for protocol integrations
+
+For QUSDC, QIE Lending, wallets, or any other ecosystem product, answer in this order:
+
+1. **Known facts** — source-grounded product, network/layer, pinned SDK or ABI, inputs, outputs and permissions.
+2. **Integration pattern** — the smallest read-only or local/mock implementation that can be built now.
+3. **Unverified facts** — deployment identity, ABI correspondence, runtime behavior, economic claims and freshness gaps.
+4. **Safe next action** — exact local test, read-only observation or issuer question.
+5. **Deployment blockers** — the identity-gate and approval conditions that stop a write.
+6. **Sources** — the canonical records and pinned upstream revision used.
+
+Do not turn an unresolved address into a refusal to provide protocol information. Refuse the transaction or executable address-bound step, not the source-grounded local integration.
+
+## Primary protocol routes
+
+- **QUSDC:** distinguish USDC, WUSDC, QUSDC and the vault. Use the documented `depositAndMint(uint256)` / `burnAndWithdraw(uint256)` interface only as a source-grounded ABI pattern. Use integer units and the WUSDC decimal read; do not assert that a 1:1 receipt claim guarantees market price or reserve quality.
+- **QIE Lending:** use the pinned official SDK source for `supply`, `borrow`, `repay`, `withdraw`, `getPortfolio` and `getTotals`. A dashboard can use a provider-only read adapter; borrowing has an `enterMarkets` state-changing side effect and must not run during a read flow.
+- **Address-bound products:** use the shared identity gate and generated candidate table. A candidate from an SDK, explorer or web page is discovery-only until network identity, code, ABI, issuer provenance, human review and conflict checks pass.
+- **Unknown products:** report the installed snapshot limit, inspect primary sources only when permitted, and return a safe handoff instead of inventing APIs or contracts.
+
 ## Core safety invariants
 
 - **Documentation is not execution proof**: A product guide or GitHub repository does not prove that an API works on QIE.
 - **Generic EVM is not QIE verified**: Do not assume an Ethereum library works out of the box on QIE without evidence.
-- **Address identity blocker**: The canonical address inventory in this release is empty. Never hallucinate contract addresses, DEX routers, or token ABIs.
+- **Address identity blocker**: This release may retain source-published candidates for investigation, but none is approved configuration. Never hallucinate contract addresses, DEX routers, or token ABIs.
 - **Zero signing & broadcasting**: This skill provides read-only guidance and diagnostics. It never requests private keys, signs transactions, or broadcasts state changes.
 - **Freshness**: Check [Release information](references/release-info.md) for build timestamp and review dates.
 

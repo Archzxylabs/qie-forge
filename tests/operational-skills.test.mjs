@@ -1,8 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { cp, chmod, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
-import os from 'node:os';
+import { cp, chmod, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { closeSync, openSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -12,6 +11,7 @@ import { validateBundle } from '../scripts/lib/bundle.mjs';
 import { loadValidators } from '../scripts/lib/schemas.mjs';
 import { fixtureProject, temporaryDirectory, schemaRoot, releasedSkills, projectRoot } from './support/fixtures.mjs';
 import { runNode } from './support/process.mjs';
+import { resolveSolc } from '../scripts/lib/solc.mjs';
 
 const validate = await loadValidators(schemaRoot);
 const operational = releasedSkills.filter(s => !['qie', 'qie-networks', 'qie-ecosystem'].includes(s));
@@ -105,13 +105,21 @@ test('installed Foundry recipe replays real build/test/ABI commands and detects 
   const pins = JSON.parse(await readFile(path.join(installed, 'recipes/build-test/toolchain.json'), 'utf8'));
   await rm(source, { recursive: true, force: true });
   await validateBundle(installed, validate);
-  // Use an already installed native compiler, not the solc-select wrapper that
-  // attempts installation under a new HOME. Never install tools from a test.
-  const compilerSource = process.env.QIE_FORGE_SOLC
-    ?? path.join(os.homedir(), '.solc-select/artifacts/solc-0.8.37/solc-0.8.37');
-  const compiler = path.join(isolated, 'solc');
-  await cp(compilerSource, compiler); await chmod(compiler, 0o755);
-  const env = { PATH: process.env.PATH, HOME: home, NO_COLOR: '1' };
+  // Use the repository's one resolved native compiler. The isolated HOME has no
+  // solc-select cache and the native binary leads PATH, so a wrapper that could
+  // download a compiler is never invoked. Never install tools from a test.
+  const compilerResolution = resolveSolc({ root: projectRoot, toolchain: pins });
+  const toolchainBin = path.join(isolated, 'toolchain-bin');
+  await mkdir(toolchainBin);
+  const compiler = path.join(toolchainBin, 'solc');
+  await cp(compilerResolution.path, compiler); await chmod(compiler, 0o755);
+  await assert.rejects(readdir(path.join(home, '.solc-select')), /ENOENT/,
+    'the isolated HOME must not contain a solc-select artifact');
+  const env = {
+    PATH: `${toolchainBin}${path.delimiter}${process.env.PATH}`,
+    HOME: home,
+    NO_COLOR: '1',
+  };
   const commands = [];
   const run = (cmd, args) => {
     const result = tool(cmd, args, project, env);
@@ -139,6 +147,7 @@ test('installed Foundry recipe replays real build/test/ABI commands and detects 
   t.diagnostic(JSON.stringify({ scope: 'LOCAL_REPLAY only; QIE interoperability UNKNOWN', commands,
     tests: tests.trim(), methodIdentifiers: methods,
     compiler_sha256: createHash('sha256').update(await readFile(compiler)).digest('hex'),
+    compilerResolution: compilerResolution.source, compilerHomeHasSolcSelect: false,
     artifact_sha256: createHash('sha256').update(JSON.stringify(artifact)).digest('hex') }));
   const testFile = path.join(project, 'test/Counter.t.sol');
   await writeFile(testFile, (await readFile(testFile, 'utf8')).replace('counter.value() == 1', 'counter.value() == 2'));

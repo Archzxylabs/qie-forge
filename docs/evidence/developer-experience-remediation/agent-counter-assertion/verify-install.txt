@@ -1,0 +1,13 @@
+Installed release: 0.5.2-ecosystem.1 (schema 1.4.0)
+Built at: 2026-10-21T17:28:25Z
+Release identity: 3f88cb8b595dfdc2b3defa38ffb1d0e6efc71ee9d3158210d41262620561e30b (manifest)
+Inventory complete: false
+Payload integrity: VERIFIED
+Release coherence: COHERENT
+Provenance: MATCH (manifest metadata authenticated: false)
+Publisher authenticity: NOT_ESTABLISHED (PAYLOAD_IDENTITY_ONLY)
+Verification complete: false (suiteComplete: false)
+Installed skills: 2
+  OK qie-debug 0.5.2-ecosystem.1 3f88cb8b595d
+  OK qie-smart-contracts 0.5.2-ecosystem.1 3f88cb8b595d
+Status: COHERENT_PARTIAL

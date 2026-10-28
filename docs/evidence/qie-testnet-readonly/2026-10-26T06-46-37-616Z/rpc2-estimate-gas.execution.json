@@ -1,0 +1,26 @@
+{
+  "command": [
+    "curl",
+    "--silent",
+    "--show-error",
+    "--connect-timeout",
+    "5",
+    "--max-time",
+    "12",
+    "--max-filesize",
+    "1048576",
+    "--proto",
+    "=https",
+    "--header",
+    "content-type: application/json",
+    "--data",
+    "{\"jsonrpc\":\"2.0\",\"method\":\"eth_estimateGas\",\"params\":[{\"from\":\"0x0000000000000000000000000000000000000000\",\"to\":\"0x0000000000000000000000000000000000000000\",\"data\":\"0x\"}],\"id\":1}",
+    "--write-out",
+    "%{stderr}http_code=%{http_code} total_seconds=%{time_total}\\n",
+    "https://rpc2testnet.qie.digital/"
+  ],
+  "started_at": "2026-10-26T06:53:53.586Z",
+  "finished_at": "2026-10-26T06:53:53.843Z",
+  "exit_code": 0,
+  "signal": null
+}

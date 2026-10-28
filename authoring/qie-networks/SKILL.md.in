@@ -1,5 +1,6 @@
 ---
 name: qie-networks
+license: MIT
 description: Find published QIE EVM mainnet and testnet settings, distinguish documented configuration from live network evidence, inspect packaged network references offline, and run an optional read-only live preflight against the selected network. Use when choosing a QIE network, locating RPC or explorer settings, or investigating a possible wrong-chain configuration.
 compatibility: Local references and the offline inspector require no account or network. The optional read-only preflight helper contacts the selected QIE RPC endpoint and requires Node.js 24.20 or newer in the tested Node 24 line.
 ---
@@ -26,6 +27,8 @@ node scripts/inspect-network.mjs qie-testnet
 
 Run only the command relevant to the requested network. The helper locates packaged data relative to itself, so invoking it by an absolute path also works from another directory. Its [status evaluator](scripts/lib/effective-status.mjs) is bundled locally.
 
+An installed bundle needs no option. When this same helper is run from a QIE Forge source checkout, where no snapshot sits beside `scripts/`, point it at a snapshot explicitly with `--claims <network-claims.json>`. The override never selects a different network and the command remains fully offline.
+
 Expected output is JSON containing the selected network, published values, evidence status and source URLs. `live_check.outcome` is always `NOT_RUN`. This command does not establish endpoint availability or active chain identity.
 
 ## Read-only live preflight
@@ -50,6 +53,8 @@ node scripts/verify-network.mjs qie-mainnet --rpc https://alternative-mainnet-en
 For the reusable network workflow, read [select and inspect a network](recipes/network/recipe.md). It states inputs, command outcomes, recovery and the boundary between documented settings and an observed preflight.
 
 Follow the [preflight checklist](references/preflight.md). A host must obtain a fresh `eth_chainId` and responsive-block observation from the chosen endpoint before a write-bound workflow; the read-only preflight helper above performs exactly those two reads. Endpoint settings alone do not prove identity, and a passing preflight observation is not evidence promotion. This skill never signs, broadcasts, requests a key, or authorizes another agent to spend.
+
+For provider research, use the bundled `probe-rpc-capabilities.mjs` with an explicit network and bounded `--max-requests`. It probes only read methods, stops on a chain mismatch, reports per-method observations and never promotes a capability. No provider rate limit, historical log range or WebSocket support is assumed from a successful probe.
 
 Report the target network, value, source, evidence status and missing checks. Keep observed runtime evidence separate from documented settings. If a live check cannot run, report `UNKNOWN` or `NOT_RUN`; never report a successful preflight from this offline helper.
 

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "/home/pupulion/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+    "--standard-json"
+  ],
+  "stdin": "Counter.standard-input.json",
+  "started_at": "2026-10-26T07:32:14.337Z",
+  "finished_at": "2026-10-26T07:32:14.346Z",
+  "exit_code": 0,
+  "signal": null
+}

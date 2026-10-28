@@ -1,0 +1,3 @@
+Compiling 2 files with Solc 0.8.37
+Solc 0.8.37 finished in 15.78ms
+Compiler run successful!

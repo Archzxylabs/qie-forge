@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "scope": "READ_ONLY_TESTNET_OBSERVATION",
+  "started_at": "2026-10-26T06:46:37.616Z",
+  "source_commit": "209ebda231a216e818c6a836c3ba1f9c25a3262d",
+  "source_worktree_status_before_capture": "",
+  "node_version": "v24.20.0",
+  "skill_release_version": "0.6.0-ecosystem.1",
+  "skill_release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
+  "network_id": "qie-testnet",
+  "expected_chain_id": 1983,
+  "source_receipt": {
+    "source_id": "S03",
+    "url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet",
+    "retrieved_url": "https://docs.qie.digital/getting-started-with-qie-blockchain/4.-access-mainnet-or-testnet.md",
+    "http_status": 200,
+    "captured_at": "2026-10-26T06:44:26.398Z",
+    "body_sha256": "c9111c1c4416ee8cc1589bf108d1a1fcf317c32768ba4423c5332fc6f1c138a1",
+    "body_bytes": 1406
+  },
+  "input_sha256": {
+    "skills/qie-networks/MANIFEST.json": "4ec0835508e4609a294787632fb9200108695cf98c3211d9d7e33a779716bb78",
+    "skills/qie-networks/data/network-claims.json": "d9f07297802e8f4f39fb40c965b1ab0788c0f7fd85d8e60f308d8c8ff78d6ac2",
+    "skills/qie-networks/scripts/verify-network.mjs": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f",
+    "skills/qie-networks/scripts/lib/network-diagnostic.mjs": "d0e100c21308c102b590d70fa56338b17f6db45c77986bee4c794663f5212233",
+    "skills/qie-networks/scripts/lib/rpc.mjs": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2",
+    "skills/qie-networks/scripts/lib/effective-status.mjs": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751",
+    "scripts/probe-rpc-capabilities.mjs": "cc059cfcf2f62565a338a5edf85d12dd05b0687a1592f2764333310422208e4b"
+  },
+  "request_limits": {
+    "node_rpc_client": {
+      "timeout_ms": 10000,
+      "max_response_bytes": 1048576
+    },
+    "capability_probe_max_requests": 14,
+    "curl": {
+      "connect_timeout_seconds": 5,
+      "total_timeout_seconds": 12,
+      "max_response_bytes": 1048576
+    }
+  },
+  "canonical_status_promotion": false,
+  "reviewer": null,
+  "initial_endpoint": "https://rpc1testnet.qie.digital/",
+  "selected_endpoint": "https://rpc2testnet.qie.digital/",
+  "finished_at": "2026-10-26T06:53:53.843Z",
+  "endpoint_observations": [
+    {
+      "report": "preflight-before.json",
+      "endpoint": "https://rpc1testnet.qie.digital/",
+      "checked_at": "2026-10-26T06:46:37.671Z",
+      "outcome": "UNKNOWN",
+      "error_code": "RPC_UNAVAILABLE"
+    },
+    {
+      "report": "preflight-rpc2.json",
+      "endpoint": "https://rpc2testnet.qie.digital/",
+      "checked_at": "2026-10-26T06:49:20.859Z",
+      "outcome": "PASS",
+      "error_code": null
+    },
+    {
+      "report": "preflight-rpc3.json",
+      "endpoint": "https://rpc3testnet.qie.digital/",
+      "checked_at": "2026-10-26T06:49:20.862Z",
+      "outcome": "UNKNOWN",
+      "error_code": "RPC_UNAVAILABLE"
+    },
+    {
+      "report": "preflight-after.json",
+      "endpoint": "https://rpc2testnet.qie.digital/",
+      "checked_at": "2026-10-26T06:53:52.732Z",
+      "outcome": "PASS",
+      "error_code": null
+    }
+  ],
+  "block_progress": {
+    "before_report": "preflight-rpc2.json",
+    "after_report": "preflight-after.json",
+    "before_height": 9378989,
+    "after_height": 9379051,
+    "delta": 62,
+    "observation_elapsed_seconds": 271.873
+  },
+  "method_observations": {
+    "probe_requests": 14,
+    "probe_unique_methods": 13,
+    "supplemental_method": "eth_estimateGas",
+    "unique_methods_total": 14,
+    "probe_errors": 0,
+    "supplemental_outcome": "OBSERVED"
+  },
+  "platform": "linux",
+  "architecture": "x64",
+  "curl_version": "curl 8.22.0 (x86_64-pc-linux-gnu) libcurl/8.22.0 OpenSSL/3.6.4 zlib/1.3.2 brotli/1.2.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.5 libssh2/1.11.1 nghttp2/1.70.0 ngtcp2/1.25.0 nghttp3/1.18.0 mit-krb5/1.22.2"
+}

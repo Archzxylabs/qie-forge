@@ -9,7 +9,7 @@ import { buildRelease } from '../scripts/lib/release.mjs';
 const projectRoot = new URL('../', import.meta.url).pathname;
 const root = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-routing-'));
 after(() => rm(root, { recursive: true, force: true }));
-for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json']) {
+for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json', 'LICENSE']) {
   await cp(path.join(projectRoot, name), path.join(root, name), { recursive: true });
 }
 const output = await buildRelease(root);
@@ -65,7 +65,7 @@ test('router entry states graceful missing-skill remediation for both catalogue 
   assert.match(entry, /Never fabricate the planned skill/);
   assert.match(entry, /do not upgrade a status in your answer/);
   assert.match(entry, /Never generate a plausible-looking QIE contract address/);
-  assert.match(entry, /canonical address collection is empty/);
+  assert.match(entry, /discovery-only candidates, but none is executable/);
   assert.match(entry, /NOT_RUN` or `UNKNOWN` — never a successful preflight/);
 });
 

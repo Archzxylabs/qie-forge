@@ -1,5 +1,6 @@
 ---
 name: qie-smart-contracts
+license: MIT
 description: Build and test original Solidity contracts locally for a QIE EVM project using the pinned Foundry recipe. Use for contract scaffolding, compiler configuration, ABI artifacts, tests and local failures. Local execution does not establish QIE deployment compatibility; native validator operations use a different account and execution model.
 compatibility: Local recipe tested with Forge 1.8.1, solc 0.8.37 and Node 24.20.0. Requires those existing tools; no dependency download or chain access is required for the bundled fixture.
 ---
@@ -12,7 +13,8 @@ Own contract source, compiler settings, tests and ABI artifacts. Preserve the de
 2. Read [selected evidence](references/evidence.md) and [release information](references/release-info.md). Discover tools by exact operation/network/version, not an EVM compatibility assumption. Foundry deployment remains UNKNOWN; Hardhat is an unvalidated alternative, not a second tested path.
 3. For a new local project, follow [build and test](recipes/build-test/recipe.md). For an existing project, inspect its configuration and lockfiles first; do not overwrite it with the fixture. Review compiler and dependency changes explicitly.
 4. Produce source, tests, compiler configuration, ABI/bytecode and actual command outcomes. Distinguish compilation, tests, deployment preparation, chain inclusion, application effects and finality.
-5. Hand deployment preparation to logical skill `qie-deployment` if installed; otherwise provide the same-source installation remedy and keep local results usable. Never read a sibling skill path.
+5. For QUSDC payment or ArchademyVault work, use the address-free `qusdc-escrow` mock to exercise WUSDC/QUSDC denomination, allowance, mint/burn, pause, claim and failure behavior. The mock is not deployed QUSDC and does not validate a QIE production vault.
+6. Hand deployment preparation to logical skill `qie-deployment` if installed; otherwise provide the same-source installation remedy and keep local results usable. Never read a sibling skill path.
 
 ## Failure handling
 

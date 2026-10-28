@@ -1,1 +1,219 @@
-[]
+- address: '0x69a31E3D361C69B37463aa67Ef93067dC760fBD4'
+  chain_id: 1990
+  claimed_product: qie-lending:comptroller-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0xD072cDDc4e8A15EE532F7fB7AC583a3715b5261f'
+  chain_id: 1990
+  claimed_product: qie-lending:WBNB-cToken-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x9e02ba5dE6d26D5Ca5688Ed3999C6bcF4F3e966E'
+  chain_id: 1990
+  claimed_product: qie-lending:WBNB-underlying-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x0b8F865dd5E822323F3B45554bdbC8De3715dA60'
+  chain_id: 1990
+  claimed_product: qie-lending:WETH-cToken-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x95322ccB3fb8dDefD210805EE18662762a0bc4A2'
+  chain_id: 1990
+  claimed_product: qie-lending:WETH-underlying-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x3EcD3b3fa22Cc251301BA78F4Ba014f78B6FE542'
+  chain_id: 1990
+  claimed_product: qie-lending:QUSDC-cToken-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x3F43DA82eC9A4f5285F10FaF1F26EcA7319E5DA5'
+  chain_id: 1990
+  claimed_product: qie-lending:QUSDC-underlying-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x25A9bD97C90161A622a75A4Fd87ea0e7507324CA'
+  chain_id: 1990
+  claimed_product: qie-lending:WQIE-cToken-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x0087904D95BEe9E5F24dc8852804b547981A9139'
+  chain_id: 1990
+  claimed_product: qie-lending:WQIE-underlying-candidate
+  issuer_source_ids:
+    - S29
+    - S30
+  abi_source_ids:
+    - S29
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x9E596d809a20A272c788726f592c0d1629755440'
+  chain_id: 1990
+  claimed_product: qie-oracle:BTC-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x4bb7012Fbc79fE4Ae9B664228977b442b385500d'
+  chain_id: 1990
+  claimed_product: qie-oracle:ETH-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x804582B1f8Fea73919e7c737115009f668f97528'
+  chain_id: 1990
+  claimed_product: qie-oracle:XRP-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0xe86999c8e6C8eeF71bebd35286bCa674E0AD7b21'
+  chain_id: 1990
+  claimed_product: qie-oracle:SOL-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x3Bc617cF3A4Bb77003e4c556B87b13D556903D17'
+  chain_id: 1990
+  claimed_product: qie-oracle:QIE-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x9aD0199a67588ee293187d26bA1BE61cb07A214c'
+  chain_id: 1990
+  claimed_product: qie-oracle:XAUt-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0x775A56117Fdb8b31877E75Ceeb68C96765b031e6'
+  chain_id: 1990
+  claimed_product: qie-oracle:BNB-feed-candidate
+  issuer_source_ids:
+    - S12
+  abi_source_ids:
+    - S35
+    - S36
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null
+
+- address: '0xD4949664cD82660AaE99bEdc034a0deA8A0bd517'
+  chain_id: 1990
+  claimed_product: qie-native:evm-conversion-precompile-candidate
+  issuer_source_ids:
+    - S16
+  abi_source_ids:
+    - S16
+  code_observation: null
+  status: CLAIMED
+  checked_at: null
+  expires_at: null

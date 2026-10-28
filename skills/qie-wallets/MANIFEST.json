@@ -1,13 +1,21 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "f8bcbde63040565966f31d519badff6a8bf046a5b37702665cbbbca5070c9ccd"
+      "sha256": "81b93349b94210276e8ccaf4e372f6f0efcd38047d0a8eb399cadf444e233075"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "44e65fde879df9fde5053c36834985be63396872f783e1843d5e63b2bba7ba7d"
+      "sha256": "180a51d4902031e177e8ec4caf8c12ca83808ceb90bb79bfe0151c2474320664"
+    },
+    {
+      "path": "recipes/erc20-asset/recipe.md",
+      "sha256": "e21969578abae892f24629aed34a020549a5c55fb75f8c86e1fcdbfc24ffa19c"
     },
     {
       "path": "recipes/wallet-read/assets/wallet-read.ts",
@@ -19,15 +27,15 @@
     },
     {
       "path": "references/evidence.md",
-      "sha256": "d44c7d4572e0c7b69c0babf3c36046590a9b812abfaaee99effeeebd3758e2fb"
+      "sha256": "e644797cc48f5e799e8a0530d78aebe326ae1ec318d792f8b0e5fbd11986b6c3"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -38,14 +46,19 @@
       "sha256": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2"
     },
     {
+      "path": "scripts/probe-rpc-capabilities.mjs",
+      "sha256": "fd7634b8a3dd122726c37a4399c5b8a7ac322e5357137ff1429f0de018288ea0"
+    },
+    {
       "path": "scripts/verify-network.mjs",
       "sha256": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f"
     }
   ],
   "generated": true,
-  "knowledge_sha256": "44e65fde879df9fde5053c36834985be63396872f783e1843d5e63b2bba7ba7d",
+  "knowledge_sha256": "180a51d4902031e177e8ec4caf8c12ca83808ceb90bb79bfe0151c2474320664",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-wallets",
   "snapshot_path": "data/network-claims.json",

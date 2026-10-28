@@ -1,4 +1,9 @@
 // Original, dependency-free status projection. Never promotes a record's evidence.
+/**
+ * @param {{ status: string, expires_at?: string | null, checked_at?: string | null, risk_level?: string | null }} record
+ * @param {{ now?: string | number, offline?: boolean }} [options]
+ * @returns {{ status: string, reason: string }}
+ */
 export function effectiveStatus(record, { now, offline = true } = {}) {
   if (['CONFLICTED', 'DEPRECATED', 'UNSUPPORTED', 'STALE'].includes(record.status)) {
     return { status: record.status, reason: 'Stored blocking or retired evidence state.' };

@@ -1,13 +1,41 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "5ce34aec51794135bbaf1c1b71a04d2f4b77e916a0d6e57f23d1097dd061a1eb"
+      "sha256": "47bc89611981c582b71bf2ab8645363bfe222806f9ca0678386c135f49b6e547"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "e88d40514f997f86ad5656962901642b65331f77c778b588d12f4eac8ffbe10b"
+      "sha256": "5ca8eb41ee71c118358717da1aa1501abf9dbd270a8046fbc40b896abb8c3780"
+    },
+    {
+      "path": "recipes/erc20-asset/recipe.md",
+      "sha256": "e21969578abae892f24629aed34a020549a5c55fb75f8c86e1fcdbfc24ffa19c"
+    },
+    {
+      "path": "recipes/lending-read/recipe.md",
+      "sha256": "238e269d19a8c4561ebe1248ccdf10b74fa9b0b7b2d0e2fcaf5aeda4e9d7f63b"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/foundry.toml",
+      "sha256": "d3b32d45b456a4913b7c36016b47642ac8ff3605f7b8ef52c6e98e9503c408c0"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol",
+      "sha256": "8d4815d75d0c3981453303cb4cb5ef8744ee3d4cf4f0861c5935f6fc1da3f97e"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol",
+      "sha256": "8593013d1db53221b89c73b9cfcbfaddb92eb958c546b39da1cf6d77b412d487"
+    },
+    {
+      "path": "recipes/qusdc-escrow/recipe.md",
+      "sha256": "bfa5762039ad17246beaca095e5416bd943da82e0ce1ea50de82d5a734f088cd"
     },
     {
       "path": "recipes/wallet-read/assets/wallet-read.ts",
@@ -19,15 +47,15 @@
     },
     {
       "path": "references/evidence.md",
-      "sha256": "d44c7d4572e0c7b69c0babf3c36046590a9b812abfaaee99effeeebd3758e2fb"
+      "sha256": "223ceef56428dd8c95d86b531486812016086cca6bf940d18855a3add510593f"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -38,14 +66,19 @@
       "sha256": "9a10fa861c17b3309b2984b7b78b0033fef0c2ae204c27e7764a3631f5880fb2"
     },
     {
+      "path": "scripts/probe-rpc-capabilities.mjs",
+      "sha256": "fd7634b8a3dd122726c37a4399c5b8a7ac322e5357137ff1429f0de018288ea0"
+    },
+    {
       "path": "scripts/verify-network.mjs",
       "sha256": "39ca5096480b3f0940b18382e84b2b455b0b066f14e1150523bce530fb79604f"
     }
   ],
   "generated": true,
-  "knowledge_sha256": "e88d40514f997f86ad5656962901642b65331f77c778b588d12f4eac8ffbe10b",
+  "knowledge_sha256": "5ca8eb41ee71c118358717da1aa1501abf9dbd270a8046fbc40b896abb8c3780",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-frontend",
   "snapshot_path": "data/network-claims.json",

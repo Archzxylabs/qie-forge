@@ -1,0 +1,25 @@
+
+Running 16 tests using 1 worker
+
+(node:701281) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › site/tests/portal.spec.ts:6:1 › all required routes render without page errors, horizontal overflow or WCAG A/AA violations (15.5s)
+  ✓   2 [desktop] › site/tests/portal.spec.ts:25:1 › homepage exposes install and first task; networks are one navigation step away (992ms)
+  ✓   3 [desktop] › site/tests/portal.spec.ts:39:1 › catalogue filters include unknown support and recover from an empty result (1.9s)
+  ✓   4 [desktop] › site/tests/portal.spec.ts:54:1 › copy reports success and offers manual recovery when the clipboard is denied (648ms)
+  ✓   5 [desktop] › site/tests/portal.spec.ts:64:1 › keyboard navigation exposes skip link and visible focus (639ms)
+  ✓   6 [desktop] › site/tests/portal.spec.ts:75:1 › documents and raw files work without JavaScript (1.5s)
+  ✓   7 [desktop] › site/tests/portal.spec.ts:88:1 › reduced motion remains readable and unavailable routes return a real 404 (751ms)
+  ✓   8 [desktop] › site/tests/portal.spec.ts:97:1 › published Counter keeps simulation explicit and handles a missing injected wallet (2.9s)
+(node:702166) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   9 [mobile] › site/tests/portal.spec.ts:6:1 › all required routes render without page errors, horizontal overflow or WCAG A/AA violations (13.2s)
+  ✓  10 [mobile] › site/tests/portal.spec.ts:25:1 › homepage exposes install and first task; networks are one navigation step away (980ms)
+  ✓  11 [mobile] › site/tests/portal.spec.ts:39:1 › catalogue filters include unknown support and recover from an empty result (1.6s)
+  ✓  12 [mobile] › site/tests/portal.spec.ts:54:1 › copy reports success and offers manual recovery when the clipboard is denied (663ms)
+  ✓  13 [mobile] › site/tests/portal.spec.ts:64:1 › keyboard navigation exposes skip link and visible focus (670ms)
+  ✓  14 [mobile] › site/tests/portal.spec.ts:75:1 › documents and raw files work without JavaScript (892ms)
+  ✓  15 [mobile] › site/tests/portal.spec.ts:88:1 › reduced motion remains readable and unavailable routes return a real 404 (747ms)
+  ✓  16 [mobile] › site/tests/portal.spec.ts:97:1 › published Counter keeps simulation explicit and handles a missing injected wallet (2.9s)
+
+  16 passed (49.0s)

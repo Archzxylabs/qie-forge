@@ -52,7 +52,7 @@ This guide provides actionable decision trees for Cases A through H, referenced 
 ### Ecosystem Status
 - **Web Swap Interface**: Claimed at `https://swap.dex.qie.digital/` and `https://dex.qie.digital/` (`status: CLAIMED`).
 - **Programmatic Swapping**: Contract router and factory identities have **not** been verified on-chain (`status: UNKNOWN`).
-- **Canonical Address Collection**: The canonical address inventory in this release is **empty** (`knowledge/addresses.yaml: []`).
+- **Candidate Address Collection**: The canonical address inventory contains discovery-only candidates. None is approved configuration or executable without the full identity gate.
 
 ### Strict Refusal Rule
 > [!CAUTION]
@@ -207,3 +207,45 @@ Never answer a validator delegation question with EVM contract instructions, and
   1. Clearly disclose the limitation to the developer.
   2. Stop any automated write guidance.
   3. Require testnet verification before executing on mainnet.
+
+---
+
+## Case I: QUSDC Payment, Minting and Escrow
+
+The reviewed QUSDC documentation describes a receipt asset. Its detailed flow says USDC bridged from Ethereum appears on QIE as WUSDC, WUSDC is locked in a vault to mint QUSDC, and burning QUSDC releases WUSDC. The official pinned SDK uses ethers v6 and exposes `depositAndMint(uint256)` and `burnAndWithdraw(uint256)`. It accepts separate `vaultAddress` and `wusdcAddress` values, reads WUSDC `decimals()`, checks allowance, sends exact approval, estimates gas and waits for configured confirmations.
+
+Explain the USDC → WUSDC → QUSDC relationship before writing contract code. Keep raw units separate, build the local mock vault and escrow from `recipes/qusdc-escrow/`, and treat 1:1 backing, permissionless minting, redemption and transparency as issuer-documented claims rather than reserve, price or market-liquidity guarantees. Block live mint, burn, transfer and escrow settlement until the vault, WUSDC and QUSDC identities pass the shared address gate.
+
+Test wrong decimals, insufficient allowance, failed transfer, paused or unavailable redemption, duplicate claim, refund, rounding, reentrancy and a balance delta that does not match the expected application effect. A receipt alone is not proof of any of these effects.
+
+---
+
+## Case J: QIE Lending SDK and Read-Only Dashboard
+
+The pinned `qieadmin/qie-lend-sdk` source is CommonJS, declares ethers v6, exports `LendingSDK` and `config`, and exposes `supply`, `borrow`, `repay`, `withdraw`, `getPortfolio` and `getTotals`. It uses Compound-style cToken calls `mint(uint256)`, `borrow(uint256)`, `repayBorrow(uint256)` and `redeemUnderlying(uint256)`. Borrow first calls Comptroller `enterMarkets([cToken])`. Portfolio reads `balanceOfUnderlying`, `borrowBalanceStored` and `getAccountLiquidity`. The static config lists WBNB, WETH, QUSDC and WQIE candidates, but candidate addresses are not approved deployments.
+
+For a dashboard, use a provider-only adapter, read each market independently, display raw units and decimals, surface Comptroller errors and keep health calculations visibly approximate until live oracle, market metadata and decimal semantics are verified. Never call `enterMarkets`, approve, borrow, repay or withdraw as a side effect of a read.
+
+Report source-code limitations as observations, not production vulnerability claims: static decimal configuration, no market guard before borrow dereference, state-changing `enterMarkets`, differing approval/receipt handling and a health calculation that divides raw liquidity by a fixed scale without a documented denomination.
+
+---
+
+## Case K: Shared Address Identity Gate
+
+Use one gate for QUSDC, Lending, DEX, Bridge, Oracle, Explorer and conversion candidates:
+
+1. Published candidate and role.
+2. Selected network and fresh chain identity.
+3. `eth_getCode` presence at a recorded block.
+4. ABI provenance and selector/read compatibility.
+5. Issuer provenance from an official channel.
+6. Conflicting candidates, proxy relationships and deprecated deployments.
+7. Human authorization before any write or transfer.
+
+The generated address-candidate table is discovery material only. It is never transaction configuration, and `execution_allowed` stays false until the full gate is recorded.
+
+---
+
+## Case L: Evidence-Bounded Fallback
+
+When the installed snapshot does not contain the requested QIE product, state the release and knowledge limit, inspect only permitted primary documentation or pinned issuer repositories, record exact pages/commits/paths/review times, separate product discovery from technical interface and execution authorization, and return a local/mock implementation or read-only research plan. Never claim browsing occurred when offline, and never copy a candidate address into runnable transaction code as fallback research.

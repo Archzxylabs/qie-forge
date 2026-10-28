@@ -1,0 +1,10 @@
+- conflict_id: qie-rpc-document-order
+  subject: QIE mainnet RPC list labels
+  summary: The official network page labels RPC3 as rpc5mainnet and RPC5 as rpc3mainnet, so list position and hostname suffix are not interchangeable evidence.
+  source_ids:
+    - S03
+    - S10
+    - S15
+  state: OPEN
+  resolution: Keep rpc1mainnet.qie.digital as the selected canonical endpoint and record the remaining documented endpoints as alternatives without assigning semantic rank from the page labels.
+  reviewed_at: 2026-10-24T20:00:51Z

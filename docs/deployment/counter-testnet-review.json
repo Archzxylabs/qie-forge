@@ -1,0 +1,125 @@
+{
+  "readiness": "BLOCKED",
+  "preparedAt": "2026-10-26T07:39:38.977Z",
+  "targetNetwork": "qie-testnet",
+  "expectedChainId": 1983,
+  "observedChainId": 1983,
+  "rpcEndpoint": "https://rpc2testnet.qie.digital/",
+  "digestAlgorithm": "SHA-256",
+  "sourceDigest": "d48a5a381722d110299b9ef71492c6e41ad6ef4f22a446a7fbe21b7c4c0f8070",
+  "artifactDigest": "7fd0b784d28103a266070b0d6ae1c8eac7fb078a9f445e2d23224307ab5884d3",
+  "abiDigest": "c26ffb152b71949090449d14c6d467369d66b0c3880ec8ca2a3007181573c203",
+  "constructorArguments": [],
+  "actionKind": "DEPLOY_DIRECT",
+  "signerAccount": null,
+  "nativeValueAndUnit": {
+    "value": "0",
+    "symbol": "QIE",
+    "baseUnits": "0",
+    "documentedDecimals": 18,
+    "decimalsSource": "S10"
+  },
+  "maximumSpendAndUnit": null,
+  "feeEstimateAndEvidence": {
+    "scope": "SYNTHETIC_SENDER_OBSERVATION",
+    "simulationSender": "0x0000000000000000000000000000000000000000",
+    "gasEstimate": "116739",
+    "gasPriceBaseUnitsPerGas": "7",
+    "estimatedFeeBaseUnits": "817173",
+    "estimatedFeeQie": "0.000000000000817173",
+    "quotedAt": "2026-10-26T07:35:08.171Z",
+    "actualSignerEstimate": null,
+    "approvedGasLimit": null,
+    "approvedGasPrice": null,
+    "evidence": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/creation-simulation.json",
+    "limitation": "Estimate multiplied by the observed RPC gas price; not a user-approved budget, fee cap or actual-signer quote."
+  },
+  "capabilityEvidence": [
+    {
+      "kind": "LOCAL_REPLAY",
+      "operation": "build_and_test_counter",
+      "toolchain": {
+        "forge_version": "1.8.1",
+        "forge_commit": "982849d3140c01fd3b72905759581a132df7aa98",
+        "solc_version": "0.8.37+commit.f401782d",
+        "evm_version": "paris",
+        "evidence_scope": "LOCAL_REPLAY",
+        "qie_deployment_compatibility": "UNKNOWN"
+      },
+      "evidenceDirectory": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z",
+      "testSummary": {
+        "passed": 5,
+        "failed": 0,
+        "fuzzRuns": 256
+      },
+      "standardJsonMatchesForge": {
+        "abi_semantic": true,
+        "creation_bytes": true,
+        "runtime_bytes": true
+      }
+    },
+    {
+      "kind": "CHAIN_OBSERVATION",
+      "operation": "simulate_contract_creation",
+      "outcome": "OBSERVED",
+      "networkId": "qie-testnet",
+      "endpoint": "https://rpc2testnet.qie.digital/",
+      "block": {
+        "number": "0x8f1f23",
+        "hash": "0xafb6b834f8efe0ceb8fd50b6ff92f35956236444511c2d497af534312e7e4c28",
+        "timestamp": "0x6adf02a3",
+        "gas_limit": "0xffffffff",
+        "base_fee_per_gas": "0x7"
+      },
+      "checkedAt": "2026-10-26T07:35:08.171Z",
+      "runtimeMatchesCompiledArtifact": true,
+      "evidence": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/creation-simulation.json",
+      "limitation": "Constructor simulation only; no persisted deployment or wallet submission is proven."
+    }
+  ],
+  "approvalState": "NOT_REQUESTED",
+  "blockers": [
+    "The actual wallet account is not connected and the installed QIE Wallet version has not been observed.",
+    "Nonce, balance and a fresh creation simulation/gas quote for the actual signer are missing.",
+    "Transaction fee mode, gas limit and maximum spend have not been reviewed and approved.",
+    "A wallet/provider submission path has not been qualified for this action."
+  ],
+  "signerSelection": {
+    "mode": "developer-controlled-injected-EIP1193",
+    "status": "NOT_CONNECTED",
+    "account": null,
+    "preferredWallet": "QIE Wallet",
+    "extensionId": "oljchdcgmibnjbbopolafbjncfhdacjb",
+    "installationUrl": "https://chromewebstore.google.com/detail/oljchdcgmibnjbbopolafbjncfhdacjb",
+    "discoveryRdns": "me.qiewallet",
+    "providerVersion": null
+  },
+  "unsignedTransaction": {
+    "chainId": "0x7bf",
+    "from": null,
+    "to": null,
+    "value": "0x0",
+    "data": "0x6080604052348015600f57600080fd5b506101288061001f6000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063d09de08a14610059575b600080fd5b610043610063565b604051610050919061009d565b60405180910390f35b610061610069565b005b60005481565b600160008082825461007b91906100e7565b92505081905550565b6000819050919050565b61009781610084565b82525050565b60006020820190506100b2600083018461008e565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006100f282610084565b91506100fd83610084565b9250828201905080821115610115576101146100b8565b5b9291505056fea164736f6c6343000825000a",
+    "nonce": null,
+    "gas": null,
+    "gasPrice": null,
+    "type": null
+  },
+  "artifactPaths": {
+    "source": "recipes/build-test/assets/src/Counter.sol",
+    "compilerArtifact": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.artifact.json",
+    "abi": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.abi.json",
+    "methods": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.methods.json",
+    "creationBytecode": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.creation.hex",
+    "runtimeBytecode": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.runtime.hex",
+    "standardJsonInput": "docs/evidence/counter-testnet-preparation/2026-10-26T07-27-58-544Z/Counter.standard-input.json"
+  },
+  "postSubmissionRequirements": [
+    "Bind an actual externally approved deployment transaction and receipt to this initcode, signer and created address.",
+    "Compare the deployed runtime and read the expected initial Counter value; separately link any increment transaction to the observed state change.",
+    "Establish the actual explorer source-verification path and result.",
+    "Retain UNKNOWN finality until a reviewed QIE finality policy and relevant evidence exist."
+  ],
+  "canonicalStatusPromotion": false,
+  "updatedAt": "2026-10-26T10:11:12.687Z"
+}

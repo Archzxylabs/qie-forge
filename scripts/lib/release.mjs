@@ -5,6 +5,7 @@ import { checkReleaseChronology } from './chronology.mjs';
 import { loadValidators } from './schemas.mjs';
 import { readContained, stableJson, sha256, walkFiles, writeTree } from './io.mjs';
 import { validateFrontmatter, validateReferences } from './bundle.mjs';
+import { releaseIdFromOutputs } from './release-identity.mjs';
 import { effectiveStatus } from './effective-status.mjs';
 import { resolvePlaceholders } from './placeholders.mjs';
 import { assertNoHandWrittenCanonicalFacts, assertNoRetiredEndpoints, assertTraceableUrls } from './canonical-facts.mjs';
@@ -24,7 +25,7 @@ const artifactReserved = {
   'network-profiles': ['references/network-mainnet.md', 'references/network-testnet.md'],
   coverage: ['references/qie-a-z.md', 'references/routing.md'],
   operational: ['references/evidence.md'],
-  ecosystem: ['references/catalogue.md', 'references/compatibility.md'],
+  ecosystem: ['references/catalogue.md', 'references/compatibility.md', 'references/address-candidates.md'],
 };
 
 // The one shared status projection for a release. Every published view — the
@@ -56,19 +57,76 @@ function selectSnapshot(data, skill) {
     builtAt,
   );
   const domains = data.domains.filter((d) => skill.domain_ids.includes(d.domain_id)).sort(byId('domain_id'));
+  const integrations = data.integrations
+    .filter((entry) => skill.integration_ids.includes(entry.entity_id))
+    .sort(byId('entity_id'));
+  const conflicts = data.conflicts
+    .filter((entry) => integrations.some((integration) => integration.conflict_ids.includes(entry.conflict_id)))
+    .sort(byId('conflict_id'));
+  // Candidate addresses are intentionally included only in the ecosystem bundle,
+  // where the generated discovery page labels them as non-executable leads. The
+  // topical bundles receive protocol/interface records without address literals.
+  const addresses = skill.skill_id === 'qie-ecosystem' ? [...data.addresses] : [];
   for (const domain of domains) {
     if (domain.capability_ids.some((id) => !skill.capability_ids.includes(id))) throw new Error('Selected domain capability is missing from skill selectors');
   }
-  const sourceIds = new Set([...claims, ...capabilities, ...domains].flatMap((r) => r.source_ids));
+  const sourceIds = new Set([
+    ...claims,
+    ...capabilities,
+    ...domains,
+    ...integrations,
+    ...addresses,
+    ...conflicts,
+  ].flatMap((r) => r.source_ids));
+  for (const integration of integrations) {
+    for (const iface of integration.interfaces) for (const id of iface.source_ids) sourceIds.add(id);
+    for (const operation of integration.operations) for (const id of operation.source_ids) sourceIds.add(id);
+  }
   const testIds = new Set([...claims, ...capabilities].flatMap((r) => r.evidence_test_ids).concat(domains.flatMap((d) => d.validation_test_ids)));
   return {
     schema_version: data.release.schema_version,
     status_evaluated_at: builtAt,
-    claims, capabilities, domains,
+    claims, capabilities, domains, integrations, conflicts, addresses,
     sources: data.sources.filter((s) => sourceIds.has(s.source_id)).sort(byId('source_id')),
     validation_runs: data.validationRuns.filter((r) => testIds.has(r.test_id)).sort(byId('test_id')),
     policy: data.policy,
   };
+}
+
+function integrationReference(snapshot) {
+  if (!snapshot.integrations.length) return '';
+  const sourceIndex = new Map(snapshot.sources.map((s) => [s.source_id, s]));
+  const sourceLinks = (ids) => ids.map((id) => {
+    const source = sourceIndex.get(id);
+    return source ? `[${source.source_id}: ${source.title}](${source.url})` : id;
+  }).join(', ');
+  return snapshot.integrations.map((entry) => {
+    const interfaces = entry.interfaces.map((iface) => `- \`${iface.interface_id}\` (${iface.kind}, ${iface.status}): ${iface.name} — ${iface.description}`).join('\n');
+    const operations = entry.operations.map((operation) => `| \`${operation.operation_id}\` | ${operation.action} | ${operation.status} | ${operation.name} | ${operation.limitations[0]} |`).join('\n');
+    const questions = entry.unresolved_questions.map((question) => `  - ${question}`).join('\n');
+    return `### ${entry.display_name} (\`${entry.entity_id}\`)\n\n`
+      + `- Entity status: **${entry.status}**; scope: ${entry.network_scope.join(', ')}; execution allowed: \`${entry.execution_allowed}\`\n`
+      + `- ${entry.description}\n`
+      + `- Interfaces:\n${interfaces}\n`
+      + `- Operations:\n| Operation | Action | Status | Description | Primary limitation |\n|---|---|---|---|---|\n${operations}\n`
+      + `- Known limitations:\n${entry.known_limitations.map((line) => `  - ${line}`).join('\n')}\n`
+      + `- Unresolved questions:\n${questions}\n`
+      + `- Sources: ${sourceLinks(entry.source_ids)}\n`;
+  }).join('\n');
+}
+
+function addressCandidatesReference(snapshot) {
+  const sourceIndex = new Map(snapshot.sources.map((s) => [s.source_id, s]));
+  const rows = snapshot.addresses.map((address) => {
+    const issuers = address.issuer_source_ids.map((id) => sourceIndex.get(id)?.url ?? id).join(', ');
+    const abis = address.abi_source_ids.map((id) => sourceIndex.get(id)?.url ?? id).join(', ') || 'none';
+    return `| \`${address.claimed_product}\` | \`${address.address}\` | ${address.chain_id} | ${address.status} | ${issuers} | ${abis} |`;
+  });
+  return generated + '# QIE contract address candidates\n\n'
+    + '> Discovery only. These candidates are never deployment or transfer authorization. An address becomes executable only after the shared identity gate establishes network identity, code presence, ABI correspondence, issuer provenance, human review and conflict resolution.\n\n'
+    + '| Claimed role | Candidate | Claimed chain ID | Status | Issuer source(s) | ABI source(s) |\n|---|---|---:|---|---|---|\n'
+    + rows.join('\n') + '\n\n'
+    + 'A missing code observation, a nonempty bytecode result, an explorer label or an SDK configuration entry cannot establish issuer ownership. See the [ecosystem decision guide](decision-guide.md) and the `ecosystem-address` recipe before any address-bound operation.\n';
 }
 
 function skillCatalogue(data) {
@@ -288,13 +346,16 @@ function catalogueReference(snapshot) {
     + '| Network | Property | Published value | Stored status | Effective status | Source |\n'
     + '|---|---|---|---|---|---|---|\n'
     + claimRows.join('\n') + '\n\n'
-    + `Claim sources: ${claimSourceIds.map(formatSource).join('; ')}.\n\n`
-    + 'Native Cosmos chain identity and denominations are registry facts, not EVM claims; they are published by the native-layer sources of the canonical native capabilities below and are never mixed into the EVM profiles:\n\n'
+     + `Claim sources: ${claimSourceIds.map(formatSource).join('; ')}.\n\n`
+     + '## Protocol, SDK and Product Integration Records\n\n'
+     + 'These records preserve useful implementation details without promoting their addresses or write operations. Every record is scoped to a product, operation and evidence source; `execution_allowed: false` is intentional in this release.\n\n'
+     + integrationReference(snapshot) + '\n'
+     + 'Native Cosmos chain identity and denominations are registry facts, not EVM claims; they are published by the native-layer sources of the canonical native capabilities below and are never mixed into the EVM profiles:\n\n'
     + (nativeSources ? `- Native layer sources: ${nativeSources}\n` : '- No native-layer sources are selected into this bundle.\n')
     + (blockingList ? `\n## Deprecated & Conflicted Chain Identities\n\n${blockingList}\n` : '')
     + '\n## Address Publication Policy\n\n'
-    + 'The canonical address inventory in this release is empty. No ecosystem contract address — DEX router, factory, pool, token, oracle, bridge, or conversion precompile — is published or recommended by this catalogue. '
-    + 'An explorer page, a source-verified listing, or nonempty bytecode never establishes issuer identity, ABI correspondence, or product ownership; see the release address-identity blocker in the [Ecosystem Decision Guide](decision-guide.md).\n\n'
+     + 'The canonical address inventory contains discovery-only candidates, not approved configuration. No candidate is published or recommended by this catalogue as an executable DEX router, factory, pool, token, oracle, bridge, vault or conversion target. '
+     + 'An explorer page, a source-verified listing, or nonempty bytecode never establishes issuer identity, ABI correspondence, or product ownership; see the release address-identity blocker in the [Ecosystem Decision Guide](decision-guide.md) and the generated [address candidate table](address-candidates.md).\n\n'
     + '## Primary Sources and Provenance\n\n'
     + sourcesList + '\n\n'
     + 'Refer to [Release information](release-info.md) for build timestamp and review freshness.\n';
@@ -335,6 +396,13 @@ function compatibilityReference(snapshot) {
       + `- **Sources**:\n${srcs}\n`;
   });
 
+  const integrationCards = snapshot.integrations.map((entry) => `### ${entry.entity_id}: ${entry.display_name}\n\n`
+    + `- **Stored Status**: \`${entry.status}\`\n`
+    + `- **Execution allowed**: \`${entry.execution_allowed}\`\n`
+    + `- **Scope**: ${entry.network_scope.join(', ')}\n`
+    + `- **Known limitations**:\n${entry.known_limitations.map((line) => `  - ${line}`).join('\n')}\n`
+    + `- **Operations**:\n${entry.operations.map((operation) => `  - \`${operation.operation_id}\`: ${operation.status} — ${operation.name}; ${operation.limitations[0]}`).join('\n')}\n`);
+
   return generated + '# QIE Compatibility Matrix\n\n'
     + 'Operation-specific, network-specific, and version-specific compatibility classifications for the QIE ecosystem.\n\n'
     + '> [!IMPORTANT]\n'
@@ -347,8 +415,10 @@ function compatibilityReference(snapshot) {
     + '| Capability ID | Tool | Operation | Network(s) | Version | Stored Status | Effective Status | Primary Limitation | Sources |\n'
     + '|---|---|---|---|---|---|---|---|---|\n'
     + rows.join('\n') + '\n\n'
-    + '## Detailed Capability Entries\n\n'
-    + cards.join('\n') + '\n'
+     + '## Detailed Capability Entries\n\n'
+     + cards.join('\n') + '\n'
+     + '## Detailed Integration Entries\n\n'
+     + integrationCards.join('\n') + '\n'
     + '## Evidence Freshness\n\n'
     + 'Effective statuses above were evaluated at the release build clock recorded in [Release information](release-info.md). '
     + 'When capability status is `UNKNOWN` or effective status is `STALE`, coding agents must refuse to treat the operation as supported and guide the developer through testnet verification.\n';
@@ -359,7 +429,7 @@ async function skillFiles(root, data, skill) {
   if (!Object.hasOwn(artifactSnapshots, artifact)) throw new Error(`Unknown generated reference artifact: ${artifact}`);
   const snapshot = selectSnapshot(data, skill);
   const entry = await readContained(root, skill.source_entry);
-  validateFrontmatter(entry, skill.skill_id);
+  const frontmatter = validateFrontmatter(entry, skill.skill_id);
   // Authored content describes the QIE ecosystem, so every absolute URL in it
   // is a claim about QIE and must be traceable to canonical data. A stale or
   // invented endpoint fails the build here, before it can be published.
@@ -370,6 +440,9 @@ async function skillFiles(root, data, skill) {
   // from the same snapshot as its reference files.
   const resolvedEntry = resolvePlaceholders(entry, { snapshot, builtAt: data.release.built_at, label: `${skill.skill_id}/SKILL.md` });
   const files = { 'SKILL.md': resolvedEntry.replace(/\n$/, '') + '\n\n' + generated.trim() + '\n' };
+  // Preserve the notice in standalone installs after the source checkout is
+  // removed. A declared license must never be shipped without its notice.
+  if (frontmatter.license) files.LICENSE = await readContained(root, 'LICENSE');
   const sourceDirectory = path.posix.dirname(skill.source_entry);
   const reserved = [...artifactReserved[artifact], 'references/release-info.md'];
   for (const relative of await walkFiles(path.join(root, sourceDirectory))) {
@@ -417,6 +490,7 @@ async function skillFiles(root, data, skill) {
     files[snapshotPath] = stableJson(snapshot);
     files['references/catalogue.md'] = catalogueReference(snapshot);
     files['references/compatibility.md'] = compatibilityReference(snapshot);
+    files['references/address-candidates.md'] = addressCandidatesReference(snapshot);
   } else {
     // Reuse the network snapshot location expected by the proven B06 helpers,
     // without forcing network-profile or A–Z pages onto topical recipes.
@@ -436,7 +510,7 @@ async function skillFiles(root, data, skill) {
   if (metadata.sources_checked_at && Date.parse(metadata.sources_checked_at) > Date.parse(metadata.built_at)) {
     throw new Error(`Derived sources_checked_at must not follow built_at: ${skill.skill_id}`);
   }
-  files['references/release-info.md'] = generated + `# Release information\n\nRelease: ${metadata.release_version}\n\nSchema: ${metadata.schema_version}\n\nBuilt: ${metadata.built_at}\n\nSources reviewed: ${metadata.sources_checked_at ?? 'UNKNOWN'}\n\nEffective statuses in this bundle were evaluated at the build timestamp above with no live check. Build time is not a live test timestamp. This is an immutable local snapshot until explicitly reinstalled or updated. No provider or RPC compatibility is certified.\n`;
+  files['references/release-info.md'] = generated + `# Release information\n\nRelease: ${metadata.release_version}\n\nSchema: ${metadata.schema_version}\n\nBuilt: ${metadata.built_at}\n\nSources reviewed: ${metadata.sources_checked_at ?? 'UNKNOWN'}\n\nRelease identity: the \`release_id\` in \`MANIFEST.json\` is the content address shared by every bundle in this suite. Bundles with different identities are different releases and must not be combined without explicit remediation.\n\nEffective statuses in this bundle were evaluated at the build timestamp above with no live check. Build time is not a live test timestamp. This is an immutable local snapshot until explicitly reinstalled or updated. No provider or RPC compatibility is certified.\n`;
   // Every published document must be traceable to canonical data: a QIE
   // endpoint that no canonical record attests, or an endpoint this release has
   // retired, fails the build instead of being shipped.
@@ -475,7 +549,13 @@ export async function buildRelease(root, { check = false, now } = {}) {
   const enabled = data.skills.filter((s) => s.enabled_for_release);
   if (!enabled.length) throw new Error('No skill is enabled for release');
   const outputs = Object.fromEntries(await Promise.all(enabled.map(async (skill) => [skill.skill_id, await skillFiles(root, data, skill)])));
-  for (const files of Object.values(outputs)) validate('manifest', JSON.parse(files['MANIFEST.json']));
+  const releaseId = releaseIdFromOutputs(outputs, data.release);
+  for (const files of Object.values(outputs)) {
+    const manifest = JSON.parse(files['MANIFEST.json']);
+    manifest.release_id = releaseId;
+    files['MANIFEST.json'] = stableJson(manifest);
+    validate('manifest', manifest);
+  }
   if (check) await comparePublished(root, outputs);
   else {
     const flattened = Object.fromEntries(Object.entries(outputs).flatMap(([id, files]) => Object.entries(files).map(([file, text]) => [`${id}/${file}`, text])));

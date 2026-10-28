@@ -1,0 +1,212 @@
+{
+  "scope": "READ_ONLY_COUNTER_CREATION_SIMULATION",
+  "started_at": "2026-10-26T07:35:07.135Z",
+  "network_id": "qie-testnet",
+  "expected_chain_id": 1983,
+  "endpoint": "https://rpc2testnet.qie.digital/",
+  "simulation_sender": "0x0000000000000000000000000000000000000000",
+  "signer_account": null,
+  "transaction": {
+    "from": "0x0000000000000000000000000000000000000000",
+    "data": "0x6080604052348015600f57600080fd5b506101288061001f6000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063d09de08a14610059575b600080fd5b610043610063565b604051610050919061009d565b60405180910390f35b610061610069565b005b60005481565b600160008082825461007b91906100e7565b92505081905550565b6000819050919050565b61009781610084565b82525050565b60006020820190506100b2600083018461008e565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006100f282610084565b91506100fd83610084565b9250828201905080821115610115576101146100b8565b5b9291505056fea164736f6c6343000825000a",
+    "value": "0x0"
+  },
+  "preflight": {
+    "schema_version": "1.0",
+    "network_id": "qie-testnet",
+    "expected_chain_id": 1983,
+    "endpoint": "https://rpc2testnet.qie.digital/",
+    "endpoint_source": "explicit-override",
+    "rpc_host": "rpc2testnet.qie.digital",
+    "observed": {
+      "chain_id": 1983,
+      "chain_id_hex": "0x7bf",
+      "latest_block": 9379619,
+      "latest_block_hex": "0x8f1f23",
+      "latest_block_timestamp": "2026-10-26T07:34:59.000Z"
+    },
+    "effective_claims": [
+      {
+        "claim_id": "qie-testnet.chain_id",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      },
+      {
+        "claim_id": "qie-testnet.explorer_url",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      },
+      {
+        "claim_id": "qie-testnet.faucet_url",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      },
+      {
+        "claim_id": "qie-testnet.native_symbol",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      },
+      {
+        "claim_id": "qie-testnet.network_name",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      },
+      {
+        "claim_id": "qie-testnet.rpc_url",
+        "status": "DOCUMENTED",
+        "reason": "Stored evidence level; no live check or evidence promotion."
+      }
+    ],
+    "live_check": {
+      "outcome": "PASS",
+      "error_code": null,
+      "reason": "Observed chain ID matches the selected documented network and a nonzero latest block was read. Freshness beyond this observation and any capability promotion are not claimed."
+    },
+    "checked_at": "2026-10-26T07:35:07.136Z",
+    "warnings": [
+      "A live observation never promotes a packaged claim or capability status.",
+      "No reviewed freshness threshold exists for QIE block heights, so block freshness is reported but never claimed."
+    ]
+  },
+  "requests": [
+    {
+      "method": "eth_getBlockByNumber",
+      "params": [
+        "latest",
+        false
+      ],
+      "started_at": "2026-10-26T07:35:07.757Z",
+      "result": {
+        "baseFeePerGas": "0x7",
+        "difficulty": "0x0",
+        "extraData": "0x",
+        "gasLimit": "0xffffffff",
+        "gasUsed": "0x0",
+        "hash": "0xafb6b834f8efe0ceb8fd50b6ff92f35956236444511c2d497af534312e7e4c28",
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "miner": "0xb7419259099f2f981a4697d9c9a4b44e1328cf54",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "nonce": "0x0000000000000000",
+        "number": "0x8f1f23",
+        "parentHash": "0x55d74fd70071d723fbdc5f830640768e34685352a9ac413955dee9a8a24b9f0e",
+        "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "size": "0x32a",
+        "stateRoot": "0x82c0129989ec716a92be87f734cd03d5a78b8d6e89f49204c5365dd2d698a348",
+        "timestamp": "0x6adf02a3",
+        "totalDifficulty": "0x0",
+        "transactions": [],
+        "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        "uncles": []
+      },
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:07.831Z"
+    },
+    {
+      "method": "web3_clientVersion",
+      "params": [],
+      "started_at": "2026-10-26T07:35:07.832Z",
+      "result": "Version dev ()\nCompiled at  using Go go1.22.12 (amd64)",
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:07.894Z"
+    },
+    {
+      "method": "eth_gasPrice",
+      "params": [],
+      "started_at": "2026-10-26T07:35:07.894Z",
+      "result": "0x7",
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:07.964Z"
+    },
+    {
+      "method": "eth_call",
+      "params": [
+        {
+          "from": "0x0000000000000000000000000000000000000000",
+          "data": "0x6080604052348015600f57600080fd5b506101288061001f6000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063d09de08a14610059575b600080fd5b610043610063565b604051610050919061009d565b60405180910390f35b610061610069565b005b60005481565b600160008082825461007b91906100e7565b92505081905550565b6000819050919050565b61009781610084565b82525050565b60006020820190506100b2600083018461008e565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006100f282610084565b91506100fd83610084565b9250828201905080821115610115576101146100b8565b5b9291505056fea164736f6c6343000825000a",
+          "value": "0x0"
+        },
+        "0x8f1f23"
+      ],
+      "started_at": "2026-10-26T07:35:07.964Z",
+      "result": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063d09de08a14610059575b600080fd5b610043610063565b604051610050919061009d565b60405180910390f35b610061610069565b005b60005481565b600160008082825461007b91906100e7565b92505081905550565b6000819050919050565b61009781610084565b82525050565b60006020820190506100b2600083018461008e565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006100f282610084565b91506100fd83610084565b9250828201905080821115610115576101146100b8565b5b9291505056fea164736f6c6343000825000a",
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:08.028Z"
+    },
+    {
+      "method": "eth_estimateGas",
+      "params": [
+        {
+          "from": "0x0000000000000000000000000000000000000000",
+          "data": "0x6080604052348015600f57600080fd5b506101288061001f6000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80633fa4f2451461003b578063d09de08a14610059575b600080fd5b610043610063565b604051610050919061009d565b60405180910390f35b610061610069565b005b60005481565b600160008082825461007b91906100e7565b92505081905550565b6000819050919050565b61009781610084565b82525050565b60006020820190506100b2600083018461008e565b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006100f282610084565b91506100fd83610084565b9250828201905080821115610115576101146100b8565b5b9291505056fea164736f6c6343000825000a",
+          "value": "0x0"
+        },
+        "0x8f1f23"
+      ],
+      "started_at": "2026-10-26T07:35:08.028Z",
+      "result": "0x1c803",
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:08.101Z"
+    },
+    {
+      "method": "eth_getBlockByNumber",
+      "params": [
+        "0x8f1f23",
+        false
+      ],
+      "started_at": "2026-10-26T07:35:08.101Z",
+      "result": {
+        "baseFeePerGas": "0x7",
+        "difficulty": "0x0",
+        "extraData": "0x",
+        "gasLimit": "0xffffffff",
+        "gasUsed": "0x0",
+        "hash": "0xafb6b834f8efe0ceb8fd50b6ff92f35956236444511c2d497af534312e7e4c28",
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "miner": "0xb7419259099f2f981a4697d9c9a4b44e1328cf54",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "nonce": "0x0000000000000000",
+        "number": "0x8f1f23",
+        "parentHash": "0x55d74fd70071d723fbdc5f830640768e34685352a9ac413955dee9a8a24b9f0e",
+        "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "size": "0x32a",
+        "stateRoot": "0x82c0129989ec716a92be87f734cd03d5a78b8d6e89f49204c5365dd2d698a348",
+        "timestamp": "0x6adf02a3",
+        "totalDifficulty": "0x0",
+        "transactions": [],
+        "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+        "uncles": []
+      },
+      "outcome": "OBSERVED",
+      "finished_at": "2026-10-26T07:35:08.170Z"
+    }
+  ],
+  "outcome": "OBSERVED",
+  "canonical_status_promotion": false,
+  "block": {
+    "number": "0x8f1f23",
+    "hash": "0xafb6b834f8efe0ceb8fd50b6ff92f35956236444511c2d497af534312e7e4c28",
+    "timestamp": "0x6adf02a3",
+    "gas_limit": "0xffffffff",
+    "base_fee_per_gas": "0x7"
+  },
+  "client_version": "Version dev ()\nCompiled at  using Go go1.22.12 (amd64)",
+  "runtime_comparison": {
+    "matches_compiled_runtime": true,
+    "expected_bytes": 296,
+    "returned_bytes": 296
+  },
+  "same_block_hash_at_recheck": true,
+  "gas_quote": {
+    "gas_estimate_hex": "0x1c803",
+    "gas_estimate": "116739",
+    "gas_price_hex": "0x7",
+    "gas_price_base_units_per_gas": "7",
+    "estimate_times_price_base_units": "817173",
+    "native_symbol": "QIE",
+    "documented_native_decimals": 18,
+    "scope": "Point-in-time synthetic-sender estimate; not an approved fee limit or actual-signer quote."
+  },
+  "finished_at": "2026-10-26T07:35:08.171Z"
+}

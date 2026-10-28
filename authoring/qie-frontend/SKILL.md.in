@@ -1,5 +1,6 @@
 ---
 name: qie-frontend
+license: MIT
 description: Integrate a TypeScript frontend with explicit QIE EVM network selection, wallet account and chain gating, ABI-bound reads and invalidation after provider changes. Use for an existing frontend or its read controller; does not scaffold a new dApp or claim untested Viem, Wagmi or wallet-provider compatibility.
 compatibility: The framework-neutral TypeScript read controller is executed using Node 24.20.0 type stripping and mock EIP-1193 providers. Actual browser/wallet and QIE RPC support remain unverified.
 ---
@@ -12,7 +13,8 @@ Own the UI's network/account/read state; preserve the existing application frame
 2. Inspect the app's dependencies and existing provider. A Viem/Wagmi/Ethers brand or an EVM chain object does not prove QIE support. Require exact version, operation, network and evidence; otherwise keep work local and label compatibility UNKNOWN.
 3. Follow [wallet read and UI state](recipes/wallet-read/recipe.md). Bind reads to an explicitly supplied contract, reviewed ABI and derived calldata. No address is provided by this skill.
 4. Disable actions while disconnected, wrong-chain, changing accounts, fetching or after an error. Invalidate old reads on provider events; display the chosen network and current account. Do not put credentials in client configuration.
-5. After an externally approved action, obtain its scoped receipt/identity evidence and explicitly refresh relevant state. A refresh is an observation, not proof that an unrelated transaction caused the change or that finality passed.
+5. For token and QUSDC screens, keep WUSDC/QUSDC/USDC roles separate, read decimals dynamically where supported, use bigint integer accounting and make approval/allowance changes explicit. For Lending dashboards, keep the adapter provider-only and never trigger `enterMarkets` or a write from a read path.
+6. After an externally approved action, obtain its scoped receipt/identity evidence and explicitly refresh relevant state. A refresh is an observation, not proof that an unrelated transaction caused the change or that finality passed.
 
 Deliver the changed integration, local/mock test results and the remaining actual-browser/provider checks. The recipe's mock harness is not a demonstrated wallet UI or live QIE compatibility result.
 

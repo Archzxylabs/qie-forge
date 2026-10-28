@@ -1,13 +1,17 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "8bbbf247d793ca4ca116cb2ba25cd297a432b34b6c1cec9b3f5f7ee6b5b2b24c"
+      "sha256": "c1baecd96bc1343744f6d30c4f8d44ff5d2de449ec3cdb5ce5213f766778c249"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "230f260c44c4af44826d99a9232c7747da701b914f856b41f366900c18fa9b8b"
+      "sha256": "bbf1e3bf3b4befaa95b4d013c8399dadea39d4a837a74afc3c393bdfba2e7ac0"
     },
     {
       "path": "recipes/build-test/assets/foundry.toml",
@@ -38,20 +42,44 @@
       "sha256": "4a30b6ee07f65ba39c4a8e15efc2a77cba784a3c6b9deb8f94c2ee4623401924"
     },
     {
+      "path": "recipes/ecosystem-address/recipe.md",
+      "sha256": "af5f68daa949926c7cf27ed3626a8f3646dc79101a95878a390f415a232e6ec0"
+    },
+    {
       "path": "recipes/network/recipe.md",
       "sha256": "af3c545108ed59e85355f5e5bc7ef5635e564872effc222935ea32a2322bf325"
     },
     {
+      "path": "recipes/oracle-collateral/recipe.md",
+      "sha256": "3977ea4834e012953a72fae2c3a44a113630d6f04074d283549a77315f579698"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/foundry.toml",
+      "sha256": "d3b32d45b456a4913b7c36016b47642ac8ff3605f7b8ef52c6e98e9503c408c0"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/src/MockQusdcEscrow.sol",
+      "sha256": "8d4815d75d0c3981453303cb4cb5ef8744ee3d4cf4f0861c5935f6fc1da3f97e"
+    },
+    {
+      "path": "recipes/qusdc-escrow/assets/test/MockQusdcEscrow.t.sol",
+      "sha256": "8593013d1db53221b89c73b9cfcbfaddb92eb958c546b39da1cf6d77b412d487"
+    },
+    {
+      "path": "recipes/qusdc-escrow/recipe.md",
+      "sha256": "bfa5762039ad17246beaca095e5416bd943da82e0ce1ea50de82d5a734f088cd"
+    },
+    {
       "path": "references/evidence.md",
-      "sha256": "f2d36988bc3898919b8b3253c828a3654e76ec4b4b69987084976c2b2a2a4655"
+      "sha256": "1d97a0d4c9de874210df65dea29523fa4949f9a79eed8d255cdb6f57fc3d54ea"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -75,9 +103,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "230f260c44c4af44826d99a9232c7747da701b914f856b41f366900c18fa9b8b",
+  "knowledge_sha256": "bbf1e3bf3b4befaa95b4d013c8399dadea39d4a837a74afc3c393bdfba2e7ac0",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-deployment",
   "snapshot_path": "data/network-claims.json",

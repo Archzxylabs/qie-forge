@@ -1,5 +1,6 @@
 ---
 name: qie-debug
+license: MIT
 description: Diagnose QIE EVM build, wallet, RPC, receipt and application-observation failures with bounded read-only checks and symptom-specific recovery. Use for wrong-chain, offline/rate-limited RPC, pending/reverted transactions or an app showing no expected effect. Native failures route to official native sources.
 compatibility: Node 24.20.0 in the tested Node 24 line for bundled diagnostics. All diagnostic regression evidence uses mocks; actual QIE endpoint/provider behavior remains unverified.
 ---
@@ -10,7 +11,8 @@ compatibility: Node 24.20.0 in the tested Node 24 line for bundled diagnostics. 
 2. Read [selected evidence](references/evidence.md), then the [debug decision tree](recipes/debug/recipe.md). Keep observed failures and root-cause hypotheses separate.
 3. Select the smallest read: local compiler/test trace for build errors; chain identity/responsiveness for transport issues; scoped receipt for a submitted action. Do not probe unrelated networks or indexer products.
 4. Apply only the recovery branch matching the symptom. Stop on wrong chain; classify 429/offline/malformed/method errors without promoting support. A missing receipt is not permission to broadcast again.
-5. Repeat the relevant observation after a correction and report resolved versus still unknown. A passing local test or successful receipt cannot prove wallet support, contract identity, app effects or finality.
+5. For QUSDC/Lending failures, first separate address role, decimals, allowance, ABI selector, application-effect and provider errors. Do not treat an SDK candidate as the vault/token identity, and do not treat a local mock pass as a production result.
+6. Repeat the relevant observation after a correction and report resolved versus still unknown. A passing local test or successful receipt cannot prove wallet support, contract identity, app effects or finality.
 
 The [network preflight](scripts/verify-network.mjs), [transaction observer](scripts/verify-transaction.mjs), selected data and import closure are bundled here. Check [release information](references/release-info.md); no sibling skill is required for diagnosis. Native CLI identifiers and recovery commands remain UNKNOWN: use primary native references, never EVM staking or guessed validator commands.
 

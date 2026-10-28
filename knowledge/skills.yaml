@@ -45,6 +45,7 @@
     - legacy-chain-5656
     - legacy-chain-9731
     - chain-id-5656-conflict
+  integration_ids: []
   helper_paths: []
   generated_references:
     - coverage
@@ -80,7 +81,10 @@
     - qie-testnet.faucet_url
   capability_ids:
     - rpc-identity
+  integration_ids:
+    - qie-rpc
   helper_paths:
+    - scripts/probe-rpc-capabilities.mjs
     - scripts/inspect-network.mjs
     - scripts/lib/effective-status.mjs
     - scripts/verify-network.mjs
@@ -91,6 +95,7 @@
   logical_handoffs: []
   recipe_paths:
     - recipes/network/recipe.md
+    - recipes/transaction-readonly/recipe.md
 - skill_id: qie-smart-contracts
   source_entry: authoring/qie-smart-contracts/SKILL.md.in
   release_tier: P0
@@ -111,11 +116,16 @@
     - qie-testnet.faucet_url
   capability_ids:
     - contract-deploy
+  integration_ids:
+    - qusdc-protocol
+    - qie-oracle
   helper_paths: []
   generated_references:
     - operational
   recipe_paths:
     - recipes/build-test/recipe.md
+    - recipes/qusdc-escrow/recipe.md
+    - recipes/ecosystem-address/recipe.md
   logical_handoffs:
     - qie-deployment
     - qie-debug
@@ -139,8 +149,15 @@
     - qie-testnet.faucet_url
   capability_ids:
     - wallet-connect
+  integration_ids:
+    - qusdc-protocol
+    - qusdc-sdk
+    - qie-lending-protocol
+    - qie-oracle
+    - qie-wallet
   helper_paths:
     - scripts/lib/effective-status.mjs
+    - scripts/probe-rpc-capabilities.mjs
     - scripts/verify-network.mjs
     - scripts/lib/network-diagnostic.mjs
     - scripts/lib/rpc.mjs
@@ -148,6 +165,9 @@
     - operational
   recipe_paths:
     - recipes/wallet-read/recipe.md
+    - recipes/erc20-asset/recipe.md
+    - recipes/qusdc-escrow/recipe.md
+    - recipes/lending-read/recipe.md
   logical_handoffs:
     - qie-wallets
     - qie-smart-contracts
@@ -171,8 +191,11 @@
     - qie-testnet.faucet_url
   capability_ids:
     - wallet-connect
+  integration_ids:
+    - qie-wallet
   helper_paths:
     - scripts/lib/effective-status.mjs
+    - scripts/probe-rpc-capabilities.mjs
     - scripts/verify-network.mjs
     - scripts/lib/network-diagnostic.mjs
     - scripts/lib/rpc.mjs
@@ -180,6 +203,7 @@
     - operational
   recipe_paths:
     - recipes/wallet-read/recipe.md
+    - recipes/erc20-asset/recipe.md
   logical_handoffs:
     - qie-frontend
     - qie-deployment
@@ -203,6 +227,10 @@
     - qie-testnet.faucet_url
   capability_ids:
     - rpc-identity
+  integration_ids:
+    - qusdc-protocol
+    - qie-lending-protocol
+    - qie-oracle
   helper_paths:
     - scripts/lib/effective-status.mjs
     - scripts/verify-network.mjs
@@ -214,6 +242,8 @@
     - operational
   recipe_paths:
     - recipes/debug/recipe.md
+    - recipes/transaction-readonly/recipe.md
+    - recipes/ecosystem-address/recipe.md
   logical_handoffs:
     - qie-debug
 - skill_id: qie-deployment
@@ -236,6 +266,11 @@
     - qie-testnet.faucet_url
   capability_ids:
     - contract-deploy
+  integration_ids:
+    - qusdc-protocol
+    - qie-lending-protocol
+    - qie-oracle
+    - qie-wallet
   helper_paths:
     - scripts/lib/effective-status.mjs
     - scripts/verify-network.mjs
@@ -249,6 +284,9 @@
     - recipes/deployment/recipe.md
     - recipes/build-test/recipe.md
     - recipes/network/recipe.md
+    - recipes/ecosystem-address/recipe.md
+    - recipes/qusdc-escrow/recipe.md
+    - recipes/oracle-collateral/recipe.md
   logical_handoffs:
     - qie-smart-contracts
     - qie-wallets
@@ -273,6 +311,12 @@
     - qie-testnet.faucet_url
   capability_ids:
     - rpc-identity
+  integration_ids:
+    - qusdc-protocol
+    - qie-lending-protocol
+    - qie-wallet
+    - qie-oracle
+    - qie-rpc
   helper_paths:
     - scripts/lib/effective-status.mjs
     - scripts/verify-network.mjs
@@ -284,6 +328,8 @@
     - operational
   recipe_paths:
     - recipes/debug/recipe.md
+    - recipes/transaction-readonly/recipe.md
+    - recipes/ecosystem-address/recipe.md
   logical_handoffs:
     - qie-smart-contracts
     - qie-wallets
@@ -334,6 +380,21 @@
     - legacy-chain-5656
     - legacy-chain-9731
     - chain-id-5656-conflict
+  integration_ids:
+    - qusdc-protocol
+    - qusdc-sdk
+    - qie-lending-protocol
+    - qie-lending-sdk
+    - qie-wallet
+    - qie-rpc
+    - qie-oracle
+    - qie-dex
+    - qie-bridge
+    - qie-id
+    - qie-pass
+    - qie-native-cosmos
+    - qie-explorer
+    - qie-indexing
   helper_paths:
     - scripts/lib/effective-status.mjs
   generated_references:
@@ -347,4 +408,11 @@
     - qie-transactions
     - qie-deployment
     - qie-debug
-  recipe_paths: []
+  recipe_paths:
+    - recipes/erc20-asset/recipe.md
+    - recipes/qusdc-escrow/recipe.md
+    - recipes/lending-read/recipe.md
+    - recipes/ecosystem-address/recipe.md
+    - recipes/ecosystem-selection/recipe.md
+    - recipes/oracle-collateral/recipe.md
+    - recipes/transaction-readonly/recipe.md

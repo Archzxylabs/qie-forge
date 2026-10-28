@@ -1,13 +1,17 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "5b7be338f8164ca0a7344dcce3c1b6693550a2546410308a43b0c52434beef65"
+      "sha256": "d43f643f8575f601f09e0ac224eb05dc5ecec0f055b6f05dfa354b14941b70aa"
     },
     {
       "path": "data/qie-a-z.json",
-      "sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4"
+      "sha256": "7e33122310507f5ac24c716bfe2b3f9438625bb8ccabdc53e37435a64ebe1eab"
     },
     {
       "path": "references/qie-a-z.md",
@@ -15,7 +19,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "references/routing.md",
@@ -23,9 +27,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "ab26aab2a739bab580818324c103de72f1d6ecca891e5544f877525f2f0cafd4",
+  "knowledge_sha256": "7e33122310507f5ac24c716bfe2b3f9438625bb8ccabdc53e37435a64ebe1eab",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie",
   "snapshot_path": "data/qie-a-z.json",

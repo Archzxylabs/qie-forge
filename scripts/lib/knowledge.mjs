@@ -13,6 +13,8 @@ const collections = {
   validationRuns: ['validation-runs', 'validation-run', 'test_id'],
   domains: ['domains', 'domain', 'domain_id'],
   skills: ['skills', 'skill', 'skill_id'],
+  integrations: ['integrations', 'integration', 'entity_id'],
+  conflicts: ['conflicts', 'conflict', 'conflict_id'],
 };
 
 export async function loadKnowledge(root) {
@@ -99,6 +101,44 @@ function checkAddresses(data, indexes) {
   }
 }
 
+function requireExecutionBlocked(value, label) {
+  if (value !== false) {
+    throw new Error(`${label} execution_allowed must remain false until a tested promotion mechanism exists`);
+  }
+}
+
+function checkIntegrations(data, indexes) {
+  const integrationIds = new Set(data.integrations.map((entry) => entry.entity_id));
+  const conflictIds = new Set(data.conflicts.map((entry) => entry.conflict_id));
+  for (const conflict of data.conflicts) requireReferences(conflict.source_ids, indexes.sources, 'conflict source');
+  for (const integration of data.integrations) {
+    requireExecutionBlocked(integration.execution_allowed, `Integration ${integration.entity_id}`);
+    requireReferences(integration.source_ids, indexes.sources, 'integration source');
+    requireReferences(integration.conflict_ids, indexes.conflicts, 'integration conflict');
+    requireReferences(integration.related_entity_ids, indexes.integrations, 'related integration');
+    for (const iface of integration.interfaces) {
+      requireExecutionBlocked(iface.execution_allowed, `Interface ${iface.interface_id}`);
+      requireReferences(iface.source_ids, indexes.sources, 'interface source');
+    }
+    const interfaceIds = new Set(integration.interfaces.map((iface) => iface.interface_id));
+    const operationIds = new Set();
+    for (const operation of integration.operations) {
+      requireExecutionBlocked(operation.execution_allowed, `Operation ${operation.operation_id}`);
+      if (operationIds.has(operation.operation_id)) throw new Error(`Duplicate integration operation: ${operation.operation_id}`);
+      operationIds.add(operation.operation_id);
+      if (!interfaceIds.has(operation.interface_id)) throw new Error(`Missing integration interface: ${operation.interface_id}`);
+      requireReferences(operation.source_ids, indexes.sources, 'operation source');
+    }
+    if (integration.status === 'DOCUMENTED' && !integration.source_ids.some((id) => ['T0', 'T1', 'T2'].includes(indexes.sources.get(id).trust_tier))) {
+      throw new Error('Documented integration needs a technical primary source');
+    }
+    if (integration.status === 'CONFLICTED' && !integration.conflict_ids.length) throw new Error('Conflicted integration needs conflict records');
+    if (integration.status === 'VERIFIED') throw new Error('Integration verification is not enabled without a dedicated runtime gate');
+    if (!integrationIds.has(integration.entity_id)) throw new Error('Unreachable integration');
+    if (integration.conflict_ids.some((id) => !conflictIds.has(id))) throw new Error('Missing integration conflict');
+  }
+}
+
 // The release-cut chronology rule has exactly one implementation
 // (scripts/lib/chronology.mjs). The knowledge validator calls it with an
 // injected clock so frozen fixtures never depend on the wall clock, and the
@@ -119,6 +159,7 @@ export async function validateKnowledge(data, schemaRoot, { now = Date.now(), cl
   for (const claim of data.claims) checkEvidence(claim, indexes, [claim.network_id], claim.predicate, claim.version_scope);
   for (const cap of data.capabilities) checkEvidence(cap, indexes, cap.network_ids, cap.operation, cap.tool_version_range);
   checkAddresses(data, indexes);
+  checkIntegrations(data, indexes);
   const expectedDomains = Array.from({ length: 15 }, (_, i) => `D${String(i + 1).padStart(2, '0')}`);
   requireReferences(expectedDomains, indexes.domains, 'domain');
   for (const domain of data.domains) {
@@ -134,6 +175,7 @@ export async function validateKnowledge(data, schemaRoot, { now = Date.now(), cl
     requireReferences(skill.claim_ids, indexes.claims, 'selected claim');
     requireReferences(skill.capability_ids, indexes.capabilities, 'selected capability');
     requireReferences(skill.domain_ids, indexes.domains, 'selected domain');
+    requireReferences(skill.integration_ids, indexes.integrations, 'selected integration');
   }
   return indexes;
 }

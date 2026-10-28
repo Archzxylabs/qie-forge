@@ -1,0 +1,17 @@
+{
+  "command": [
+    "node",
+    "scripts/probe-rpc-capabilities.mjs",
+    "qie-testnet",
+    "--rpc",
+    "https://rpc2testnet.qie.digital/",
+    "--claims",
+    "skills/qie-networks/data/network-claims.json",
+    "--max-requests",
+    "14"
+  ],
+  "started_at": "2026-10-26T06:50:23.892Z",
+  "finished_at": "2026-10-26T06:50:26.004Z",
+  "exit_code": 0,
+  "signal": null
+}

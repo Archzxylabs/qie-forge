@@ -1,0 +1,38 @@
+
+│
+●   opencode  Agent detected — installing non-interactively
+[?25l│
+◇  Source: /home/pupulion/QIE-FORGE
+[?25h[?25l│
+◇  Local path validated
+[?25h[?25l│
+◇  Found 9 skills
+[?25h│
+●  Selected 2 skills: qie-debug, qie-smart-contracts
+
+│
+◇  Installation Summary ─────────────────╮
+│                                        │
+│  ./.agents/skills/qie-debug            │
+│    copy → Codex                        │
+│                                        │
+│  ./.agents/skills/qie-smart-contracts  │
+│    copy → Codex                        │
+│                                        │
+├────────────────────────────────────────╯
+[?25l│
+◇  Installation complete
+[?25h
+│
+◇  Installed 2 skills ───────────────────────╮
+│                                            │
+│  ✓ qie-debug (copied)                      │
+│    → ./.agents/skills/qie-debug            │
+│  ✓ qie-smart-contracts (copied)            │
+│    → ./.agents/skills/qie-smart-contracts  │
+│                                            │
+├────────────────────────────────────────────╯
+
+│
+└  Done!  Review skills before use; they run with full agent permissions.
+

@@ -1,29 +1,41 @@
 {
-  "built_at": "2026-10-19T22:35:15Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "52f00c915be01e7615dd4f99090a454015abaca2def6e23e9a1ca91d1378a63f"
+      "sha256": "16c60afa0d93248c291b674798cce4050e72c4513b190c85d02ba5372470f770"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "69b85d15866a135010b0e869d96d6306aed5f38946ba77dec13c70c4737af813"
+      "sha256": "8cbe0f0abfb8d8a8e698acea267d0cd8e1e445494623e4c24f39258f5e611f2b"
     },
     {
       "path": "recipes/debug/recipe.md",
       "sha256": "83a12017845bfef60c5cb1d51925a7b07a9a1e4fc3d2e72e9e7d3ebdf1e18209"
     },
     {
+      "path": "recipes/ecosystem-address/recipe.md",
+      "sha256": "af5f68daa949926c7cf27ed3626a8f3646dc79101a95878a390f415a232e6ec0"
+    },
+    {
+      "path": "recipes/transaction-readonly/recipe.md",
+      "sha256": "19d31faf296235fa84b557c2cdc491d0257e40de39424007aae1895f3c97eb39"
+    },
+    {
       "path": "references/evidence.md",
-      "sha256": "da93401f8b6ca57e3eeeaf2acb78c7f0efd24e9bf6191618a3f77d3eee7b35ba"
+      "sha256": "b52e5860e4f1d399cd33cfbcbd598822cebd090f20a7c32e432dcfcec9f5b6e5"
     },
     {
       "path": "references/release-info.md",
-      "sha256": "2cb5b3e425b519687b21d9cdcec8fd480109a4aa77b0875122e49f4c98a300dd"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
-      "sha256": "b83462655064a483aad9f0ba8c61009df14a44e5ce33d0128ad5a5d79ba41d30"
+      "sha256": "a43c6805deef4103a7f415835b9213c21bff4c10ca4a92f6cddf6bce650ba751"
     },
     {
       "path": "scripts/lib/network-diagnostic.mjs",
@@ -47,9 +59,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "69b85d15866a135010b0e869d96d6306aed5f38946ba77dec13c70c4737af813",
+  "knowledge_sha256": "8cbe0f0abfb8d8a8e698acea267d0cd8e1e445494623e4c24f39258f5e611f2b",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_version": "0.5.1-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-debug",
   "snapshot_path": "data/network-claims.json",

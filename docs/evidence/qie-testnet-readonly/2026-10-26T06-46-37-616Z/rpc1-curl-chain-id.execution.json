@@ -1,0 +1,26 @@
+{
+  "command": [
+    "curl",
+    "--silent",
+    "--show-error",
+    "--connect-timeout",
+    "5",
+    "--max-time",
+    "12",
+    "--max-filesize",
+    "1048576",
+    "--proto",
+    "=https",
+    "--header",
+    "content-type: application/json",
+    "--data",
+    "{\"jsonrpc\":\"2.0\",\"method\":\"eth_chainId\",\"params\":[],\"id\":1}",
+    "--write-out",
+    "%{stderr}http_code=%{http_code} remote_ip=%{remote_ip} total_seconds=%{time_total}\\n",
+    "https://rpc1testnet.qie.digital/"
+  ],
+  "started_at": "2026-10-26T06:48:27.796Z",
+  "finished_at": "2026-10-26T06:48:32.820Z",
+  "exit_code": 28,
+  "signal": null
+}

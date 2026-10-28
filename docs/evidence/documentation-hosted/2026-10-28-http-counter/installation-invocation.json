@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-28T11:06:57.561Z",
+  "cliVersion": "1.7.2",
+  "nodeVersion": "v24.20.0",
+  "executable": "/home/pupulion/.nvm/versions/node/v24.20.0/bin/node",
+  "argv": [
+    "/home/pupulion/QIE-FORGE/node_modules/skills/bin/cli.mjs",
+    "add",
+    "https://qie-forge-docs-5eqg24rws-fao2-5364s-projects.vercel.app/releases/0.6.0-ecosystem.2/3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+    "--skill",
+    "*",
+    "--agent",
+    "codex",
+    "--agent",
+    "claude-code",
+    "--agent",
+    "cursor",
+    "--agent",
+    "opencode",
+    "--copy",
+    "--yes"
+  ],
+  "cwd": "/tmp/qie-public-http-install-ytWX85",
+  "isolatedHome": "/tmp/qie-public-http-install-ytWX85/home",
+  "telemetryDisabled": true,
+  "verifier": "inspectInstalledRelease",
+  "requireSuite": true,
+  "expectedReleaseId": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "verifiedNotices": [
+    "qie",
+    "qie-debug",
+    "qie-deployment",
+    "qie-ecosystem",
+    "qie-frontend",
+    "qie-networks",
+    "qie-smart-contracts",
+    "qie-transactions",
+    "qie-wallets"
+  ],
+  "noticeSha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388",
+  "scope": "Recorded invocation metadata and a follow-up read of the unchanged installed tree; no model hosts executed."
+}

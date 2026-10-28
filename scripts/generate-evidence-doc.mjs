@@ -3,13 +3,15 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { loadKnowledge } from './lib/knowledge.mjs';
 import { renderCapabilityCatalogue } from './lib/evidence-doc.mjs';
 
-// Regenerates docs/evidence/b08/capability-catalogue.md from canonical
-// knowledge records. --check fails (exit 1) when the checked-in document has
-// drifted from what the canonical data produces.
+// Regenerates the preserved B08 capability catalogue from canonical knowledge
+// records at the recorded B08 release, not at the active release cut. --check
+// fails (exit 1) when the checked-in historical document has drifted from what
+// the canonical data and historical release record produce.
 const root = process.cwd();
 const target = path.join(root, 'docs/evidence/b08/capability-catalogue.md');
 const data = await loadKnowledge(root);
-const expected = renderCapabilityCatalogue(data);
+const historical = JSON.parse(await readFile(path.join(root, 'tests/fixtures/historical-releases.json'), 'utf8'));
+const expected = renderCapabilityCatalogue(data, historical.b08);
 
 if (process.argv.includes('--check')) {
   let actual = null;

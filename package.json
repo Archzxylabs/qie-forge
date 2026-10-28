@@ -1,6 +1,6 @@
 {
   "name": "qie-forge",
-  "version": "0.5.1-ecosystem.1",
+  "version": "0.6.0-ecosystem.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,6 +8,7 @@
   },
   "packageManager": "npm@11.19.0",
   "scripts": {
+    "audit:security": "npm audit --include=dev --audit-level=low",
     "build": "node scripts/build-skill-release.mjs",
     "build:check": "node scripts/build-skill-release.mjs --check",
     "validate": "node scripts/validate-knowledge.mjs && node scripts/validate-skills.mjs",
@@ -15,14 +16,34 @@
     "test": "node --test --test-isolation=none tests/*.test.mjs",
     "test:coverage": "node --test --test-isolation=none --experimental-test-coverage --test-coverage-include='scripts/**' tests/*.test.mjs",
     "test:install": "node --test --test-isolation=none tests/installation.test.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "bootstrap:consumer": "node scripts/bootstrap-consumer.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "example:prepare": "node scripts/prepare-counter-example.mjs",
+    "example:prepare:check": "node scripts/prepare-counter-example.mjs --check",
+    "example:dev": "vite examples/counter-dapp",
+    "example:build": "npm run example:prepare && vite build examples/counter-dapp",
+    "example:preview": "vite preview examples/counter-dapp",
+    "test:browser": "playwright test --config examples/counter-dapp/playwright.config.ts",
+    "site:build": "node scripts/build-docs.mjs",
+    "site:check": "node scripts/build-docs.mjs --check",
+    "site:preview": "node scripts/serve-docs.mjs",
+    "test:site": "playwright test --config site/playwright.config.ts",
     "docs:check": "node scripts/generate-evidence-doc.mjs --check",
     "docs:generate": "node scripts/generate-evidence-doc.mjs",
-    "verify:evidence": "node scripts/verify-evidence.mjs"
+    "verify:evidence": "node scripts/verify-evidence.mjs",
+    "verify:b09-evidence": "node scripts/verify-b09-evidence.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "skills": "1.7.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
     "yaml": "2.9.1"
-  }
+  },
+  "license": "MIT"
 }

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "forge",
+    "inspect",
+    "--offline",
+    "--use",
+    "/home/pupulion/.solc-select/artifacts/solc-0.8.37/solc-0.8.37",
+    "Counter",
+    "abi",
+    "--json"
+  ],
+  "cwd": "isolated canonical asset copy",
+  "started_at": "2026-10-26T07:27:58.755Z",
+  "finished_at": "2026-10-26T07:27:58.780Z",
+  "exit_code": 0,
+  "signal": null
+}
