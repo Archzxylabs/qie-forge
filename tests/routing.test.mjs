@@ -9,7 +9,7 @@ import { buildRelease } from '../scripts/lib/release.mjs';
 const projectRoot = new URL('../', import.meta.url).pathname;
 const root = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-routing-'));
 after(() => rm(root, { recursive: true, force: true }));
-for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json']) {
+for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json', 'LICENSE']) {
   await cp(path.join(projectRoot, name), path.join(root, name), { recursive: true });
 }
 const output = await buildRelease(root);

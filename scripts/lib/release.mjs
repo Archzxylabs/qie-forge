@@ -429,7 +429,7 @@ async function skillFiles(root, data, skill) {
   if (!Object.hasOwn(artifactSnapshots, artifact)) throw new Error(`Unknown generated reference artifact: ${artifact}`);
   const snapshot = selectSnapshot(data, skill);
   const entry = await readContained(root, skill.source_entry);
-  validateFrontmatter(entry, skill.skill_id);
+  const frontmatter = validateFrontmatter(entry, skill.skill_id);
   // Authored content describes the QIE ecosystem, so every absolute URL in it
   // is a claim about QIE and must be traceable to canonical data. A stale or
   // invented endpoint fails the build here, before it can be published.
@@ -440,6 +440,9 @@ async function skillFiles(root, data, skill) {
   // from the same snapshot as its reference files.
   const resolvedEntry = resolvePlaceholders(entry, { snapshot, builtAt: data.release.built_at, label: `${skill.skill_id}/SKILL.md` });
   const files = { 'SKILL.md': resolvedEntry.replace(/\n$/, '') + '\n\n' + generated.trim() + '\n' };
+  // Preserve the notice in standalone installs after the source checkout is
+  // removed. A declared license must never be shipped without its notice.
+  if (frontmatter.license) files.LICENSE = await readContained(root, 'LICENSE');
   const sourceDirectory = path.posix.dirname(skill.source_entry);
   const reserved = [...artifactReserved[artifact], 'references/release-info.md'];
   for (const relative of await walkFiles(path.join(root, sourceDirectory))) {

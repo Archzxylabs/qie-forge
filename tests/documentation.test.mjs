@@ -23,6 +23,7 @@ test('documentation includes every PRD route with usable static navigation', () 
 });
 
 test('every copied release file is byte-identical to its bundle and declared digest', async () => {
+  assert.deepEqual(files.LICENSE, await readFile(path.join(projectRoot, 'LICENSE')));
   const build = JSON.parse(files['portal-build.json']);
   const index = JSON.parse(files[`${build.raw_prefix.slice(1)}/index.json`]);
   assert.ok(index.files.length > 100);

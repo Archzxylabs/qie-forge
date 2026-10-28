@@ -1,5 +1,6 @@
 ---
 name: qie-ecosystem
+license: MIT
 description: QIE ecosystem intelligence, product catalogue, and evidence-based compatibility decision guide. Use when a developer asks which wallets, SDKs, development frameworks, DEXs, bridges, oracles, indexers, or tools work on QIE, or when evaluating whether a specific tool or operation is supported. Implements a 7-step decision procedure, provides grounded compatibility guidance, and enforces safety boundaries without guessing.
 compatibility: Local references work offline without an account or network. This skill performs no on-chain transaction signing, broadcasting, or secret handling.
 ---

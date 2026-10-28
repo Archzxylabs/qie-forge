@@ -64,6 +64,7 @@ test('qie-ecosystem bundle builds with self-contained references and manifest', 
   
   const files = outputs['qie-ecosystem'];
   const expectedFiles = [
+    'LICENSE',
     'SKILL.md',
     'MANIFEST.json',
     'data/ecosystem-catalogue.json',

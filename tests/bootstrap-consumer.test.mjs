@@ -16,7 +16,7 @@ let source;
 
 test.before(async () => {
   source = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-bootstrap-source-'));
-  for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json']) {
+  for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json', 'LICENSE']) {
     await cp(path.join(projectRoot, name), path.join(source, name), { recursive: true });
   }
   await buildRelease(source);

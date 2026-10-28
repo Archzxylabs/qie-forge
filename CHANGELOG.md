@@ -2,6 +2,12 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## MIT candidate cut — 2026-10-28
+
+- Apply the owner-selected MIT license to original QIE Forge code and documentation; include the canonical notice and license metadata in all nine standalone skill bundles.
+- Cut `0.6.0-ecosystem.2` with a new payload identity and frozen build clock. Earlier test, agent and chain observations remain tied to their original payloads.
+- Add notice-retention and missing-notice rejection checks; preserve third-party source and dependency license boundaries.
+
 ## Static documentation portal and release preparation — 2026-10-28
 
 - Build all eleven PRD documentation routes from coherent installed snapshots, with readable skills/recipes and byte-identical raw files under version-and-payload-qualified paths.

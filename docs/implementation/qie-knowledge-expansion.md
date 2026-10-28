@@ -5,7 +5,7 @@
 - Base lineage: current `feat/qie-ecosystem-intelligence`, already containing B09 private-distribution work.
 - B09 status: PR #1 remains open; no merge or public publication was performed.
 - New branch intent: continue on `feat/qie-ecosystem-intelligence` without rewriting historical B08/B09 evidence.
-- New release candidate: `0.6.0-ecosystem.1`.
+- Initial expansion candidate: `0.6.0-ecosystem.1`; the owner-selected MIT notice is subsequently cut as `0.6.0-ecosystem.2`.
 
 ## Canonical model changes
 

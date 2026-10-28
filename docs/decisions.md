@@ -2,6 +2,20 @@
 
 These decisions began with B02–B04 against PRD v2.1. They refine the approved architecture without changing the product scope. That foundation contained one skill and no website, service, product CLI or live verifier; later milestone decisions below add nine released skills and a read-only installed-release verifier.
 
+## MIT license selection — 2026-10-28
+
+The project owner selected MIT in the working session. `LICENSE` is the canonical
+notice for original QIE Forge code and documentation. Each authored skill declares
+`license: MIT`; the builder includes the byte-identical notice in every bundle
+and hashes it in the manifest so standalone copies retain it after source removal.
+This changes payload bytes and is cut as `0.6.0-ecosystem.2` with a new frozen
+build clock and identity. Earlier acceptance records keep their original payload.
+
+Dependency and third-party source licenses retain their own terms. The choice
+does not assign MIT to source-registry records whose licenses remain unknown.
+Public Git access, hosted acceptance, accountable release roles and private
+security reporting remain separate recorded gates.
+
 ## Canonical fields: AT-01 resolved
 
 PRD §9.2 defines the serialized entity contracts. The illustrative examples in §14.1–§14.2 are not a second format. Schemas reject extra fields, missing canonical fields and obsolete status aliases; there is no silent migration layer.

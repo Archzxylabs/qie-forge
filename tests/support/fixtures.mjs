@@ -11,7 +11,7 @@ export const releasedSkills = [...CANONICAL_SKILLS];
 export async function fixtureProject(t) {
   const root = await mkdtemp(path.join(os.tmpdir(), 'qie-forge-project-'));
   t.after(() => rm(root, { recursive: true, force: true }));
-  for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json']) {
+  for (const name of ['authoring', 'knowledge', 'scripts', 'recipes', 'release-context.json', 'LICENSE']) {
     await cp(path.join(projectRoot, name), path.join(root, name), { recursive: true });
   }
   return root;

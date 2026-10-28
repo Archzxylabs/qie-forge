@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-10-28T10:05:47.484Z",
+  "scope": "PINNED_INSTALLATION_AND_LICENSE_RETENTION",
+  "releaseVersion": "0.6.0-ecosystem.2",
+  "releaseId": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "install": "PASS",
+  "verification": "PASS",
+  "publisherAuthenticity": "PINNED_MATCH",
+  "agents": [
+    "universal",
+    "codex",
+    "claude-code",
+    "cursor",
+    "opencode"
+  ],
+  "skills": [
+    {
+      "name": "qie",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-debug",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-deployment",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-ecosystem",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-frontend",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-networks",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-smart-contracts",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-transactions",
+      "status": "installed",
+      "mode": "copy"
+    },
+    {
+      "name": "qie-wallets",
+      "status": "installed",
+      "mode": "copy"
+    }
+  ],
+  "license": "MIT",
+  "licenseSha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388",
+  "allInstalledNoticesMatch": true,
+  "hostModelWorkflows": "NOT_RUN",
+  "limitations": [
+    "This proves installed bytes and license retention, not a model workflow or actual host discovery.",
+    "Prior native version observations and Cursor absence are retained in the earlier preparation capture."
+  ]
+}

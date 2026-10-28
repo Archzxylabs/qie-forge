@@ -1,5 +1,6 @@
 ---
 name: qie-transactions
+license: MIT
 description: Inspect QIE EVM transaction receipts, direct-creation linkage and runtime-code observations using bundled read-only diagnostics. Use for pending/reverted transactions, gas or nonce investigation and distinguishing receipt facts from application effects. Does not sign, broadcast, verify a mint or establish QIE finality.
 compatibility: Node 24.20.0 in the tested Node 24 line. Local helper imports and data are bundled. HTTPS RPC calls are optional, bounded read-only observations; QIE endpoint behavior has not been tested live.
 ---

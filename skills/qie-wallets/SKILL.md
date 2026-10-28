@@ -1,5 +1,6 @@
 ---
 name: qie-wallets
+license: MIT
 description: Evaluate QIE EVM wallet capabilities, connect accounts deliberately, handle wrong-chain/account changes and prepare developer-controlled signing review. Use for choosing a wallet or connector, connection errors and signing boundaries. Does not supply native delegation commands, custody keys or claim a tested QIE wallet integration.
 compatibility: Bundled wallet-read TypeScript is locally tested with mock EIP-1193 providers on Node 24.20.0. A real wallet/version/network must be evaluated separately before operational use.
 ---

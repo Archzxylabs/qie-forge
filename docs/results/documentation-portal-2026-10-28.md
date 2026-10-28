@@ -1,5 +1,7 @@
 # Local documentation portal acceptance — 2026-10-28
 
+This report captures the pre-license `0.6.0-ecosystem.1` portal. The subsequent [MIT candidate cut](mit-release-2026-10-28.md) records the licensed payload separately.
+
 The B10 implementation now builds a local, original static portal. Public
 hosting is still a separate gate. The source contract is
 [PRD 15.1/15.2](../../QIE_Forge_PRD_v2.1.md) and the

@@ -1,5 +1,6 @@
 ---
 name: qie-deployment
+license: MIT
 description: Prepare a QIE EVM testnet or mainnet contract release with local artifacts, network preflight, explicit capability blockers, signing review and scoped post-submission observations. Use for deployment readiness and production checklists. No tested QIE broadcast, signer or explorer-verification integration is supplied.
 compatibility: Local build preparation uses Forge 1.8.1 and solc 0.8.37; read-only checks require Node 24.20.0. QIE EVM-target support, wallet signing, fees and operational finality remain unverified.
 ---

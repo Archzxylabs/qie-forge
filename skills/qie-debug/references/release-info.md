@@ -2,11 +2,11 @@
 
 # Release information
 
-Release: 0.6.0-ecosystem.1
+Release: 0.6.0-ecosystem.2
 
 Schema: 1.4.0
 
-Built: 2026-10-24T20:05:00Z
+Built: 2026-10-28T09:57:38Z
 
 Sources reviewed: 2026-10-19T00:08:45Z
 

@@ -15,7 +15,7 @@ CI run must name the actual PR head. Historical results retain their own scope.
 | QIE finality | UNKNOWN | Trusted QIE policy and observations matching that policy |
 | Four-host evaluation | PARTIAL; pinned payload installed into all four profiles; three native host versions observed; Cursor executable absent | Actual Codex, Claude Code, Cursor and OpenCode discovery; same golden workflow completed by at least two hosts with recorded host/model/version |
 | External pilot | NOT_RUN | Consented users and the preregistered outcomes in [the pilot protocol](pilot-protocol.md) |
-| Publication governance | OPEN | Named owner/reviewer, selected license, public distribution permission and an approved private security-reporting channel |
+| Publication governance | MIT selected by the owner; notice included in standalone bundles | Named owner/reviewer, public distribution acceptance and an approved private security-reporting channel |
 | Release artifacts | Candidate only | Reviewed immutable ref, consistent docs/package identity, update/rollback evidence and known limitations |
 | Contest readiness | OPEN | Organizer eligibility and actual submission requirements resolved |
 
@@ -24,7 +24,7 @@ CI run must name the actual PR head. Historical results retain their own scope.
 1. Keep the current engineering and audit jobs green, review PR #1 first, then
    rebase PR #2 without dropping either job and rerun the complete gates.
 2. Finish local documentation and its hosted acceptance while the wallet owner
-   connects the selected testnet account. Record unresolved publication decisions.
+   connects the selected testnet account. MIT is selected; record the remaining publication decisions.
 3. Complete the actual signer-specific Counter review. Wallet approval covers
    the displayed chain, creation bytecode, native value and maximum fee.
 4. Observe the externally submitted testnet transaction and contract state.

@@ -10,6 +10,7 @@ import { fixtureProject, temporaryDirectory, schemaRoot, releasedSkills } from '
 const validate = await loadValidators(schemaRoot);
 
 const expectedRouterFiles = [
+  'LICENSE',
   'SKILL.md',
   'MANIFEST.json',
   'data/qie-a-z.json',
@@ -49,6 +50,27 @@ test('all installed bundles validate independently with consistent release metad
   assert.equal(router.snapshot_path, 'data/qie-a-z.json');
   const networks = JSON.parse(await readFile(path.join(root, 'skills/qie-networks/MANIFEST.json'), 'utf8'));
   assert.equal(networks.snapshot_path, 'data/network-claims.json');
+});
+
+test('standalone skill copies retain the selected MIT notice after checkout removal', async (t) => {
+  const source = await fixtureProject(t);
+  const expected = await readFile(path.join(source, 'LICENSE'), 'utf8');
+  await buildRelease(source);
+  const consumer = await temporaryDirectory(t);
+  await cp(path.join(source, 'skills'), consumer, { recursive: true });
+  await rm(source, { recursive: true, force: true });
+  for (const name of releasedSkills) {
+    assert.equal(await readFile(path.join(consumer, name, 'LICENSE'), 'utf8'), expected);
+    assert.match(await readFile(path.join(consumer, name, 'SKILL.md'), 'utf8'), /^license: MIT$/m);
+    const manifest = await validateBundle(path.join(consumer, name), validate);
+    assert.ok(manifest.files.some((file) => file.path === 'LICENSE'));
+  }
+});
+
+test('a declared skill license without its notice blocks publication', async (t) => {
+  const root = await fixtureProject(t);
+  await rm(path.join(root, 'LICENSE'));
+  await assert.rejects(buildRelease(root), /ENOENT/);
 });
 
 test('router bundle contains exactly its self-contained inventory', async (t) => {

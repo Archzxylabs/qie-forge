@@ -1,5 +1,6 @@
 ---
 name: qie-networks
+license: MIT
 description: Find published QIE EVM mainnet and testnet settings, distinguish documented configuration from live network evidence, inspect packaged network references offline, and run an optional read-only live preflight against the selected network. Use when choosing a QIE network, locating RPC or explorer settings, or investigating a possible wrong-chain configuration.
 compatibility: Local references and the offline inspector require no account or network. The optional read-only preflight helper contacts the selected QIE RPC endpoint and requires Node.js 24.20 or newer in the tested Node 24 line.
 ---

@@ -1,12 +1,14 @@
 # QIE knowledge expansion release results
 
+The results below preserve the initial `0.6.0-ecosystem.1` expansion capture. The current owner-selected MIT candidate is `0.6.0-ecosystem.2`, payload `3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b`; see the [MIT cut report](../results/mit-release-2026-10-28.md) for its own gates.
+
 **Release candidate:** `0.6.0-ecosystem.1`  
 **Schema/policy:** `1.4.0` (additive integration records; existing schema contract retained)  
 **Branch:** `feat/qie-ecosystem-intelligence`  
-**Release identity after the latest build:** `838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309`
+**Historical expansion payload:** `838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309`
 **Current PR:** [#2](https://github.com/Archzxylabs/qie-forge/pull/2), still dependent on the owner-approved B09-first integration order.
 
-## Gate results
+## Historical expansion gate results
 
 | Gate | Result | Notes |
 |---|---|---|

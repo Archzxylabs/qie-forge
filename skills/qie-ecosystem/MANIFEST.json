@@ -1,13 +1,17 @@
 {
-  "built_at": "2026-10-24T20:05:00Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "fcfabd645776263c136b3599540cd2ed7a7ba9a5f8165e83d2dba6db00429b1a"
+      "sha256": "9bf9c222e56fda129f0001052ac19bbc3b2a6eb8b9aac2ffe1046420e38e8270"
     },
     {
       "path": "data/ecosystem-catalogue.json",
-      "sha256": "433156b8471c72431fa6e5784ab7b18c6a286d1ca00c6347a871f72153686281"
+      "sha256": "a0555cc4c4bcc4fd54b31b8eaff7ef2999fddb658cd3da5bc65e076cd6b77a59"
     },
     {
       "path": "recipes/ecosystem-address/recipe.md",
@@ -67,7 +71,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -75,10 +79,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "433156b8471c72431fa6e5784ab7b18c6a286d1ca00c6347a871f72153686281",
+  "knowledge_sha256": "a0555cc4c4bcc4fd54b31b8eaff7ef2999fddb658cd3da5bc65e076cd6b77a59",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
-  "release_version": "0.6.0-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-ecosystem",
   "snapshot_path": "data/ecosystem-catalogue.json",

@@ -1,6 +1,6 @@
 {
   "name": "qie-forge",
-  "version": "0.6.0-ecosystem.1",
+  "version": "0.6.0-ecosystem.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -44,5 +44,6 @@
     "typescript": "7.0.2",
     "vite": "8.3.5",
     "yaml": "2.9.1"
-  }
+  },
+  "license": "MIT"
 }

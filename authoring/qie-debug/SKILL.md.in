@@ -1,5 +1,6 @@
 ---
 name: qie-debug
+license: MIT
 description: Diagnose QIE EVM build, wallet, RPC, receipt and application-observation failures with bounded read-only checks and symptom-specific recovery. Use for wrong-chain, offline/rate-limited RPC, pending/reverted transactions or an app showing no expected effect. Native failures route to official native sources.
 compatibility: Node 24.20.0 in the tested Node 24 line for bundled diagnostics. All diagnostic regression evidence uses mocks; actual QIE endpoint/provider behavior remains unverified.
 ---

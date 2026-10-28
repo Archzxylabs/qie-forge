@@ -1,5 +1,6 @@
 ---
 name: qie-smart-contracts
+license: MIT
 description: Build and test original Solidity contracts locally for a QIE EVM project using the pinned Foundry recipe. Use for contract scaffolding, compiler configuration, ABI artifacts, tests and local failures. Local execution does not establish QIE deployment compatibility; native validator operations use a different account and execution model.
 compatibility: Local recipe tested with Forge 1.8.1, solc 0.8.37 and Node 24.20.0. Requires those existing tools; no dependency download or chain access is required for the bundled fixture.
 ---

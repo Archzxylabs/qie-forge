@@ -1,5 +1,6 @@
 ---
 name: qie-frontend
+license: MIT
 description: Integrate a TypeScript frontend with explicit QIE EVM network selection, wallet account and chain gating, ABI-bound reads and invalidation after provider changes. Use for an existing frontend or its read controller; does not scaffold a new dApp or claim untested Viem, Wagmi or wallet-provider compatibility.
 compatibility: The framework-neutral TypeScript read controller is executed using Node 24.20.0 type stripping and mock EIP-1193 providers. Actual browser/wallet and QIE RPC support remain unverified.
 ---

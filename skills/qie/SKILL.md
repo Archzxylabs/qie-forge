@@ -1,5 +1,6 @@
 ---
 name: qie
+license: MIT
 description: Entry router for QIE blockchain development tasks. Use when a developer asks how to build, integrate, debug, deploy or research anything on QIE, or when the correct QIE topical skill, target network (mainnet vs testnet), or EVM-versus-native workflow is unclear. Classifies intent, selects the minimal topical skills or bundled QIE A–Z coverage references, and flags missing skills instead of guessing.
 compatibility: Local references require no account or network; routing works offline from this bundle. This skill performs no chain interaction, signing or broadcasting.
 ---

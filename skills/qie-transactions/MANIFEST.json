@@ -1,13 +1,17 @@
 {
-  "built_at": "2026-10-24T20:05:00Z",
+  "built_at": "2026-10-28T09:57:38Z",
   "files": [
     {
+      "path": "LICENSE",
+      "sha256": "ca8e5c41a17cc81979674150ad9321db5b3504ef3e9a44457c2676531bfc7388"
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "ed2f0e0ff2f257929cb7d3fa20d28dc035a54843aaccc1c7d180b5e27d8e5e7a"
+      "sha256": "61e2420c5d39f9b3504158bf5c537b39159b5974ddf33649b643bf431ea881b3"
     },
     {
       "path": "data/network-claims.json",
-      "sha256": "9ffb0a00ca144f8ef2a06031274ea142bd3dcd4b6a965279e6a008e4b64ff730"
+      "sha256": "ac05ed808c38b13db7078951cf55376341f188acce6a62fef35be80811d3a4ea"
     },
     {
       "path": "recipes/debug/recipe.md",
@@ -27,7 +31,7 @@
     },
     {
       "path": "references/release-info.md",
-      "sha256": "e170d467a1537506accc503e3602f256e553f8f8c5466970e3531a47f867adac"
+      "sha256": "6aa9106df1abba00dfc973035ab8b31d9828c8a77163ce990c83b1b19a797d90"
     },
     {
       "path": "scripts/lib/effective-status.mjs",
@@ -55,10 +59,10 @@
     }
   ],
   "generated": true,
-  "knowledge_sha256": "9ffb0a00ca144f8ef2a06031274ea142bd3dcd4b6a965279e6a008e4b64ff730",
+  "knowledge_sha256": "ac05ed808c38b13db7078951cf55376341f188acce6a62fef35be80811d3a4ea",
   "policy_sha256": "6aed0efdc077c47769d7988ff9211575b6bb25c2be5ef8bc890ceb29b044b86e",
-  "release_id": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
-  "release_version": "0.6.0-ecosystem.1",
+  "release_id": "3aa11f7a34b9db51b1b9de243a4642af4eed6fe734c24e287ad0bd93888bd11b",
+  "release_version": "0.6.0-ecosystem.2",
   "schema_version": "1.4.0",
   "skill_id": "qie-transactions",
   "snapshot_path": "data/network-claims.json",
