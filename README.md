@@ -58,6 +58,30 @@ Install the browser once with `npx playwright install --with-deps --no-shell chr
 
 [`examples/counter-dapp`](examples/counter-dapp/README.md) is a small read-only app that imports the canonical wallet-read controller and packaged network snapshot instead of copying them. Its ABI/selector asset is generated from the single canonical Counter source in `recipes/build-test/assets` by `npm run example:prepare`. The default mode is a clearly labelled deterministic mock. Injected-wallet mode discovers QIE Wallet through EIP-6963 or `window.qie` before the legacy `window.ethereum` fallback; Connect displays the selected account, and reads require a configured contract address. The session rejects a wrong chain, invalidates on wallet events and address changes, discards late results and never signs or broadcasts. See the [quickstart](docs/quickstart.md#4-run-the-counter-reference-app) for commands and the [wallet discovery results](docs/results/qie-wallet-discovery-2026-10-26.md) for the tested scope.
 
+## Static documentation portal
+
+The original portal in [`site/`](site/design-contract.md) renders all eleven PRD
+routes from verified installed snapshots. Skill and recipe pages link to
+byte-identical raw files under paths containing both the release version and
+payload identity. Stored/effective statuses use the shared evaluator at the same
+frozen snapshot clock; a website build never refreshes evidence.
+
+```sh
+npm run site:build
+npm run site:check
+npm run test:site
+npm run site:preview
+```
+
+Open `http://127.0.0.1:5174/`. The static build is in `dist/docs`; no application
+backend is required. Desktop/mobile checks cover navigation, filters, keyboard
+access, clipboard recovery, JavaScript-disabled documents and axe WCAG A/AA
+scans. Public hosting and host/model compatibility have separate acceptance
+gates in the [release-readiness checklist](docs/release-readiness.md). The
+[pilot protocol](docs/pilot-protocol.md) prepares external evaluation without
+claiming participants or results. See the [local portal acceptance report](docs/results/documentation-portal-2026-10-28.md)
+for captured checks and rendered evidence.
+
 
 ## Install the skills
 

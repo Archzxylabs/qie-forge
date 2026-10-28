@@ -126,6 +126,11 @@ jobs:
       - name: Type-check the example and canonical controller
         run: npm run typecheck
 
+      - name: Build and verify the static documentation portal
+        run: |
+          npm run site:build
+          npm run site:check
+
       - name: Run the repository test suite
         run: npm test
 
@@ -143,6 +148,9 @@ jobs:
 
       - name: Run deterministic browser checks
         run: npm run test:browser
+
+      - name: Check documentation in desktop and mobile browsers
+        run: npm run test:site
 
       - name: Verify the checks left the checkout clean
         run: |
@@ -167,6 +175,8 @@ jobs:
           path: |
             examples/counter-dapp/playwright-report
             examples/counter-dapp/test-results
+            site/playwright-report
+            site/test-results
             /home/runner/.npm/_logs
           if-no-files-found: ignore
           retention-days: 7

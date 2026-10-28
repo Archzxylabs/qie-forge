@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { walkFiles } from './lib/io.mjs';
 
-for (const directory of ['scripts', 'tests']) {
+for (const directory of ['scripts', 'tests', 'site/assets']) {
   for (const file of await walkFiles(directory)) {
     if (file.endsWith('.mjs') || file.endsWith('.cjs')) execFileSync(process.execPath, ['--check', `${directory}/${file}`], { stdio: 'inherit' });
   }

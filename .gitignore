@@ -13,6 +13,8 @@ coverage/
 examples/counter-dapp/.forge/
 examples/counter-dapp/playwright-report/
 examples/counter-dapp/test-results/
+site/playwright-report/
+site/test-results/
 
 # Secrets
 .env

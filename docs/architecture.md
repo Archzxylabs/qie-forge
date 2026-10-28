@@ -200,7 +200,7 @@ Changes follow: edit source → run validators and build → inspect the generat
 
 ## 13. Milestone blueprint
 
-The milestone table is a dependency plan, not an implementation claim. B02–B08 are represented by the current foundation; B09 is implemented and accepted for private distribution, while public distribution remains a separate unresolved gate; B10 and later remain future work.
+The milestone table is a dependency plan. B02–B08 are represented by the current foundation; B09 is accepted for its recorded private-distribution payload. B10 now has a local static portal with raw-file and status parity, while public hosting remains open. B11 has a local Counter app and guarded browser fixtures. B12 still requires actual approved chain actions. Current remaining gates are tracked in [release readiness](release-readiness.md).
 
 | ID | Deliverable | Acceptance summary |
 |---|---|---|

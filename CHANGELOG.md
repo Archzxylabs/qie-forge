@@ -2,6 +2,13 @@
 
 QIE Forge identifies a release by the human `release_version` in `release-context.json` plus the content-addressed `release_id` in every generated `MANIFEST.json`. Two packaging revisions can share a human version while carrying different identities; the identity is authoritative for byte-level update and rollback checks.
 
+## Static documentation portal and release preparation — 2026-10-28
+
+- Build all eleven PRD documentation routes from coherent installed snapshots, with readable skills/recipes and byte-identical raw files under version-and-payload-qualified paths.
+- Preserve stored/effective statuses, frozen evaluation clocks, provenance, unknown support and disabled integration execution. Reject incoherent bundles before building.
+- Add deterministic generation, link/raw-byte/status checks, local MIME/cache/path-boundary checks, desktop/mobile interactions and axe WCAG A/AA scans to CI.
+- Add a local static preview, release-readiness checklist and preregistered external-pilot protocol. Hosting, actual host/model journeys, wallet execution and external-user results remain separate gates.
+
 ## Consumer bootstrap permission precedence — 2026-10-28
 
 - Fix OpenCode config merges that appended QIE allow rules after existing restrictions. New defaults now precede existing rules, preserving user permission precedence and order.

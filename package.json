@@ -25,12 +25,17 @@
     "example:build": "npm run example:prepare && vite build examples/counter-dapp",
     "example:preview": "vite preview examples/counter-dapp",
     "test:browser": "playwright test --config examples/counter-dapp/playwright.config.ts",
+    "site:build": "node scripts/build-docs.mjs",
+    "site:check": "node scripts/build-docs.mjs --check",
+    "site:preview": "node scripts/serve-docs.mjs",
+    "test:site": "playwright test --config site/playwright.config.ts",
     "docs:check": "node scripts/generate-evidence-doc.mjs --check",
     "docs:generate": "node scripts/generate-evidence-doc.mjs",
     "verify:evidence": "node scripts/verify-evidence.mjs",
     "verify:b09-evidence": "node scripts/verify-b09-evidence.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@playwright/test": "1.64.1",
     "@types/node": "24.19.2",
     "ajv": "8.20.0",

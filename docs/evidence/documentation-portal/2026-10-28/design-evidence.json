@@ -1,0 +1,63 @@
+{
+  "contract": "PRD 15.1/15.2 and site/design-contract.md: eleven static routes; visible quick install and first task; explicit evidence status; keyboard-accessible desktop/mobile layouts.",
+  "targetViewports": [
+    "390x844",
+    "1440x900"
+  ],
+  "accessibility": {
+    "status": "pass",
+    "evidence": "Axe 4.14.0 WCAG 2 A/AA and 2.1 A/AA scans found zero violations on all eleven required routes at both viewports. Keyboard skip link, visible focus and scrollable code access were exercised. Automated scans retain incomplete checks for manual review and are not an exhaustive accessibility certification."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "Reviewed actual screenshots at 390x844 and 1440x900. Mobile grid intrinsic-width overflow was fixed, then tests compared scrollWidth with clientWidth on all eleven routes. The quick-install code is visible in the first viewport, with long lines contained in a horizontally scrollable block. Long code scrolls within its own block; navigation scrolls within its mobile row."
+  },
+  "contentStates": {
+    "loading": {
+      "status": "not-applicable",
+      "reason": "Static content arrives with HTML; there is no asynchronous content request or application loading state."
+    },
+    "empty": {
+      "status": "pass",
+      "evidence": "Search with a non-matching query shows the explicit empty result; Reset filters restores query, status and entries."
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "A deterministic denied clipboard response renders manual-copy recovery; a missing route returns HTTP 404 with usable navigation."
+    },
+    "partial": {
+      "status": "pass",
+      "evidence": "Unknown and claimed capabilities, planned skills and disabled integration execution remain visible; status filtering includes UNKNOWN entries."
+    },
+    "success": {
+      "status": "pass",
+      "evidence": "A deterministic successful clipboard response announces Copied in the live region; valid documents and raw files also work with JavaScript disabled."
+    },
+    "permission": {
+      "status": "not-applicable",
+      "reason": "The static portal requests no account or transaction permission. Signing guidance preserves the external developer-controlled wallet boundary."
+    }
+  },
+  "renderedEvidence": [
+    {
+      "viewport": "1440x900",
+      "artifact": "overview-desktop.png",
+      "observation": "Reviewed hierarchy, navigation, install action, first task, source counts and snapshot scope; no overlap or viewport overflow."
+    },
+    {
+      "viewport": "390x844",
+      "artifact": "overview-mobile.png",
+      "observation": "Reviewed compact scrolling navigation, wrapped title, first-viewport install code, contained code scrolling and readable workflow rows."
+    },
+    {
+      "viewport": "1440x900",
+      "artifact": "ecosystem-desktop.png",
+      "observation": "Reviewed operation-level entries, provenance links, stored/effective status and visible unknown support."
+    },
+    {
+      "viewport": "390x844",
+      "artifact": "ecosystem-mobile.png",
+      "observation": "Reviewed wrapped catalogue heading, visible snapshot scope and labelled search/status controls within the mobile viewport; browser checks additionally exercise the long catalogue and status entries."
+    }
+  ]
+}

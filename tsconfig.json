@@ -20,6 +20,8 @@
     "examples/counter-dapp/src/**/*.ts",
     "examples/counter-dapp/tests/**/*.ts",
     "examples/counter-dapp/vite.config.ts",
-    "examples/counter-dapp/playwright.config.ts"
+    "examples/counter-dapp/playwright.config.ts",
+    "site/playwright.config.ts",
+    "site/tests/**/*.ts"
   ]
 }

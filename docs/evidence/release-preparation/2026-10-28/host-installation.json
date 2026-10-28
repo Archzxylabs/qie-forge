@@ -1,0 +1,136 @@
+{
+  "checkedAt": "2026-10-28T09:49:06.695Z",
+  "scope": "FILESYSTEM_INSTALLATION_AND_NATIVE_VERSION_DISCOVERY_ONLY",
+  "sourceCommit": "a5f61310633f28b3bad7bd16d47b2222079c0278",
+  "workingTreeChanges": "Static portal and release-preparation additions; generated payload unchanged",
+  "releaseId": "838a1e0952fe8da3bc6bbe746bb83754aba40acbd13611ae1ec46e8430103309",
+  "installation": {
+    "ok": true,
+    "agents": [
+      "universal",
+      "codex",
+      "claude-code",
+      "cursor",
+      "opencode"
+    ],
+    "status": "PASS",
+    "verification": "PASS",
+    "publisherAuthenticity": "PINNED_MATCH",
+    "instructions": [
+      {
+        "path": "AGENTS.md",
+        "status": "created"
+      },
+      {
+        "path": "CLAUDE.md",
+        "status": "created"
+      },
+      {
+        "path": ".cursor/rules/qie-forge.mdc",
+        "status": "created"
+      },
+      {
+        "path": "opencode.jsonc",
+        "status": "created"
+      }
+    ],
+    "skills": [
+      {
+        "name": "qie",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-debug",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-deployment",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-ecosystem",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-frontend",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-networks",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-smart-contracts",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-transactions",
+        "status": "installed",
+        "mode": "copy"
+      },
+      {
+        "name": "qie-wallets",
+        "status": "installed",
+        "mode": "copy"
+      }
+    ]
+  },
+  "hostVersions": {
+    "codex": {
+      "command": [
+        "codex",
+        "--version"
+      ],
+      "exitStatus": 0,
+      "stdout": "codex-cli 0.164.0"
+    },
+    "claude": {
+      "command": [
+        "claude",
+        "--version"
+      ],
+      "exitStatus": 0,
+      "stdout": "2.1.309 (Claude Code)"
+    },
+    "opencode": {
+      "command": [
+        "opencode",
+        "--version"
+      ],
+      "exitStatus": 0,
+      "stdout": "opencode v2.1.0"
+    }
+  },
+  "cursor": {
+    "command": [
+      "cursor-agent",
+      "--version"
+    ],
+    "exitStatus": null,
+    "error": {
+      "errno": -2,
+      "code": "ENOENT",
+      "syscall": "spawnSync cursor-agent",
+      "path": "cursor-agent",
+      "spawnargs": [
+        "--version"
+      ]
+    },
+    "status": "NOT_AVAILABLE_ON_PATH"
+  },
+  "hostModelWorkflows": "NOT_RUN",
+  "externalPilot": "NOT_RUN",
+  "limitations": [
+    "Installation proves projected files and payload identity, not host-native skill discovery or a model workflow.",
+    "Native version commands do not start a model session.",
+    "Cursor absence is not evidence that the host does not support QIE Forge.",
+    "No wallet or chain transaction was requested."
+  ]
+}
