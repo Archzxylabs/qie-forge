@@ -12,3 +12,5 @@
 .rail{min-width:0}
 
 .columns>section>p:first-child{margin-top:0}
+
+@media(max-width:850px){main{padding-top:1.25rem}h1{font-size:2rem;max-width:21ch}.lede{font-size:1rem;line-height:1.55}}
