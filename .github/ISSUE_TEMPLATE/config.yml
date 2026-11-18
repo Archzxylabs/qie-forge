@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security issue (private)
+    url: https://github.com/Archzxylabs/qie-forge/security/advisories/new
+    about: Wrong or malicious contract addresses, or instructions that could put funds or keys at risk.
+  - name: Questions about QIE itself
+    url: https://www.qie.digital/developers
+    about: The chain, QIE Wallet and QIE products are maintained by the QIE team.

@@ -1,0 +1,64 @@
+name: Wrong or outdated fact
+description: A value, address, endpoint or instruction in a skill is wrong or out of date.
+title: "Wrong fact: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep QIE Forge accurate.
+
+        **Is it a wrong or malicious contract address, or an instruction that could put funds or keys at risk?** Don't file it here. Report it privately as described in the [security policy](https://github.com/Archzxylabs/qie-forge/security/policy).
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options:
+        - qie
+        - qie-networks
+        - qie-concepts
+        - qie-addresses
+        - qie-scaffold
+        - qie-wallet-integration
+        - qie-transactions
+        - qie-ecosystem
+        - qie-debug
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: File and line
+      placeholder: skills/qie-networks/SKILL.md:42
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network
+      options:
+        - QIE mainnet (1990)
+        - QIE testnet (1983)
+        - Native layer (qie_1990-1)
+        - Another chain
+        - Not network-specific
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What the skill says
+      description: Quote the text or value.
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What is actually true
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source or evidence
+      description: An official QIE link, or the exact read-only command you ran, its output and the date.
+    validations:
+      required: true

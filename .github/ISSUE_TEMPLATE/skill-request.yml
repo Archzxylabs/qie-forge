@@ -1,0 +1,25 @@
+name: Skill request
+description: Propose a new skill, reference file or section.
+title: "Skill request: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What is the builder or agent trying to do on QIE?
+      placeholder: Index QIEDEX swap events into a database.
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: What goes wrong today
+      description: What does an agent get wrong, or not know, without this?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Official sources
+      description: Links to official QIE docs, apps or repositories that cover this topic.
